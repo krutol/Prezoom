@@ -1,2 +1,3 @@
 #ignore extra vpp files
 *.vpp.*
+*.bak
