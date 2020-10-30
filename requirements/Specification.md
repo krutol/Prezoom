@@ -1,12 +1,14 @@
 # Specification
 
 ## Table of contents
-1. [Use Case Diagram](#use-case-diagram)
-1. [State Diagram](#state-diagram)
-1. [User Stories](#user-stories)
-1. [Use cases](#use-cases)
-1. [Wire Frame Diagrams](#wire-frame-diagrams)
-1. [Sequence Diagrams](#sequence-diagrams)
+- [Specification](#specification)
+  - [Table of contents](#table-of-contents)
+  - [Use Case Diagram](#use-case-diagram)
+  - [State Diagram](#state-diagram)
+  - [User Stories](#user-stories)
+  - [Use Cases](#use-cases)
+  - [Wire Frame Diagrams](#wire-frame-diagrams)
+  - [Sequence Diagrams](#sequence-diagrams)
 
 ## Use Case Diagram
 ![Use_case_Diagram](Use_Case_Diagram1.png)
@@ -20,7 +22,7 @@ __A subsystem for edit file state can be viewed below__:
 R0: User will be able to save the presentation to a file by the presentation software.  
 R1: User will be able to load the presentation from a file by the presentation software.
 
-__In Edit mode__:
+__In Edit mode__:  
 R2: User will be able to add graphical objects to the presentation.  
 R3: User will be able to delete graphical objects from the presentation.  
 R4: User will be able to move graphical objects.  
