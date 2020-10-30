@@ -11,7 +11,7 @@
 ## Use Case Diagram
 ![Use_case_Diagram](Use_Case_Diagram1.png)
 ## State Diagram
->TODO
+![State_Diagram](HighLevelStateDiagram.jpg)
 
 ## User Stories
 R0: User will be able to save the presentation to a file by the presentation software.  
