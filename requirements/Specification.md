@@ -12,7 +12,8 @@
 ![Use_case_Diagram](Use_Case_Diagram1.png)
 ## State Diagram
 ![State_Diagram](HighLevelStateDiagram.jpg)
-__In A subsystem for "edit file" state can be viewed below__:
+
+__A subsystem for edit file state can be viewed below__:
 ![State_Diagram](Edit_Save_Submachine_StateDiagram.jpg)
 
 ## User Stories
