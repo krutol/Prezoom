@@ -14,7 +14,7 @@ Due November 2.
 
 * [Specification document](requirements/Specification.md)
   - [x] Use case diagram
-  - [ ] State diagram
+  - [x] State diagram
   - [x] Use cases
   - [ ] Wire frame diagrams
   - [ ] Sequence diagrams    
