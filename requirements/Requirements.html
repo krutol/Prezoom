@@ -263,15 +263,32 @@ pre[data-line] .line-highlight[data-end]:after {
       <div class="mume markdown-preview  ">
       <h1 class="mume-header" id="requirements-document">Requirements Document</h1>
 
-<hr>
 <h2 class="mume-header" id="domain-model">Domain Model</h2>
 
-<p><img src="Domain_Diagram.png" alt="Domain model"></p>
+<p><img src="res/Domain_Diagram.png" alt="Domain model"></p>
 <h2 class="mume-header" id="lexicon">Lexicon</h2>
 
-<blockquote>
-<p>TODO</p>
-</blockquote>
+<ul>
+<li>User: The user of the presentation software.</li>
+<li>PresentMode: In this mode, system begins with state 0. With the effect of trigger events, system can change to other states.</li>
+<li>PresentationSoftware: The entity of the project.</li>
+<li>Graph: Each graph has its own attributes which contains exact position (x, y). User could add, delete, move graphs.</li>
+<li>GraphObjects: Each graph has different type, such as Text area, Ovals, Straight Line, Group.</li>
+<li>TextArea: The graph object in which user can type text.</li>
+<li>Ovals: The graph object with the shape of ovals.</li>
+<li>StraightLine: A straight line graph object.</li>
+<li>Groups: A combination of several graph objects.</li>
+<li>EditMode: The mode user can modify the timeline, transition, and states in various way.</li>
+<li>Camera: A rectangular area which user can see with presentation mode</li>
+<li>Clipboard: The interface has several operations</li>
+<li>ClipboardOperations: User can use different operations with the software, such as cut, copy, paste, Trigger control, Undo, Redo.</li>
+<li>Cut: Cut operation.</li>
+<li>Copy: Copy operation.</li>
+<li>Paste: Paste operation.</li>
+<li>TriggerControl: The operation which used to set the trigger.</li>
+<li>Undo: Cancel or reverse the results of a previous action.</li>
+<li>Redo: Operate the previous operation again.</li>
+</ul>
 <h2 class="mume-header" id="requirements">Requirements</h2>
 
 <blockquote>

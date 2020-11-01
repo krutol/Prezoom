@@ -1,8 +1,6 @@
 # Specification
 
 ## Table of contents
-- [Specification](#specification)
-  - [Table of contents](#table-of-contents)
   - [Use Case Diagram](#use-case-diagram)
   - [State Diagram](#state-diagram)
   - [User Stories](#user-stories)
@@ -11,12 +9,12 @@
   - [Sequence Diagrams](#sequence-diagrams)
 
 ## Use Case Diagram
-![Use_case_Diagram](Use_Case_Diagram1.png)
+![Use_case_Diagram](res/Use_Case_Diagram1.png)
 ## State Diagram
-![State_Diagram](HighLevelStateDiagram.jpg)
+![State_Diagram](res/HighLevelStateDiagram.jpg)
 
 __A subsystem for edit file state can be viewed below__:
-![State_Diagram](Edit_Save_Submachine_StateDiagram.jpg)
+![State_Diagram](res/Edit_Save_Submachine_StateDiagram.jpg)
 
 ## User Stories
 R0: User will be able to save the presentation to a file by the presentation software.  
@@ -229,4 +227,4 @@ Postcondition: the presentation region is indicated
 ## Wire Frame Diagrams
 >TODO
 ## Sequence Diagrams
-![Sequence_Diagram](SequenceDiagramPresesntationTeamCharlie.jpg)
+![Sequence_Diagram](res/SequenceDiagramPresesntationTeamCharlie.jpg)

@@ -1,7 +1,7 @@
 # Requirements Document
 
 ## Domain Model
-![Domain model](Domain_Diagram.png)
+![Domain model](res/Domain_Diagram.png)
 ## Lexicon
 
 - User: The user of the presentation software.
