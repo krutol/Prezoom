@@ -16,5 +16,5 @@ Due November 2.
   - [x] Use case diagram
   - [x] State diagram
   - [x] Use cases
-  - [ ] Wire frame diagrams
+  - [x] Wire frame diagrams
   - [x] Sequence diagrams    
