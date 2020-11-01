@@ -225,6 +225,16 @@ Typical flow: the software contains a camera area to indicate the region
 Postcondition: the presentation region is indicated  
 
 ## Wire Frame Diagrams
->TODO
+__Main screen when application is started can be viewed below__:
+![Wire_Frame_Diagram](res/Desktop_mainwindow.jpg)
+
+__A subwindow for creating a new file can be viewed below__:
+![Wire_Frame_Diagram](res/Edit_Save_Submachine_StateDiagram.jpg)
+
+__A subwindow to load existing file can be viewed below__:
+![Wire_Frame_Diagram](res/Desktop_mainwindow_openfile.jpg)
+
+__A subwindow to save a file can be viewed below__:
+![Wire_Frame_Diagram](res/Desktop_mainwindow_savefile.jpg)
 ## Sequence Diagrams
 ![Sequence_Diagram](res/SequenceDiagramPresesntationTeamCharlie.jpg)
