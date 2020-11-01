@@ -229,7 +229,7 @@ __Main screen when application is started can be viewed below__:
 ![Wire_Frame_Diagram](res/Desktop_mainwindow.jpg)
 
 __A subwindow for creating a new file can be viewed below__:
-![Wire_Frame_Diagram](res/Edit_Save_Submachine_StateDiagram.jpg)
+![Wire_Frame_Diagram](res/Desktop_mainwindow_newfile.jpg)
 
 __A subwindow to load existing file can be viewed below__:
 ![Wire_Frame_Diagram](res/Desktop_mainwindow_openfile.jpg)
