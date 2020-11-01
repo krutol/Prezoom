@@ -229,4 +229,4 @@ Postcondition: the presentation region is indicated
 ## Wire Frame Diagrams
 >TODO
 ## Sequence Diagrams
->TODO
+![Sequence_Diagram](SequenceDiagramPresesntationTeamCharlie.jpg)
