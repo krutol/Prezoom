@@ -5,7 +5,6 @@
 ## Lexicon
 
 User: The user of the presentation software.
-
 PresentMode: In this mode, system begins with state 0. With the effect of trigger events, system can change to other states.
 
 PresentationSoftware: The entity of the project.
