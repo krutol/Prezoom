@@ -239,5 +239,4 @@ __A subwindow to save a file can be viewed below__:
 ## Sequence Diagrams
 ![Sequence_Diagram](res/SequenceDiagramPresesntationTeamCharlie.jpg)
 
-__A subwindow to load existing file can be viewed below__:
-![Sequence_Diagram](Sequence Diagram-Cameraoption.jpg)
+![Sequence_Diagram](res/Sequence Diagram-Cameraoption.jpg)
