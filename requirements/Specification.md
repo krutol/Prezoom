@@ -236,7 +236,15 @@ __A subwindow to load existing file can be viewed below__:
 
 __A subwindow to save a file can be viewed below__:
 ![Wire_Frame_Diagram](res/Desktop_mainwindow_savefile.jpg)
+
+
 ## Sequence Diagrams
+
+__Main__: 
 ![Sequence_Diagram](res/SequenceDiagramPresesntationTeamCharlie.jpg)
 
-![Sequence_Diagram](res/Sequence Diagram-Cameraoption.jpg)
+__Clip Board__:  
+![sequence_clipboard](res/Sequence_DiagramClipboardMovements.jpg)
+
+__Camera__:  
+![Sequence_Cameraoption](res/Sequence_Diagram-Cameraoption.jpg)
