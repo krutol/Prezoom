@@ -240,7 +240,7 @@ __A subwindow to save a file can be viewed below__:
 
 ## Sequence Diagrams
 
-__Main__: 
+__Main__:   
 ![Sequence_Diagram](res/SequenceDiagramPresesntationTeamCharlie.jpg)
 
 __Clip Board__:  
