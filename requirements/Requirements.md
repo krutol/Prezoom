@@ -47,14 +47,14 @@
   + (Attributes) Graphical objects have attributes. The valueof each attribute maydepend on the state.
   + (Attr-modify) To change the values of the various attributes of graphical objects.
   + (Save) To save a presentation to file.
-  + (Load) To sead a presentation from a file.  
+  + (Load) To read a presentation from a file.  
 <br/>
 
 + ### __Iteration 2__(States, Presentation):
   + (State-Add) To add a state at any point.
   + (State-Delete) To delete any state.
-  + (State-View) To view the presentationat any state.
-  + (Trans-Trigger) Too change the triggercondition for movingfrom one state to the next.
+  + (State-View) To view the presentation at any state.
+  + (Trans-Trigger) To change the trigger condition for moving from one state to the next.
   + (Trans-Duration) To change the amount of time it takes to move from one state to the next.
   + Animation
   + (Pres-start) To move from edit mode to presentation mode either starting at the beginning or starting at the current state.
@@ -63,5 +63,5 @@
   + (Pres-trans) Between showing one state and the next, a transition will be shown.
   + (Pres-interpolation-objects) The user should see an interpolation of attribute values.
   + (Pres-interpolation-camera) Interpolation also applies to the camera attributes.
-  + (Pres-skip) To move quickly forward or backward without tansition.
+  + (Pres-skip) To move quickly forward or backward without transition.
   + (Pres-end) To exit presentation mode and entering edit mode.
