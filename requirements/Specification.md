@@ -245,6 +245,3 @@ __Main__:
 
 __Clip Board__:  
 ![sequence_clipboard](res/Sequence_DiagramClipboardMovements.jpg)
-
-__Camera__:  
-![Sequence_Cameraoption](res/Sequence_Diagram-Cameraoption.jpg)
