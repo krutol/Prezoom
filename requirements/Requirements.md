@@ -48,7 +48,7 @@
   + (Attr-modify) To change the values of the various attributes of graphical objects.
   + (Save) To save a presentation to file.
   + (Load) To sead a presentation from a file.  
-
+<br/>
 
 + ### __Iteration 2__(States, Presentation):
   + (State-Add) To add a state at any point.
