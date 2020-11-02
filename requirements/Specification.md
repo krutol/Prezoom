@@ -1,6 +1,6 @@
 # Specification
 
-## Table of contents
+## Table of Contents
   - [Use Case Diagram](#use-case-diagram)
   - [State Diagram](#state-diagram)
   - [User Stories](#user-stories)

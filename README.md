@@ -8,7 +8,7 @@ Due November 2.
 * [Requirements document](requirements/Requirements.md)
   - [x] Domain model
   - [x] Lexicon
-  - [ ] list of requirements, two sections:
+  - [x] list of requirements, two sections:
     - Those you plan to implement in Iteration 1 (i.e. by November 16th)
     - Those you plan to implement in Iteration 2 (i.e., by November 30th)
 
