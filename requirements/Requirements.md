@@ -7,7 +7,7 @@
  - [Requirements](#requirements)
 
 ## Domain Model
-![Domain model](res/Domain_Diagram.png)
+![Domain model](res/DomainDiagram_new1_.png)
 
 
 ## Lexicon
@@ -25,10 +25,11 @@
 - Camera: A rectangular area which user can see with presentation mode
 - Clipboard: The interface has several operations
 - ClipboardOperations: User can use different operations with the software, such as cut, copy, paste, Trigger control, Undo, Redo. 
+- StateManger: It is used to contro the state and state operations.
+- Transitation: It is used to control the time trigger.
 - Cut: Cut operation.
 - Copy: Copy operation.
 - Paste: Paste operation.
-- TriggerControl: The operation which used to set the trigger.
 - Undo: Cancel or reverse the results of a previous action.
 - Redo: Operate the previous operation again.
 
