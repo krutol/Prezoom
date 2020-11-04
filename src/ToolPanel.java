@@ -14,7 +14,7 @@ public class ToolPanel extends JPanel
     private JButton btn_PlayStart;
     private JButton btn_PlayCurrent;
     private JButton btn_Text;
-    private JButton btn_Shape;
+    private JComboBox<String> btn_Shape;
     private JButton btn_Img;
 
 
@@ -30,7 +30,11 @@ public class ToolPanel extends JPanel
         btn_PlayStart = new JButton("Play");
         btn_PlayCurrent = new JButton("<html><p align=\"center\">Play<br>Current</p></html>");
         btn_Text = new JButton("Text");
-        btn_Shape = new JButton("Shape");
+        btn_Shape = new JComboBox<>();
+        btn_Shape.addItem("  Line");
+        btn_Shape.addItem("  Oval");
+        btn_Shape.addItem("  Rectangle");
+
         btn_Img = new JButton("Image");
 
         ToolBtnHandler itemHandler = new ToolBtnHandler();

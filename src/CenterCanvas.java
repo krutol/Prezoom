@@ -23,8 +23,8 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
 
     ArrayList<GObject> objects = new ArrayList<GObject>();
     {
-        objects.add(new Rectangle(50, 100, Color.red, 30, 40));
-        objects.add(new Circle(150, 200, Color.cyan, 50));
+        objects.add(new Rectangle(50, 100, Color.red, false, 10,30, 40));
+        objects.add(new Oval(150, 200, Color.BLUE, true,3,50,30));
     }
 
     public CenterCanvas() {
@@ -60,7 +60,7 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
             cur_off_x = xOffset;
             cur_off_y = yOffset;
 
-            System.out.println(zoomFactor+" "+cur_off_x+" "+cur_off_y);
+            //System.out.println(zoomFactor+" "+cur_off_x+" "+cur_off_y);
 
             zoomer = false;
         }
@@ -109,6 +109,9 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
             zoomFactor /= 1.1;
             repaint();
         }
+
+        Main.paint.statusBar.setZoomText(String.format("Zoom: %3.2f %%",zoomFactor*100));
+
     }
 
     @Override
@@ -127,11 +130,13 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
             int mx=e.getX();
             int my=e.getY();
             System.out.println(mx-mxstart);
-            double z = 1;
-            if (zoomFactor<1)
-                z = zoomFactor;
-            selectedObj.setX(selectedObj.getX()+ (int)((mx-mxstart)/z));
-            selectedObj.setY(selectedObj.getY()+ (int)((my-mystart)/z));
+
+//            double z = 1;
+//            if (zoomFactor<1)
+//                z = zoomFactor;
+
+            selectedObj.setX(selectedObj.getX()+ /*(int)*/((mx-mxstart)/zoomFactor));
+            selectedObj.setY(selectedObj.getY()+ /*(int)*/((my-mystart)/zoomFactor));
             //selectedObj.setX(mx);
             //selectedObj.setY(my);
             mxstart=mx;
