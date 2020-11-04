@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * @author Zhijie Lan<p>
@@ -11,7 +12,9 @@ public class StatusBar extends JPanel
 
     public StatusBar()
     {
+        setBackground(Color.darkGray);
         statusText = new JLabel("");
+        statusText.setForeground(Color.white);
         add(statusText);
     }
 

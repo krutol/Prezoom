@@ -7,7 +7,7 @@ public class Main
     public static MainWindow paint;
 
     /**
-     * Application starting point, creates a new instance of the PaintApplication class
+     * Application starting point, creates a new instance of the main window
      * @param args String arguments
      */
     public static void main(String[] args)
