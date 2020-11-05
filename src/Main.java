@@ -4,14 +4,14 @@
  **/
 public class Main
 {
-    public static MainWindow paint;
+    public static MainWindow app;
 
     /**
-     * Application starting point, creates a new instance of the PaintApplication class
+     * Application starting point, creates a new instance of the main window
      * @param args String arguments
      */
     public static void main(String[] args)
     {
-        paint = new MainWindow("main");
+        app = new MainWindow("main");
     }
 }

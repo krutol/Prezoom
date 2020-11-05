@@ -7,12 +7,15 @@ import java.awt.*;
  **/
 public class MainWindow extends JFrame
 {
+    //public static StateManager stateManager = new StateManager();
+
     protected MenuBar menuBar;
     public CenterCanvas centerCanvas;
     public StatusBar statusBar;
     public ToolPanel toolPanel;
     public StatePanel statePanel;
     public InspectorPanel inspectorPanel;
+
 
 
     /**
@@ -36,6 +39,7 @@ public class MainWindow extends JFrame
 
         //JPanel mainPanel = new JPanel();
         //add(mainPanel);                                         //add panels to the main JFrame
+
         menuBar = new MenuBar();
         toolPanel = new ToolPanel();
 

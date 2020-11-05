@@ -1,14 +1,10 @@
 
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 //Class used to display the application's menu bar
 public class MenuBar extends JMenuBar
@@ -94,7 +90,7 @@ public class MenuBar extends JMenuBar
         {
             if (event.getSource() == quit)          //if Exit application
             {
-                Main.paint.dispose();
+                Main.app.dispose();
 //                System.exit(0);
             }
             if (event.getSource() == newFile)       //if New File

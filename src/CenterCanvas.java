@@ -4,7 +4,6 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import javax.swing.*;
 
-
 public class CenterCanvas extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener{
     int mxstart, mystart;
     private double zoomFactor = 1;
@@ -20,17 +19,27 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
     private double cur_off_x = 0;
     private double cur_off_y = 0;
     GObject selectedObj;
+    CameraManager cameraManager = new CameraManager();
 
-    ArrayList<GObject> objects = new ArrayList<GObject>();
+    ArrayList<GObject> objects = new ArrayList<>();
     {
-        objects.add(new Rectangle(50, 100, Color.red, 30, 40));
-        objects.add(new Circle(150, 200, Color.cyan, 50));
+        objects.add(new Rectangle(50, 100, Color.red, false, 1,30, 40));
+        objects.add(new Rectangle(350, 500, Color.GREEN, true, 10,30, 40));
+        objects.add(new Oval(150, 200, Color.BLUE, true,3,50,30));
     }
 
     public CenterCanvas() {
         addMouseWheelListener(this);
         addMouseMotionListener(this);
         addMouseListener(this);
+    }
+
+    public void setCanvasCamera(double xOffset, double yOffset, double zoomFactor, double prevZoomFactor)
+    {
+        this.xOffset = xOffset;
+        this.yOffset = yOffset;
+        this.zoomFactor = zoomFactor;
+        this.prevZoomFactor = prevZoomFactor;
     }
 
     @Override
@@ -51,24 +60,28 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
             xOffset = (zoomDiv) * (xOffset) + (1 - zoomDiv) * xRel;
             yOffset = (zoomDiv) * (yOffset) + (1 - zoomDiv) * yRel;
 
-            at.translate(xOffset, yOffset);
-            at.scale(zoomFactor, zoomFactor);
             prevZoomFactor = zoomFactor;
-            g2.transform(at);
+//            at.translate(xOffset, yOffset);
+//            at.scale(zoomFactor, zoomFactor);
+//            g2.transform(at);
 
+            //cameraManager.setCamInfo(xOffset,yOffset,zoomFactor);
+            cameraManager.moveCamera(g2,xOffset,yOffset,zoomFactor,prevZoomFactor);
 
             cur_off_x = xOffset;
             cur_off_y = yOffset;
 
-            System.out.println(zoomFactor+" "+cur_off_x+" "+cur_off_y);
+            //System.out.println(zoomFactor+" "+cur_off_x+" "+cur_off_y);
 
             zoomer = false;
         }
         else if (dragger) {
             //System.out.println(xOffset + xDiff);
-            at.translate(xOffset + xDiff, yOffset + yDiff);
-            at.scale(zoomFactor, zoomFactor);
-            g2.transform(at);
+//            at.translate(xOffset + xDiff, yOffset + yDiff);
+//            at.scale(zoomFactor, zoomFactor);
+//            g2.transform(at);
+            //cameraManager.setCamInfo(xOffset + xDiff,yOffset + yDiff,zoomFactor);
+            cameraManager.moveCamera(g2,xOffset + xDiff,yOffset + yDiff,zoomFactor,prevZoomFactor);
 
             cur_off_x = xOffset + xDiff;
             cur_off_y = yOffset + yDiff;
@@ -80,9 +93,12 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
             }
         }
         else {
-            at.translate(xOffset, yOffset);
-            at.scale(zoomFactor, zoomFactor);
-            g2.transform(at);
+//            at.translate(xOffset, yOffset);
+//            at.scale(zoomFactor, zoomFactor);
+//            g2.transform(at);
+            //cameraManager.setCamInfo(xOffset,yOffset,zoomFactor);
+            //cameraManager.moveCamera(g2,xOffset,yOffset,zoomFactor);
+            cameraManager.moveCamera(g2);
         }
 
         //g2.setColor(Color.white);
@@ -109,6 +125,9 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
             zoomFactor /= 1.1;
             repaint();
         }
+
+        Main.app.statusBar.setZoomText(String.format("Zoom: %3.2f %%",zoomFactor*100));
+
     }
 
     @Override
@@ -126,12 +145,14 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
         else if(selectedObj != null){
             int mx=e.getX();
             int my=e.getY();
-            System.out.println(mx-mxstart);
-            double z = 1;
-            if (zoomFactor<1)
-                z = zoomFactor;
-            selectedObj.setX(selectedObj.getX()+ (int)((mx-mxstart)/z));
-            selectedObj.setY(selectedObj.getY()+ (int)((my-mystart)/z));
+            //System.out.println(mx-mxstart);
+
+//            double z = 1;
+//            if (zoomFactor<1)
+//                z = zoomFactor;
+
+            selectedObj.setX(selectedObj.getX()+ /*(int)*/((mx-mxstart)/zoomFactor));
+            selectedObj.setY(selectedObj.getY()+ /*(int)*/((my-mystart)/zoomFactor));
             //selectedObj.setX(mx);
             //selectedObj.setY(my);
             mxstart=mx;
@@ -145,7 +166,7 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        Main.paint.statusBar.setStatusText(String.format("Moving at [%d,%d]",e.getX(),e.getY()));
+        Main.app.statusBar.setStatusText(String.format("Moving at [%d,%d]",e.getX(),e.getY()));
     }
 
     @Override
