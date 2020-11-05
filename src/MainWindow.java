@@ -7,6 +7,8 @@ import java.awt.*;
  **/
 public class MainWindow extends JFrame
 {
+    //public static StateManager stateManager = new StateManager();
+
     protected MenuBar menuBar;
     public CenterCanvas centerCanvas;
     public StatusBar statusBar;

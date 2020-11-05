@@ -9,12 +9,18 @@ public class StatusBar extends JPanel
 {
     private final JLabel statusText;
     private final JLabel zoomText;
+    private final JLabel curStateText;
 
 
     public StatusBar()
     {
         setBackground(Color.darkGray);
         setLayout(new BorderLayout());
+
+        curStateText = new JLabel("Current State: 0");
+        curStateText.setForeground(Color.white);
+        curStateText.setPreferredSize(new Dimension(500,-1));
+        add(curStateText,"West");
 
         statusText = new JLabel("");
         statusText.setForeground(Color.white);
@@ -23,6 +29,12 @@ public class StatusBar extends JPanel
         zoomText = new JLabel("Zoom: 100.00 %");
         zoomText.setForeground(Color.white);
         add(zoomText,"East");
+
+    }
+
+    void setCurStateText(String str)
+    {
+        curStateText.setText(str);
     }
 
     void setStatusText(String str)
@@ -34,4 +46,5 @@ public class StatusBar extends JPanel
     {
         zoomText.setText(str);
     }
+
 }

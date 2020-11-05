@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -19,6 +21,8 @@ class GAttributes
     protected int lineWidth = 3;
     protected BasicStroke stroke;
 
+    public GAttributes() {}
+
     public GAttributes(double x, double y, Color col, Boolean filled, int lineWidth)
     {
         this.x = x;
@@ -31,7 +35,8 @@ class GAttributes
 
 class GObject
 {
-    protected HashMap<Integer,GAttributes> state_Attributes_map = new HashMap<>(); //Attributes of each state
+    //protected HashMap<Integer,GAttributes> state_Attributes_map = new HashMap<>(); //Attributes of each state
+    protected ArrayList<GAttributes> state_Attributes_list;
     //int current_State = 0;
     GAttributes cur_Attributes;
 
@@ -44,7 +49,9 @@ class GObject
 //        this.filled = filled;
 //        this.lineWidth = lineWidth;
         GAttributes attributes = new GAttributes(x,y,col,filled,lineWidth);
-        state_Attributes_map.put(getCurrent_State(), attributes);
+        //state_Attributes_map.put(getCurrent_State(), attributes);
+        state_Attributes_list = new ArrayList<>((Collections.nCopies(getCurrent_State(), null)));
+        state_Attributes_list.add(getCurrent_State(),attributes);
         updateCur_Attributes();
     }
 
@@ -55,13 +62,22 @@ class GObject
 
     private GAttributes getCur_Attributes()
     {
-        return state_Attributes_map.get(getCurrent_State());
+        //return state_Attributes_map.get(getCurrent_State());
+        return state_Attributes_list.get(getCurrent_State());
     }
 
-    private void updateCur_Attributes()
+    public void updateCur_Attributes()
     {
+        if (getCur_Attributes() != null)
         this.cur_Attributes = getCur_Attributes();
     }
+
+    public void addState(int State)
+    {
+        //GAttributes attributes = new GAttributes(x,y,col,filled,lineWidth);
+        //state_Attributes_list.add(getCurrent_State(),attributes);
+    }
+
 
     public Color getCol()
     {

@@ -34,6 +34,14 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
         addMouseListener(this);
     }
 
+    public void setCanvasCamera(double xOffset, double yOffset, double zoomFactor, double prevZoomFactor)
+    {
+        this.xOffset = xOffset;
+        this.yOffset = yOffset;
+        this.zoomFactor = zoomFactor;
+        this.prevZoomFactor = prevZoomFactor;
+    }
+
     @Override
     public void paintComponent(Graphics g) {
 
@@ -58,7 +66,7 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
 //            g2.transform(at);
 
             //cameraManager.setCamInfo(xOffset,yOffset,zoomFactor);
-            cameraManager.moveCamera(g2,xOffset,yOffset,zoomFactor);
+            cameraManager.moveCamera(g2,xOffset,yOffset,zoomFactor,prevZoomFactor);
 
             cur_off_x = xOffset;
             cur_off_y = yOffset;
@@ -73,7 +81,7 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
 //            at.scale(zoomFactor, zoomFactor);
 //            g2.transform(at);
             //cameraManager.setCamInfo(xOffset + xDiff,yOffset + yDiff,zoomFactor);
-            cameraManager.moveCamera(g2,xOffset + xDiff,yOffset + yDiff,zoomFactor);
+            cameraManager.moveCamera(g2,xOffset + xDiff,yOffset + yDiff,zoomFactor,prevZoomFactor);
 
             cur_off_x = xOffset + xDiff;
             cur_off_y = yOffset + yDiff;
@@ -89,7 +97,8 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
 //            at.scale(zoomFactor, zoomFactor);
 //            g2.transform(at);
             //cameraManager.setCamInfo(xOffset,yOffset,zoomFactor);
-            cameraManager.moveCamera(g2,xOffset,yOffset,zoomFactor);
+            //cameraManager.moveCamera(g2,xOffset,yOffset,zoomFactor);
+            cameraManager.moveCamera(g2);
         }
 
         //g2.setColor(Color.white);

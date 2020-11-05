@@ -116,6 +116,13 @@ public class ToolPanel extends JPanel
             Object source = e.getSource();//TODO
             if (btn_addState.equals(source))
             {//TODO
+                try
+                {
+                    StateManager.insertState();
+                } catch (CloneNotSupportedException cloneNotSupportedException)
+                {
+                    cloneNotSupportedException.printStackTrace();
+                }
             } else if (btn_delState.equals(source))
             {//TODO
             } else if (btn_PlayStart.equals(source))
