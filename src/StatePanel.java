@@ -8,6 +8,9 @@ import java.awt.*;
  **/
 public class StatePanel extends JPanel
 {
+    public StateManager stateManager = new StateManager();
+
+
     public StatePanel()
     {
         setBackground(Color.darkGray);                          //customize the panel

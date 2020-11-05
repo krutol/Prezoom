@@ -15,6 +15,7 @@ public class MainWindow extends JFrame
     public InspectorPanel inspectorPanel;
 
 
+
     /**
      * Creates a new, initially invisible <code>Frame</code> with the
      * specified title.
@@ -36,6 +37,7 @@ public class MainWindow extends JFrame
 
         //JPanel mainPanel = new JPanel();
         //add(mainPanel);                                         //add panels to the main JFrame
+
         menuBar = new MenuBar();
         toolPanel = new ToolPanel();
 

@@ -4,7 +4,7 @@
  **/
 public class Main
 {
-    public static MainWindow paint;
+    public static MainWindow app;
 
     /**
      * Application starting point, creates a new instance of the main window
@@ -12,6 +12,6 @@ public class Main
      */
     public static void main(String[] args)
     {
-        paint = new MainWindow("main");
+        app = new MainWindow("main");
     }
 }

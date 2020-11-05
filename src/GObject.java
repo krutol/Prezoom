@@ -32,7 +32,7 @@ class GAttributes
 class GObject
 {
     protected HashMap<Integer,GAttributes> state_Attributes_map = new HashMap<>(); //Attributes of each state
-    int current_State = 0;
+    //int current_State = 0;
     GAttributes cur_Attributes;
 
     protected GObject(double x, double y, Color col, Boolean filled, int lineWidth)
@@ -44,29 +44,18 @@ class GObject
 //        this.filled = filled;
 //        this.lineWidth = lineWidth;
         GAttributes attributes = new GAttributes(x,y,col,filled,lineWidth);
-        state_Attributes_map.put(current_State, attributes);
-        updateCur_Attributes();
-    }
-
-    public void switchState(int state)
-    {
-        setCurrent_State(state);
+        state_Attributes_map.put(getCurrent_State(), attributes);
         updateCur_Attributes();
     }
 
     public int getCurrent_State()
     {
-        return current_State;
-    }
-
-    private void setCurrent_State(int current_State)
-    {
-        this.current_State = current_State;
+        return StateManager.current_State;
     }
 
     private GAttributes getCur_Attributes()
     {
-        return state_Attributes_map.get(current_State);
+        return state_Attributes_map.get(getCurrent_State());
     }
 
     private void updateCur_Attributes()
