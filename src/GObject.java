@@ -143,7 +143,7 @@ class GObject
     {
     }
 
-    protected boolean inShape(int x, int y)
+    protected boolean inShape(double x, double y)
     {
         return false;
     }
@@ -178,7 +178,7 @@ class Rectangle extends GObject
         cur_Attributes.width = w;
     }
 
-    public boolean inShape(int mx, int my)
+    public boolean inShape(double mx, double my)
     {
         double x = getX(), y = getY();
         int w = getW(), h = getH();
@@ -230,7 +230,7 @@ class Oval extends GObject
         cur_Attributes.width = w;
     }
 
-    public boolean inShape(int mx, int my)
+    public boolean inShape(double mx, double my)
     {
         double x = getX(), y = getY();
         int w = getW(), h = getH();
