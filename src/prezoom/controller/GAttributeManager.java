@@ -17,7 +17,7 @@ public class GAttributeManager
 
     public GAttributeManager(double x, double y, Color col, Boolean filled, int lineWidth, int width, int height, double x2, double y2, Boolean visible)
     {
-        for (int i = 0; i< StateManager.total_State+1; i++)
+        for (int i = 0; i< StateManager.total_State_Number +1; i++)
         {
             if (i<getCurrent_State())
                 state_Attributes_list.add(null);
@@ -47,7 +47,7 @@ public class GAttributeManager
             this.cur_Attributes = getCur_Attributes();
     }
 
-    public void insertState() throws CloneNotSupportedException
+    public void insertAttributeState() throws CloneNotSupportedException
     {
         GAttributes attributes = new GAttributes();
         if (!state_Attributes_list.isEmpty())
@@ -59,6 +59,16 @@ public class GAttributeManager
         }
 
         state_Attributes_list.add(getCurrent_State(), attributes);
-        updateCur_Attributes();
+
+        // comment the update,  set it be triggered by the state manager to avoid double update
+        //updateCur_Attributes();
+    }
+
+    public void deleteAttributeState(int state)
+    {
+        state_Attributes_list.remove(state);
+
+        // comment the update,  set it be triggered by the state manager to avoid double update
+        //updateCur_Attributes();
     }
 }

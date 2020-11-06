@@ -77,12 +77,15 @@ public class CameraManager
             cameraInfo = (CameraInfo) state_CamInfo_list.get(getCurrent_State()-1).clone();
 
         state_CamInfo_list.add(getCurrent_State(), cameraInfo);
-        updateCur_CamInfo();
+
+        // comment the update,  set it be triggered by the state manager to avoid double update
+        //updateCur_CamInfo();
     }
 
     public void deleteCamState(int state)
     {
         state_CamInfo_list.remove(state);
-        updateCur_CamInfo();
+        // comment the update,  set it be triggered by the state manager to avoid double update
+        //updateCur_CamInfo();
     }
 }

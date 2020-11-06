@@ -131,6 +131,7 @@ public class ToolPanel extends JPanel
                 }
             } else if (btn_delState.equals(source))
             {//TODO
+                StateManager.deleteState(StateManager.current_State);
             } else if (btn_PlayStart.equals(source))
             {//TODO
             } else if (btn_PlayCurrent.equals(source))

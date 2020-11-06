@@ -16,6 +16,7 @@ public class MainWindow extends JFrame
     public StatusBar statusBar;
     public ToolPanel toolPanel;
     public StatePanel statePanel;
+    public JScrollPane stateScroll;
     public InspectorPanel inspectorPanel;
 
 
@@ -58,7 +59,12 @@ public class MainWindow extends JFrame
         add(statusBar, "South");
 
         statePanel = new StatePanel();
-        add(statePanel,"West");
+        JPanel holderPanel = new JPanel(new BorderLayout());
+        holderPanel.add(statePanel, "North");
+        holderPanel.setBackground(Color.darkGray);
+        stateScroll = new JScrollPane(holderPanel);
+        stateScroll.setPreferredSize(new Dimension(150,-1));
+        add(stateScroll,"West");
 
         inspectorPanel = new InspectorPanel();
         add(inspectorPanel, "East");
