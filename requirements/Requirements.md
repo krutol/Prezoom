@@ -7,7 +7,7 @@
  - [Requirements](#requirements)
 
 ## Domain Model
-![Domain prezoom.model](res/DomainDiagram_new1_.png)
+![Domain model](res/DomainDiagram_new1_.png)
 
 
 ## Lexicon
@@ -25,8 +25,8 @@
 - Camera: A rectangular area which user can see with presentation mode
 - Clipboard: The interface has several operations
 - ClipboardOperations: User can use different operations with the software, such as cut, copy, paste, Trigger control, Undo, Redo. 
-- StateManger: It is used to contro the state and state operations.
-- Transitation: It is used to control the time trigger.
+- StateManger: It is used to control the state and state operations.
+- Transition: It is used to control the time trigger.
 - Cut: Cut operation.
 - Copy: Copy operation.
 - Paste: Paste operation.
@@ -36,16 +36,16 @@
 
 ## Requirements
 
-+ ### __Iteration 1__(GUI, Canvas, Camera, Objects, Attibutes):
-  + prezoom.Main GUI Frame.
-  + prezoom.Main canvas.
++ ### __Iteration 1__(GUI, Canvas, Camera, Objects, Attributes):
+  + Main GUI Frame.
+  + Main canvas.
   + Camera.
   + (Move) Can move the main camera.
   + (Zoom) Can zoom in or out the main camera.
   + (Edit) In edit mode the presentation can be changed.
   + (Ob-Add) To add graphical objects to a presentation.
   + (Ob-Delete) To delete graphical objects from a presentation.
-  + (Attributes) Graphical objects have attributes. The valueof each attribute maydepend on the state.
+  + (Attributes) Graphical objects have attributes. The value of each attribute may depend on the state.
   + (Attr-modify) To change the values of the various attributes of graphical objects.
   + (Save) To save a presentation to file.
   + (Load) To read a presentation from a file.  
@@ -54,7 +54,7 @@
 + ### __Iteration 2__(States, Presentation):
   + (State-Add) To add a state at any point.
   + (State-Delete) To delete any state.
-  + (State-View) To prezoom.view the presentation at any state.
+  + (State-View) To view the presentation at any state.
   + (Trans-Trigger) To change the trigger condition for moving from one state to the next.
   + (Trans-Duration) To change the amount of time it takes to move from one state to the next.
   + Animation

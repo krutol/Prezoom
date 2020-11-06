@@ -26,12 +26,12 @@ R3: User will be able to delete graphical objects from the presentation.
 R4: User will be able to move graphical objects.  
 R5: User will be able to add a state at any point.  
 R6: User will be able to delete a state at any point.  
-R7: User will be able to prezoom.view the presentation at any state.   
+R7: User will be able to view the presentation at any state.   
 R8: User will be able to change the values of the various attributes of graphical objects in the state currently being viewed.  
 R9: User will be able to change the trigger condition for moving from one state to the next.  
 R10: User will be able to change the way that interpolation during a transition happens.  
 R11: User will be able to change the amount of time it takes to move from one state to the next.  
-R12: User will be able to zoom, pan, and orient (operand) the current prezoom.view-port.  
+R12: User will be able to zoom, pan, and orient (operand) the current view-port.  
 R13: User will be able to move from edit mode to presentation mode either starting at the beginning or starting at the current state.  
 R14: User will be able to undo in Edit mode.  
 R15: User will be able to redo in Edit mode.  
@@ -163,7 +163,7 @@ Requirement addressed: R12
 Precondition: in the edit mode  
 Typical flow:  
     1.	Click the "Zoom", "Pan", "Orient" button  
-    2.	Current prezoom.view port will follow the operations  
+    2.	Current view port will follow the operations  
 Postcondition: the operation is finished  
   
 14)	Change Mode  
