@@ -1,9 +1,11 @@
+package prezoom.model;
+
+import prezoom.controller.StateManager;
+
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 
 /**
  * @author Zhijie Lan<p>
@@ -44,9 +46,9 @@ class GAttributes implements Cloneable
     }
 }
 
-class GObject
+public class GObject
 {
-    //protected HashMap<Integer,GAttributes> state_Attributes_map = new HashMap<>(); //Attributes of each state
+    //protected HashMap<Integer,prezoom.model.GAttributes> state_Attributes_map = new HashMap<>(); //Attributes of each state
     protected ArrayList<GAttributes> state_Attributes_list = new ArrayList<>();
     //int current_State = 0;
     GAttributes cur_Attributes;
@@ -167,113 +169,13 @@ class GObject
         cur_Attributes.lineWidth = lineWidth;
     }
 
-    protected void draw(Graphics2D g)
+    public void draw(Graphics2D g)
     {
     }
 
-    protected boolean inShape(double x, double y)
+    public boolean inShape(double x, double y)
     {
         return false;
     }
 }
 
-class Rectangle extends GObject
-{
-    public Rectangle(double x, double y, Color col, Boolean filled, int lineWidth, int w, int h)
-    {
-        super(x, y, col, filled, lineWidth,w,h,0,0,true);
-    }
-
-    public int getH()
-    {
-        return cur_Attributes.height;
-    }
-
-    public void setH(int h)
-    {
-        cur_Attributes.height = h;
-    }
-
-    public int getW()
-    {
-        return cur_Attributes.width;
-    }
-
-    public void setW(int w)
-    {
-        cur_Attributes.width = w;
-    }
-
-    public boolean inShape(double mx, double my)
-    {
-        double x = getX(), y = getY();
-        int w = getW(), h = getH();
-        return mx >= x && mx <= x + w && my >= y && my <= y + h;
-    }
-
-    public void draw(Graphics2D g)
-    {
-        g.setColor(cur_Attributes.col);
-        double x = getX(), y = getY();
-        int w = getW(), h = getH();
-
-        if (getFilled()) g.fillRect((int)x, (int)y, w, h);
-        else
-        {
-            g.setStroke(new BasicStroke(getLineWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-            g.draw(new Rectangle2D.Double(x, y, w, h));
-        }
-    }
-
-}
-
-class Oval extends GObject
-{
-    public Oval(int x, int y, Color col, Boolean filled, int lineWidth, int w, int h)
-    {
-        super(x, y, col, filled, lineWidth, w, h, 0,0,true);
-    }
-
-    public int getH()
-    {
-        return cur_Attributes.height;
-    }
-
-    public void setH(int h)
-    {
-        cur_Attributes.height = h;
-    }
-
-    public int getW()
-    {
-        return cur_Attributes.width;
-    }
-
-    public void setW(int w)
-    {
-        cur_Attributes.width = w;
-    }
-
-    public boolean inShape(double mx, double my)
-    {
-        double x = getX(), y = getY();
-        int w = getW(), h = getH();
-        //return Math.sqrt((mx - x) * (mx - x) + (my - y) * (my - y)) < r;
-        return mx >= x && mx <= x + w && my >= y && my <= y + h;
-    }
-
-    public void draw(Graphics2D g)
-    {
-        g.setColor(cur_Attributes.col);
-        double x = getX(), y = getY();
-        int w = getW(), h = getH();
-
-        if (getFilled()) g.fillOval((int)x, (int)y, w, h);
-        else
-        {
-            g.setStroke(new BasicStroke(getLineWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-            g.draw(new Ellipse2D.Double(x, y, w, h));
-        }
-    }
-
-}

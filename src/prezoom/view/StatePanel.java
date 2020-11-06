@@ -1,9 +1,13 @@
+package prezoom.view;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import prezoom.controller.StateManager;
 
 /**
  * @author Zhijie Lan<p>
@@ -31,15 +35,11 @@ public class StatePanel extends JPanel
         //state_btn.setBackground(Color.lightGray);
         states_btn_list.add(StateManager.current_State, state_btn);
         switchPressedBtn();
-        state_btn.addActionListener(new ActionListener()
+        state_btn.addActionListener(e ->
         {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                int state = states_btn_list.indexOf(state_btn);
-                StateManager.switchState(state);
-                switchPressedBtn();
-            }
+            int state = states_btn_list.indexOf(state_btn);
+            StateManager.switchState(state);
+            switchPressedBtn();
         });
         rearrangeBtn();
     }

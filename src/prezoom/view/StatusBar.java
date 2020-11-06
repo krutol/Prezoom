@@ -1,3 +1,5 @@
+package prezoom.view;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -32,17 +34,17 @@ public class StatusBar extends JPanel
 
     }
 
-    void setCurStateText(String str)
+    public void setCurStateText(String str)
     {
         curStateText.setText(str);
     }
 
-    void setStatusText(String str)
+    public void setStatusText(String str)
     {
         statusText.setText(str);
     }
 
-    void setZoomText(String str)
+    public void setZoomText(String str)
     {
         zoomText.setText(str);
     }

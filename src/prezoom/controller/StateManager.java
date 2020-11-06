@@ -1,3 +1,8 @@
+package prezoom.controller;
+
+import prezoom.Main;
+import prezoom.model.GObject;
+
 /**
  * @author Zhijie Lan<p>
  * create date: 2020/11/4

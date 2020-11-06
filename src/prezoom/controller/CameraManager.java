@@ -1,3 +1,8 @@
+package prezoom.controller;
+
+import prezoom.model.CameraInfo;
+import prezoom.Main;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
@@ -6,10 +11,10 @@ import java.util.ArrayList;
  * @author Zhijie Lan<p>
  * create date: 2020/11/4
  **/
-class CameraManager
+public class CameraManager
 {
     ArrayList<CameraInfo> state_CamInfo_list = new ArrayList<>();
-    CameraInfo cur_CamInfo;
+    public CameraInfo cur_CamInfo;
 
     public CameraManager()
     {
@@ -79,29 +84,5 @@ class CameraManager
     {
         state_CamInfo_list.remove(state);
         updateCur_CamInfo();
-    }
-}
-
-class CameraInfo implements Cloneable
-{
-    public double cam_x_offset = 0;
-    public double cam_y_offset = 0;
-    public double cam_zoomFactor = 1;
-    public double cam_prevZoomFactor = 1;
-
-    public CameraInfo() {}
-
-    public CameraInfo(double cam_x_offset, double cam_y_offset, double cam_zoomFactor, double cam_prevZoomFactor)
-    {
-        this.cam_x_offset = cam_x_offset;
-        this.cam_y_offset = cam_y_offset;
-        this.cam_zoomFactor = cam_zoomFactor;
-        this.cam_prevZoomFactor = cam_prevZoomFactor;
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException
-    {
-        return super.clone();
     }
 }

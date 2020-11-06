@@ -1,8 +1,15 @@
+package prezoom.view;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import javax.swing.*;
+
+import prezoom.model.*;
+import prezoom.controller.CameraManager;
+import prezoom.Main;
+
 
 public class CenterCanvas extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener{
     int mxstart, mystart;
@@ -17,13 +24,13 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
     private int yDiff;
     private Point startPoint;
     GObject selectedObj;
-    CameraManager cameraManager = new CameraManager();
+    public CameraManager cameraManager = new CameraManager();
 
-    ArrayList<GObject> objects = new ArrayList<>();
+    public ArrayList<GObject> objects = new ArrayList<>();
     {
-        objects.add(new Rectangle(50, 100, Color.red, false, 1,30, 40));
-        objects.add(new Rectangle(350, 500, Color.GREEN, true, 10,30, 40));
-        objects.add(new Oval(150, 200, Color.BLUE, true,3,50,30));
+        objects.add(new GRectangle(50, 100, Color.red, false, 1,30, 40));
+        objects.add(new GRectangle(350, 500, Color.GREEN, true, 10,30, 40));
+        objects.add(new GOval(150, 200, Color.BLUE, true,3,50,30));
     }
 
     public CenterCanvas() {

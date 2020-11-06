@@ -1,10 +1,12 @@
-
+package prezoom.view;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+
+import prezoom.Main;
 
 //Class used to display the application's menu bar
 public class MenuBar extends JMenuBar
@@ -97,20 +99,20 @@ public class MenuBar extends JMenuBar
             {
 
 //                BufferedImage bi = new BufferedImage(1024, 768, BufferedImage.TYPE_INT_ARGB);   //create new BufferedImage
-//                Main.paint.drawingPanel.clearImage(bi);                                         //clear current image
-//               Main.paint.drawingPanel.setImage(bi);                                           //set image to new blank image
+//                prezoom.Main.paint.drawingPanel.clearImage(bi);                                         //clear current image
+//               prezoom.Main.paint.drawingPanel.setImage(bi);                                           //set image to new blank image
             }
             if (event.getSource() == saveFile)      //if Save file
             {
 //                JFileChooser jFileChooser = getFileChooser();                                            //open file chooser
-//                int result = jFileChooser.showSaveDialog(Main.paint.drawingPanel);
+//                int result = jFileChooser.showSaveDialog(prezoom.Main.paint.drawingPanel);
 //                if (result== JFileChooser.APPROVE_OPTION )
 //                {
 //                    try
 //                    {
 //                        File selectedFile = jFileChooser.getSelectedFile();
 //                        selectedFile = new File(selectedFile.getAbsolutePath() + ".png");      //get isSelected file
-//                        BufferedImage img = getScreenShot(Main.paint.drawingPanel);            //get current image screenshot
+//                        BufferedImage img = getScreenShot(prezoom.Main.paint.drawingPanel);            //get current image screenshot
 //                        ImageIO.write(img, "png", selectedFile);                               //write the image to the isSelected file
 //                    } catch (IOException ioe)
 //                    {
@@ -121,12 +123,12 @@ public class MenuBar extends JMenuBar
             if (event.getSource() == openFile)       //if Open file
             {
 //                JFileChooser ch = getFileChooser();                                            //open file chooser
-//                int result = ch.showOpenDialog(Main.paint.drawingPanel);
+//                int result = ch.showOpenDialog(prezoom.Main.paint.drawingPanel);
 //                if (result== JFileChooser.APPROVE_OPTION )                                      //if OK
 //                {
 //                    try
 //                    {
-//                        Main.paint.drawingPanel.setOSImage(ImageIO.read(ch.getSelectedFile())); //set current image to isSelected image
+//                        prezoom.Main.paint.drawingPanel.setOSImage(ImageIO.read(ch.getSelectedFile())); //set current image to isSelected image
 //                    } catch (IOException ex)
 //                    {
 //                        JOptionPane.showMessageDialog(null, "Could not open file");
