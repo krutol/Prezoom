@@ -6,7 +6,7 @@ Hey teammates! Check our project progress below!
 Due November 2.   
 
 * [Requirements document](requirements/Requirements.md)
-  - [x] Domain prezoom.model
+  - [x] Domain model
   - [x] Lexicon
   - [x] list of requirements, two sections:
     - Those you plan to implement in Iteration 1 (i.e. by November 16th)
