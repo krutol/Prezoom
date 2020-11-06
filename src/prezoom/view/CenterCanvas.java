@@ -103,7 +103,7 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
         //g2.setColor(Color.white);
         //g2.fillRect(0,0,2000,1000);
         for (GObject go : objects) {
-            if (go.getCur_Attributes() != null)
+            if (go.gAttributeManager.getCur_Attributes() != null)
                 go.draw(g2);
         }
 

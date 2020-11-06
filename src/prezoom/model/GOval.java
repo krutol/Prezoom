@@ -12,22 +12,22 @@ public class GOval extends GObject
 
     public int getH()
     {
-        return cur_Attributes.height;
+        return gAttributeManager.cur_Attributes.height;
     }
 
     public void setH(int h)
     {
-        cur_Attributes.height = h;
+        gAttributeManager.cur_Attributes.height = h;
     }
 
     public int getW()
     {
-        return cur_Attributes.width;
+        return gAttributeManager.cur_Attributes.width;
     }
 
     public void setW(int w)
     {
-        cur_Attributes.width = w;
+        gAttributeManager.cur_Attributes.width = w;
     }
 
     public boolean inShape(double mx, double my)
@@ -40,7 +40,7 @@ public class GOval extends GObject
 
     public void draw(Graphics2D g)
     {
-        g.setColor(cur_Attributes.col);
+        g.setColor(gAttributeManager.cur_Attributes.col);
         double x = getX(), y = getY();
         int w = getW(), h = getH();
 

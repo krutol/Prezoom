@@ -32,7 +32,7 @@ public class StateManager
         Main.app.centerCanvas.cameraManager.updateCur_CamInfo();
         for (GObject o: Main.app.centerCanvas.objects)
         {
-            o.updateCur_Attributes();
+            o.gAttributeManager.updateCur_Attributes();
         }
         Main.app.centerCanvas.repaint();
 
@@ -50,7 +50,7 @@ public class StateManager
         Main.app.centerCanvas.cameraManager.insertCamState();
         for (GObject o: Main.app.centerCanvas.objects)
         {
-            o.insertState();
+            o.gAttributeManager.insertState();
         }
 
         updateStateData();
