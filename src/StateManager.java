@@ -5,6 +5,7 @@
 public class StateManager
 {
     public static int current_State = 0;
+    public static int total_State = 1;
 
 //    public int getCurrent_State()
 //    {
@@ -24,6 +25,10 @@ public class StateManager
     private static void updateStateData()
     {
         Main.app.centerCanvas.cameraManager.updateCur_CamInfo();
+        for (GObject o: Main.app.centerCanvas.objects)
+        {
+            o.updateCur_Attributes();
+        }
         Main.app.centerCanvas.repaint();
 
     }
@@ -31,12 +36,17 @@ public class StateManager
     public static void insertState() throws CloneNotSupportedException
     {
         current_State++;
+        total_State++;
         Main.app.statusBar.setCurStateText("Current State: "+current_State);
+
         Main.app.statePanel.insertStateBtn();
         Main.app.statePanel.revalidate();
 
         Main.app.centerCanvas.cameraManager.insertCamState();
-
+        for (GObject o: Main.app.centerCanvas.objects)
+        {
+            o.insertState();
+        }
 
         updateStateData();
     }

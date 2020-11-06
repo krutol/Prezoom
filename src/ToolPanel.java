@@ -133,6 +133,8 @@ public class ToolPanel extends JPanel
             {//TODO
             } else if (btn_Shape.equals(source))
             {//TODO
+                // for test
+                Main.app.centerCanvas.objects.add(new Oval(300, 200, Color.darkGray, false,3,50,30));
             } else if (btn_Img.equals(source))
             {//TODO
             }
