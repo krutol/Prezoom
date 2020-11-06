@@ -25,8 +25,8 @@
 - Camera: A rectangular area which user can see with presentation mode
 - Clipboard: The interface has several operations
 - ClipboardOperations: User can use different operations with the software, such as cut, copy, paste, Trigger control, Undo, Redo. 
-- StateManger: It is used to contro the state and state operations.
-- Transitation: It is used to control the time trigger.
+- StateManger: It is used to control the state and state operations.
+- Transition: It is used to control the time trigger.
 - Cut: Cut operation.
 - Copy: Copy operation.
 - Paste: Paste operation.
@@ -36,7 +36,7 @@
 
 ## Requirements
 
-+ ### __Iteration 1__(GUI, Canvas, Camera, Objects, Attibutes):
++ ### __Iteration 1__(GUI, Canvas, Camera, Objects, Attributes):
   + Main GUI Frame.
   + Main canvas.
   + Camera.
@@ -45,7 +45,7 @@
   + (Edit) In edit mode the presentation can be changed.
   + (Ob-Add) To add graphical objects to a presentation.
   + (Ob-Delete) To delete graphical objects from a presentation.
-  + (Attributes) Graphical objects have attributes. The valueof each attribute maydepend on the state.
+  + (Attributes) Graphical objects have attributes. The value of each attribute may depend on the state.
   + (Attr-modify) To change the values of the various attributes of graphical objects.
   + (Save) To save a presentation to file.
   + (Load) To read a presentation from a file.  

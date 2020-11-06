@@ -1,8 +1,15 @@
+package prezoom.view;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import javax.swing.*;
+
+import prezoom.model.*;
+import prezoom.controller.CameraManager;
+import prezoom.Main;
+
 
 public class CenterCanvas extends JPanel implements MouseWheelListener, MouseListener, MouseMotionListener{
     int mxstart, mystart;
@@ -16,16 +23,14 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
     private int xDiff;
     private int yDiff;
     private Point startPoint;
-    private double cur_off_x = 0;
-    private double cur_off_y = 0;
     GObject selectedObj;
-    CameraManager cameraManager = new CameraManager();
+    public CameraManager cameraManager = new CameraManager();
 
-    ArrayList<GObject> objects = new ArrayList<>();
+    public ArrayList<GObject> objects = new ArrayList<>();
     {
-        objects.add(new Rectangle(50, 100, Color.red, false, 1,30, 40));
-        objects.add(new Rectangle(350, 500, Color.GREEN, true, 10,30, 40));
-        objects.add(new Oval(150, 200, Color.BLUE, true,3,50,30));
+        objects.add(new GRectangle(50, 100, Color.red, false, 1,30, 40));
+        objects.add(new GRectangle(350, 500, Color.GREEN, true, 10,30, 40));
+        objects.add(new GOval(150, 200, Color.BLUE, true,3,50,30));
     }
 
     public CenterCanvas() {
@@ -68,9 +73,6 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
             //cameraManager.setCamInfo(xOffset,yOffset,zoomFactor);
             cameraManager.moveCamera(g2,xOffset,yOffset,zoomFactor,prevZoomFactor);
 
-            cur_off_x = xOffset;
-            cur_off_y = yOffset;
-
             //System.out.println(zoomFactor+" "+cur_off_x+" "+cur_off_y);
 
             zoomer = false;
@@ -82,9 +84,6 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
 //            g2.transform(at);
             //cameraManager.setCamInfo(xOffset + xDiff,yOffset + yDiff,zoomFactor);
             cameraManager.moveCamera(g2,xOffset + xDiff,yOffset + yDiff,zoomFactor,prevZoomFactor);
-
-            cur_off_x = xOffset + xDiff;
-            cur_off_y = yOffset + yDiff;
 
             if (released) {
                 xOffset += xDiff;
@@ -104,7 +103,8 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
         //g2.setColor(Color.white);
         //g2.fillRect(0,0,2000,1000);
         for (GObject go : objects) {
-            go.draw(g2);
+            if (go.gAttributeManager.getCur_Attributes() != null)
+                go.draw(g2);
         }
 
 
@@ -186,8 +186,8 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
 
         //mxstart -= o_X;
         //mystart -= o_Y;
-        int mx=(int)((e.getX()-cur_off_x)/zoomFactor);
-        int my=(int)((e.getY()-cur_off_y)/zoomFactor);
+        double mx=(e.getX()-cameraManager.cur_CamInfo.cam_x_offset)/zoomFactor;
+        double my=(e.getY()-cameraManager.cur_CamInfo.cam_y_offset)/zoomFactor;
 //        int mx=e.getX();
 //        int my=e.getY();
         for (GObject go : objects)  {

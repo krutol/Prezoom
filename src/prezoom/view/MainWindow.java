@@ -1,3 +1,5 @@
+package prezoom.view;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,7 +9,7 @@ import java.awt.*;
  **/
 public class MainWindow extends JFrame
 {
-    //public static StateManager stateManager = new StateManager();
+    //public static prezoom.controller.StateManager stateManager = new prezoom.controller.StateManager();
 
     protected MenuBar menuBar;
     public CenterCanvas centerCanvas;
@@ -74,6 +76,5 @@ public class MainWindow extends JFrame
 
 
     }
-
 
 }

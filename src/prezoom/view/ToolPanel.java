@@ -1,7 +1,13 @@
+package prezoom.view;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import prezoom.controller.StateManager;
+import prezoom.Main;
+import prezoom.model.*;
 
 /**
  * @author Zhijie Lan<p>
@@ -115,7 +121,7 @@ public class ToolPanel extends JPanel
         {
             Object source = e.getSource();//TODO
             if (btn_addState.equals(source))
-            {//TODO
+            {
                 try
                 {
                     StateManager.insertState();
@@ -133,6 +139,8 @@ public class ToolPanel extends JPanel
             {//TODO
             } else if (btn_Shape.equals(source))
             {//TODO
+                // for test
+                Main.app.centerCanvas.objects.add(new GOval(300, 200, Color.darkGray, false,3,50,30));
             } else if (btn_Img.equals(source))
             {//TODO
             }

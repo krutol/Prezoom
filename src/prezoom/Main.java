@@ -1,3 +1,7 @@
+package prezoom;
+
+import prezoom.view.MainWindow;
+
 /**
  * @author Zhijie Lan<p>
  * create date: 2020/11/1
