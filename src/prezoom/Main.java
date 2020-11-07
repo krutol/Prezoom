@@ -2,12 +2,15 @@ package prezoom;
 
 import prezoom.view.MainWindow;
 
-/**
+/** The Main
  * @author Zhijie Lan<p>
  * create date: 2020/11/1
  **/
 public class Main
 {
+    /**
+     * The main window of the software which can be the portal where all the components can be accessed
+     */
     public static MainWindow app;
 
     /**

@@ -6,6 +6,7 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import javax.swing.*;
 
+import prezoom.controller.GAttributeManager;
 import prezoom.model.*;
 import prezoom.controller.CameraManager;
 import prezoom.Main;
@@ -24,8 +25,13 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
     private int yDiff;
     private Point startPoint;
     GObject selectedObj;
+
+    /**
+     * the camera state manager
+     */
     public CameraManager cameraManager = new CameraManager();
 
+    // for test purpose
     public ArrayList<GObject> objects = new ArrayList<>();
     {
         objects.add(new GRectangle(50, 100, Color.red, false, 1,30, 40));
@@ -33,12 +39,22 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
         objects.add(new GOval(150, 200, Color.BLUE, true,3,50,30));
     }
 
+    /**
+     * add Mouse Listener, Mouse Wheel Listener, and Mouse Motion Listener to this panel
+     */
     public CenterCanvas() {
         addMouseWheelListener(this);
         addMouseMotionListener(this);
         addMouseListener(this);
     }
 
+    /**
+     * move the camera to the given location
+     * @param xOffset x offset
+     * @param yOffset y offset
+     * @param zoomFactor zoom index
+     * @param prevZoomFactor previous zoom index that is used to get better effect when zooming
+     */
     public void setCanvasCamera(double xOffset, double yOffset, double zoomFactor, double prevZoomFactor)
     {
         this.xOffset = xOffset;
@@ -47,6 +63,12 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
         this.prevZoomFactor = prevZoomFactor;
     }
 
+    /**
+     * override the default paint method to deal with dragging, zooming by {@link CameraManager#moveCamera(Graphics2D, double, double, double, double)}.
+     * check objects' attributes for the current state from {@link GAttributeManager#getCur_Attributes()},
+     * skip objects whose attributes for the current state do not exist
+     * @param g the graphics to paint
+     */
     @Override
     public void paintComponent(Graphics g) {
 
@@ -110,6 +132,10 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
 
     }
 
+    /**
+     * deal with zooming
+     * @param e mouse action
+     */
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
 
@@ -130,6 +156,10 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
 
     }
 
+    /**
+     * deal with dragging
+     * @param e mouse action
+     */
     @Override
     public void mouseDragged(MouseEvent e) {
 
@@ -175,6 +205,10 @@ public class CenterCanvas extends JPanel implements MouseWheelListener, MouseLis
         mystart = e.getY();
     }
 
+    /**
+     * when pressed check whether an object is selected
+     * @param e mouse action
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         released = false;

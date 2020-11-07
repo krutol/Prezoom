@@ -3,7 +3,7 @@ package prezoom.view;
 import javax.swing.*;
 import java.awt.*;
 
-/**
+/** The bar at the bottom to show some info
  * @author Zhijie Lan<p>
  * create date: 2020/11/2
  **/
@@ -12,7 +12,6 @@ public class StatusBar extends JPanel
     private final JLabel statusText;
     private final JLabel zoomText;
     private final JLabel curStateText;
-
 
     public StatusBar()
     {

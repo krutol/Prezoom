@@ -4,14 +4,35 @@ import prezoom.controller.GAttributeManager;
 
 import java.awt.*;
 
+/** The base class for all graphical objects
+ * @author Zhijie Lan<p>
+ * create date: 2020/11/1
+ **/
 public abstract class GObject
 {
     //protected HashMap<Integer,prezoom.model.GAttributes> state_Attributes_map = new HashMap<>(); //Attributes of each state
 //    protected ArrayList<GAttributes> state_Attributes_list = new ArrayList<>();
 //    //int current_State = 0;
 //    GAttributes cur_Attributes;
+
+    /**
+     * the manager to manage the state of this object
+     */
     public GAttributeManager gAttributeManager;
 
+    /**
+     * the constructor will call the {@link GAttributeManager} to manage all the attributes
+     * @param x location, x
+     * @param y location, y
+     * @param col paint color
+     * @param filled whether filled
+     * @param lineWidth width of lines
+     * @param width width of the object, if applicable
+     * @param height height of the object, if applicable
+     * @param x2 x2 of the object, if applicable
+     * @param y2 y2 of the object, if applicable
+     * @param visible whether visible
+     */
     protected GObject(double x, double y, Color col, Boolean filled, int lineWidth, int width, int height, double x2, double y2, Boolean visible)
     {
         //this.id = id;
@@ -97,10 +118,20 @@ public abstract class GObject
         gAttributeManager.cur_Attributes.lineWidth = lineWidth;
     }
 
+    /**
+     * draw this object
+     * @param g the Graphics to paint
+     */
     public void draw(Graphics2D g)
     {
     }
 
+    /**
+     * Whether the given position is in this object
+     * @param x x
+     * @param y y
+     * @return True if in the object
+     */
     public boolean inShape(double x, double y)
     {
         return false;

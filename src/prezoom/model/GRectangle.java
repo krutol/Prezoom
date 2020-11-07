@@ -3,6 +3,10 @@ package prezoom.model;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+/**
+ * @author Zhijie Lan<p>
+ * create date: 2020/11/1
+ **/
 public class GRectangle extends GObject
 {
     public GRectangle(double x, double y, Color col, Boolean filled, int lineWidth, int w, int h)
@@ -30,6 +34,13 @@ public class GRectangle extends GObject
         gAttributeManager.cur_Attributes.width = w;
     }
 
+    /**
+     * Whether the given position is in this object
+     * @param mx x
+     * @param my y
+     * @return True if in the object
+     */
+    @Override
     public boolean inShape(double mx, double my)
     {
         double x = getX(), y = getY();
@@ -37,6 +48,14 @@ public class GRectangle extends GObject
         return mx >= x && mx <= x + w && my >= y && my <= y + h;
     }
 
+    /**
+     * draw this object.
+     * use {@link GAttributes#col} as color.
+     * use {@link GAttributes#filled} to depend whether calling {@link Graphics2D#fillRect(int, int, int, int)} or {@link Graphics2D#draw(Shape)}.
+     * use {@link GAttributes#stroke} to set the line style
+     * @param g the Graphics to paint
+     */
+    @Override
     public void draw(Graphics2D g)
     {
         g.setColor(gAttributeManager.cur_Attributes.col);

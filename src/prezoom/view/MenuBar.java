@@ -8,7 +8,11 @@ import java.awt.image.BufferedImage;
 
 import prezoom.Main;
 
-//Class used to display the application's menu bar
+/** TODO
+ * Class used to display the application's menu bar
+ * @author Zhijie Lan<p>
+ * create date: 2020/11/3
+ **/
 public class MenuBar extends JMenuBar
 {
     //VARIABLES

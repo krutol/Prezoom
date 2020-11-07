@@ -2,19 +2,24 @@ package prezoom.controller;
 
 import prezoom.Main;
 import prezoom.model.GObject;
+import prezoom.view.StatePanel;
 
 import javax.swing.*;
 
-/**
+/** This is the class that controls all the state changes in Prezoom.
  * @author Zhijie Lan<p>
  * create date: 2020/11/4
- *
- * This is the class that controls all the state changes in Prezoom
  **/
 public class StateManager
 {
-    public static int current_State = 0; // the current selected state
-    public static int total_State_Number = 1; // the total number of states
+    /**
+     * the current selected state
+     */
+    public static int current_State = 0;
+    /**
+     * the total number of states
+     */
+    public static int total_State_Number = 1;
 
 //    public int getCurrent_State()
 //    {
@@ -22,7 +27,7 @@ public class StateManager
 //    }
 
     /**
-     * Set the current state, and update corresponding Data
+     * Set the current state, and call {@link #updateStateData()}
      * @param state the state index
      */
     public static void switchState(int state)
@@ -38,7 +43,7 @@ public class StateManager
 
     /**
      * update the state data to the current state
-     * including camera, objects
+     * including camera {@link CameraManager#updateCur_CamInfo()}, objects {@link GAttributeManager#updateCur_Attributes()}
      */
     private static void updateStateData()
     {
@@ -55,7 +60,11 @@ public class StateManager
     }
 
     /**
-     * insert a state at the next of the current state
+     * let all state-related class to insert a state at the next of the current state, then load the new state data
+     * @see StatePanel#insertStateBtn()
+     * @see CameraManager#insertCamState()
+     * @see GAttributeManager#insertAttributeState()
+     * @see #updateStateData()
      * @throws CloneNotSupportedException nothing
      */
     public static void insertState() throws CloneNotSupportedException
@@ -79,7 +88,11 @@ public class StateManager
     }
 
     /**
-     * delete a state
+     * let all state-related class to delete a state, but the last one state cannot be deleted, then reload the state data
+     * @see StatePanel#deleteStateBtn(int)
+     * @see CameraManager#deleteCamState(int)
+     * @see GAttributeManager#deleteAttributeState(int)
+     * @see #updateStateData()
      * @param state the state index to be deleted
      */
     public static void deleteState(int state)

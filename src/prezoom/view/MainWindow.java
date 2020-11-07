@@ -3,7 +3,7 @@ package prezoom.view;
 import javax.swing.*;
 import java.awt.*;
 
-/**
+/** This main GUI window which holds all the child GUI windows
  * @author Zhijie Lan<p>
  * create date: 2020/11/1
  **/
@@ -11,20 +11,38 @@ public class MainWindow extends JFrame
 {
     //public static prezoom.controller.StateManager stateManager = new prezoom.controller.StateManager();
 
-    protected MenuBar menuBar;
+    /**
+     * the menu bar
+     */
+    public MenuBar menuBar;
+    /**
+     * the canvas to present objects
+     */
     public CenterCanvas centerCanvas;
+    /**
+     * the status bar
+     */
     public StatusBar statusBar;
+    /**
+     * the panel that contains different function buttons
+     */
     public ToolPanel toolPanel;
+    /**
+     * The panel that shows the state sequentially
+     */
     public StatePanel statePanel;
-    public JScrollPane stateScroll;
+    /**
+     * The panel that shows editable attributes of selected objects and other useful info
+     */
     public InspectorPanel inspectorPanel;
 
 
 
     /**
      * Creates a new, initially invisible <code>Frame</code> with the
-     * specified title.
+     * specified title. Instantiates all the child windows.
      * <p>
+     *
      * This constructor sets the component's locale property to the value
      * returned by <code>JComponent.getDefaultLocale</code>.
      *
@@ -62,7 +80,7 @@ public class MainWindow extends JFrame
         JPanel holderPanel = new JPanel(new BorderLayout());
         holderPanel.add(statePanel, "North");
         holderPanel.setBackground(Color.darkGray);
-        stateScroll = new JScrollPane(holderPanel);
+        JScrollPane stateScroll = new JScrollPane(holderPanel);
         stateScroll.setPreferredSize(new Dimension(150,-1));
         add(stateScroll,"West");
 
@@ -75,6 +93,7 @@ public class MainWindow extends JFrame
 
         // this.setIconImage(Image);    //setting JFrame's icon image
         this.setSize(1366, 768);     //set size of the application
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);   //set default close operation
         this.setLocationRelativeTo(null);                               //set locating to the middle of the screen
         this.setVisible(true);                                          //set visible
