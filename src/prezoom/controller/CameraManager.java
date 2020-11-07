@@ -46,14 +46,19 @@ public class CameraManager
      */
     public void moveCamera(Graphics2D g2, double cam_x_offset, double cam_y_offset, double zoomFactor, double prevZoomFactor)
     {
-        cur_CamInfo.cam_x_offset = cam_x_offset;
-        cur_CamInfo.cam_y_offset = cam_y_offset;
-        cur_CamInfo.cam_zoomFactor = zoomFactor;
-        cur_CamInfo.cam_prevZoomFactor = prevZoomFactor;
+//        cur_CamInfo.setOffsetX(cam_x_offset);
+//        cur_CamInfo.setOffsetY(cam_y_offset);
+//        cur_CamInfo.setZoomFactor(zoomFactor);
+//        cur_CamInfo.setPreZoomFactor(prevZoomFactor);
+//
+//        AffineTransform at = new AffineTransform();
+//        at.translate(cur_CamInfo.getOffsetX(), cur_CamInfo.getOffsetY());
+//        at.scale(cur_CamInfo.getZoomFactor(), cur_CamInfo.getZoomFactor());
+//        g2.transform(at);
 
         AffineTransform at = new AffineTransform();
-        at.translate(cur_CamInfo.cam_x_offset, cur_CamInfo.cam_y_offset);
-        at.scale(cur_CamInfo.cam_zoomFactor, cur_CamInfo.cam_zoomFactor);
+        at.translate(cam_x_offset, cam_y_offset);
+        at.scale(zoomFactor, zoomFactor);
         g2.transform(at);
     }
 
@@ -64,8 +69,8 @@ public class CameraManager
     public void moveCamera(Graphics2D g2)
     {
         AffineTransform at = new AffineTransform();
-        at.translate(cur_CamInfo.cam_x_offset, cur_CamInfo.cam_y_offset);
-        at.scale(cur_CamInfo.cam_zoomFactor, cur_CamInfo.cam_zoomFactor);
+        at.translate(cur_CamInfo.getOffsetX(), cur_CamInfo.getOffsetY());
+        at.scale(cur_CamInfo.getZoomFactor(), cur_CamInfo.getZoomFactor());
         g2.transform(at);
     }
 
@@ -93,9 +98,9 @@ public class CameraManager
     public void updateCur_CamInfo()
     {
         this.cur_CamInfo = getCur_CamInfo();
-        if (Main.app != null)
-        Main.app.centerCanvas.setCanvasCamera(cur_CamInfo.cam_x_offset,
-                cur_CamInfo.cam_y_offset, cur_CamInfo.cam_zoomFactor, cur_CamInfo.cam_prevZoomFactor);
+//        if (Main.app != null)
+//        Main.app.centerCanvas.setCanvasCamera(cur_CamInfo.getOffsetX(),
+//                cur_CamInfo.getOffsetY(), cur_CamInfo.getZoomFactor(), cur_CamInfo.getPreZoomFactor());
     }
 
     /**

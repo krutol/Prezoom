@@ -14,22 +14,22 @@ public class GRectangle extends GObject
         super(x, y, col, filled, lineWidth,w,h,0,0,true);
     }
 
-    public int getH()
+    public int getHeight()
     {
         return gAttributeManager.cur_Attributes.height;
     }
 
-    public void setH(int h)
+    public void setHeight(int h)
     {
         gAttributeManager.cur_Attributes.height = h;
     }
 
-    public int getW()
+    public int getWidth()
     {
         return gAttributeManager.cur_Attributes.width;
     }
 
-    public void setW(int w)
+    public void setWidth(int w)
     {
         gAttributeManager.cur_Attributes.width = w;
     }
@@ -44,7 +44,7 @@ public class GRectangle extends GObject
     public boolean inShape(double mx, double my)
     {
         double x = getX(), y = getY();
-        int w = getW(), h = getH();
+        int w = getWidth(), h = getHeight();
         return mx >= x && mx <= x + w && my >= y && my <= y + h;
     }
 
@@ -60,7 +60,7 @@ public class GRectangle extends GObject
     {
         g.setColor(gAttributeManager.cur_Attributes.col);
         double x = getX(), y = getY();
-        int w = getW(), h = getH();
+        int w = getWidth(), h = getHeight();
 
         if (getFilled()) g.fillRect((int)x, (int)y, w, h);
         else
