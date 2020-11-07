@@ -55,7 +55,7 @@ public class StateManager
             o.gAttributeManager.updateCur_Attributes();
         }
         // repaint canvas
-        Main.app.centerCanvas.repaint();
+        //Main.app.centerCanvas.repaint();
 
     }
 

@@ -1,5 +1,6 @@
 package prezoom.controller;
 
+import org.pushingpixels.trident.api.Timeline;
 import prezoom.model.GAttributes;
 
 import java.awt.*;
@@ -71,7 +72,23 @@ public class GAttributeManager
     public void updateCur_Attributes()
     {
         if (getCur_Attributes() != null)
-            this.cur_Attributes = getCur_Attributes();
+        {
+            GAttributes preAttributes = cur_Attributes;
+            cur_Attributes = getCur_Attributes();
+
+            Timeline camTimeLine = Timeline.builder(cur_Attributes)
+                    .addPropertyToInterpolate("x", preAttributes != null ? preAttributes.getX() : 0, cur_Attributes.getX())
+                    .addPropertyToInterpolate("y", preAttributes != null ? preAttributes.getY() : 0, cur_Attributes.getY())
+                    .addPropertyToInterpolate("col", preAttributes != null ? preAttributes.getCol() : Color.white, cur_Attributes.getCol())
+                    .addPropertyToInterpolate("lineWidth", preAttributes != null ? preAttributes.getLineWidth() : 1, cur_Attributes.getLineWidth())
+                    .addPropertyToInterpolate("width", preAttributes != null ? preAttributes.getWidth() : 0, cur_Attributes.getWidth())
+                    .addPropertyToInterpolate("height", preAttributes != null ? preAttributes.getHeight() : 0, cur_Attributes.getHeight())
+                    .addPropertyToInterpolate("x2", preAttributes != null ? preAttributes.getX2() : 0, cur_Attributes.getX2())
+                    .addPropertyToInterpolate("y2", preAttributes != null ? preAttributes.getY2() : 0, cur_Attributes.getY2())
+                    .build();
+            camTimeLine.play();
+        }
+
     }
 
     /**
