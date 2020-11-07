@@ -9,7 +9,8 @@ import prezoom.controller.StateManager;
 import prezoom.Main;
 import prezoom.model.*;
 
-/**
+/** TODO
+ * the panel that contains different function buttons
  * @author Zhijie Lan<p>
  * create date: 2020/11/3
  **/
@@ -22,7 +23,6 @@ public class ToolPanel extends JPanel
     private JButton btn_Text;
     private JComboBox<String> btn_Shape;
     private JButton btn_Img;
-
 
     public ToolPanel()
     {
@@ -131,6 +131,7 @@ public class ToolPanel extends JPanel
                 }
             } else if (btn_delState.equals(source))
             {//TODO
+                StateManager.deleteState(StateManager.current_State);
             } else if (btn_PlayStart.equals(source))
             {//TODO
             } else if (btn_PlayCurrent.equals(source))

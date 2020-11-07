@@ -2,7 +2,7 @@ package prezoom.model;
 
 import java.awt.*;
 
-/**
+/** The base attribute class that holds all the attribute an object has
  * @author Zhijie Lan<p>
  * create date: 2020/11/2
  **/
@@ -18,8 +18,24 @@ public class GAttributes implements Cloneable
     protected BasicStroke stroke;
     protected Boolean visible = true;
 
+    /**
+     * the default value constructor
+     */
     public GAttributes() {}
 
+    /**
+     * the constructor with parameters
+     * @param x location, x
+     * @param y location, y
+     * @param col paint color
+     * @param filled whether filled
+     * @param lineWidth width of lines
+     * @param width width of the object, if applicable
+     * @param height height of the object, if applicable
+     * @param x2 x2 of the object, if applicable
+     * @param y2 y2 of the object, if applicable
+     * @param visible whether visible
+     */
     public GAttributes(double x, double y, Color col, Boolean filled, int lineWidth, int width, int height, double x2, double y2, Boolean visible)
     {
         this.x = x;
@@ -34,6 +50,11 @@ public class GAttributes implements Cloneable
         this.visible = visible;
     }
 
+    /**
+     * The attributes can be clone
+     * @return the cloned attributes
+     * @throws CloneNotSupportedException nothing
+     */
     @Override
     public Object clone() throws CloneNotSupportedException
     {
