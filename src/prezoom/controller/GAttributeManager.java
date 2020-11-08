@@ -67,15 +67,16 @@ public class GAttributeManager
 
     /**
      * update the {@link #cur_Attributes}.
+     * and add interpolation from previous value to the current value
      * skip if there is no attribute for the current state
      */
     public void updateCur_Attributes()
     {
-        if (getCur_Attributes() != null)
-        {
-            GAttributes preAttributes = cur_Attributes;
-            cur_Attributes = getCur_Attributes();
+        GAttributes preAttributes = cur_Attributes;
+        cur_Attributes = getCur_Attributes();
 
+        if (cur_Attributes != null)
+        {
             Timeline camTimeLine = Timeline.builder(cur_Attributes)
                     .addPropertyToInterpolate("x", preAttributes != null ? preAttributes.getX() : 0, cur_Attributes.getX())
                     .addPropertyToInterpolate("y", preAttributes != null ? preAttributes.getY() : 0, cur_Attributes.getY())

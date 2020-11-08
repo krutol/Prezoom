@@ -99,7 +99,8 @@ public class CameraManager
     }
 
     /**
-     * update the {@link #cur_CamInfo}
+     * update the {@link #cur_CamInfo}.
+     * and add interpolation from previous value to the current value
      */
     public void updateCur_CamInfo()
     {
