@@ -6,6 +6,8 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import javax.swing.*;
 
+import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.trident.api.swing.SwingRepaintTimeline;
 import prezoom.controller.GAttributeManager;
 import prezoom.model.*;
 import prezoom.controller.CameraManager;
@@ -57,6 +59,10 @@ public class CenterCanvas extends JPanel
         addMouseWheelListener(new MouseActionHandler());
         addMouseMotionListener(new MouseActionHandler());
         addMouseListener(new MouseActionHandler());
+
+        SwingRepaintTimeline repaintTimeline = SwingRepaintTimeline.repaintBuilder(this)
+                .setAutoRepaintMode(true).build();
+        repaintTimeline.playLoop(Timeline.RepeatBehavior.LOOP);
     }
 
     /**

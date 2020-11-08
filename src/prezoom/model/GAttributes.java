@@ -60,4 +60,114 @@ public class GAttributes implements Cloneable
     {
         return super.clone();
     }
+
+    public double getX()
+    {
+        return x;
+    }
+
+    public void setX(double x)
+    {
+        this.x = x;
+    }
+
+    public double getY()
+    {
+        return y;
+    }
+
+    public void setY(double y)
+    {
+        this.y = y;
+    }
+
+    public Color getCol()
+    {
+        return col;
+    }
+
+    public void setCol(Color col)
+    {
+        this.col = col;
+    }
+
+    public Boolean getFilled()
+    {
+        return filled;
+    }
+
+    public void setFilled(Boolean filled)
+    {
+        this.filled = filled;
+    }
+
+    public int getLineWidth()
+    {
+        return lineWidth;
+    }
+
+    public void setLineWidth(int lineWidth)
+    {
+        this.lineWidth = lineWidth;
+    }
+
+    public int getWidth()
+    {
+        return width;
+    }
+
+    public void setWidth(int width)
+    {
+        this.width = width;
+    }
+
+    public int getHeight()
+    {
+        return height;
+    }
+
+    public void setHeight(int height)
+    {
+        this.height = height;
+    }
+
+    public double getX2()
+    {
+        return x2;
+    }
+
+    public void setX2(double x2)
+    {
+        this.x2 = x2;
+    }
+
+    public double getY2()
+    {
+        return y2;
+    }
+
+    public void setY2(double y2)
+    {
+        this.y2 = y2;
+    }
+
+    public BasicStroke getStroke()
+    {
+        return stroke;
+    }
+
+    public void setStroke(BasicStroke stroke)
+    {
+        this.stroke = stroke;
+    }
+
+    public Boolean getVisible()
+    {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible)
+    {
+        this.visible = visible;
+    }
 }

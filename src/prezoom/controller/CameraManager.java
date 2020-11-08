@@ -1,13 +1,15 @@
 package prezoom.controller;
 
+import org.pushingpixels.trident.api.Timeline;
 import prezoom.model.CameraInfo;
-import prezoom.Main;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
-/**This class is the manager to manage all the camera related functions, including movement, info, states
+/**
+ * This class is the manager to manage all the camera related functions, including movement, info, states
+ *
  * @author Zhijie Lan<p>
  * create date: 2020/11/4
  **/
@@ -38,10 +40,11 @@ public class CameraManager
 
     /**
      * move the camera to the given location
-     * @param g2 the Graphics to paint
-     * @param cam_x_offset x offset
-     * @param cam_y_offset y offset
-     * @param zoomFactor zoom index
+     *
+     * @param g2             the Graphics to paint
+     * @param cam_x_offset   x offset
+     * @param cam_y_offset   y offset
+     * @param zoomFactor     zoom index
      * @param prevZoomFactor previous zoom index that is used to get better effect when zooming
      */
     public void moveCamera(Graphics2D g2, double cam_x_offset, double cam_y_offset, double zoomFactor, double prevZoomFactor)
@@ -64,6 +67,7 @@ public class CameraManager
 
     /**
      * move the camera to the stored location
+     *
      * @param g2 the Graphics to paint
      */
     public void moveCamera(Graphics2D g2)
@@ -76,6 +80,7 @@ public class CameraManager
 
     /**
      * get the current state index
+     *
      * @return current state index
      */
     private int getCurrent_State()
@@ -85,6 +90,7 @@ public class CameraManager
 
     /**
      * get the camera info for the current state
+     *
      * @return the current camera info
      */
     public CameraInfo getCur_CamInfo()
@@ -93,19 +99,40 @@ public class CameraManager
     }
 
     /**
-     * update the {@link #cur_CamInfo}
+     * update the {@link #cur_CamInfo}.
+     * and add interpolation from previous value to the current value
      */
     public void updateCur_CamInfo()
     {
-        this.cur_CamInfo = getCur_CamInfo();
+        //this.cur_CamInfo = getCur_CamInfo();
 //        if (Main.app != null)
 //        Main.app.centerCanvas.setCanvasCamera(cur_CamInfo.getOffsetX(),
 //                cur_CamInfo.getOffsetY(), cur_CamInfo.getZoomFactor(), cur_CamInfo.getPreZoomFactor());
+        if (cur_CamInfo != null)
+        {
+            CameraInfo preCam = cur_CamInfo;
+            cur_CamInfo = getCur_CamInfo();
+            //cur_CamInfo = (CameraInfo) cur_CamInfo.clone();
+            Timeline camTimeLine = Timeline.builder(cur_CamInfo)
+                    .addPropertyToInterpolate("offsetX", preCam.getOffsetX(), cur_CamInfo.getOffsetX())
+                    .addPropertyToInterpolate("offsetY", preCam.getOffsetY(), cur_CamInfo.getOffsetY())
+                    .addPropertyToInterpolate("zoomFactor", preCam.getZoomFactor(), cur_CamInfo.getZoomFactor())
+                    .addPropertyToInterpolate("preZoomFactor", preCam.getPreZoomFactor(), cur_CamInfo.getPreZoomFactor())
+                    .build();
+            camTimeLine.play();
+
+        } else
+        {
+            cur_CamInfo = getCur_CamInfo();
+        }
+
+
     }
 
     /**
      * insert a new camera info of a new state into {@link #state_CamInfo_list} at the current state index.
      * The new camera info will clone the previous info of the current state
+     *
      * @throws CloneNotSupportedException noting
      */
     public void insertCamState() throws CloneNotSupportedException
@@ -113,7 +140,7 @@ public class CameraManager
         CameraInfo cameraInfo = new CameraInfo();
 
         if (!state_CamInfo_list.isEmpty())
-            cameraInfo = (CameraInfo) state_CamInfo_list.get(getCurrent_State()-1).clone();
+            cameraInfo = (CameraInfo) state_CamInfo_list.get(getCurrent_State() - 1).clone();
 
         state_CamInfo_list.add(getCurrent_State(), cameraInfo);
 
@@ -123,6 +150,7 @@ public class CameraManager
 
     /**
      * delete a given state form {@link #state_CamInfo_list}
+     *
      * @param state the state to be deleted
      */
     public void deleteCamState(int state)
