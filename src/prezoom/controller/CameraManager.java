@@ -1,13 +1,10 @@
 package prezoom.controller;
 
 import org.pushingpixels.trident.api.Timeline;
-import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
 import prezoom.model.CameraInfo;
-import prezoom.Main;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.lang.management.ThreadInfo;
 import java.util.ArrayList;
 
 /**

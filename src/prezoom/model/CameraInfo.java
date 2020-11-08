@@ -1,7 +1,5 @@
 package prezoom.model;
 
-import prezoom.Main;
-
 /** the base class for camera info
  * @author Zhijie Lan<p>
  * create date: 2020/11/4

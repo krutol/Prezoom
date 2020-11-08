@@ -3,11 +3,8 @@ package prezoom.view;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import prezoom.Main;
 import prezoom.controller.StateManager;
 
 /** The panel that shows all the state sequentially
