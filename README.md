@@ -5,17 +5,17 @@ Hey teammates! Check our project progress below!
 ## Iteration 1
 Due November 16
 
-1. [Requirements document](requirements/Requirements.md)
+* [Requirements document](requirements/Requirements.md)
     - [ ] Revise the requirement document.
     - [ ] Indicate the state of each user story.
     - [ ] Revise the list of user stories. 
 <br/>
     
-1. [Specification document](requirements/Specification.md)
+* [Specification document](requirements/Specification.md)
     - [ ] Update use cases that cover all user stories.
 <br/>
     
-1. design folder
+* design folder
     - [ ] High-level design document (in HTML).
         + [ ] Packages UML.
         + [ ] Description of our packages.
@@ -26,13 +26,13 @@ Due November 16
     - [ ] Compile instruction.
 <br/>
 
-1. [src folder](src)
+* [src folder](src)
     - [x] Source code.
     - [x] JavaDoc each class.
     - [x] JavaDoc each public method.
 <br/>
   
-1. tstsrc folder
+* tstsrc folder
     - [ ] JUnit automated tests
 <br/>
 
