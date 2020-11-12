@@ -9,9 +9,11 @@ Due November 16
     - [ ] Revise the requirement document.
     - [ ] Indicate the state of each user story.
     - [ ] Revise the list of user stories. 
-
+<br/>
+    
 1. [Specification document](requirements/Specification.md)
     - [ ] Update use cases that cover all user stories.
+<br/>
     
 1. design folder
     - [ ] High-level design document (in HTML).
@@ -22,14 +24,17 @@ Due November 16
         + [ ] Classes Description.
     - [ ] Test plan.
     - [ ] Compile instruction.
+<br/>
 
 1. [src folder](src)
     - [x] Source code.
     - [x] JavaDoc each class.
     - [x] JavaDoc each public method.
+<br/>
   
 1. tstsrc folder
     - [ ] JUnit automated tests
+<br/>
 
 ## ~~Iteration 0~~
 ~~Due November 2.~~ 
