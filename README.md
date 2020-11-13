@@ -12,7 +12,7 @@ Due November 16
 <br/>
     
 * [Specification document](requirements/Specification.md)
-    - [ ] Update use cases that cover all user stories.
+    - [x] Update use cases that cover all user stories.
 <br/>
     
 * [design folder](design_containing)
