@@ -15,7 +15,7 @@ Due November 16
     - [ ] Update use cases that cover all user stories.
 <br/>
     
-* design folder
+* [design folder](design_containing)
     - [ ] High-level design document (in HTML).
         + [ ] Packages UML.
         + [ ] Description of our packages.
