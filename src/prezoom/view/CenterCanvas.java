@@ -2,7 +2,6 @@ package prezoom.view;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -16,18 +15,18 @@ import prezoom.Main;
 
 public class CenterCanvas extends JPanel
 {
-    int mxstart, mystart;
+//    private int mxstart, mystart;
 //    private double zoomFactor = 1;
 //    private double prevZoomFactor = 1;
-    private boolean zoomer;
-    private boolean dragger;
-    private boolean released;
+    private boolean isZooming;
+    private boolean isDragging;
+    private boolean isReleased;
 //    private double xOffset = 0;
 //    private double yOffset = 0;
-    private int xDiff;
-    private int yDiff;
-    private Point startPoint;
-    GObject selectedObj;
+    private double xDiff;
+    private double yDiff;
+    private final Point dragCanvasStartPoint = new Point(), dragObjStartPoint = new Point();
+    private GObject selectedObj;
 
     /**
      * the camera state manager
@@ -65,10 +64,10 @@ public class CenterCanvas extends JPanel
         repaintTimeline.playLoop(Timeline.RepeatBehavior.LOOP);
     }
 
-    /**
-     * move the camera to the given location
-     *
-     * @param xOffset        x offset
+    /*
+      move the camera to the given location
+
+      @param xOffset        x offset
      * @param yOffset        y offset
      * @param zoomFactor     zoom index
      * @param prevZoomFactor previous zoom index that is used to get better effect when zooming
@@ -95,10 +94,10 @@ public class CenterCanvas extends JPanel
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
-        AffineTransform at = new AffineTransform();
+        //AffineTransform at = new AffineTransform();
         CameraInfo cam = getCurCamInfo();
 
-        if (zoomer)
+        if (isZooming)
         {
 
             double xRel = MouseInfo.getPointerInfo().getLocation().getX() - getLocationOnScreen().getX();
@@ -128,8 +127,8 @@ public class CenterCanvas extends JPanel
 
             //System.out.println(zoomFactor+" "+cur_off_x+" "+cur_off_y);
 
-            zoomer = false;
-        } else if (dragger)
+            isZooming = false;
+        } else if (isDragging)
         {
             //System.out.println(xOffset + xDiff);
 //            at.translate(xOffset + xDiff, yOffset + yDiff);
@@ -139,13 +138,13 @@ public class CenterCanvas extends JPanel
             //cameraManager.moveCamera(g2, xOffset + xDiff, yOffset + yDiff, zoomFactor, prevZoomFactor);
             cameraManager.moveCamera(g2,cam.getOffsetX()+xDiff,cam.getOffsetY()+yDiff,
                     cam.getZoomFactor(),cam.getPreZoomFactor());
-            if (released)
+            if (isReleased)
             {
 //                xOffset += xDiff;
 //                yOffset += yDiff;
                 cam.setOffsetX(cam.getOffsetX()+xDiff);
                 cam.setOffsetY(cam.getOffsetY()+yDiff);
-                dragger = false;
+                isDragging = false;
             }
         } else
         {
@@ -181,7 +180,7 @@ public class CenterCanvas extends JPanel
         public void mouseWheelMoved(MouseWheelEvent e)
         {
 
-            zoomer = true;
+            isZooming = true;
             CameraInfo cam = getCurCamInfo();
 
             //Zoom in
@@ -213,27 +212,30 @@ public class CenterCanvas extends JPanel
             if (SwingUtilities.isRightMouseButton(e))
             {
                 Point curPoint = e.getLocationOnScreen();
-                xDiff = curPoint.x - startPoint.x;
-                yDiff = curPoint.y - startPoint.y;
+                xDiff = curPoint.getX() - dragCanvasStartPoint.getX();
+                yDiff = curPoint.getY() - dragCanvasStartPoint.getY();
 
-                dragger = true;
+                isDragging = true;
                 repaint();
             } else if (selectedObj != null)
             {
-                int mx = e.getX();
-                int my = e.getY();
+                //int mx = e.getX();
+                //int my = e.getY();
+                Point point = e.getPoint();
                 //System.out.println(mx-mxstart);
 
 //            double z = 1;
 //            if (zoomFactor<1)
 //                z = zoomFactor;
 
-                selectedObj.setX(selectedObj.getX() + /*(int)*/((mx - mxstart) / getCurCamInfo().getPreZoomFactor()));
-                selectedObj.setY(selectedObj.getY() + /*(int)*/((my - mystart) / getCurCamInfo().getPreZoomFactor()));
+                selectedObj.setX(selectedObj.getX() + /*(int)*/((point.getX() - dragObjStartPoint.getX()) / getCurCamInfo().getPreZoomFactor()));
+                selectedObj.setY(selectedObj.getY() + /*(int)*/((point.getY() - dragObjStartPoint.getY()) / getCurCamInfo().getPreZoomFactor()));
                 //selectedObj.setX(mx);
                 //selectedObj.setY(my);
-                mxstart = mx;
-                mystart = my;
+                //mxstart = mx;
+                //mystart = my;
+                dragObjStartPoint.setLocation(point);
+                //dragObjStartPoint = point;
                 repaint();
 
             }
@@ -250,8 +252,10 @@ public class CenterCanvas extends JPanel
         @Override
         public void mouseClicked(MouseEvent e)
         {
-            mxstart = e.getX();
-            mystart = e.getY();
+            //mxstart = e.getX();
+            //mystart = e.getY();
+            dragObjStartPoint.setLocation(e.getPoint());
+            //dragObjStartPoint = e.getPoint();
         }
 
         /**
@@ -262,11 +266,14 @@ public class CenterCanvas extends JPanel
         @Override
         public void mousePressed(MouseEvent e)
         {
-            released = false;
-            startPoint = MouseInfo.getPointerInfo().getLocation();
+            isReleased = false;
+            //dragCanvasStartPoint = MouseInfo.getPointerInfo().getLocation();
+            dragCanvasStartPoint.setLocation(MouseInfo.getPointerInfo().getLocation());
 
-            mxstart = e.getX();
-            mystart = e.getY();
+            //mxstart = e.getX();
+            //mystart = e.getY();
+            dragObjStartPoint.setLocation(e.getPoint());
+            //dragObjStartPoint = e.getPoint();
             //System.out.println(mxstart);
 
             //mxstart -= o_X;
@@ -290,7 +297,7 @@ public class CenterCanvas extends JPanel
         @Override
         public void mouseReleased(MouseEvent e)
         {
-            released = true;
+            isReleased = true;
             selectedObj = null;
             repaint();
         }
