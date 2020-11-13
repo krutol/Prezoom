@@ -32,7 +32,7 @@ Due November 16
     - [x] JavaDoc each public method.
 <br/>
   
-* tstsrc folder
+* [tstsrc folder](tstsrc)
     - [ ] JUnit automated tests
 <br/>
 
