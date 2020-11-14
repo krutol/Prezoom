@@ -15,15 +15,15 @@ Due November 16
     - [x] Update use cases that cover all user stories.
 <br/>
     
-* [design folder](design_containing)
+* [design folder](design)
     - [ ] High-level design document (in HTML).
         + [ ] Packages UML.
-        + [ ] Description of our packages.
-        + [ ] Description of third party packages.
+        + [x] Description of our packages.
+        + [x] Description of third party packages.
         + [ ] Classes UML.
-        + [ ] Classes Description.
+        + [x] Classes Description.
     - [ ] Test plan.
-    - [ ] Compile instruction.
+    - [x] Compile instruction.
 <br/>
 
 * [src folder](src)

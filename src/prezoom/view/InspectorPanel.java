@@ -5,6 +5,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 /** TODO
+ * The panel where you can check/edit attributes of the selected object, camera information, etc.
  * @author Zhijie Lan<p>
  * create date: 2020/11/3
  **/

@@ -1,6 +1,6 @@
 package prezoom.model;
 
-/** the base class for camera info
+/** The base class for camera info that contains all information of a camera
  * @author Zhijie Lan<p>
  * create date: 2020/11/4
  **/

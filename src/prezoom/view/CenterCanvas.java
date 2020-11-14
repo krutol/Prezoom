@@ -12,7 +12,10 @@ import prezoom.model.*;
 import prezoom.controller.CameraManager;
 import prezoom.Main;
 
-
+/** The center canvas where you can edit the presentation, move the camera, etc.
+ * @author Zhijie Lan<p>
+ * create date: 2020/11/1
+ **/
 public class CenterCanvas extends JPanel
 {
 //    private int mxstart, mystart;
