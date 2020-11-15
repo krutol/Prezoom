@@ -273,17 +273,6 @@ public class CenterCanvas extends JPanel
             mystart = e.getY();
             double mx = (e.getX() - getCurCamInfo().getOffsetX()) / getCurCamInfo().getPreZoomFactor();
             double my = (e.getY() - getCurCamInfo().getOffsetY()) / getCurCamInfo().getPreZoomFactor();
-            for (GObject go : objects)  {
-
-                boolean inShape = go.inShape(mx, my);
-                if (inShape) {
-                    selectedObj = go;
-                    Main.app.inspectorPanel.rearrangeValues();
-                    repaint();
-
-                }
-            }
-
 
         }
 
@@ -314,6 +303,7 @@ public class CenterCanvas extends JPanel
                 {
                     selectedObj = go;
                     inspectedObj = go;
+                    Main.app.inspectorPanel.rearrangeValues();
                 }
             }
             //repaint();

@@ -2,7 +2,6 @@ package prezoom.view;
 
 import prezoom.Main;
 import prezoom.controller.StateManager;
-import prezoom.model.GCircle;
 import prezoom.model.GOval;
 import prezoom.model.GRectangle;
 
@@ -164,7 +163,7 @@ public class ToolPanel extends JPanel
                     Main.app.centerCanvas.objects.add(oval);
                     Main.app.centerCanvas.selectedObj = oval;
                 }else if(btn_Shape.getSelectedItem().toString().indexOf("Circle")>0) {
-                    GCircle circle = new GCircle(300, 200, Color.green, true, 3, 50, 50);
+                    GOval circle = new GOval(300, 200, Color.green, true, 3, 50, 50);
                     Main.app.centerCanvas.objects.add(circle);
                     Main.app.centerCanvas.selectedObj = circle;
                 }else if(btn_Shape.getSelectedItem().toString().indexOf("Triangle")>0){
