@@ -15,11 +15,11 @@ public class StateManager
     /**
      * the current selected state
      */
-    public static int current_State = 0;
+    private static int current_State = 0;
     /**
      * the total number of states
      */
-    public static int total_State_Number = 1;
+    private static int total_State_Number = 1;
 
 //    public int getCurrent_State()
 //    {
@@ -52,7 +52,7 @@ public class StateManager
         // update attributes of GObjects
         for (GObject o: Main.app.centerCanvas.objects)
         {
-            o.gAttributeManager.updateCur_Attributes();
+            o.getAttributeManager().updateCur_Attributes();
         }
         // repaint canvas
         //Main.app.centerCanvas.repaint();
@@ -81,7 +81,7 @@ public class StateManager
         //insert attribute to objects
         for (GObject o: Main.app.centerCanvas.objects)
         {
-            o.gAttributeManager.insertAttributeState();
+            o.getAttributeManager().insertAttributeState();
         }
 
         updateStateData();
@@ -120,11 +120,20 @@ public class StateManager
         // delete attributes form objects
         for (GObject o: Main.app.centerCanvas.objects)
         {
-            o.gAttributeManager.deleteAttributeState(state);
+            o.getAttributeManager().deleteAttributeState(state);
         }
 
         updateStateData();
 
     }
 
+    public static int getCurrent_State()
+    {
+        return current_State;
+    }
+
+    public static int getTotal_State_Number()
+    {
+        return total_State_Number;
+    }
 }

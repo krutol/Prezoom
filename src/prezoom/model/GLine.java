@@ -2,18 +2,22 @@ package prezoom.model;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
-/** The oval objects
+/**
+ * The line objects
+ *
  * @author Zhijie Lan<p>
- * create date: 2020/11/1
+ * create date: 2020/11/14<p>
  **/
-public class GOval extends GObject
+public class GLine extends GObject
 {
-    public GOval(int x, int y, int w, int h, Color col, Boolean filled, int lineWidth)
+    public GLine(double x, double y, double x2, double y2, Color col, int lineWidth)
     {
-        super(x, y, col, filled, lineWidth, w, h, 0,0,true);
+        super(x, y, col, true, lineWidth, 0, 0, x2, y2, true);
     }
-
 
     /**
      * draw this object.
@@ -27,14 +31,11 @@ public class GOval extends GObject
     {
         g.setColor(getCurrentAttributes().getCol());
         double x = getCurrentAttributes().getX(), y = getCurrentAttributes().getY();
-        int w = getCurrentAttributes().getWidth(), h = getCurrentAttributes().getHeight();
+        double x2 = getCurrentAttributes().getX2(), y2 = getCurrentAttributes().getY2();
 
-        if (getCurrentAttributes().getFilled()) g.fillOval((int)x, (int)y, w, h);
-        else
-        {
-            g.setStroke(new BasicStroke(getCurrentAttributes().getLineWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-            g.draw(new Ellipse2D.Double(x, y, w, h));
-        }
+        g.setStroke(new BasicStroke(getCurrentAttributes().getLineWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        g.draw(new Line2D.Double(x,y,x2,y2));
+
+
     }
-
 }

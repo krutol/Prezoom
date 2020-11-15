@@ -37,7 +37,7 @@ public class StatePanel extends JPanel
      */
     public void insertStateBtn()
     {
-        JToggleButton state_btn = new JToggleButton("state " + StateManager.current_State);
+        JToggleButton state_btn = new JToggleButton("state " + StateManager.getCurrent_State());
 
         state_btn.setBackground(Color.lightGray);
         state_btn.setPreferredSize(new Dimension(120,50));
@@ -49,7 +49,7 @@ public class StatePanel extends JPanel
         });
 
         btnGroup.add(state_btn);
-        states_btn_list.add(StateManager.current_State, state_btn);
+        states_btn_list.add(StateManager.getCurrent_State(), state_btn);
 
         updatePressedBtn();
         rearrangeBtn();
@@ -71,7 +71,7 @@ public class StatePanel extends JPanel
      */
     private void updatePressedBtn()
     {
-        states_btn_list.get(StateManager.current_State).setSelected(true);
+        states_btn_list.get(StateManager.getCurrent_State()).setSelected(true);
 //        for (JToggleButton btn : states_btn_list)
 //            btn.getModel().setPressed(false);
 //        states_btn_list.get(StateManager.current_State).getModel().setPressed(true);

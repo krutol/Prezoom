@@ -18,7 +18,7 @@ public class GAttributeManager
     /**
      * the attribute for the current state
      */
-    public GAttributes cur_Attributes;
+    private GAttributes cur_Attributes;
 
     /**
      * To construct a manager, the object's attributes will be generated and duplicated from the current state to the end state,
@@ -37,7 +37,7 @@ public class GAttributeManager
      */
     public GAttributeManager(double x, double y, Color col, Boolean filled, int lineWidth, int width, int height, double x2, double y2, Boolean visible)
     {
-        for (int i = 0; i< StateManager.total_State_Number +1; i++)
+        for (int i = 0; i< StateManager.getTotal_State_Number() +1; i++)
         {
             if (i<getCurrent_State())
                 state_Attributes_list.add(null);
@@ -52,7 +52,7 @@ public class GAttributeManager
 
     private int getCurrent_State()
     {
-        return StateManager.current_State;
+        return StateManager.getCurrent_State();
     }
 
     /**

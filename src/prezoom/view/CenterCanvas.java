@@ -45,9 +45,10 @@ public class CenterCanvas extends JPanel
     public ArrayList<GObject> objects = new ArrayList<>();
 
     {
-        objects.add(new GRectangle(50, 100, Color.red, false, 1, 30, 40));
-        objects.add(new GRectangle(350, 500, Color.GREEN, true, 10, 30, 40));
-        objects.add(new GOval(150, 200, Color.BLUE, true, 3, 50, 30));
+        objects.add(new GRectangle(50, 100, 30, 40, Color.red, false, 1));
+        objects.add(new GRectangle(350, 500, 30, 40, Color.GREEN, true, 10));
+        objects.add(new GOval(150, 200, 50, 30, Color.BLUE, true, 3));
+        objects.add(new GLine(500,500,672, 789, Color.magenta, 5));
     }
 
     /**
@@ -163,7 +164,7 @@ public class CenterCanvas extends JPanel
         //g2.fillRect(0,0,2000,1000);
         for (GObject go : objects)
         {
-            if (go.gAttributeManager.getCur_Attributes() != null)
+            if (go.getAttributeManager().getCur_Attributes() != null)
                 go.draw(g2);
         }
 
@@ -231,8 +232,13 @@ public class CenterCanvas extends JPanel
 //            if (zoomFactor<1)
 //                z = zoomFactor;
 
-                selectedObj.setX(selectedObj.getX() + /*(int)*/((point.getX() - dragObjStartPoint.getX()) / getCurCamInfo().getPreZoomFactor()));
-                selectedObj.setY(selectedObj.getY() + /*(int)*/((point.getY() - dragObjStartPoint.getY()) / getCurCamInfo().getPreZoomFactor()));
+                selectedObj.getCurrentAttributes()
+                        .setX(selectedObj.getCurrentAttributes().getX() +
+                                /*(int)*/((point.getX() - dragObjStartPoint.getX()) / getCurCamInfo().getPreZoomFactor()));
+
+                selectedObj.getCurrentAttributes()
+                        .setY(selectedObj.getCurrentAttributes().getY() +
+                                /*(int)*/((point.getY() - dragObjStartPoint.getY()) / getCurCamInfo().getPreZoomFactor()));
                 //selectedObj.setX(mx);
                 //selectedObj.setY(my);
                 //mxstart = mx;

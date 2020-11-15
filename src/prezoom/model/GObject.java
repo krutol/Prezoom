@@ -18,7 +18,7 @@ public abstract class GObject
     /**
      * the manager to manage the state of this object
      */
-    public GAttributeManager gAttributeManager;
+    private final GAttributeManager gAttributeManager;
 
     /**
      * the constructor will call the {@link GAttributeManager} to manage all the attributes
@@ -58,83 +58,43 @@ public abstract class GObject
 
     }
 
-    public Color getCol()
-    {
-        return gAttributeManager.cur_Attributes.col;
-    }
-
-    public void setCol(Color col)
-    {
-        gAttributeManager.cur_Attributes.col = col;
-    }
-
-    public double getX()
-    {
-        return gAttributeManager.cur_Attributes.x;
-    }
-
-    public void setX(double x)
-    {
-        gAttributeManager.cur_Attributes.x = x;
-    }
-
-    public double getY()
-    {
-        return gAttributeManager.cur_Attributes.y;
-    }
-
-    public void setY(double y)
-    {
-        gAttributeManager.cur_Attributes.y = y;
-    }
-
-    public Boolean getFilled()
-    {
-        return gAttributeManager.cur_Attributes.filled;
-    }
-
-    public void setFilled(Boolean filled)
-    {
-        gAttributeManager.cur_Attributes.filled = filled;
-    }
-
-    public Boolean getVisible()
-    {
-        return gAttributeManager.cur_Attributes.visible;
-    }
-
-    public void setVisible(Boolean visible)
-    {
-        gAttributeManager.cur_Attributes.visible = visible;
-    }
-
-    public int getLineWidth()
-    {
-        return gAttributeManager.cur_Attributes.lineWidth;
-    }
-
-    public void setLineWidth(int lineWidth)
-    {
-        gAttributeManager.cur_Attributes.lineWidth = lineWidth;
-    }
-
     /**
      * draw this object
      * @param g the Graphics to paint
      */
-    public void draw(Graphics2D g)
-    {
-    }
+    public abstract void draw(Graphics2D g);
 
     /**
      * Whether the given position is in this object
-     * @param x x
-     * @param y y
+     * @param mx x
+     * @param my y
      * @return True if in the object
      */
-    public boolean inShape(double x, double y)
+    public boolean inShape(double mx, double my)
     {
-        return false;
+        double x = getCurrentAttributes().getX(), y = getCurrentAttributes().getY();
+        int w = getCurrentAttributes().getWidth(), h = getCurrentAttributes().getHeight();
+        return mx >= x && mx <= x + w && my >= y && my <= y + h;
     }
+
+    /**
+     * Get the attribute manager of this object
+     * @return the attribute manager
+     */
+    public GAttributeManager getAttributeManager()
+    {
+        return gAttributeManager;
+    }
+
+    /**
+     * Get the attributes for the current state
+     * @return current attributes
+     */
+    public GAttributes getCurrentAttributes()
+    {
+        return getAttributeManager().getCur_Attributes();
+    }
+
+
 }
 

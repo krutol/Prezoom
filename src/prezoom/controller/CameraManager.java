@@ -85,7 +85,7 @@ public class CameraManager
      */
     private int getCurrent_State()
     {
-        return StateManager.current_State;
+        return StateManager.getCurrent_State();
     }
 
     /**

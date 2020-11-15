@@ -131,7 +131,7 @@ public class ToolPanel extends JPanel
                 }
             } else if (btn_delState.equals(source))
             {//TODO
-                StateManager.deleteState(StateManager.current_State);
+                StateManager.deleteState(StateManager.getCurrent_State());
             } else if (btn_PlayStart.equals(source))
             {//TODO
             } else if (btn_PlayCurrent.equals(source))
@@ -141,7 +141,7 @@ public class ToolPanel extends JPanel
             } else if (btn_Shape.equals(source))
             {//TODO
                 // for test
-                Main.app.centerCanvas.objects.add(new GOval(300, 200, Color.darkGray, false,3,50,30));
+                Main.app.centerCanvas.objects.add(new GOval(300, 200, 50,30, Color.darkGray, false,3));
             } else if (btn_Img.equals(source))
             {//TODO
             }
