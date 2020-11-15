@@ -154,24 +154,23 @@ public class ToolPanel extends JPanel
             {//TODO
                 // for test
                 if(btn_Shape.getSelectedItem().toString().indexOf("Rectangle")>0) {
-                    GRectangle rect = new GRectangle(400, 350, Color.RED, true, 10, 30, 40);
+                    GRectangle rect = new GRectangle(400, 350, 30, 40, Color.RED, true, 10);
                     Main.app.centerCanvas.objects.add(rect);
-                    Main.app.centerCanvas.selectedObj = rect;
+                    Main.app.centerCanvas.inspectedObj = rect;
                 }else if(btn_Shape.getSelectedItem().toString().indexOf("Oval")>0) {
-                    GOval oval = new GOval(300, 200, Color.yellow, true, 3, 50, 30);
+                    GOval oval = new GOval(300, 200, 50, 30, Color.yellow, true, 3);
                     Main.app.centerCanvas.objects.add(oval);
-                    Main.app.centerCanvas.selectedObj = oval;
+                    Main.app.centerCanvas.inspectedObj = oval;
                 }else if(btn_Shape.getSelectedItem().toString().indexOf("Circle")>0) {
-                    GOval circle = new GOval(300, 200, Color.green, true, 3, 50, 50);
+                    GOval circle = new GOval(300, 200, 50, 50, Color.green, true, 3);
                     Main.app.centerCanvas.objects.add(circle);
-                    Main.app.centerCanvas.selectedObj = circle;
+                    Main.app.centerCanvas.inspectedObj = circle;
                 }else if(btn_Shape.getSelectedItem().toString().indexOf("Triangle")>0){
                     int x[]={100,70,130};
                     int y[]={50,100,100};
                     //drawPolygon(x,y,3);
                 }
                 //Main.app.centerCanvas.repaint();
-                Main.app.inspectorPanel.rearrangeValues();
 
                 //Main.app.centerCanvas.objects.add(new GOval(300, 200, Color.darkGray, false,3,50,30));
             } else if (btn_Img.equals(source))

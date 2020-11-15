@@ -93,9 +93,9 @@ public class InspectorPanel extends JPanel
         textBoxList.add(textBoxH);
 
     }
-    public void update(Graphics g){
-        rearrangeValues();
-    }
+//    public void update(Graphics g){
+//        rearrangeValues();
+//    }
 
     /**
      * Set the values in the inspector panel textboxes
@@ -103,10 +103,10 @@ public class InspectorPanel extends JPanel
      */
     public void rearrangeValues()
     {
-        GObject gatt = Main.app.centerCanvas.selectedObj;
+        GObject gatt = Main.app.centerCanvas.inspectedObj;
         GAttributes currAttr = null;
         if(gatt!=null){
-            currAttr = gatt.gAttributeManager.getCur_Attributes();
+            currAttr = gatt.getCurrentAttributes();
         }
         int i = 0;
         for(JTextField text : textBoxList)
@@ -153,8 +153,8 @@ public class InspectorPanel extends JPanel
                     }else{
                         text = textBoxLabel.getText() + e.getKeyChar();
                     }
-                    Main.app.centerCanvas.selectedObj.setLabel(text);
-                    Main.app.centerCanvas.repaint();
+                    //Main.app.centerCanvas.inspectedObj.setLabel(text);
+                    //Main.app.centerCanvas.repaint();
                     textBoxLabel.requestFocusInWindow();
                 }
                 else if(e.getSource().equals(textBoxX)){
@@ -165,11 +165,11 @@ public class InspectorPanel extends JPanel
                     }else{
                         text = textBoxX.getText() + e.getKeyChar();
                     }
-                    if(Main.app.centerCanvas.selectedObj != null) {
+                    if(Main.app.centerCanvas.inspectedObj != null) {
                         if (text.length() == 0)
-                            Main.app.centerCanvas.selectedObj.setX(0);
+                            Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setX(0);
                         else
-                            Main.app.centerCanvas.selectedObj.setX(Double.parseDouble(text));
+                            Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setX(Double.parseDouble(text));
                     }
                     Main.app.centerCanvas.repaint();
                     textBoxX.requestFocusInWindow();
@@ -181,11 +181,11 @@ public class InspectorPanel extends JPanel
                     }else{
                         text = textBoxY.getText() + e.getKeyChar();
                     }
-                    if(Main.app.centerCanvas.selectedObj != null) {
+                    if(Main.app.centerCanvas.inspectedObj != null) {
                         if (text.length() == 0)
-                            Main.app.centerCanvas.selectedObj.setY(0);
+                            Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setY(0);
                         else
-                            Main.app.centerCanvas.selectedObj.setY(Double.parseDouble(text));
+                            Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setY(Double.parseDouble(text));
                     }
                     Main.app.centerCanvas.repaint();
                     textBoxY.requestFocusInWindow();
@@ -197,11 +197,11 @@ public class InspectorPanel extends JPanel
                     }else{
                         text = textBoxW.getText() + e.getKeyChar();
                     }
-                    if(Main.app.centerCanvas.selectedObj != null) {
+                    if(Main.app.centerCanvas.inspectedObj != null) {
                         if (text.length() == 0)
-                            Main.app.centerCanvas.selectedObj.setW(0);
+                            Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setWidth(0);
                         else
-                            Main.app.centerCanvas.selectedObj.setW(Integer.parseInt(text));
+                            Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setWidth(Integer.parseInt(text));
                     }
                     Main.app.centerCanvas.repaint();
                     textBoxW.requestFocusInWindow();
@@ -213,11 +213,11 @@ public class InspectorPanel extends JPanel
                     } else {
                         text = textBoxH.getText() + e.getKeyChar();
                     }
-                    if (Main.app.centerCanvas.selectedObj != null){
+                    if (Main.app.centerCanvas.inspectedObj != null){
                         if (text.length() == 0)
-                            Main.app.centerCanvas.selectedObj.setH(0);
+                            Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setHeight(0);
                         else
-                            Main.app.centerCanvas.selectedObj.setH(Integer.parseInt(text));
+                            Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setHeight(Integer.parseInt(text));
                     }
                     Main.app.centerCanvas.repaint();
                     textBoxH.requestFocus();

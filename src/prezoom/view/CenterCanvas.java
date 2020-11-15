@@ -30,6 +30,7 @@ public class CenterCanvas extends JPanel
     private double yDiff;
     private final Point dragCanvasStartPoint = new Point(), dragObjStartPoint = new Point();
     private GObject selectedObj;
+    public GObject inspectedObj;
 
     /**
      * the camera state manager
@@ -170,6 +171,8 @@ public class CenterCanvas extends JPanel
 
         g2.dispose();
 
+        Main.app.inspectorPanel.rearrangeValues();
+
 
     }
 
@@ -297,7 +300,7 @@ public class CenterCanvas extends JPanel
                 {
                     selectedObj = go;
                     inspectedObj = go;
-                    Main.app.inspectorPanel.rearrangeValues();
+                    //Main.app.inspectorPanel.rearrangeValues();
                 }
             }
             //repaint();
