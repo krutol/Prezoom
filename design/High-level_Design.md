@@ -34,7 +34,12 @@
 
 
 ## Classes UML
-> TODO
+![Controllor Package](res/controller_package.png)
+![Model Package](res/model_package.png)
+![view Package](res/view_package.png)
+
+## Classes Dependency based on Packages
+![Classes Dependency based on Packages](res/package_class_dependency.png)
 
 ## Classes Description
 + Model
