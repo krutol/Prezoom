@@ -296,6 +296,8 @@ public class CenterCanvas extends JPanel
                 if (go.inShape(mx, my))
                 {
                     selectedObj = go;
+                    inspectedObj = go;
+                    Main.app.inspectorPanel.rearrangeValues();
                 }
             }
             //repaint();

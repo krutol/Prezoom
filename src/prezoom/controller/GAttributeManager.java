@@ -2,7 +2,6 @@ package prezoom.controller;
 
 import org.pushingpixels.trident.api.Timeline;
 import prezoom.model.GAttributes;
-
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -120,6 +119,7 @@ public class GAttributeManager
      */
     public void deleteAttributeState(int state)
     {
+
         state_Attributes_list.remove(state);
 
         // comment the update,  set it be triggered by the state manager to avoid double update

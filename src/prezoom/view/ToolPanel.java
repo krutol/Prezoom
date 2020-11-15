@@ -14,6 +14,16 @@ import prezoom.model.*;
  * @author Zhijie Lan<p>
  * create date: 2020/11/3
  **/
+
+/**
+ * Changed(Abhishek Sharma):
+ *  --> class: ToolPanel method: constructor, added circle to the list of drop down shapes
+ *
+ *  --> class:ToolBtnHandler, method: actionPerformed()
+ *      --code: if the shape is one among, add the shape to Main.app.centerCanvas.objects.add(shape)
+ *      --code: refresh the inspector panel Main.app.inspectorPanel.rearrangeValues();
+ */
+
 public class ToolPanel extends JPanel
 {
     private JButton btn_addState;
@@ -40,6 +50,8 @@ public class ToolPanel extends JPanel
         btn_Shape.addItem("  Line");
         btn_Shape.addItem("  Oval");
         btn_Shape.addItem("  Rectangle");
+        btn_Shape.addItem("  Circle");
+        //btn_Shape.addItem("  Triangle");
 
         btn_Img = new JButton("Image");
 
@@ -141,7 +153,27 @@ public class ToolPanel extends JPanel
             } else if (btn_Shape.equals(source))
             {//TODO
                 // for test
-                Main.app.centerCanvas.objects.add(new GOval(300, 200, 50,30, Color.darkGray, false,3));
+                if(btn_Shape.getSelectedItem().toString().indexOf("Rectangle")>0) {
+                    GRectangle rect = new GRectangle(400, 350, Color.RED, true, 10, 30, 40);
+                    Main.app.centerCanvas.objects.add(rect);
+                    Main.app.centerCanvas.selectedObj = rect;
+                }else if(btn_Shape.getSelectedItem().toString().indexOf("Oval")>0) {
+                    GOval oval = new GOval(300, 200, Color.yellow, true, 3, 50, 30);
+                    Main.app.centerCanvas.objects.add(oval);
+                    Main.app.centerCanvas.selectedObj = oval;
+                }else if(btn_Shape.getSelectedItem().toString().indexOf("Circle")>0) {
+                    GOval circle = new GOval(300, 200, Color.green, true, 3, 50, 50);
+                    Main.app.centerCanvas.objects.add(circle);
+                    Main.app.centerCanvas.selectedObj = circle;
+                }else if(btn_Shape.getSelectedItem().toString().indexOf("Triangle")>0){
+                    int x[]={100,70,130};
+                    int y[]={50,100,100};
+                    //drawPolygon(x,y,3);
+                }
+                //Main.app.centerCanvas.repaint();
+                Main.app.inspectorPanel.rearrangeValues();
+
+                //Main.app.centerCanvas.objects.add(new GOval(300, 200, Color.darkGray, false,3,50,30));
             } else if (btn_Img.equals(source))
             {//TODO
             }
