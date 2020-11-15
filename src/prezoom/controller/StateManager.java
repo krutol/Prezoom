@@ -84,6 +84,8 @@ public class StateManager
             o.getAttributeManager().insertAttributeState();
         }
 
+        updateStateData();
+
     }
 
     /**

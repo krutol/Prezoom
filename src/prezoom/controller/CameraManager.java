@@ -8,7 +8,7 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 /**
- * This class is the manager to manage all the camera related functions, including movement, info, states
+ * This class is the manager to manage all the camera related functions, including movement, info, states.
  *
  * @author Zhijie Lan<p>
  * create date: 2020/11/4
