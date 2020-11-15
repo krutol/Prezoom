@@ -8,7 +8,7 @@
   - [Classes Description](#classes-description)
 
 ## Packages UML
-> TODO
+> (res/Package_structure.png)
 
 ## Packages
 + Model
