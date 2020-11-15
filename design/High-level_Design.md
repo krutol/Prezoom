@@ -5,7 +5,7 @@
   - [Packages](#packages)
   - [Third Party Packages](#third-party-packages)
   - [Classes UML](#classes-uml)
-  - [Classes Dependency based on Packages](#class-uml)
+  - [Classes Dependency based on Packages](#class-dependency-package)
   - [Classes Description](#classes-description)
 
 ## Packages UML
