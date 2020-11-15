@@ -36,7 +36,7 @@ public class CenterCanvas extends JPanel
     private int xDiff;
     private int yDiff;
     private Point startPoint;
-    GObject selectedObj;
+    GObject selectedObj, inspectedObj;
     private double xOffset = 0;
     private double yOffset = 0;
     private double cur_off_x = 0;
@@ -313,6 +313,7 @@ public class CenterCanvas extends JPanel
                 if (go.inShape(mx, my))
                 {
                     selectedObj = go;
+                    inspectedObj = go;
                 }
             }
             //repaint();
