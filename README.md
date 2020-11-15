@@ -2,8 +2,42 @@
 
 Hey teammates! Check our project progress below!
 
-## Iteration 0
-Due November 2.   
+## Iteration 1
+Due November 16
+
+* [Requirements document](requirements/Requirements.md)
+    - [ ] Revise the requirement document.
+    - [ ] Indicate the state of each user story.
+    - [ ] Revise the list of user stories. 
+<br/>
+    
+* [Specification document](requirements/Specification.md)
+    - [x] Update use cases that cover all user stories.
+<br/>
+    
+* [design folder](design)
+    - [ ] [High-level design document](design/High-level_Design.md) (in HTML).
+        + [ ] Packages UML.
+        + [x] Description of our packages.
+        + [x] Description of third party packages.
+        + [ ] Classes UML.
+        + [x] Classes Description.
+    - [ ] Test plan.
+    - [x] [Compile instruction](design/Compile_Instruction.md).
+<br/>
+
+* [src folder](src)
+    - [x] Source code.
+    - [x] JavaDoc each class.
+    - [x] JavaDoc each public method.
+<br/>
+  
+* [tstsrc folder](tstsrc)
+    - [ ] JUnit automated tests
+<br/>
+
+## ~~Iteration 0~~
+~~Due November 2.~~ 
 
 * [Requirements document](requirements/Requirements.md)
   - [x] Domain model

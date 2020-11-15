@@ -3,7 +3,7 @@ package prezoom.view;
 import javax.swing.*;
 import java.awt.*;
 
-/** This main GUI window which holds all the child GUI windows
+/** This is the main GUI window that holds all the child GUI panels
  * @author Zhijie Lan<p>
  * create date: 2020/11/1
  **/
