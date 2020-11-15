@@ -5,10 +5,11 @@
   - [Packages](#packages)
   - [Third Party Packages](#third-party-packages)
   - [Classes UML](#classes-uml)
+  - [Classes Dependency based on Packages](#class-dependency-package)
   - [Classes Description](#classes-description)
 
 ## Packages UML
-> TODO
+> ![Package Structure](res/Package_structure.png)
 
 ## Packages
 + Model
@@ -33,7 +34,12 @@
 
 
 ## Classes UML
-> TODO
+![Controllor Package](res/controller_package.png)
+![Model Package](res/model_package.png)
+![view Package](res/view_package.png)
+
+## Classes Dependency based on Packages
+![Classes Dependency based on Packages](res/package_class_dependency.png)
 
 ## Classes Description
 + Model

@@ -7,7 +7,7 @@
  - [Requirements](#requirements)
 
 ## Domain Model
-![Domain model](res/DomainDiagram_new1_.png)
+![Domain model](res/DomainDiagram.png)
 
 
 ## Lexicon
