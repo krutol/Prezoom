@@ -1,31 +1,12 @@
-package prezoom.view;
-
-import prezoom.Main;
-import prezoom.controller.StateManager;
-import prezoom.model.GCircle;
-import prezoom.model.GOval;
-import prezoom.model.GRectangle;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/** TODO
- * the panel that contains different function buttons
+/**
  * @author Zhijie Lan<p>
  * create date: 2020/11/3
  **/
-
-/**
- * Changed(Abhishek Sharma):
- *  --> class: ToolPanel method: constructor, added circle to the list of drop down shapes
- *
- *  --> class:ToolBtnHandler, method: actionPerformed()
- *      --code: if the shape is one among, add the shape to Main.app.centerCanvas.objects.add(shape)
- *      --code: refresh the inspector panel Main.app.inspectorPanel.rearrangeValues();
- */
-
 public class ToolPanel extends JPanel
 {
     private JButton btn_addState;
@@ -35,6 +16,7 @@ public class ToolPanel extends JPanel
     private JButton btn_Text;
     private JComboBox<String> btn_Shape;
     private JButton btn_Img;
+
 
     public ToolPanel()
     {
@@ -49,11 +31,9 @@ public class ToolPanel extends JPanel
         btn_PlayCurrent = new JButton("<html><p align=\"center\">Play<br>Current</p></html>");
         btn_Text = new JButton("Text");
         btn_Shape = new JComboBox<>();
-        btn_Shape.addItem("  Line");
-        btn_Shape.addItem("  Oval");
-        btn_Shape.addItem("  Rectangle");
-        btn_Shape.addItem("  Circle");
-        //btn_Shape.addItem("  Triangle");
+        btn_Shape.addItem("Line");
+        btn_Shape.addItem("Oval");
+        btn_Shape.addItem("Rectangle");
 
         btn_Img = new JButton("Image");
 
@@ -135,7 +115,7 @@ public class ToolPanel extends JPanel
         {
             Object source = e.getSource();//TODO
             if (btn_addState.equals(source))
-            {
+            {//TODO
                 try
                 {
                     StateManager.insertState();
@@ -154,28 +134,16 @@ public class ToolPanel extends JPanel
             {//TODO
             } else if (btn_Shape.equals(source))
             {//TODO
-                // for test
-                if(btn_Shape.getSelectedItem().toString().indexOf("Rectangle")>0) {
-                    GRectangle rect = new GRectangle(400, 350, Color.RED, true, 10, 30, 40);
+                if(btn_Shape.getSelectedItem().equals("Rectangle")) {
+                    Rectangle rect = new Rectangle(400, 350, Color.RED, true, 10, 30, 40);
                     Main.app.centerCanvas.objects.add(rect);
                     Main.app.centerCanvas.selectedObj = rect;
-                }else if(btn_Shape.getSelectedItem().toString().indexOf("Oval")>0) {
-                    GOval oval = new GOval(300, 200, Color.yellow, true, 3, 50, 30);
+                }else if(btn_Shape.getSelectedItem().equals("Oval")) {
+                    Oval oval = new Oval(300, 200, Color.yellow, true, 3, 50, 30);
                     Main.app.centerCanvas.objects.add(oval);
                     Main.app.centerCanvas.selectedObj = oval;
-                }else if(btn_Shape.getSelectedItem().toString().indexOf("Circle")>0) {
-                    GCircle circle = new GCircle(300, 200, Color.green, true, 3, 50, 50);
-                    Main.app.centerCanvas.objects.add(circle);
-                    Main.app.centerCanvas.selectedObj = circle;
-                }else if(btn_Shape.getSelectedItem().toString().indexOf("Triangle")>0){
-                    int x[]={100,70,130};
-                    int y[]={50,100,100};
-                    //drawPolygon(x,y,3);
                 }
-                //Main.app.centerCanvas.repaint();
-                Main.app.inspectorPanel.rearrangeValues();
-
-                //Main.app.centerCanvas.objects.add(new GOval(300, 200, Color.darkGray, false,3,50,30));
+                Main.app.centerCanvas.repaint();
             } else if (btn_Img.equals(source))
             {//TODO
             }

@@ -58,6 +58,36 @@ public abstract class GObject
 
     }
 
+    public String getLabel()
+    {
+        return gAttributeManager.cur_Attributes.label;
+    }
+
+    public void setLabel(String label)
+    {
+        gAttributeManager.cur_Attributes.label = label;
+    }
+
+    public int getW()
+    {
+        return gAttributeManager.cur_Attributes.width;
+    }
+
+    public void setW(int width)
+    {
+        gAttributeManager.cur_Attributes.width = width;
+    }
+
+    public int getH()
+    {
+        return gAttributeManager.cur_Attributes.height;
+    }
+
+    public void setH(int height)
+    {
+        gAttributeManager.cur_Attributes.height = height;
+    }
+
     public Color getCol()
     {
         return gAttributeManager.cur_Attributes.col;
@@ -132,8 +162,28 @@ public abstract class GObject
      * @param y y
      * @return True if in the object
      */
-    public boolean inShape(double x, double y)
+    public abstract boolean inShape(double x, double y);
+    /*
     {
+
+        for (GObject go : Main.app.centerCanvas.objects)
+        {
+            if(go.contains(x, y)){
+                return true;
+            }
+            if (go.gAttributeManager.getCur_Attributes() != null)
+                go.draw(g2);
+
+        }
+
+
+        return false;
+    }
+             */
+
+    public boolean contains(double x, double y)
+    {
+
         return false;
     }
 }

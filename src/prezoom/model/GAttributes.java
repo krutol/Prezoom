@@ -9,6 +9,7 @@ import java.awt.*;
 
 public class GAttributes implements Cloneable
 {
+    protected String label;
     protected double x, y;
     protected Color col;
     protected Boolean filled = false;
@@ -59,6 +60,16 @@ public class GAttributes implements Cloneable
     public Object clone() throws CloneNotSupportedException
     {
         return super.clone();
+    }
+
+    public String getLabel()
+    {
+        return label;
+    }
+
+    public void setLabel(String label)
+    {
+        this.label = label;
     }
 
     public double getX()
