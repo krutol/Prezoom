@@ -11,7 +11,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-/** TODO
+/**
+ * TODO
+ *
  * @author Zhijie Lan<p>
  * create date: 2020/11/3
  **/
@@ -39,7 +41,7 @@ public class InspectorPanel extends JPanel
     {
         setBackground(Color.darkGray);                          //customize the panel
         setPreferredSize(new Dimension(100, -1));
-        setLayout(new FlowLayout(FlowLayout.CENTER,5,10));
+        setLayout(new FlowLayout(FlowLayout.CENTER, 5, 10));
 
         TitledBorder title = BorderFactory.createTitledBorder("Inspector");
         title.setTitleColor(Color.white);
@@ -52,7 +54,7 @@ public class InspectorPanel extends JPanel
         textBoxLabel = new JTextField(8);
         add(textBoxLabel);
         textBoxList.add(textBoxLabel);
-        PanelKeyboardListner panelKeyListener = new PanelKeyboardListner();
+        PanelKeyboardListener panelKeyListener = new PanelKeyboardListener();
         label = new JLabel("X:");
         label.setForeground(Color.white);
         add(label);
@@ -104,36 +106,37 @@ public class InspectorPanel extends JPanel
     public void rearrangeValues()
     {
         GObject gatt = Main.app.centerCanvas.inspectedObj;
-        GAttributes currAttr = null;
-        if(gatt!=null){
-            currAttr = gatt.getCurrentAttributes();
-        }
+        if (gatt == null)
+            return;
+
+        GAttributes currAttr = gatt.getCurrentAttributes();
         int i = 0;
-        for(JTextField text : textBoxList)
+        for (JTextField text : textBoxList)
         {
-            if(!textBoxList.isEmpty()){
-                if(i==0){
-                    if(gatt!=null)
-                        text.setText(""+currAttr.getLabel());//+gatt.getClass());
-                }else if(i==1){
-                    if(gatt!=null)
-                        text.setText(""+currAttr.getX());//+gatt.x);
-                }else if(i==2){
-                    if(gatt!=null)
-                        text.setText(""+currAttr.getY());//+gatt.y);
-                }else if(i==3){
-                    if(gatt!=null)
-                        text.setText(""+currAttr.getWidth());//+gatt.width);
-                }else if(i==4){
-                    if(gatt!=null)
-                        text.setText(""+currAttr.getHeight());//+gatt.height);
+            if (!textBoxList.isEmpty())
+            {
+                if (i == 0)
+                {
+                    text.setText("" + currAttr.getLabel());//+gatt.getClass());
+                } else if (i == 1)
+                {
+                    text.setText("" + currAttr.getX());//+gatt.x);
+                } else if (i == 2)
+                {
+                    text.setText("" + currAttr.getY());//+gatt.y);
+                } else if (i == 3)
+                {
+                    text.setText("" + currAttr.getWidth());//+gatt.width);
+                } else if (i == 4)
+                {
+                    text.setText("" + currAttr.getHeight());//+gatt.height);
                 }
             }
             i++;
         }
     }
 
-    private class PanelKeyboardListner implements KeyListener
+    private class PanelKeyboardListener implements KeyListener
     {
         /**
          * Invoked when an action occurs.
@@ -141,95 +144,115 @@ public class InspectorPanel extends JPanel
          * @param e the event to be processed
          */
         String keyCode = "0";
-        public void keyTyped(KeyEvent e) {
+
+        public void keyTyped(KeyEvent e)
+        {
             //System.out.println(e+"KEY TYPED: ");
         }
-        public void keyPressed(KeyEvent e) {
-                String text = "";
-                if(e.getSource().equals(textBoxLabel)){
-                    if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                        if(textBoxX.getText().length()>0)
-                            text = textBoxLabel.getText().substring(0, textBoxLabel.getText().length()-1);
-                    }else{
-                        text = textBoxLabel.getText() + e.getKeyChar();
-                    }
-                    //Main.app.centerCanvas.inspectedObj.setLabel(text);
-                    //Main.app.centerCanvas.repaint();
-                    textBoxLabel.requestFocusInWindow();
+
+        public void keyPressed(KeyEvent e)
+        {
+            String text = "";
+            if (e.getSource().equals(textBoxLabel))
+            {
+                if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+                {
+                    if (textBoxX.getText().length() > 0)
+                        text = textBoxLabel.getText().substring(0, textBoxLabel.getText().length() - 1);
+                } else
+                {
+                    text = textBoxLabel.getText() + e.getKeyChar();
                 }
-                else if(e.getSource().equals(textBoxX)){
-                    //System.out.println("here123"+ Main.app.centerCanvas.selectedObj);
-                    if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                        if(textBoxX.getText().length()>0)
-                            text = textBoxX.getText().substring(0, textBoxX.getText().length()-1);
-                    }else{
-                        text = textBoxX.getText() + e.getKeyChar();
-                    }
-                    if(Main.app.centerCanvas.inspectedObj != null) {
-                        if (text.length() == 0)
-                            Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setX(0);
-                        else
-                            Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setX(Double.parseDouble(text));
-                    }
-                    Main.app.centerCanvas.repaint();
-                    textBoxX.requestFocusInWindow();
+                //Main.app.centerCanvas.inspectedObj.setLabel(text);
+                //Main.app.centerCanvas.repaint();
+                textBoxLabel.requestFocusInWindow();
+            } else if (e.getSource().equals(textBoxX))
+            {
+                //System.out.println("here123"+ Main.app.centerCanvas.selectedObj);
+                if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+                {
+                    if (textBoxX.getText().length() > 0)
+                        text = textBoxX.getText().substring(0, textBoxX.getText().length() - 1);
+                } else
+                {
+                    text = textBoxX.getText() + e.getKeyChar();
                 }
-                else if(e.getSource().equals(textBoxY)){
-                    if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                        if(textBoxY.getText().length()>0)
-                            text = textBoxY.getText().substring(0, textBoxY.getText().length()-1);
-                    }else{
-                        text = textBoxY.getText() + e.getKeyChar();
-                    }
-                    if(Main.app.centerCanvas.inspectedObj != null) {
-                        if (text.length() == 0)
-                            Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setY(0);
-                        else
-                            Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setY(Double.parseDouble(text));
-                    }
-                    Main.app.centerCanvas.repaint();
-                    textBoxY.requestFocusInWindow();
+                if (Main.app.centerCanvas.inspectedObj != null)
+                {
+                    if (text.length() == 0)
+                        Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setX(0);
+                    else
+                        Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setX(Double.parseDouble(text));
                 }
-                else if(e.getSource().equals(textBoxW)){
-                    if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                        if(textBoxW.getText().length()>0)
-                            text = textBoxW.getText().substring(0, textBoxW.getText().length()-1);
-                    }else{
-                        text = textBoxW.getText() + e.getKeyChar();
-                    }
-                    if(Main.app.centerCanvas.inspectedObj != null) {
-                        if (text.length() == 0)
-                            Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setWidth(0);
-                        else
-                            Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setWidth(Integer.parseInt(text));
-                    }
-                    Main.app.centerCanvas.repaint();
-                    textBoxW.requestFocusInWindow();
+                //Main.app.centerCanvas.repaint();
+                textBoxX.requestFocusInWindow();
+            } else if (e.getSource().equals(textBoxY))
+            {
+                if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+                {
+                    if (textBoxY.getText().length() > 0)
+                        text = textBoxY.getText().substring(0, textBoxY.getText().length() - 1);
+                } else
+                {
+                    text = textBoxY.getText() + e.getKeyChar();
                 }
-                else if(e.getSource().equals(textBoxH)) {
-                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                        if (textBoxH.getText().length() > 0)
-                            text = textBoxH.getText().substring(0, textBoxH.getText().length() - 1);
-                    } else {
-                        text = textBoxH.getText() + e.getKeyChar();
-                    }
-                    if (Main.app.centerCanvas.inspectedObj != null){
-                        if (text.length() == 0)
-                            Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setHeight(0);
-                        else
-                            Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setHeight(Integer.parseInt(text));
-                    }
-                    Main.app.centerCanvas.repaint();
-                    textBoxH.requestFocus();
+                if (Main.app.centerCanvas.inspectedObj != null)
+                {
+                    if (text.length() == 0)
+                        Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setY(0);
+                    else
+                        Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setY(Double.parseDouble(text));
                 }
-                //keyCode = "0";
+                //Main.app.centerCanvas.repaint();
+                textBoxY.requestFocusInWindow();
+            } else if (e.getSource().equals(textBoxW))
+            {
+                if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+                {
+                    if (textBoxW.getText().length() > 0)
+                        text = textBoxW.getText().substring(0, textBoxW.getText().length() - 1);
+                } else
+                {
+                    text = textBoxW.getText() + e.getKeyChar();
+                }
+                if (Main.app.centerCanvas.inspectedObj != null)
+                {
+                    if (text.length() == 0)
+                        Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setWidth(0);
+                    else
+                        Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setWidth(Integer.parseInt(text));
+                }
+                //Main.app.centerCanvas.repaint();
+                textBoxW.requestFocusInWindow();
+            } else if (e.getSource().equals(textBoxH))
+            {
+                if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+                {
+                    if (textBoxH.getText().length() > 0)
+                        text = textBoxH.getText().substring(0, textBoxH.getText().length() - 1);
+                } else
+                {
+                    text = textBoxH.getText() + e.getKeyChar();
+                }
+                if (Main.app.centerCanvas.inspectedObj != null)
+                {
+                    if (text.length() == 0)
+                        Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setHeight(0);
+                    else
+                        Main.app.centerCanvas.inspectedObj.getCurrentAttributes().setHeight(Integer.parseInt(text));
+                }
+                //Main.app.centerCanvas.repaint();
+                textBoxH.requestFocus();
+            }
+            //keyCode = "0";
 //            }
             //Main.app.centerCanvas.selectedObj.setX(e.getKeyCode());
             //Main.app.centerCanvas.repaint();
         }
 
         /** Handle the key-released event from the text field. */
-        public void keyReleased(KeyEvent e) {
+        public void keyReleased(KeyEvent e)
+        {
             //System.out.println(e+"KEY RELEASED: ");
         }
     }
