@@ -34,8 +34,11 @@
 
 
 ## Classes UML
++ Controllor Package
 ![Controllor Package](res/controller_package.png)
++ Model Package 
 ![Model Package](res/model_package.png)
++ View Package
 ![view Package](res/view_package.png)
 
 ## Classes Dependency based on Packages
