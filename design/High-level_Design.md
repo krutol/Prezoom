@@ -5,11 +5,11 @@
   - [Packages](#packages)
   - [Third Party Packages](#third-party-packages)
   - [Classes UML](#classes-uml)
-  - [Classes Dependency based on Packages](#class-dependency-package)
+  - [Classes Dependency based on Packages](#classes-dependency-based-on-packages)
   - [Classes Description](#classes-description)
 
 ## Packages UML
-> ![Package Structure](res/Package_structure.png)
+![Package Structure](res/Package_structure.png)
 
 ## Packages
 + Model
@@ -34,12 +34,12 @@
 
 
 ## Classes UML
-+ Controllor Package
-![Controllor Package](res/controller_package.png)
-+ Model Package 
+* Model Packages
 ![Model Package](res/model_package.png)
-+ View Package
+* View Packages
 ![view Package](res/view_package.png)
+* Controller Packages
+![Controller Package](res/controller_package.png)
 
 ## Classes Dependency based on Packages
 ![Classes Dependency based on Packages](res/package_class_dependency.png)
