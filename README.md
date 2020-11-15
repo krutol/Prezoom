@@ -16,11 +16,11 @@ Due November 16
 <br/>
     
 * [design folder](design)
-    - [ ] [High-level design document](design/High-level_Design.md) (in HTML).
-        + [ ] Packages UML.
+    - [x] [High-level design document](design/High-level_Design.md) (in HTML).
+        + [x] Packages UML.
         + [x] Description of our packages.
         + [x] Description of third party packages.
-        + [ ] Classes UML.
+        + [x] Classes UML.
         + [x] Classes Description.
     - [ ] Test plan.
     - [x] [Compile instruction](design/Compile_Instruction.md).
