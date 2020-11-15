@@ -5,11 +5,11 @@
   - [Packages](#packages)
   - [Third Party Packages](#third-party-packages)
   - [Classes UML](#classes-uml)
-  - [Classes dependency based on Packages](#class-uml)
+  - [Classes Dependency based on Packages](#class-uml)
   - [Classes Description](#classes-description)
 
 ## Packages UML
-> (res/Package_structure.png)
+> ![Package Structure](res/Package_structure.png)
 
 ## Packages
 + Model
