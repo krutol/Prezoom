@@ -6,9 +6,9 @@ Hey teammates! Check our project progress below!
 Due November 16
 
 * [Requirements document](requirements/Requirements.md)
-    - [ ] Revise the requirement document.
-    - [ ] Indicate the state of each user story.
-    - [ ] Revise the list of user stories. 
+    - [x] Revise the requirement document.
+    - [x] Indicate the state of each user story.
+    - [x] Revise the list of user stories. 
 <br/>
     
 * [Specification document](requirements/Specification.md)
