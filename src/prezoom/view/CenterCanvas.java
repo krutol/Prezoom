@@ -2,15 +2,14 @@ package prezoom.view;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import javax.swing.*;
 
 import org.pushingpixels.trident.api.Timeline;
 import org.pushingpixels.trident.api.swing.SwingRepaintTimeline;
 import prezoom.controller.GAttributeManager;
+import prezoom.controller.GObjectManager;
 import prezoom.model.*;
 import prezoom.controller.CameraManager;
-import prezoom.Main;
 
 /** The center canvas where you can edit the presentation, move the camera, etc.
  * @author Zhijie Lan<p>
@@ -35,7 +34,12 @@ public class CenterCanvas extends JPanel
     /**
      * the camera state manager
      */
-    public CameraManager cameraManager = new CameraManager();
+    public static CameraManager cameraManager = new CameraManager();
+
+    /**
+     * the object manager
+     */
+    public static GObjectManager gObjectManager = new GObjectManager();
 
     private CameraInfo getCurCamInfo()
     {
@@ -43,14 +47,14 @@ public class CenterCanvas extends JPanel
     }
 
     // for test purpose
-    public ArrayList<GObject> objects = new ArrayList<>();
-
-    {
-        objects.add(new GRectangle(50, 100, 30, 40, Color.red, false, 1));
-        objects.add(new GRectangle(350, 500, 30, 40, Color.GREEN, true, 10));
-        objects.add(new GOval(150, 200, 50, 30, Color.BLUE, true, 3));
-        objects.add(new GLine(500,500,672, 789, Color.magenta, 5));
-    }
+//    public ArrayList<GObject> objects = new ArrayList<>();
+//
+//    {
+//        objects.add(new GRectangle(50, 100, 30, 40, Color.red, false, 1));
+//        objects.add(new GRectangle(350, 500, 30, 40, Color.GREEN, true, 10));
+//        objects.add(new GOval(150, 200, 50, 30, Color.BLUE, true, 3));
+//        objects.add(new GLine(500,500,672, 789, Color.magenta, 5));
+//    }
 
     /**
      * add Mouse Listener, Mouse Wheel Listener, and Mouse Motion Listener to this panel
@@ -163,15 +167,16 @@ public class CenterCanvas extends JPanel
 
         //g2.setColor(Color.white);
         //g2.fillRect(0,0,2000,1000);
-        for (GObject go : objects)
-        {
-            if (go.getAttributeManager().getCur_Attributes() != null)
-                go.draw(g2);
-        }
+//        for (GObject go : objects)
+//        {
+//            if (go.getAttributeManager().getCur_Attributes() != null)
+//                go.draw(g2);
+//        }
+        gObjectManager.drawAll(g2);
 
         g2.dispose();
 
-        Main.app.inspectorPanel.rearrangeValues();
+        MainWindow.inspectorPanel.rearrangeValues();
 
 
     }
@@ -203,7 +208,7 @@ public class CenterCanvas extends JPanel
                 repaint();
             }
 
-            Main.app.statusBar.setZoomText(String.format("Zoom: %3.2f %%", cam.getZoomFactor() * 100));
+            MainWindow.statusBar.setZoomText(String.format("Zoom: %3.2f %%", cam.getZoomFactor() * 100));
 
         }
 
@@ -258,7 +263,7 @@ public class CenterCanvas extends JPanel
         @Override
         public void mouseMoved(MouseEvent e)
         {
-            Main.app.statusBar.setStatusText(String.format("Moving at [%d,%d]", e.getX(), e.getY()));
+            MainWindow.statusBar.setStatusText(String.format("Moving at [%d,%d]", e.getX(), e.getY()));
         }
 
         @Override
@@ -294,15 +299,19 @@ public class CenterCanvas extends JPanel
             double my = (e.getY() - getCurCamInfo().getOffsetY()) / getCurCamInfo().getPreZoomFactor();
 //        int mx=e.getX();
 //        int my=e.getY();
-            for (GObject go : objects)
-            {
-                if (go.inShape(mx, my))
-                {
-                    selectedObj = go;
-                    inspectedObj = go;
-                    //Main.app.inspectorPanel.rearrangeValues();
-                }
-            }
+//            for (GObject go : objects)
+//            {
+//                if (go.inShape(mx, my))
+//                {
+//                    selectedObj = go;
+//                    inspectedObj = go;
+//                    break;
+//                    //Main.app.inspectorPanel.rearrangeValues();
+//                }
+//            }
+            selectedObj = gObjectManager.findSelected(mx,my);
+            inspectedObj = selectedObj;
+
             //repaint();
             //mxstart=mx;
             //mystart=my;

@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import prezoom.controller.StateManager;
-import prezoom.Main;
 import prezoom.model.*;
 
 /** TODO
@@ -155,16 +154,16 @@ public class ToolPanel extends JPanel
                 // for test
                 if(btn_Shape.getSelectedItem().toString().indexOf("Rectangle")>0) {
                     GRectangle rect = new GRectangle(400, 350, 30, 40, Color.RED, true, 10);
-                    Main.app.centerCanvas.objects.add(rect);
-                    Main.app.centerCanvas.inspectedObj = rect;
+                    CenterCanvas.gObjectManager.addGObject(rect);
+                    MainWindow.centerCanvas.inspectedObj = rect;
                 }else if(btn_Shape.getSelectedItem().toString().indexOf("Oval")>0) {
                     GOval oval = new GOval(300, 200, 50, 30, Color.yellow, true, 3);
-                    Main.app.centerCanvas.objects.add(oval);
-                    Main.app.centerCanvas.inspectedObj = oval;
+                    CenterCanvas.gObjectManager.addGObject(oval);
+                    MainWindow.centerCanvas.inspectedObj = oval;
                 }else if(btn_Shape.getSelectedItem().toString().indexOf("Circle")>0) {
                     GOval circle = new GOval(300, 200, 50, 50, Color.green, true, 3);
-                    Main.app.centerCanvas.objects.add(circle);
-                    Main.app.centerCanvas.inspectedObj = circle;
+                    CenterCanvas.gObjectManager.addGObject(circle);
+                    MainWindow.centerCanvas.inspectedObj = circle;
                 }else if(btn_Shape.getSelectedItem().toString().indexOf("Triangle")>0){
                     int x[]={100,70,130};
                     int y[]={50,100,100};

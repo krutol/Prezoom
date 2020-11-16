@@ -14,27 +14,27 @@ public class MainWindow extends JFrame
     /**
      * the menu bar
      */
-    public MenuBar menuBar;
+    public static MenuBar menuBar;
     /**
      * the canvas to present objects
      */
-    public CenterCanvas centerCanvas;
+    public static CenterCanvas centerCanvas;
     /**
      * the status bar
      */
-    public StatusBar statusBar;
+    public static StatusBar statusBar;
     /**
      * the panel that contains different function buttons
      */
-    public ToolPanel toolPanel;
+    public static ToolPanel toolPanel;
     /**
      * The panel that shows the state sequentially
      */
-    public StatePanel statePanel;
+    public static StatePanel statePanel;
     /**
      * The panel that shows editable attributes of selected objects and other useful info
      */
-    public InspectorPanel inspectorPanel;
+    public static InspectorPanel inspectorPanel;
 
 
 

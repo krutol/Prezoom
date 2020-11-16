@@ -1,7 +1,7 @@
 package prezoom.controller;
 
-import prezoom.Main;
-import prezoom.model.GObject;
+import prezoom.view.CenterCanvas;
+import prezoom.view.MainWindow;
 import prezoom.view.StatePanel;
 
 import javax.swing.*;
@@ -36,7 +36,7 @@ public class StateManager
             return;
 
         current_State = state;
-        Main.app.statusBar.setCurStateText("Current State: "+current_State);
+        MainWindow.statusBar.setCurStateText("Current State: "+current_State);
 
         updateStateData();
     }
@@ -48,12 +48,13 @@ public class StateManager
     private static void updateStateData()
     {
         // update camera info
-        Main.app.centerCanvas.cameraManager.updateCur_CamInfo();
+        CenterCanvas.cameraManager.updateCur_CamInfo();
         // update attributes of GObjects
-        for (GObject o: Main.app.centerCanvas.objects)
-        {
-            o.getAttributeManager().updateCur_Attributes();
-        }
+        CenterCanvas.gObjectManager.updateAllObject();
+//        for (GObject o: Main.app.centerCanvas.objects)
+//        {
+//            o.getAttributeManager().updateCur_Attributes();
+//        }
         // repaint canvas
         //Main.app.centerCanvas.repaint();
 
@@ -71,18 +72,19 @@ public class StateManager
     {
         current_State++;
         total_State_Number++;
-        Main.app.statusBar.setCurStateText("Current State: "+current_State);
+        MainWindow.statusBar.setCurStateText("Current State: "+current_State);
 
         //insert state button
-        Main.app.statePanel.insertStateBtn();
+        MainWindow.statePanel.insertStateBtn();
 
         //insert camera info
-        Main.app.centerCanvas.cameraManager.insertCamState();
+        CenterCanvas.cameraManager.insertCamState();
         //insert attribute to objects
-        for (GObject o: Main.app.centerCanvas.objects)
-        {
-            o.getAttributeManager().insertAttributeState();
-        }
+        CenterCanvas.gObjectManager.insertStateToAll();
+//        for (GObject o: Main.app.centerCanvas.objects)
+//        {
+//            o.getAttributeManager().insertAttributeState();
+//        }
 
         updateStateData();
 
@@ -114,15 +116,16 @@ public class StateManager
 
 
         // delete state button
-        Main.app.statePanel.deleteStateBtn(state);
+        MainWindow.statePanel.deleteStateBtn(state);
 
         // delete camera info
-        Main.app.centerCanvas.cameraManager.deleteCamState(state);
+        CenterCanvas.cameraManager.deleteCamState(state);
         // delete attributes form objects
-        for (GObject o: Main.app.centerCanvas.objects)
-        {
-            o.getAttributeManager().deleteAttributeState(state);
-        }
+        CenterCanvas.gObjectManager.deleteStateToAll(state);
+//        for (GObject o: Main.app.centerCanvas.objects)
+//        {
+//            o.getAttributeManager().deleteAttributeState(state);
+//        }
 
         updateStateData();
 
