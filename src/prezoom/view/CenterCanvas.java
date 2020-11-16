@@ -228,6 +228,7 @@ public class CenterCanvas extends JPanel
                 yDiff = curPoint.getY() - dragCanvasStartPoint.getY();
 
                 isDragging = true;
+                setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 repaint();
             } else if (selectedObj != null)
             {
