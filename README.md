@@ -22,7 +22,7 @@ Due November 16
         + [x] Description of third party packages.
         + [x] Classes UML.
         + [x] Classes Description.
-    - [ ] Test plan.
+    - [x] Test plan.
     - [x] [Compile instruction](design/Compile_Instruction.md).
 <br/>
 
@@ -33,7 +33,7 @@ Due November 16
 <br/>
   
 * [tstsrc folder](tstsrc)
-    - [ ] JUnit automated tests
+    - [x] JUnit automated tests
 <br/>
 
 ## ~~Iteration 0~~
