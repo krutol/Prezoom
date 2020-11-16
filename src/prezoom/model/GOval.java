@@ -14,27 +14,18 @@ public class GOval extends GObject
         super(x, y, col, filled, lineWidth, w, h, 0,0,true);
     }
 
-
     /**
-     * draw this object.
-     * use {@link GAttributes#col} as color.
-     * use {@link GAttributes#filled} to depend whether calling {@link Graphics2D#fillOval(int, int, int, int)} or {@link Graphics2D#draw(Shape)}.
-     * use {@link GAttributes#stroke} to set the line style
-     * @param g the Graphics to paint
+     * {@inheritDoc}
      */
     @Override
     public void draw(Graphics2D g)
     {
-        g.setColor(getCurrentAttributes().getCol());
         double x = getCurrentAttributes().getX(), y = getCurrentAttributes().getY();
         int w = getCurrentAttributes().getWidth(), h = getCurrentAttributes().getHeight();
 
-        if (getCurrentAttributes().getFilled()) g.fillOval((int)x, (int)y, w, h);
-        else
-        {
-            g.setStroke(new BasicStroke(getCurrentAttributes().getLineWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-            g.draw(new Ellipse2D.Double(x, y, w, h));
-        }
+        this.drawShape = new Ellipse2D.Double(x, y, w, h);
+
+        drawing(g);
     }
 
 }

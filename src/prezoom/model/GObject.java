@@ -21,6 +21,11 @@ public abstract class GObject
     private final GAttributeManager gAttributeManager;
 
     /**
+     * the actual shape object that shows on the canvas
+     */
+    protected Shape drawShape;
+
+    /**
      * the constructor will call the {@link GAttributeManager} to manage all the attributes
      * @param x location, x
      * @param y location, y
@@ -59,10 +64,28 @@ public abstract class GObject
     }
 
     /**
-     * draw this object
+     * generate the shape to draw
      * @param g the Graphics to paint
      */
     public abstract void draw(Graphics2D g);
+
+    /**
+    * General function to draw all kinds of shapes
+    * use {@link GAttributes#col} as color.
+    * use {@link GAttributes#filled} to depend whether calling {@link Graphics2D#fill(Shape)} or {@link Graphics2D#draw(Shape)}.
+    * use {@link GAttributes#stroke} to set the line style
+    * @param g the Graphics to paint
+    */
+    protected void drawing(Graphics2D g)
+    {
+        g.setColor(getCurrentAttributes().getCol());
+        if (getCurrentAttributes().getFilled()) g.fill(drawShape);
+        else
+        {
+            g.setStroke(new BasicStroke(getCurrentAttributes().getLineWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+            g.draw(drawShape);
+        }
+    }
 
     /**
      * Whether the given position is in this object
@@ -72,9 +95,10 @@ public abstract class GObject
      */
     public boolean inShape(double mx, double my)
     {
-        double x = getCurrentAttributes().getX(), y = getCurrentAttributes().getY();
-        int w = getCurrentAttributes().getWidth(), h = getCurrentAttributes().getHeight();
-        return mx >= x && mx <= x + w && my >= y && my <= y + h;
+//        double x = getCurrentAttributes().getX(), y = getCurrentAttributes().getY();
+//        int w = getCurrentAttributes().getWidth(), h = getCurrentAttributes().getHeight();
+//        return mx >= x && mx <= x + w && my >= y && my <= y + h;
+        return drawShape.contains(mx,my);
     }
 
     /**

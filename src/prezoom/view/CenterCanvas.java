@@ -247,6 +247,16 @@ public class CenterCanvas extends JPanel
                 selectedObj.getCurrentAttributes()
                         .setY(selectedObj.getCurrentAttributes().getY() +
                                 /*(int)*/((point.getY() - dragObjStartPoint.getY()) / getCurCamInfo().getPreZoomFactor()));
+                if (selectedObj instanceof GLine)
+                {
+                    selectedObj.getCurrentAttributes()
+                            .setX2(selectedObj.getCurrentAttributes().getX2() +
+                                    /*(int)*/((point.getX() - dragObjStartPoint.getX()) / getCurCamInfo().getPreZoomFactor()));
+
+                    selectedObj.getCurrentAttributes()
+                            .setY2(selectedObj.getCurrentAttributes().getY2() +
+                                    /*(int)*/((point.getY() - dragObjStartPoint.getY()) / getCurCamInfo().getPreZoomFactor()));
+                }
                 //selectedObj.setX(mx);
                 //selectedObj.setY(my);
                 //mxstart = mx;
@@ -263,7 +273,13 @@ public class CenterCanvas extends JPanel
         @Override
         public void mouseMoved(MouseEvent e)
         {
-            MainWindow.statusBar.setStatusText(String.format("Moving at [%d,%d]", e.getX(), e.getY()));
+            double mx = (e.getX() - getCurCamInfo().getOffsetX()) / getCurCamInfo().getPreZoomFactor();
+            double my = (e.getY() - getCurCamInfo().getOffsetY()) / getCurCamInfo().getPreZoomFactor();
+            MainWindow.statusBar.setStatusText(String.format("Moving at [%d,%d]", (int)mx, (int)my));
+            if (gObjectManager.findSelected(mx, my) != null)
+                setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+            else
+                setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
 
         @Override
