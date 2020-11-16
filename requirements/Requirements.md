@@ -32,33 +32,34 @@
 
 ## Requirements
 
-+ ### __Iteration 1__(GUI, Canvas, Camera, Objects, Attributes):
-  + Main GUI Frame.
-  + Main canvas.
-  + Camera.
-  + (Move) Can move the main camera.
-  + (Zoom) Can zoom in or out the main camera.
-  + (Edit) In edit mode the presentation can be changed.
-  + (Ob-Add) To add graphical objects to a presentation.
-  + (Ob-Delete) To delete graphical objects from a presentation.
-  + (Attributes) Graphical objects have attributes. The value of each attribute may depend on the state.
-  + (Attr-modify) To change the values of the various attributes of graphical objects.
-  + (Save) To save a presentation to file.
-  + (Load) To read a presentation from a file.  
++ ### __Iteration 1__(GUI, Canvas, Camera, Objects, Attributes, States):
+  + What we have done:
+    + Main GUI Frame.
+    + Main canvas.
+    + Camera.
+    + (Move) Can move the main camera.
+    + (Zoom) Can zoom in or out the main camera.
+    + (Edit) In edit mode the presentation can be changed.
+    + (Ob-Add) To add graphical objects to a presentation.
+    + (Attributes) Graphical objects have attributes. The value of each attribute may depend on the state.
+    + (Attr-modify) To change the values of the various attributes of graphical objects.
+    + (State-Add) To add a state at any point.
+    + (State-Delete) To delete any state.
+    + (State-View) To view the presentation at any state.
+  + What we have started:
+    + Save and load files.
+    + The edit mode change to presentation mode.
+    + InspectorPanel design.
+    
 <br/>
 
-+ ### __Iteration 2__(States, Presentation):
-  + (State-Add) To add a state at any point.
-  + (State-Delete) To delete any state.
-  + (State-View) To view the presentation at any state.
-  + (Trans-Trigger) To change the trigger condition for moving from one state to the next.
-  + (Trans-Duration) To change the amount of time it takes to move from one state to the next.
-  + Animation
-  + (Pres-start) To move from edit mode to presentation mode either starting at the beginning or starting at the current state.
-  + (Pres-States) To show each state of the presentation in succession.
-  + (Pres-trigger) The presentation begins moving to the next state when the appropriate trigger event happens.
-  + (Pres-trans) Between showing one state and the next, a transition will be shown.
-  + (Pres-interpolation-objects) The user should see an interpolation of attribute values.
-  + (Pres-interpolation-camera) Interpolation also applies to the camera attributes.
-  + (Pres-skip) To move quickly forward or backward without transition.
-  + (Pres-end) To exit presentation mode and entering edit mode.
++ ### __Iteration 2__(Presentation):
+  + What we will do in the next iteration:
+    + (Trans-Trigger) To change the trigger condition for moving from one state to the next.
+    + (Trans-Duration) To change the amount of time it takes to move from one state to the next.
+    + Animation
+    + (Pres-start) To move from edit mode to presentation mode either starting at the beginning or starting at the current state.
+    + (Pres-States) To show each state of the presentation in succession.
+    + (Pres-trigger) The presentation begins moving to the next state when the appropriate trigger event happens.
+    + (Pres-skip) To move quickly forward or backward without transition.
+    + (Pres-end) To exit presentation mode and entering edit mode.
