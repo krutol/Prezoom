@@ -22,7 +22,7 @@ Due November 16
         + [x] Description of third party packages.
         + [x] Classes UML.
         + [x] Classes Description.
-    - [x] Test plan.
+    - [x] [Test plan](design/Test_Plan.md).
     - [x] [Compile instruction](design/Compile_Instruction.md).
 <br/>
 
