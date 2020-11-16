@@ -12,27 +12,23 @@
 
 ## Lexicon
 
-- User: The user of the presentation software.
-- PresentMode: In this mode, system begins with state 0. With the effect of trigger events, system can change to other states.
-- PresentationSoftware: The entity of the project.
-- Graph: Each graph has its own attributes which contains exact position (x, y). User could add, delete, move graphs.
-- GraphObjects: Each graph has different type, such as Text area, Ovals, Straight Line, Group.
-- TextArea: The graph object in which user can type text.
-- Ovals: The graph object with the shape of ovals.
-- StraightLine: A straight line graph object.
-- Groups: A combination of several graph objects.
-- EditMode: The mode user can modify the timeline, transition, and states in various way. 
-- Camera: A rectangular area which user can see with presentation mode
-- Clipboard: The interface has several operations
-- ClipboardOperations: User can use different operations with the software, such as cut, copy, paste, Trigger control, Undo, Redo. 
-- StateManger: It is used to control the state and state operations.
-- Transition: It is used to control the time trigger.
-- Cut: Cut operation.
-- Copy: Copy operation.
-- Paste: Paste operation.
-- Undo: Cancel or reverse the results of a previous action.
-- Redo: Operate the previous operation again.
-
+- controller : the package which used to control the camera, state, attribute and mode.
+- model : the package which used to construct camera, attributes and graphical objects.
+- view : the package which used to set up the GUI of the project.
+- CameraManager : the class to manage all the camera related functions, including movement, info, states.
+- AttributeManager : the class to manage the state related functions for the attributes of graphical objects.
+- StateManager : the class that controls all the state changes in Prezoom.
+- ModeManager : the class that controls mode change.
+- GraphicObjects : the base class for all graphical objects.
+- Oval : the Oval graph.
+- Rectangle : the Rectangle graph.
+- Circle : the Circle graph.
+- GraphicAttributes : the base attribute class that holds all the attribute an object has.
+- CameroInfo : the base class for camera information.
+- MainWindow : the main GUI window to hold all the child GUI windows.
+- MenuBar : display the application's menu bar.
+- StatePanel : show all the state sequentially.
+- ClipBoardPanel : contain different function buttons.
 
 ## Requirements
 
