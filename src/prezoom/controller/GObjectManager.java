@@ -68,7 +68,7 @@ public class GObjectManager
      * call the objects' attribute manager to insert a state to all objects
      * @throws CloneNotSupportedException none
      */
-    public void insertStateToAll() throws CloneNotSupportedException
+    public void insertStateToGObjects() throws CloneNotSupportedException
     {
         for (GObject obj: gObjectList)
         {
@@ -80,7 +80,7 @@ public class GObjectManager
      * call the objects' attribute manager to delete a given state
      * @param state the state to delete
      */
-    public void deleteStateToAll(int state)
+    public void deleteStateToGObjects(int state)
     {
         for (GObject obj: gObjectList)
         {

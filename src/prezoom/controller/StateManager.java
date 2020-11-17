@@ -80,7 +80,7 @@ public class StateManager
         //insert camera info
         CenterCanvas.cameraManager.insertCamState();
         //insert attribute to objects
-        CenterCanvas.gObjectManager.insertStateToAll();
+        CenterCanvas.gObjectManager.insertStateToGObjects();
 //        for (GObject o: Main.app.centerCanvas.objects)
 //        {
 //            o.getAttributeManager().insertAttributeState();
@@ -121,7 +121,7 @@ public class StateManager
         // delete camera info
         CenterCanvas.cameraManager.deleteCamState(state);
         // delete attributes form objects
-        CenterCanvas.gObjectManager.deleteStateToAll(state);
+        CenterCanvas.gObjectManager.deleteStateToGObjects(state);
 //        for (GObject o: Main.app.centerCanvas.objects)
 //        {
 //            o.getAttributeManager().deleteAttributeState(state);

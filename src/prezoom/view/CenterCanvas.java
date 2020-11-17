@@ -339,6 +339,7 @@ public class CenterCanvas extends JPanel
         {
             isReleased = true;
             selectedObj = null;
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             repaint();
         }
 
