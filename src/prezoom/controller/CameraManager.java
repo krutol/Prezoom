@@ -2,6 +2,7 @@ package prezoom.controller;
 
 import org.pushingpixels.trident.api.Timeline;
 import prezoom.model.CameraInfo;
+import prezoom.model.CameraInfoI;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -18,22 +19,22 @@ public class CameraManager
     /**
      * the array that stores info of each state
      */
-    static ArrayList<CameraInfo> state_CamInfo_list = new ArrayList<>();
+    static ArrayList<CameraInfoI> state_CamInfo_list = new ArrayList<>();
     /**
      * the info for the current state
      */
-    public static CameraInfo cur_CamInfo;
+    public static CameraInfoI cur_CamInfo;
 
     static
     {
-        CameraInfo cameraInfo = new CameraInfo();
+        CameraInfoI cameraInfo = new CameraInfo();
         state_CamInfo_list.add(getCurrent_State(), cameraInfo);
         updateCur_CamInfo();
     }
 
     public CameraManager()
     {
-        CameraInfo cameraInfo = new CameraInfo();
+        CameraInfoI cameraInfo = new CameraInfo();
         state_CamInfo_list.add(getCurrent_State(), cameraInfo);
         updateCur_CamInfo();
     }
@@ -100,7 +101,7 @@ public class CameraManager
      *
      * @return the current camera info
      */
-    public static CameraInfo getCur_CamInfo()
+    public static CameraInfoI getCur_CamInfo()
     {
         return state_CamInfo_list.get(getCurrent_State());
     }
@@ -117,7 +118,7 @@ public class CameraManager
 //                cur_CamInfo.getOffsetY(), cur_CamInfo.getZoomFactor(), cur_CamInfo.getPreZoomFactor());
         if (cur_CamInfo != null)
         {
-            CameraInfo preCam = cur_CamInfo;
+            CameraInfoI preCam = cur_CamInfo;
             cur_CamInfo = getCur_CamInfo();
             //cur_CamInfo = (CameraInfo) cur_CamInfo.clone();
             Timeline camTimeLine = Timeline.builder(cur_CamInfo)
@@ -144,10 +145,10 @@ public class CameraManager
      */
     public static void insertCamState() throws CloneNotSupportedException
     {
-        CameraInfo cameraInfo = new CameraInfo();
+        CameraInfoI cameraInfo = new CameraInfo();
 
         if (!state_CamInfo_list.isEmpty())
-            cameraInfo = (CameraInfo) state_CamInfo_list.get(getCurrent_State() - 1).clone();
+            cameraInfo = (CameraInfoI) state_CamInfo_list.get(getCurrent_State() - 1).clone();
 
         state_CamInfo_list.add(getCurrent_State(), cameraInfo);
 

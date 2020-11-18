@@ -114,7 +114,7 @@ public abstract class GObject
      * Get the attributes for the current state
      * @return current attributes
      */
-    public GAttributes getCurrentAttributes()
+    public GAttributesI getCurrentAttributes()
     {
         return getAttributeManager().getCur_Attributes();
     }

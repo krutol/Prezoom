@@ -2,6 +2,8 @@ package prezoom.controller;
 
 import org.pushingpixels.trident.api.Timeline;
 import prezoom.model.GAttributes;
+import prezoom.model.GAttributesI;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -12,12 +14,12 @@ import java.util.ArrayList;
  **/
 public class GAttributeManager
 {
-    ArrayList<GAttributes> state_Attributes_list = new ArrayList<>();
+    ArrayList<GAttributesI> state_Attributes_list = new ArrayList<>();
     //int current_State = 0;
     /**
      * the attribute for the current state
      */
-    private GAttributes cur_Attributes;
+    private GAttributesI cur_Attributes;
 
     /**
      * To construct a manager, the object's attributes will be generated and duplicated from the current state to the end state,
@@ -42,7 +44,7 @@ public class GAttributeManager
                 state_Attributes_list.add(null);
             else
             {
-                GAttributes attributes = new GAttributes(x,y,col,filled,lineWidth, width, height, x2, y2, visible);
+                GAttributesI attributes = new GAttributes(x,y,col,filled,lineWidth, width, height, x2, y2, visible);
                 state_Attributes_list.add(i,attributes);
             }
         }
@@ -58,7 +60,7 @@ public class GAttributeManager
      * get the object's attribute for the current state
      * @return the attribute
      */
-    public GAttributes getCur_Attributes()
+    public GAttributesI getCur_Attributes()
     {
         //return state_Attributes_map.get(getCurrent_State());
         return state_Attributes_list.get(getCurrent_State());
@@ -71,7 +73,7 @@ public class GAttributeManager
      */
     public void updateCur_Attributes()
     {
-        GAttributes preAttributes = cur_Attributes;
+        GAttributesI preAttributes = cur_Attributes;
         cur_Attributes = getCur_Attributes();
 
         if (cur_Attributes != null)
@@ -98,13 +100,13 @@ public class GAttributeManager
      */
     public void insertAttributeState() throws CloneNotSupportedException
     {
-        GAttributes attributes = new GAttributes();
+        GAttributesI attributes = new GAttributes();
         if (!state_Attributes_list.isEmpty())
         {
             if(state_Attributes_list.get(getCurrent_State()-1) == null)
                 attributes = null;
             else
-                attributes = (GAttributes) state_Attributes_list.get(getCurrent_State()-1).clone();
+                attributes = (GAttributesI) state_Attributes_list.get(getCurrent_State()-1).clone();
         }
 
         state_Attributes_list.add(getCurrent_State(), attributes);
