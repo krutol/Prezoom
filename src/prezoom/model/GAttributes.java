@@ -1,9 +1,8 @@
 package prezoom.model;
 
 import java.awt.*;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * The base attribute class that holds all the attribute an object has
@@ -23,12 +22,15 @@ public class GAttributes implements GAttributesI
     protected Double x2, y2;
     protected BasicStroke stroke;
     protected Boolean visible = true;
+    private final Map<String, Method> getters, setters;
 
     /**
      * the default value constructor
      */
     public GAttributes()
     {
+        this.getters = MethodFactory.getNonNullGetters(this);
+        this.setters = MethodFactory.getNonNullSetters(this);
     }
 
     /**
@@ -57,6 +59,8 @@ public class GAttributes implements GAttributesI
         this.x2 = x2;
         this.y2 = y2;
         this.visible = visible;
+        this.getters = MethodFactory.getNonNullGetters(this);
+        this.setters = MethodFactory.getNonNullSetters(this);
     }
 
     /**
@@ -206,5 +210,17 @@ public class GAttributes implements GAttributesI
     public void setVisible(Boolean visible)
     {
         this.visible = visible;
+    }
+
+    @Override
+    public Map<String, Method> validSetterMap()
+    {
+        return setters;
+    }
+
+    @Override
+    public Map<String, Method> validGetterMap()
+    {
+        return getters;
     }
 }

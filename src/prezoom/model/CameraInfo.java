@@ -1,5 +1,8 @@
 package prezoom.model;
 
+import java.lang.reflect.Method;
+import java.util.Map;
+
 /** the base class for camera info
  * @author Zhijie Lan<p>
  * create date: 2020/11/4
@@ -23,10 +26,15 @@ public class CameraInfo implements CameraInfoI
      */
     private double preZoomFactor = 1;
 
+    private final Map<String, Method> getters, setters;
+
     /**
      * the default value constructor, x = y = 0, zoomFactor = 1;
      */
-    public CameraInfo() {}
+    public CameraInfo() {
+        this.getters = MethodFactory.getNonNullGetters(this);
+        this.setters = MethodFactory.getNonNullSetters(this);
+    }
 
     /**
      * constructor with parameters
@@ -41,6 +49,8 @@ public class CameraInfo implements CameraInfoI
         this.offsetY = offsetY;
         this.zoomFactor = zoomFactor;
         this.preZoomFactor = preZoomFactor;
+        this.getters = MethodFactory.getNonNullGetters(this);
+        this.setters = MethodFactory.getNonNullSetters(this);
     }
 
     /**
@@ -92,5 +102,15 @@ public class CameraInfo implements CameraInfoI
     public void setPreZoomFactor(double preZoomFactor)
     {
         this.preZoomFactor = preZoomFactor;
+    }
+
+    public Map<String, Method> validSetterMap()
+    {
+        return setters;
+    }
+
+    public Map<String, Method> validGetterMap()
+    {
+        return getters;
     }
 }

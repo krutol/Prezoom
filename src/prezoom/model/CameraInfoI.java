@@ -1,12 +1,15 @@
 package prezoom.model;
 
+import java.lang.reflect.Method;
+import java.util.Map;
+
 /**
  * The interface of the camera infomation
  *
  * @author Zhijie Lan<p>
  * create date: 2020/11/17<p>
  **/
-public interface CameraInfoI extends Cloneable
+public interface CameraInfoI extends Cloneable, MethodMapI
 {
     Object clone() throws CloneNotSupportedException;
 

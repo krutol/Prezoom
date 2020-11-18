@@ -1,6 +1,8 @@
 package prezoom.model;
 
 import java.awt.*;
+import java.lang.reflect.Method;
+import java.util.Map;
 
 /**
  * The interface of the Grapgical Attibutes
@@ -8,7 +10,7 @@ import java.awt.*;
  * @author Zhijie Lan<p>
  * create date: 2020/11/17<p>
  **/
-public interface GAttributesI extends Cloneable
+public interface GAttributesI extends Cloneable, MethodMapI
 {
     Object clone() throws CloneNotSupportedException;
 

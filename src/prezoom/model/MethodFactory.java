@@ -1,4 +1,4 @@
-package prezoom.controller;
+package prezoom.model;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -11,7 +11,7 @@ import java.util.*;
  * @author Zhijie Lan<p>
  * create date: 2020/11/18<p>
  **/
-public class MethodFactory
+class MethodFactory
 {
     public static Map<String, Object> getNonNullProperties(Object bean)
     {
