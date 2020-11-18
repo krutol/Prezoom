@@ -141,14 +141,21 @@ public class CameraManager
      * insert a new camera info of a new state into {@link #state_CamInfo_list} at the current state index.
      * The new camera info will clone the previous info of the current state
      *
-     * @throws CloneNotSupportedException noting
      */
-    public static void insertCamState() throws CloneNotSupportedException
+    public static void insertCamState()
     {
         CameraInfoI cameraInfo = new CameraInfo();
 
         if (!state_CamInfo_list.isEmpty())
-            cameraInfo = (CameraInfoI) state_CamInfo_list.get(getCurrent_State() - 1).clone();
+        {
+            try
+            {
+                cameraInfo = (CameraInfoI) state_CamInfo_list.get(getCurrent_State() - 1).clone();
+            } catch (CloneNotSupportedException e)
+            {
+                e.printStackTrace();
+            }
+        }
 
         state_CamInfo_list.add(getCurrent_State(), cameraInfo);
 

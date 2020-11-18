@@ -65,9 +65,8 @@ public class StateManager
      * @see CameraManager#insertCamState()
      * @see GAttributeManager#insertAttributeState()
      * @see #updateStateData()
-     * @throws CloneNotSupportedException nothing
      */
-    public static void insertState() throws CloneNotSupportedException
+    public static void insertState()
     {
         current_State++;
         total_State_Number++;

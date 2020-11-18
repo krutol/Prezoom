@@ -96,9 +96,8 @@ public class GAttributeManager
     /**
      * insert a new attribute of a new state into {@link #state_Attributes_list} at the current state index.
      * The new attribute will clone the previous info of the current state
-     * @throws CloneNotSupportedException nothing
      */
-    public void insertAttributeState() throws CloneNotSupportedException
+    public void insertAttributeState()
     {
         GAttributesI attributes = new GAttributes();
         if (!state_Attributes_list.isEmpty())
@@ -106,7 +105,15 @@ public class GAttributeManager
             if(state_Attributes_list.get(getCurrent_State()-1) == null)
                 attributes = null;
             else
-                attributes = (GAttributesI) state_Attributes_list.get(getCurrent_State()-1).clone();
+            {
+                try
+                {
+                    attributes = (GAttributesI) state_Attributes_list.get(getCurrent_State()-1).clone();
+                } catch (CloneNotSupportedException e)
+                {
+                    e.printStackTrace();
+                }
+            }
         }
 
         state_Attributes_list.add(getCurrent_State(), attributes);

@@ -72,9 +72,8 @@ public class GObjectManager
 
     /**
      * call the objects' attribute manager to insert a state to all objects
-     * @throws CloneNotSupportedException none
      */
-    public static void insertStateToGObjects() throws CloneNotSupportedException
+    public static void insertStateToGObjects()
     {
         for (GObject obj: gObjectList)
         {
