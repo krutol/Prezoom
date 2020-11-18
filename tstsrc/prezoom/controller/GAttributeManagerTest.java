@@ -12,34 +12,13 @@ import static org.junit.jupiter.api.Assertions.*;
  **/
 class GAttributeManagerTest
 {
-
-    @BeforeEach
-    void setUp()
-    {
-    }
-
-    @AfterEach
-    void tearDown()
-    {
-    }
+    GAttributeManager gAttributeManager = new GAttributeManager(null,null,null,null,
+            null,null,null,null,null,null);
 
     @Test
     void getCur_Attributes()
     {
+        assertNotNull(gAttributeManager.getCur_Attributes());
     }
 
-    @Test
-    void updateCur_Attributes()
-    {
-    }
-
-    @Test
-    void insertAttributeState()
-    {
-    }
-
-    @Test
-    void deleteAttributeState()
-    {
-    }
 }

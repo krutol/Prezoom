@@ -37,7 +37,7 @@ public class GAttributeManager
      */
     public GAttributeManager(Double x, Double y, Color col, Boolean filled, Integer lineWidth, Integer width, Integer height, Double x2, Double y2, Boolean visible)
     {
-        for (int i = 0; i< StateManager.getTotal_State_Number() +1; i++)
+        for (int i = 0; i< StateManager.getTotal_State_Number(); i++)
         {
             if (i<getCurrent_State())
                 state_Attributes_list.add(null);

@@ -77,43 +77,4 @@ class CameraManagerTest
     {
         assertNotNull(CameraManager.getCur_CamInfo());
     }
-
-    @Test
-    void insertCamState()
-    {
-        int size = CameraManager.state_CamInfo_list.size();
-
-        MainWindow mainWindow = new MainWindow("insert");
-        mainWindow.setVisible(false);
-        assertDoesNotThrow(StateManager::insertState);
-
-        assertEquals(size+1, CameraManager.state_CamInfo_list.size());
-        assertDoesNotThrow(StateManager::insertState);
-        assertEquals(size+2, CameraManager.state_CamInfo_list.size());
-
-    }
-
-    @Test
-    void deleteCamState()
-    {
-        int size = CameraManager.state_CamInfo_list.size();
-        MainWindow mainWindow = new MainWindow("delete");
-        mainWindow.setVisible(false);
-        assertDoesNotThrow(StateManager::insertState);
-        assertEquals(size+1, CameraManager.state_CamInfo_list.size());
-        assertDoesNotThrow(StateManager::insertState);
-        assertEquals(size+2, CameraManager.state_CamInfo_list.size());
-        assertDoesNotThrow(StateManager::insertState);
-        assertEquals(size+3, CameraManager.state_CamInfo_list.size());
-
-        assertDoesNotThrow(()->StateManager.deleteState(3));
-        assertEquals(3, CameraManager.state_CamInfo_list.size());
-
-        assertDoesNotThrow(()->StateManager.deleteState(2));
-        assertEquals(2, CameraManager.state_CamInfo_list.size());
-
-        assertDoesNotThrow(()->StateManager.deleteState(1));
-        assertEquals(1, CameraManager.state_CamInfo_list.size());
-
-    }
 }
