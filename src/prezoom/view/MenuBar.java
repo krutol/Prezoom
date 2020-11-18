@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 import prezoom.Main;
+import prezoom.controller.GObjectManager;
 
 /** TODO
  * Class used to display the application's menu bar
@@ -101,6 +102,10 @@ public class MenuBar extends JMenuBar
             }
             if (event.getSource() == newFile)       //if New File
             {
+                Color ori = GObjectManager.inspectedObj.getCurrentAttributes().getCol();
+                Color col = JColorChooser.showDialog(Main.app,"choose a color", ori);
+                if (col != null)
+                GObjectManager.inspectedObj.getCurrentAttributes().setCol(col);
 
 //                BufferedImage bi = new BufferedImage(1024, 768, BufferedImage.TYPE_INT_ARGB);   //create new BufferedImage
 //                prezoom.Main.paint.drawingPanel.clearImage(bi);                                         //clear current image

@@ -9,9 +9,9 @@ import java.awt.geom.Ellipse2D;
  **/
 public class GOval extends GObject
 {
-    public GOval(int x, int y, int w, int h, Color col, Boolean filled, int lineWidth)
+    public GOval(double x, double y, int w, int h, Color col, Boolean filled, int lineWidth)
     {
-        super(x, y, col, filled, lineWidth, w, h, 0,0,true);
+        super(x, y, col, filled, lineWidth, w, h, null,null,true);
         this.drawShape = new Ellipse2D.Double(x, y, w, h);
     }
 

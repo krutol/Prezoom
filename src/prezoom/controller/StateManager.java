@@ -1,6 +1,5 @@
 package prezoom.controller;
 
-import prezoom.view.CenterCanvas;
 import prezoom.view.MainWindow;
 import prezoom.view.StatePanel;
 

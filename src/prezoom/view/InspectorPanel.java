@@ -80,6 +80,7 @@ public class InspectorPanel extends JPanel
         textBoxW.addKeyListener(panelKeyListener);
         textBoxList.add(textBoxW);
 
+
         label = new JLabel("Height:");
         label.setForeground(Color.white);
         add(label);
@@ -114,12 +115,13 @@ public class InspectorPanel extends JPanel
                 if (i == 0)
                 {
                     text.setText("" + currAttr.getLabel());//+gatt.getClass());
+
                 } else if (i == 1)
                 {
-                    text.setText("" + (int)currAttr.getX());//+gatt.x);
+                    text.setText("" + currAttr.getX().intValue());//+gatt.x);
                 } else if (i == 2)
                 {
-                    text.setText("" + (int)currAttr.getY());//+gatt.y);
+                    text.setText("" + currAttr.getY().intValue());//+gatt.y);
                 } else if (i == 3)
                 {
                     text.setText("" + currAttr.getWidth());//+gatt.width);
@@ -180,7 +182,7 @@ public class InspectorPanel extends JPanel
                 if (GObjectManager.inspectedObj != null)
                 {
                     if (text.length() == 0)
-                        currAttr.setX(0);
+                        currAttr.setX(0.0);
                     else
                         currAttr.setX(Double.parseDouble(text));
                 }
@@ -199,7 +201,7 @@ public class InspectorPanel extends JPanel
                 if (GObjectManager.inspectedObj != null)
                 {
                     if (text.length() == 0)
-                        currAttr.setY(0);
+                        currAttr.setY(0.0);
                     else
                         currAttr.setY(Double.parseDouble(text));
                 }

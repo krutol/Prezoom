@@ -16,13 +16,13 @@ public interface GAttributesI extends Cloneable
 
     void setLabel(String label);
 
-    double getX();
+    Double getX();
 
-    void setX(double x);
+    void setX(Double x);
 
-    double getY();
+    Double getY();
 
-    void setY(double y);
+    void setY(Double y);
 
     Color getCol();
 
@@ -32,25 +32,25 @@ public interface GAttributesI extends Cloneable
 
     void setFilled(Boolean filled);
 
-    int getLineWidth();
+    Integer getLineWidth();
 
-    void setLineWidth(int lineWidth);
+    void setLineWidth(Integer lineWidth);
 
-    int getWidth();
+    Integer getWidth();
 
-    void setWidth(int width);
+    void setWidth(Integer width);
 
-    int getHeight();
+    Integer getHeight();
 
-    void setHeight(int height);
+    void setHeight(Integer height);
 
-    double getX2();
+    Double getX2();
 
-    void setX2(double x2);
+    void setX2(Double x2);
 
-    double getY2();
+    Double getY2();
 
-    void setY2(double y2);
+    void setY2(Double y2);
 
     BasicStroke getStroke();
 

@@ -13,7 +13,7 @@ public class GLine extends GObject
 {
     public GLine(double x, double y, double x2, double y2, Color col, int lineWidth)
     {
-        super(x, y, col, false, lineWidth, 0, 0, x2, y2, true);
+        super(x, y, col, null, lineWidth, null, null, x2, y2, true);
         this.drawShape = new Line2D.Double(x,y,x2,y2);
     }
 

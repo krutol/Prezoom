@@ -3,6 +3,7 @@ package prezoom.controller;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import prezoom.view.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.*;
  **/
 class CameraManagerTest
 {
-    CameraManager cameraManager = new CameraManager();
     Graphics2D g2;
 
     @BeforeEach
@@ -38,7 +38,7 @@ class CameraManagerTest
     {
         AffineTransform aff_old = g2.getTransform();
 
-        cameraManager.moveCamera(g2,100,200,1.5,1.0);
+        CameraManager.moveCamera(g2,100,200,1.5,1.0);
 
         AffineTransform aff_new = g2.getTransform();
 
@@ -56,11 +56,11 @@ class CameraManagerTest
     {
         AffineTransform aff_old = g2.getTransform();
 
-        cameraManager.cur_CamInfo.setOffsetX(50);
-        cameraManager.cur_CamInfo.setOffsetY(99);
-        cameraManager.cur_CamInfo.setZoomFactor(2.386);
+        CameraManager.cur_CamInfo.setOffsetX(50);
+        CameraManager.cur_CamInfo.setOffsetY(99);
+        CameraManager.cur_CamInfo.setZoomFactor(2.386);
 
-        cameraManager.moveCamera(g2);
+        CameraManager.moveCamera(g2);
 
         AffineTransform aff_new2 = g2.getTransform();
 
@@ -75,26 +75,45 @@ class CameraManagerTest
     @Test
     void getCur_CamInfo()
     {
-        assertNotNull(cameraManager.getCur_CamInfo());
-    }
-
-    @Test
-    void updateCur_CamInfo()
-    {
-
+        assertNotNull(CameraManager.getCur_CamInfo());
     }
 
     @Test
     void insertCamState()
     {
-        int size = cameraManager.state_CamInfo_list.size();
+        int size = CameraManager.state_CamInfo_list.size();
+
+        MainWindow mainWindow = new MainWindow("insert");
+        mainWindow.setVisible(false);
         assertDoesNotThrow(StateManager::insertState);
 
-        assertEquals(size+1, cameraManager.state_CamInfo_list.size());
+        assertEquals(size+1, CameraManager.state_CamInfo_list.size());
+        assertDoesNotThrow(StateManager::insertState);
+        assertEquals(size+2, CameraManager.state_CamInfo_list.size());
+
     }
 
     @Test
     void deleteCamState()
     {
+        int size = CameraManager.state_CamInfo_list.size();
+        MainWindow mainWindow = new MainWindow("delete");
+        mainWindow.setVisible(false);
+        assertDoesNotThrow(StateManager::insertState);
+        assertEquals(size+1, CameraManager.state_CamInfo_list.size());
+        assertDoesNotThrow(StateManager::insertState);
+        assertEquals(size+2, CameraManager.state_CamInfo_list.size());
+        assertDoesNotThrow(StateManager::insertState);
+        assertEquals(size+3, CameraManager.state_CamInfo_list.size());
+
+        assertDoesNotThrow(()->StateManager.deleteState(3));
+        assertEquals(3, CameraManager.state_CamInfo_list.size());
+
+        assertDoesNotThrow(()->StateManager.deleteState(2));
+        assertEquals(2, CameraManager.state_CamInfo_list.size());
+
+        assertDoesNotThrow(()->StateManager.deleteState(1));
+        assertEquals(1, CameraManager.state_CamInfo_list.size());
+
     }
 }

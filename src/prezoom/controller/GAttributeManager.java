@@ -1,11 +1,14 @@
 package prezoom.controller;
 
-import org.pushingpixels.trident.api.Timeline;
 import prezoom.model.GAttributes;
 import prezoom.model.GAttributesI;
+import prezoom.model.InterpolationFactory;
+import prezoom.model.MethodFactory;
 
 import java.awt.*;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Map;
 
 /** This class is the manager to manage the state related functions for the attributes of graphical objects.
  *  Each {@link prezoom.model.GObject} has a manager.
@@ -36,7 +39,7 @@ public class GAttributeManager
      * @param y2 y2 of the object, if applicable
      * @param visible whether visible
      */
-    public GAttributeManager(double x, double y, Color col, Boolean filled, int lineWidth, int width, int height, double x2, double y2, Boolean visible)
+    public GAttributeManager(Double x, Double y, Color col, Boolean filled, Integer lineWidth, Integer width, Integer height, Double x2, Double y2, Boolean visible)
     {
         for (int i = 0; i< StateManager.getTotal_State_Number() +1; i++)
         {
@@ -78,17 +81,18 @@ public class GAttributeManager
 
         if (cur_Attributes != null)
         {
-            Timeline camTimeLine = Timeline.builder(cur_Attributes)
-                    .addPropertyToInterpolate("x", preAttributes != null ? preAttributes.getX() : 0, cur_Attributes.getX())
-                    .addPropertyToInterpolate("y", preAttributes != null ? preAttributes.getY() : 0, cur_Attributes.getY())
-                    .addPropertyToInterpolate("col", preAttributes != null ? preAttributes.getCol() : Color.white, cur_Attributes.getCol())
-                    .addPropertyToInterpolate("lineWidth", preAttributes != null ? preAttributes.getLineWidth() : 1, cur_Attributes.getLineWidth())
-                    .addPropertyToInterpolate("width", preAttributes != null ? preAttributes.getWidth() : 0, cur_Attributes.getWidth())
-                    .addPropertyToInterpolate("height", preAttributes != null ? preAttributes.getHeight() : 0, cur_Attributes.getHeight())
-                    .addPropertyToInterpolate("x2", preAttributes != null ? preAttributes.getX2() : 0, cur_Attributes.getX2())
-                    .addPropertyToInterpolate("y2", preAttributes != null ? preAttributes.getY2() : 0, cur_Attributes.getY2())
-                    .build();
-            camTimeLine.play();
+            InterpolationFactory.buildInterpolation(preAttributes, cur_Attributes);
+//            Timeline camTimeLine = Timeline.builder(cur_Attributes)
+//                    .addPropertyToInterpolate("x", preAttributes != null ? preAttributes.getX() : 0, cur_Attributes.getX())
+//                    .addPropertyToInterpolate("y", preAttributes != null ? preAttributes.getY() : 0, cur_Attributes.getY())
+//                    .addPropertyToInterpolate("col", preAttributes != null ? preAttributes.getCol() : Color.white, cur_Attributes.getCol())
+//                    .addPropertyToInterpolate("lineWidth", preAttributes != null ? preAttributes.getLineWidth() : 1, cur_Attributes.getLineWidth())
+//                    .addPropertyToInterpolate("width", preAttributes != null ? preAttributes.getWidth() : 0, cur_Attributes.getWidth())
+//                    .addPropertyToInterpolate("height", preAttributes != null ? preAttributes.getHeight() : 0, cur_Attributes.getHeight())
+//                    .addPropertyToInterpolate("x2", preAttributes != null ? preAttributes.getX2() : 0, cur_Attributes.getX2())
+//                    .addPropertyToInterpolate("y2", preAttributes != null ? preAttributes.getY2() : 0, cur_Attributes.getY2())
+//                    .build();
+//            camTimeLine.play();
         }
 
     }

@@ -12,8 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
  **/
 class GAttributesTest
 {
-    GAttributes gAttributes = new GAttributes(100,200, Color.blue,
-            true, 5, 100, 50, 120, 230, true);
+    GAttributes gAttributes = new GAttributes(100.0,200.0, Color.blue,
+            true, 5, 100, 50, 120.0, 230.0, true);
 
     @Test
     void testClone()

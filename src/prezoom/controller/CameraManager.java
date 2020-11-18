@@ -3,6 +3,7 @@ package prezoom.controller;
 import org.pushingpixels.trident.api.Timeline;
 import prezoom.model.CameraInfo;
 import prezoom.model.CameraInfoI;
+import prezoom.model.InterpolationFactory;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -120,14 +121,15 @@ public class CameraManager
         {
             CameraInfoI preCam = cur_CamInfo;
             cur_CamInfo = getCur_CamInfo();
-            //cur_CamInfo = (CameraInfo) cur_CamInfo.clone();
-            Timeline camTimeLine = Timeline.builder(cur_CamInfo)
-                    .addPropertyToInterpolate("offsetX", preCam.getOffsetX(), cur_CamInfo.getOffsetX())
-                    .addPropertyToInterpolate("offsetY", preCam.getOffsetY(), cur_CamInfo.getOffsetY())
-                    .addPropertyToInterpolate("zoomFactor", preCam.getZoomFactor(), cur_CamInfo.getZoomFactor())
-                    .addPropertyToInterpolate("preZoomFactor", preCam.getPreZoomFactor(), cur_CamInfo.getPreZoomFactor())
-                    .build();
-            camTimeLine.play();
+            InterpolationFactory.buildInterpolation(preCam, cur_CamInfo);
+//            //cur_CamInfo = (CameraInfo) cur_CamInfo.clone();
+//            Timeline camTimeLine = Timeline.builder(cur_CamInfo)
+//                    .addPropertyToInterpolate("offsetX", preCam.getOffsetX(), cur_CamInfo.getOffsetX())
+//                    .addPropertyToInterpolate("offsetY", preCam.getOffsetY(), cur_CamInfo.getOffsetY())
+//                    .addPropertyToInterpolate("zoomFactor", preCam.getZoomFactor(), cur_CamInfo.getZoomFactor())
+//                    .addPropertyToInterpolate("preZoomFactor", preCam.getPreZoomFactor(), cur_CamInfo.getPreZoomFactor())
+//                    .build();
+//            camTimeLine.play();
 
         } else
         {

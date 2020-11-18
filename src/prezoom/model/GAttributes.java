@@ -1,8 +1,13 @@
 package prezoom.model;
 
 import java.awt.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 
-/** The base attribute class that holds all the attribute an object has
+/**
+ * The base attribute class that holds all the attribute an object has
+ *
  * @author Zhijie Lan<p>
  * create date: 2020/11/2
  **/
@@ -10,34 +15,37 @@ import java.awt.*;
 public class GAttributes implements GAttributesI
 {
     protected String label;
-    protected double x, y;
+    protected Double x, y;
     protected Color col;
-    protected Boolean filled = false;
-    protected int lineWidth = 3;
-    protected int width, height;
-    protected double x2,y2;
+    protected Boolean filled;
+    protected Integer lineWidth;
+    protected Integer width, height;
+    protected Double x2, y2;
     protected BasicStroke stroke;
     protected Boolean visible = true;
 
     /**
      * the default value constructor
      */
-    public GAttributes() {}
+    public GAttributes()
+    {
+    }
 
     /**
      * the constructor with parameters
-     * @param x location, x
-     * @param y location, y
-     * @param col paint color
-     * @param filled whether filled
+     *
+     * @param x         location, x
+     * @param y         location, y
+     * @param col       paint color
+     * @param filled    whether filled
      * @param lineWidth width of lines
-     * @param width width of the object, if applicable
-     * @param height height of the object, if applicable
-     * @param x2 x2 of the object, if applicable
-     * @param y2 y2 of the object, if applicable
-     * @param visible whether visible
+     * @param width     width of the object, if applicable
+     * @param height    height of the object, if applicable
+     * @param x2        x2 of the object, if applicable
+     * @param y2        y2 of the object, if applicable
+     * @param visible   whether visible
      */
-    public GAttributes(double x, double y, Color col, Boolean filled, int lineWidth, int width, int height, double x2, double y2, Boolean visible)
+    public GAttributes(Double x, Double y, Color col, Boolean filled, Integer lineWidth, Integer width, Integer height, Double x2, Double y2, Boolean visible)
     {
         this.x = x;
         this.y = y;
@@ -53,6 +61,7 @@ public class GAttributes implements GAttributesI
 
     /**
      * The attributes can be clone
+     *
      * @return the cloned attributes
      * @throws CloneNotSupportedException nothing
      */
@@ -62,121 +71,138 @@ public class GAttributes implements GAttributesI
         return super.clone();
     }
 
+    @Override
     public String getLabel()
     {
         return label;
     }
 
+    @Override
     public void setLabel(String label)
     {
         this.label = label;
     }
 
-    public double getX()
+    @Override
+    public Double getX()
     {
         return x;
     }
 
-    public void setX(double x)
+    public void setX(Double x)
     {
         this.x = x;
     }
 
-    public double getY()
+    @Override
+    public Double getY()
     {
         return y;
     }
 
-    public void setY(double y)
+    public void setY(Double y)
     {
         this.y = y;
     }
 
+    @Override
     public Color getCol()
     {
         return col;
     }
 
+    @Override
     public void setCol(Color col)
     {
         this.col = col;
     }
 
+    @Override
     public Boolean getFilled()
     {
         return filled;
     }
 
+    @Override
     public void setFilled(Boolean filled)
     {
         this.filled = filled;
     }
 
-    public int getLineWidth()
+    @Override
+    public Integer getLineWidth()
     {
         return lineWidth;
     }
 
-    public void setLineWidth(int lineWidth)
+    public void setLineWidth(Integer lineWidth)
     {
         this.lineWidth = lineWidth;
     }
 
-    public int getWidth()
+    @Override
+    public Integer getWidth()
     {
         return width;
     }
 
-    public void setWidth(int width)
+    public void setWidth(Integer width)
     {
         this.width = width;
     }
 
-    public int getHeight()
+    @Override
+    public Integer getHeight()
     {
         return height;
     }
 
-    public void setHeight(int height)
+    public void setHeight(Integer height)
     {
         this.height = height;
     }
 
-    public double getX2()
+    @Override
+    public Double getX2()
     {
         return x2;
     }
 
-    public void setX2(double x2)
+    public void setX2(Double x2)
     {
         this.x2 = x2;
     }
 
-    public double getY2()
+    @Override
+    public Double getY2()
     {
         return y2;
     }
 
-    public void setY2(double y2)
+    public void setY2(Double y2)
     {
         this.y2 = y2;
     }
 
+    @Override
     public BasicStroke getStroke()
     {
         return stroke;
     }
 
+    @Override
     public void setStroke(BasicStroke stroke)
     {
         this.stroke = stroke;
     }
 
+    @Override
     public Boolean getVisible()
     {
         return visible;
     }
 
+    @Override
     public void setVisible(Boolean visible)
     {
         this.visible = visible;

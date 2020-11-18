@@ -38,7 +38,7 @@ public abstract class GObject
      * @param y2 y2 of the object, if applicable
      * @param visible whether visible
      */
-    protected GObject(double x, double y, Color col, Boolean filled, int lineWidth, int width, int height, double x2, double y2, Boolean visible)
+    protected GObject(Double x, Double y, Color col, Boolean filled, Integer lineWidth, Integer width, Integer height, Double x2, Double y2, Boolean visible)
     {
         //this.id = id;
 //        this.x = x;
@@ -79,7 +79,7 @@ public abstract class GObject
     protected void drawing(Graphics2D g)
     {
         g.setColor(getCurrentAttributes().getCol());
-        if (getCurrentAttributes().getFilled()) g.fill(drawShape);
+        if (getCurrentAttributes().getFilled() != null && getCurrentAttributes().getFilled()) g.fill(drawShape);
         else
         {
             g.setStroke(new BasicStroke(getCurrentAttributes().getLineWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
