@@ -1,4 +1,4 @@
-package prezoom.model;
+package prezoom.controller;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;

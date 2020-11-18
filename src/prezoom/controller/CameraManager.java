@@ -1,9 +1,7 @@
 package prezoom.controller;
 
-import org.pushingpixels.trident.api.Timeline;
 import prezoom.model.CameraInfo;
 import prezoom.model.CameraInfoI;
-import prezoom.model.InterpolationFactory;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;

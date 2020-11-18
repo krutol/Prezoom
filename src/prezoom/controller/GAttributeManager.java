@@ -2,13 +2,9 @@ package prezoom.controller;
 
 import prezoom.model.GAttributes;
 import prezoom.model.GAttributesI;
-import prezoom.model.InterpolationFactory;
-import prezoom.model.MethodFactory;
 
 import java.awt.*;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Map;
 
 /** This class is the manager to manage the state related functions for the attributes of graphical objects.
  *  Each {@link prezoom.model.GObject} has a manager.

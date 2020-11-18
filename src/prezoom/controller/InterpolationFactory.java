@@ -1,8 +1,7 @@
-package prezoom.model;
+package prezoom.controller;
 
 import org.pushingpixels.trident.api.Timeline;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
