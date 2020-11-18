@@ -4,7 +4,7 @@ package prezoom.model;
  * @author Zhijie Lan<p>
  * create date: 2020/11/4
  **/
-public class CameraInfo implements Cloneable
+public class CameraInfo implements CameraInfoI
 {
     /**
      * x offset

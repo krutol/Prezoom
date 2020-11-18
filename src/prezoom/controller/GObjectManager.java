@@ -12,7 +12,11 @@ import java.util.ArrayList;
  **/
 public class GObjectManager
 {
-    private final ArrayList<GObject> gObjectList = new ArrayList<>();
+    public static GObject draggedObj;
+    public static GObject inspectedObj;
+
+    private static final ArrayList<GObject> gObjectList = new ArrayList<>();
+    static
     {
         // for test purpose
         gObjectList.add(new GRectangle(50, 100, 30, 40, Color.red, false, 1));
@@ -25,7 +29,7 @@ public class GObjectManager
      * draw all the objects on canvas
      * @param g2 graphics to paint
      */
-    public void drawAll(Graphics2D g2)
+    public static void drawAll(Graphics2D g2)
     {
         for (GObject obj : gObjectList)
         {
@@ -40,7 +44,7 @@ public class GObjectManager
      * @param y y
      * @return the selected object, null if no selected
      */
-    public GObject findSelected(double x, double y)
+    public static GObject findSelected(double x, double y)
     {
         for (GObject obj : gObjectList)
         {
@@ -53,10 +57,12 @@ public class GObjectManager
         return null;
     }
 
+    //public static void upD
+
     /**
      * call the objects' attribute manager to update all their attributes
      */
-    public void updateAllObject()
+    public static void updateAllObject()
     {
         for (GObject obj: gObjectList)
         {
@@ -68,7 +74,7 @@ public class GObjectManager
      * call the objects' attribute manager to insert a state to all objects
      * @throws CloneNotSupportedException none
      */
-    public void insertStateToGObjects() throws CloneNotSupportedException
+    public static void insertStateToGObjects() throws CloneNotSupportedException
     {
         for (GObject obj: gObjectList)
         {
@@ -80,7 +86,7 @@ public class GObjectManager
      * call the objects' attribute manager to delete a given state
      * @param state the state to delete
      */
-    public void deleteStateToGObjects(int state)
+    public static void deleteStateToGObjects(int state)
     {
         for (GObject obj: gObjectList)
         {
@@ -92,7 +98,7 @@ public class GObjectManager
      * add a graphical object to the canvas
      * @param obj the object to add
      */
-    public void addGObject(GObject obj)
+    public static void addGObject(GObject obj)
     {
         gObjectList.add(obj);
     }

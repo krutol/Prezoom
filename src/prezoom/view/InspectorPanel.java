@@ -1,7 +1,7 @@
 package prezoom.view;
 
-import prezoom.model.GAttributes;
-import prezoom.model.GObject;
+import prezoom.controller.GObjectManager;
+import prezoom.model.GAttributesI;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -12,19 +12,15 @@ import java.util.ArrayList;
 
 /**
  * TODO
- *
  * @author Zhijie Lan<p>
- * create date: 2020/11/3
- **/
-
-/**
+ * create date: 2020/11/3<p>
  * Changed(Abhishek Sharma):
- *  --> class: InspectorPanel method:rearrangeValues()
- *      --code: update the Inspector panel with the selectedObj attributes in centerCanvas
+ * --> class: InspectorPanel method:rearrangeValues()
+ * --code: update the Inspector panel with the selectedObj attributes in centerCanvas
  *
- *  --> added class:PanelKeyboardListner, method: keyPressed()
- *      --code:update center canvas object with the values in inspector panel attributes
- */
+ * --> added class:PanelKeyboardListner, method: keyPressed()
+ * --code:update center canvas object with the values in inspector panel attributes
+ **/
 
 public class InspectorPanel extends JPanel
 {
@@ -104,11 +100,10 @@ public class InspectorPanel extends JPanel
      */
     public void rearrangeValues()
     {
-        GObject gatt = MainWindow.centerCanvas.inspectedObj;
-        if (gatt == null)
+        if (GObjectManager.inspectedObj == null)
             return;
 
-        GAttributes currAttr = gatt.getCurrentAttributes();
+        GAttributesI currAttr = GObjectManager.inspectedObj.getCurrentAttributes();
         if(currAttr == null)
             return;
         int i = 0;
@@ -151,10 +146,10 @@ public class InspectorPanel extends JPanel
 
         public void keyPressed(KeyEvent e)
         {
-            if (MainWindow.centerCanvas.inspectedObj == null)
+            if (GObjectManager.inspectedObj == null)
                 return;
 
-            GAttributes currAttr = MainWindow.centerCanvas.inspectedObj.getCurrentAttributes();
+            GAttributesI currAttr = GObjectManager.inspectedObj.getCurrentAttributes();
             if (currAttr == null)
                 return;
             String text = "";
@@ -182,7 +177,7 @@ public class InspectorPanel extends JPanel
                 {
                     text = textBoxX.getText() + e.getKeyChar();
                 }
-                if (MainWindow.centerCanvas.inspectedObj != null)
+                if (GObjectManager.inspectedObj != null)
                 {
                     if (text.length() == 0)
                         currAttr.setX(0);
@@ -201,7 +196,7 @@ public class InspectorPanel extends JPanel
                 {
                     text = textBoxY.getText() + e.getKeyChar();
                 }
-                if (MainWindow.centerCanvas.inspectedObj != null)
+                if (GObjectManager.inspectedObj != null)
                 {
                     if (text.length() == 0)
                         currAttr.setY(0);
@@ -220,7 +215,7 @@ public class InspectorPanel extends JPanel
                 {
                     text = textBoxW.getText() + e.getKeyChar();
                 }
-                if (MainWindow.centerCanvas.inspectedObj != null)
+                if (GObjectManager.inspectedObj != null)
                 {
                     if (text.length() == 0)
                         currAttr.setWidth(0);
@@ -239,7 +234,7 @@ public class InspectorPanel extends JPanel
                 {
                     text = textBoxH.getText() + e.getKeyChar();
                 }
-                if (MainWindow.centerCanvas.inspectedObj != null)
+                if (GObjectManager.inspectedObj != null)
                 {
                     if (text.length() == 0)
                         currAttr.setHeight(0);

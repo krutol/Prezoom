@@ -12,6 +12,7 @@ public class GRectangle extends GObject
     public GRectangle(double x, double y, int w, int h, Color col, Boolean filled, int lineWidth)
     {
         super(x, y, col, filled, lineWidth,w,h,0,0,true);
+        this.drawShape = new Rectangle2D.Double(x, y, w, h);
     }
 
 

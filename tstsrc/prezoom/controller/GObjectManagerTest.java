@@ -39,12 +39,12 @@ class GObjectManagerTest
     }
 
     @Test
-    void insertStateToAll()
+    void insertStateToGObjects()
     {
     }
 
     @Test
-    void deleteStateToAll()
+    void deleteStateToGObjects()
     {
     }
 

@@ -7,7 +7,7 @@ import java.awt.*;
  * create date: 2020/11/2
  **/
 
-public class GAttributes implements Cloneable
+public class GAttributes implements GAttributesI
 {
     protected String label;
     protected double x, y;

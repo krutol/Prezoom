@@ -28,22 +28,22 @@ public class CenterCanvas extends JPanel
     private double xDiff;
     private double yDiff;
     private final Point dragCanvasStartPoint = new Point(), dragObjStartPoint = new Point();
-    private GObject selectedObj;
-    public GObject inspectedObj;
+//    private GObject selectedObj;
+//    public GObject inspectedObj;
 
-    /**
-     * the camera state manager
-     */
-    public static CameraManager cameraManager = new CameraManager();
+//    /**
+//     * the camera state manager
+//     */
+//    public static CameraManager cameraManager = new CameraManager();
+//
+//    /**
+//     * the object manager
+//     */
+//    public static GObjectManager gObjectManager = new GObjectManager();
 
-    /**
-     * the object manager
-     */
-    public static GObjectManager gObjectManager = new GObjectManager();
-
-    private CameraInfo getCurCamInfo()
+    private CameraInfoI getCurCamInfo()
     {
-        return cameraManager.cur_CamInfo;
+        return CameraManager.cur_CamInfo;
     }
 
     // for test purpose
@@ -104,7 +104,7 @@ public class CenterCanvas extends JPanel
 
         Graphics2D g2 = (Graphics2D) g;
         //AffineTransform at = new AffineTransform();
-        CameraInfo cam = getCurCamInfo();
+        CameraInfoI cam = getCurCamInfo();
 
         if (isZooming)
         {
@@ -132,7 +132,7 @@ public class CenterCanvas extends JPanel
 
             cam.setPreZoomFactor(cam.getZoomFactor());
 
-            cameraManager.moveCamera(g2);
+            CameraManager.moveCamera(g2);
 
             //System.out.println(zoomFactor+" "+cur_off_x+" "+cur_off_y);
 
@@ -145,7 +145,7 @@ public class CenterCanvas extends JPanel
 //            g2.transform(at);
             //cameraManager.setCamInfo(xOffset + xDiff,yOffset + yDiff,zoomFactor);
             //cameraManager.moveCamera(g2, xOffset + xDiff, yOffset + yDiff, zoomFactor, prevZoomFactor);
-            cameraManager.moveCamera(g2,cam.getOffsetX()+xDiff,cam.getOffsetY()+yDiff,
+            CameraManager.moveCamera(g2,cam.getOffsetX()+xDiff,cam.getOffsetY()+yDiff,
                     cam.getZoomFactor(),cam.getPreZoomFactor());
             if (isReleased)
             {
@@ -162,7 +162,7 @@ public class CenterCanvas extends JPanel
 //            g2.transform(at);
             //cameraManager.setCamInfo(xOffset,yOffset,zoomFactor);
             //cameraManager.moveCamera(g2,xOffset,yOffset,zoomFactor);
-            cameraManager.moveCamera(g2);
+            CameraManager.moveCamera(g2);
         }
 
         //g2.setColor(Color.white);
@@ -172,7 +172,7 @@ public class CenterCanvas extends JPanel
 //            if (go.getAttributeManager().getCur_Attributes() != null)
 //                go.draw(g2);
 //        }
-        gObjectManager.drawAll(g2);
+        GObjectManager.drawAll(g2);
 
         g2.dispose();
 
@@ -193,7 +193,7 @@ public class CenterCanvas extends JPanel
         {
 
             isZooming = true;
-            CameraInfo cam = getCurCamInfo();
+            CameraInfoI cam = getCurCamInfo();
 
             //Zoom in
             if (e.getWheelRotation() < 0)
@@ -230,7 +230,7 @@ public class CenterCanvas extends JPanel
                 isDragging = true;
                 setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 repaint();
-            } else if (selectedObj != null)
+            } else if (GObjectManager.draggedObj != null)
             {
                 //int mx = e.getX();
                 //int my = e.getY();
@@ -240,22 +240,23 @@ public class CenterCanvas extends JPanel
 //            double z = 1;
 //            if (zoomFactor<1)
 //                z = zoomFactor;
+                GObject draggedObj = GObjectManager.draggedObj;
 
-                selectedObj.getCurrentAttributes()
-                        .setX(selectedObj.getCurrentAttributes().getX() +
+                draggedObj.getCurrentAttributes()
+                        .setX(draggedObj.getCurrentAttributes().getX() +
                                 /*(int)*/((point.getX() - dragObjStartPoint.getX()) / getCurCamInfo().getPreZoomFactor()));
 
-                selectedObj.getCurrentAttributes()
-                        .setY(selectedObj.getCurrentAttributes().getY() +
+                draggedObj.getCurrentAttributes()
+                        .setY(draggedObj.getCurrentAttributes().getY() +
                                 /*(int)*/((point.getY() - dragObjStartPoint.getY()) / getCurCamInfo().getPreZoomFactor()));
-                if (selectedObj instanceof GLine)
+                if (draggedObj instanceof GLine)
                 {
-                    selectedObj.getCurrentAttributes()
-                            .setX2(selectedObj.getCurrentAttributes().getX2() +
+                    draggedObj.getCurrentAttributes()
+                            .setX2(draggedObj.getCurrentAttributes().getX2() +
                                     /*(int)*/((point.getX() - dragObjStartPoint.getX()) / getCurCamInfo().getPreZoomFactor()));
 
-                    selectedObj.getCurrentAttributes()
-                            .setY2(selectedObj.getCurrentAttributes().getY2() +
+                    draggedObj.getCurrentAttributes()
+                            .setY2(draggedObj.getCurrentAttributes().getY2() +
                                     /*(int)*/((point.getY() - dragObjStartPoint.getY()) / getCurCamInfo().getPreZoomFactor()));
                 }
                 //selectedObj.setX(mx);
@@ -277,7 +278,7 @@ public class CenterCanvas extends JPanel
             double mx = (e.getX() - getCurCamInfo().getOffsetX()) / getCurCamInfo().getPreZoomFactor();
             double my = (e.getY() - getCurCamInfo().getOffsetY()) / getCurCamInfo().getPreZoomFactor();
             MainWindow.statusBar.setStatusText(String.format("Moving at [%d,%d]", (int)mx, (int)my));
-            if (gObjectManager.findSelected(mx, my) != null)
+            if (GObjectManager.findSelected(mx, my) != null)
                 setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
             else
                 setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -326,8 +327,8 @@ public class CenterCanvas extends JPanel
 //                    //Main.app.inspectorPanel.rearrangeValues();
 //                }
 //            }
-            selectedObj = gObjectManager.findSelected(mx,my);
-            inspectedObj = selectedObj;
+            GObjectManager.draggedObj = GObjectManager.findSelected(mx,my);
+            GObjectManager.inspectedObj = GObjectManager.draggedObj;
 
             //repaint();
             //mxstart=mx;
@@ -338,7 +339,7 @@ public class CenterCanvas extends JPanel
         public void mouseReleased(MouseEvent e)
         {
             isReleased = true;
-            selectedObj = null;
+            GObjectManager.draggedObj = null;
             setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             repaint();
         }

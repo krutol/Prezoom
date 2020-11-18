@@ -18,11 +18,18 @@ public class CameraManager
     /**
      * the array that stores info of each state
      */
-    ArrayList<CameraInfo> state_CamInfo_list = new ArrayList<>();
+    static ArrayList<CameraInfo> state_CamInfo_list = new ArrayList<>();
     /**
      * the info for the current state
      */
-    public CameraInfo cur_CamInfo;
+    public static CameraInfo cur_CamInfo;
+
+    static
+    {
+        CameraInfo cameraInfo = new CameraInfo();
+        state_CamInfo_list.add(getCurrent_State(), cameraInfo);
+        updateCur_CamInfo();
+    }
 
     public CameraManager()
     {
@@ -47,7 +54,7 @@ public class CameraManager
      * @param zoomFactor     zoom index
      * @param prevZoomFactor previous zoom index that is used to get better effect when zooming
      */
-    public void moveCamera(Graphics2D g2, double cam_x_offset, double cam_y_offset, double zoomFactor, double prevZoomFactor)
+    public static void moveCamera(Graphics2D g2, double cam_x_offset, double cam_y_offset, double zoomFactor, double prevZoomFactor)
     {
 //        cur_CamInfo.setOffsetX(cam_x_offset);
 //        cur_CamInfo.setOffsetY(cam_y_offset);
@@ -70,7 +77,7 @@ public class CameraManager
      *
      * @param g2 the Graphics to paint
      */
-    public void moveCamera(Graphics2D g2)
+    public static void moveCamera(Graphics2D g2)
     {
         AffineTransform at = new AffineTransform();
         at.translate(cur_CamInfo.getOffsetX(), cur_CamInfo.getOffsetY());
@@ -83,7 +90,7 @@ public class CameraManager
      *
      * @return current state index
      */
-    private int getCurrent_State()
+    private static int getCurrent_State()
     {
         return StateManager.getCurrent_State();
     }
@@ -93,7 +100,7 @@ public class CameraManager
      *
      * @return the current camera info
      */
-    public CameraInfo getCur_CamInfo()
+    public static CameraInfo getCur_CamInfo()
     {
         return state_CamInfo_list.get(getCurrent_State());
     }
@@ -102,7 +109,7 @@ public class CameraManager
      * update the {@link #cur_CamInfo}.
      * and add interpolation from previous value to the current value
      */
-    public void updateCur_CamInfo()
+    public static void updateCur_CamInfo()
     {
         //this.cur_CamInfo = getCur_CamInfo();
 //        if (Main.app != null)
@@ -135,7 +142,7 @@ public class CameraManager
      *
      * @throws CloneNotSupportedException noting
      */
-    public void insertCamState() throws CloneNotSupportedException
+    public static void insertCamState() throws CloneNotSupportedException
     {
         CameraInfo cameraInfo = new CameraInfo();
 
@@ -153,7 +160,7 @@ public class CameraManager
      *
      * @param state the state to be deleted
      */
-    public void deleteCamState(int state)
+    public static void deleteCamState(int state)
     {
         state_CamInfo_list.remove(state);
         // comment the update,  set it be triggered by the state manager to avoid double update

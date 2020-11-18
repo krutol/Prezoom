@@ -126,8 +126,8 @@ public class MenuBar extends JMenuBar
             }
             if (event.getSource() == openFile)       //if Open file
             {
-//                JFileChooser ch = getFileChooser();                                            //open file chooser
-//                int result = ch.showOpenDialog(prezoom.Main.paint.drawingPanel);
+                JFileChooser ch = getFileChooser();                                            //open file chooser
+                int result = ch.showOpenDialog(MainWindow.centerCanvas);
 //                if (result== JFileChooser.APPROVE_OPTION )                                      //if OK
 //                {
 //                    try
