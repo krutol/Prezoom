@@ -3,7 +3,7 @@ package prezoom.view;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
-import java.util.Objects;
+import java.awt.geom.Rectangle2D;
 import javax.swing.*;
 
 import org.pushingpixels.trident.api.Timeline;
@@ -189,9 +189,14 @@ public class CenterCanvas extends JPanel
         if (GObjectManager.drawingObj != null)
             GObjectManager.drawingObj.draw(g2);
 
+        if (GObjectManager.inspectedObj != null)
+            GObjectManager.drawResizePoints(g2);
+
         g2.dispose();
 
-        if (GObjectManager.drawingObj != null || GObjectManager.draggedObj != null)
+        if (GObjectManager.drawingObj != null
+                || GObjectManager.draggedObj != null
+                || GObjectManager.resizedObj != null)
             MainWindow.inspectorPanel.rearrangeValues();
 
 
@@ -245,11 +250,11 @@ public class CenterCanvas extends JPanel
 
                 isDragging = true;
                 setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                repaint();
             }
             else if (!GObjectManager.drawingType.isEmpty())
             {
-                GObjectManager.updateDrawingObj(drawObjStartPoint, toWorldCoordinates(e.getPoint()));
+                GObjectManager.drawingObj = GObjectManager.updateResizing(drawObjStartPoint, toWorldCoordinates(e.getPoint()),
+                        GObjectManager.drawingObj, GObjectManager.drawingType);
                 GObjectManager.inspectedObj = GObjectManager.drawingObj;
 
             }else if (GObjectManager.draggedObj != null)
@@ -286,11 +291,21 @@ public class CenterCanvas extends JPanel
                 //mxstart = mx;
                 //mystart = my;
                 dragObjStartPoint.setLocation(point);
-                //dragObjStartPoint = point;
-                repaint();
+
+            } else if (GObjectManager.resizedObj != null)
+            {
+                Point2D cursor = toWorldCoordinates(e.getPoint());
+
+                String type = GObjectManager.resizedObj.getClass().getSimpleName().substring(1);
+
+                Point2D point1 = GObjectManager.unselectedResizePoint;
+                Point2D point2 = GObjectManager.selectedResizePoint;
+                point2.setLocation(cursor);
+
+                GObjectManager.updateResizing(point1,point2,GObjectManager.resizedObj, type);
 
             }
-
+            repaint();
 
         }
 
@@ -301,6 +316,8 @@ public class CenterCanvas extends JPanel
             MainWindow.statusBar.setStatusText(String.format("Moving at [%d,%d]", (int)point2D.getX(), (int)point2D.getY()));
             if (!GObjectManager.drawingType.isEmpty())
                 setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+            else if (GObjectManager.getResizableRec(point2D) != null)
+                setCursor(Cursor.getPredefinedCursor(Cursor.NW_RESIZE_CURSOR));
             else if (GObjectManager.findSelected(point2D) != null)
                 setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
             else
@@ -352,8 +369,17 @@ public class CenterCanvas extends JPanel
 //                    //Main.app.inspectorPanel.rearrangeValues();
 //                }
 //            }
-            GObjectManager.draggedObj = GObjectManager.findSelected(point2D);
-            GObjectManager.inspectedObj = GObjectManager.draggedObj;
+            GObjectManager.updateResizablePoint(point2D);
+            if (GObjectManager.selectedResizePoint == null)
+            {
+                GObjectManager.draggedObj = GObjectManager.findSelected(point2D);
+                if (GObjectManager.draggedObj != null)
+                    GObjectManager.inspectedObj = GObjectManager.draggedObj;
+            }
+            else
+            {
+                GObjectManager.resizedObj = GObjectManager.inspectedObj;
+            }
 
             //repaint();
             //mxstart=mx;
@@ -365,6 +391,7 @@ public class CenterCanvas extends JPanel
         {
             isReleased = true;
             GObjectManager.draggedObj = null;
+            GObjectManager.resizedObj = null;
 
             if(GObjectManager.drawingObj != null && !GObjectManager.drawingType.isEmpty())
                 GObjectManager.addGObject(GObjectManager.drawingObj);

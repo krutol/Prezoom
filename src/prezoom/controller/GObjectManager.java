@@ -1,11 +1,10 @@
 package prezoom.controller;
 
 import prezoom.model.*;
-import prezoom.view.MainWindow;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.lang.reflect.Type;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 /**
@@ -27,16 +26,49 @@ public class GObjectManager
     public static GObject inspectedObj;
 
     /**
+     * the object that is being resized
+     */
+    public static GObject resizedObj;
+
+    /**
+     * the small rectangles on the diagonal of the shapes,
+     * used to resize the shapes
+     */
+    private static Rectangle2D[] resizeRecs;
+
+    /**
+     * the selected resize rectangle
+     */
+    public static Point2D selectedResizePoint;
+
+    /**
+     * another resize rectangle, fixed when resizing
+     */
+    public static Point2D unselectedResizePoint;
+
+    /**
      * the new object that is created by drawing
      */
     public static GObject drawingObj;
 
+    /**
+     * the type of the new shape, empty when not drawing
+     */
     public static String drawingType = "";
 
+    /**
+     * the color of the new shape
+     */
     public static Color drawingColor = Color.black;
 
+    /**
+     * the line width of the new shape
+     */
     public static int drawingLineWidth = 5;
 
+    /**
+     * whether the new shape is filled
+     */
     public static boolean drawingFilled = false;
 
     private static final ArrayList<GObject> gObjectList = new ArrayList<>();
@@ -54,23 +86,32 @@ public class GObjectManager
         }
     }
 
-    public static void updateDrawingObj(Point2D start, Point2D current)
+    /**
+     * when dragging mouse to resize shapes,
+     * use this function to update the shape to have dynamic resizing effect
+     * @param start the start point of new shapes
+     * @param current the current point of the cursor
+     * @param obj the object to be resized
+     * @param type the type of resized object
+     * @return the resized GObject
+     */
+    public static GObject updateResizing(Point2D start, Point2D current, GObject obj, String type)
     {
-        if (drawingType.isEmpty())
-            return;
+        if (type.isEmpty())
+            return null;
 
         double pointX1 = start.getX(), pointY1 = start.getY();
         double pointX2 = current.getX(), pointY2 = current.getY();
 
-        if (drawingType.equals("Line"))
+        if (type.equals("Line"))
         {
-            if (drawingObj == null)
-                drawingObj = new GLine(pointX1, pointY1, pointX2, pointY2, drawingColor, 5);
+            if (obj == null)
+                obj = new GLine(pointX1, pointY1, pointX2, pointY2, drawingColor, 5);
             else {
-                drawingObj.getCurrentAttributes().setX(pointX1);
-                drawingObj.getCurrentAttributes().setY(pointY1);
-                drawingObj.getCurrentAttributes().setX2(pointX2);
-                drawingObj.getCurrentAttributes().setY2(pointY2);
+                obj.getCurrentAttributes().setX(pointX1);
+                obj.getCurrentAttributes().setY(pointY1);
+                obj.getCurrentAttributes().setX2(pointX2);
+                obj.getCurrentAttributes().setY2(pointY2);
             }
 
         }
@@ -99,35 +140,111 @@ public class GObjectManager
                 height = pointY2 - pointY1;
             }
 
-            if (drawingObj == null)
+            if (obj == null)
             {
-                switch (drawingType)
+                switch (type)
                 {
                     case "Rectangle":
-                        drawingObj = new GRectangle(pX, pY, width, height, drawingColor, drawingFilled, drawingLineWidth);
+                        obj = new GRectangle(pX, pY, width, height, drawingColor, drawingFilled, drawingLineWidth);
                         break;
                     case "Oval":
-                        drawingObj = new GOval(pX, pY, width, height, drawingColor, drawingFilled, drawingLineWidth);
+                        obj = new GOval(pX, pY, width, height, drawingColor, drawingFilled, drawingLineWidth);
                         break;
                     case "Circle":
-                        drawingObj = new GOval(pX, pY, width, width, drawingColor, drawingFilled, drawingLineWidth);
+                        obj = new GOval(pX, pY, width, width, drawingColor, drawingFilled, drawingLineWidth);
                         break;
                 }
             }else
             {
-                drawingObj.getCurrentAttributes().setX(pX);
-                drawingObj.getCurrentAttributes().setY(pY);
-                drawingObj.getCurrentAttributes().setWidth(width);
-                if (drawingType.equals("Circle"))
-                    drawingObj.getCurrentAttributes().setHeight(width);
+                obj.getCurrentAttributes().setX(pX);
+                obj.getCurrentAttributes().setY(pY);
+                obj.getCurrentAttributes().setWidth(width);
+                if (type.equals("Circle"))
+                    obj.getCurrentAttributes().setHeight(width);
                 else
-                    drawingObj.getCurrentAttributes().setHeight(height);
+                    obj.getCurrentAttributes().setHeight(height);
             }
 
         }
 
-        MainWindow.centerCanvas.repaint();
+        return obj;
 
+    }
+
+    /**
+     * to draw two small rectangle on the diagonal of shapes,
+     * let the shapes resizable by dragging those points.
+     */
+    public static void drawResizePoints(Graphics2D g2)
+    {
+        Point2D[] points = inspectedObj.getResizePoints();
+        if (points == null) return;
+        double SIZE = 10;
+
+        if (resizeRecs == null)
+            resizeRecs = new Rectangle2D[points.length];
+        for (int i = 0; i < points.length; i++)
+        {
+            double x = points[i].getX() - SIZE / 2;
+            double y = points[i].getY() - SIZE / 2;
+            if (resizeRecs[i] == null)
+                resizeRecs[i] = new Rectangle2D.Double(x, y, SIZE, SIZE);
+            else
+                resizeRecs[i].setFrame(x,y,SIZE,SIZE);
+            g2.fill(resizeRecs[i]);
+        }
+
+    }
+
+    /**
+     * find if the given x,y select a resize point
+     * @param x x
+     * @param y y
+     * @return the selected rec, null if no rec is selected
+     */
+    public static Rectangle2D getResizableRec(double x, double y)
+    {
+        if (resizeRecs == null)
+            return null;
+        for (Rectangle2D rec:resizeRecs)
+        {
+            if (rec.contains(x,y))
+                return rec;
+        }
+
+        return null;
+    }
+
+    /**
+     * find if the given x,y select a resize point
+     * @param point point
+     * @return the selected rec, null if no rec is selected
+     */
+    public static Rectangle2D getResizableRec(Point2D point)
+    {
+        return getResizableRec(point.getX(),point.getY());
+    }
+
+    public static void updateResizablePoint(double x, double y)
+    {
+        if (resizeRecs == null)
+            return;
+        selectedResizePoint = null;
+        unselectedResizePoint = null;
+
+        for (Rectangle2D rec:resizeRecs)
+        {
+            if (rec.contains(x,y))
+                selectedResizePoint = new Point2D.Double(rec.getCenterX(), rec.getCenterY());
+            else
+                unselectedResizePoint = new Point2D.Double(rec.getCenterX(), rec.getCenterY());
+        }
+
+    }
+
+    public static void updateResizablePoint(Point2D point)
+    {
+        updateResizablePoint(point.getX(), point.getY());
     }
 
     /**
@@ -149,6 +266,11 @@ public class GObjectManager
         return null;
     }
 
+    /**
+     * find if the given x,y select an object
+     * @param point2D the point
+     * @return the selected object, null if no selected
+     */
     public static GObject findSelected(Point2D point2D)
     {
         return findSelected(point2D.getX(), point2D.getY());
@@ -198,7 +320,4 @@ public class GObjectManager
     {
         gObjectList.add(obj);
     }
-
-
-
 }

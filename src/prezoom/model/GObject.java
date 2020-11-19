@@ -3,6 +3,7 @@ package prezoom.model;
 import prezoom.controller.GAttributeManager;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 /** The base class for all graphical objects
  * @author Zhijie Lan<p>
@@ -119,6 +120,24 @@ public abstract class GObject
         return getAttributeManager().getCur_Attributes();
     }
 
+    /**
+     * get the position of the diagonal points
+     * @return diagonal points
+     */
+    public Point2D[] getResizePoints()
+    {
+        Point2D[] points = new Point2D[2];
+        points[0]= new Point2D.Double(getCurrentAttributes().getX(), getCurrentAttributes().getY());
+        if (this instanceof GLine)
+        {
+            points[1] = new Point2D.Double(getCurrentAttributes().getX2(), getCurrentAttributes().getY2());
+        }
+        else
+            points[1] = new Point2D.Double(getCurrentAttributes().getX()+getCurrentAttributes().getWidth(),
+                    getCurrentAttributes().getY()+getCurrentAttributes().getHeight());
+
+        return points;
+    }
 
 }
 
