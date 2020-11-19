@@ -190,7 +190,9 @@ public class GObjectManager
     {
         Point2D[] points = inspectedObj.getResizePoints();
         if (points == null) return;
-        double SIZE = 10;
+        double SIZE = 11;
+
+        g2.setStroke(new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 
         if (resizeRecs == null)
             resizeRecs = new Rectangle2D[points.length];
@@ -202,7 +204,7 @@ public class GObjectManager
                 resizeRecs[i] = new Rectangle2D.Double(x, y, SIZE, SIZE);
             else
                 resizeRecs[i].setFrame(x,y,SIZE,SIZE);
-            g2.fill(resizeRecs[i]);
+            g2.draw(resizeRecs[i]);
         }
 
     }
@@ -246,9 +248,12 @@ public class GObjectManager
         for (Rectangle2D rec:resizeRecs)
         {
             if (rec.contains(x,y))
+            {
                 selectedResizePoint = new Point2D.Double(rec.getCenterX(), rec.getCenterY());
-            else
-                unselectedResizePoint = new Point2D.Double(rec.getCenterX(), rec.getCenterY());
+                unselectedResizePoint = rec == resizeRecs[0] ?
+                        new Point2D.Double(resizeRecs[1].getCenterX(), resizeRecs[1].getCenterY()) :
+                        new Point2D.Double(resizeRecs[0].getCenterX(), resizeRecs[0].getCenterY());
+            }
         }
 
     }
