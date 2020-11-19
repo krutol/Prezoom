@@ -171,6 +171,16 @@ public class GObjectManager
 
     }
 
+    public static void finishDrawingNew()
+    {
+        if (drawingObj != null && !drawingType.isEmpty())
+        {
+            drawingObj.getAttributeManager().finishDrawingNew();
+            addGObject(drawingObj);
+            drawingObj = null;
+        }
+    }
+
     /**
      * to draw two small rectangle on the diagonal of shapes,
      * let the shapes resizable by dragging those points.

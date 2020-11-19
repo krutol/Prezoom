@@ -39,7 +39,7 @@ public class GAttributeManager
     {
         for (int i = 0; i< StateManager.getTotal_State_Number(); i++)
         {
-            if (i<getCurrent_State())
+            if (i!=getCurrent_State())
                 state_Attributes_list.add(null);
             else
             {
@@ -133,5 +133,25 @@ public class GAttributeManager
 
         // comment the update,  set it be triggered by the state manager to avoid double update
         //updateCur_Attributes();
+    }
+
+    /**
+     * after drawing, add cloned attributes to the following states
+     */
+    public void finishDrawingNew()
+    {
+        for (int i = getCurrent_State()+1; i< StateManager.getTotal_State_Number(); i++)
+        {
+            GAttributesI attributes = null;
+            try
+            {
+                attributes = (GAttributesI) cur_Attributes.clone();
+            } catch (CloneNotSupportedException e)
+            {
+                e.printStackTrace();
+            }
+            state_Attributes_list.add(i,attributes);
+        }
+
     }
 }

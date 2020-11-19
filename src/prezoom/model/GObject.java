@@ -126,6 +126,8 @@ public abstract class GObject
      */
     public Point2D[] getResizePoints()
     {
+        if (getCurrentAttributes() == null)
+            return null;
         Point2D[] points = new Point2D[2];
         points[0]= new Point2D.Double(getCurrentAttributes().getX(), getCurrentAttributes().getY());
         if (this instanceof GLine)

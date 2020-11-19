@@ -393,9 +393,8 @@ public class CenterCanvas extends JPanel
             GObjectManager.draggedObj = null;
             GObjectManager.resizedObj = null;
 
-            if(GObjectManager.drawingObj != null && !GObjectManager.drawingType.isEmpty())
-                GObjectManager.addGObject(GObjectManager.drawingObj);
-            GObjectManager.drawingObj = null;
+            GObjectManager.finishDrawingNew();
+
             setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             repaint();
         }
@@ -409,7 +408,7 @@ public class CenterCanvas extends JPanel
         @Override
         public void mouseExited(MouseEvent e)
         {
-
+            GObjectManager.drawingType = "";
         }
 
     }
