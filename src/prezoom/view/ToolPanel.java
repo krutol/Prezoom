@@ -4,25 +4,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 import prezoom.controller.GObjectManager;
 import prezoom.controller.StateManager;
 import prezoom.model.*;
 
-/** TODO
- * the panel that contains different function buttons
- * @author Zhijie Lan<p>
- * create date: 2020/11/3
- **/
-
 /**
- * Changed(Abhishek Sharma):
- *  --> class: ToolPanel method: constructor, added circle to the list of drop down shapes
+ * TODO
+ * the panel that contains different function buttons
  *
- *  --> class:ToolBtnHandler, method: actionPerformed()
- *      --code: if the shape is one among, add the shape to Main.app.centerCanvas.objects.add(shape)
- *      --code: refresh the inspector panel Main.app.inspectorPanel.rearrangeValues();
- */
+ * @author Zhijie Lan<p>
+ * create date: 2020/11/3<p>
+ * * Changed(Abhishek Sharma):
+ * *  --> class: ToolPanel method: constructor, added circle to the list of drop down shapes
+ * *
+ * *  --> class:ToolBtnHandler, method: actionPerformed()
+ * *      --code: if the shape is one among, add the shape to Main.app.centerCanvas.objects.add(shape)
+ * *      --code: refresh the inspector panel Main.app.inspectorPanel.rearrangeValues();
+ **/
 
 public class ToolPanel extends JPanel
 {
@@ -147,26 +147,10 @@ public class ToolPanel extends JPanel
             } else if (btn_Shape.equals(source))
             {//TODO
                 // for test
-                if(btn_Shape.getSelectedItem().toString().indexOf("Rectangle")>0) {
-                    GRectangle rect = new GRectangle(400, 350, 30, 40, Color.RED, true, 10);
-                    GObjectManager.addGObject(rect);
-                    //GObjectManager.inspectedObj = rect;
-                }else if(btn_Shape.getSelectedItem().toString().indexOf("Oval")>0) {
-                    GOval oval = new GOval(300, 200, 50, 30, Color.yellow, true, 3);
-                    GObjectManager.addGObject(oval);
-                    //MainWindow.centerCanvas.inspectedObj = oval;
-                }else if(btn_Shape.getSelectedItem().toString().indexOf("Circle")>0) {
-                    GOval circle = new GOval(300, 200, 50, 50, Color.green, true, 3);
-                    GObjectManager.addGObject(circle);
-                    //MainWindow.centerCanvas.inspectedObj = circle;
-                }else if(btn_Shape.getSelectedItem().toString().indexOf("Triangle")>0){
-                    int x[]={100,70,130};
-                    int y[]={50,100,100};
-                    //drawPolygon(x,y,3);
-                }
-                //Main.app.centerCanvas.repaint();
+                String str_selected = Objects.requireNonNull(btn_Shape.getSelectedItem()).toString();
 
-                //Main.app.centerCanvas.objects.add(new GOval(300, 200, Color.darkGray, false,3,50,30));
+                GObjectManager.drawingType = str_selected.trim();
+
             } else if (btn_Img.equals(source))
             {//TODO
             }

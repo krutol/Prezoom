@@ -35,7 +35,7 @@ public class GAttributeManager
      * @param y2 y2 of the object, if applicable
      * @param visible whether visible
      */
-    public GAttributeManager(Double x, Double y, Color col, Boolean filled, Integer lineWidth, Integer width, Integer height, Double x2, Double y2, Boolean visible)
+    public GAttributeManager(Double x, Double y, Color col, Boolean filled, Integer lineWidth, Double width, Double height, Double x2, Double y2, Boolean visible)
     {
         for (int i = 0; i< StateManager.getTotal_State_Number(); i++)
         {

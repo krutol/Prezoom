@@ -118,10 +118,10 @@ public class InspectorPanel extends JPanel
 
                 } else if (i == 1)
                 {
-                    text.setText("" + currAttr.getX().intValue());//+gatt.x);
+                    text.setText("" + currAttr.getX());//+gatt.x);
                 } else if (i == 2)
                 {
-                    text.setText("" + currAttr.getY().intValue());//+gatt.y);
+                    text.setText("" + currAttr.getY());//+gatt.y);
                 } else if (i == 3)
                 {
                     text.setText("" + currAttr.getWidth());//+gatt.width);
@@ -220,9 +220,9 @@ public class InspectorPanel extends JPanel
                 if (GObjectManager.inspectedObj != null)
                 {
                     if (text.length() == 0)
-                        currAttr.setWidth(0);
+                        currAttr.setWidth(0.0);
                     else
-                        currAttr.setWidth(Integer.parseInt(text));
+                        currAttr.setWidth(Double.parseDouble(text));
                 }
                 //Main.app.centerCanvas.repaint();
                 textBoxW.requestFocusInWindow();
@@ -239,9 +239,9 @@ public class InspectorPanel extends JPanel
                 if (GObjectManager.inspectedObj != null)
                 {
                     if (text.length() == 0)
-                        currAttr.setHeight(0);
+                        currAttr.setHeight(0.0);
                     else
-                        currAttr.setHeight(Integer.parseInt(text));
+                        currAttr.setHeight(Double.parseDouble(text));
                 }
                 //Main.app.centerCanvas.repaint();
                 textBoxH.requestFocus();

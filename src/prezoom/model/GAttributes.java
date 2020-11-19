@@ -18,7 +18,7 @@ public class GAttributes implements GAttributesI
     protected Color col;
     protected Boolean filled;
     protected Integer lineWidth;
-    protected Integer width, height;
+    protected Double width, height;
     protected Double x2, y2;
     protected BasicStroke stroke;
     protected Boolean visible = true;
@@ -47,7 +47,7 @@ public class GAttributes implements GAttributesI
      * @param y2        y2 of the object, if applicable
      * @param visible   whether visible
      */
-    public GAttributes(Double x, Double y, Color col, Boolean filled, Integer lineWidth, Integer width, Integer height, Double x2, Double y2, Boolean visible)
+    public GAttributes(Double x, Double y, Color col, Boolean filled, Integer lineWidth, Double width, Double height, Double x2, Double y2, Boolean visible)
     {
         this.x = x;
         this.y = y;
@@ -145,23 +145,23 @@ public class GAttributes implements GAttributesI
     }
 
     @Override
-    public Integer getWidth()
+    public Double getWidth()
     {
         return width;
     }
 
-    public void setWidth(Integer width)
+    public void setWidth(Double width)
     {
         this.width = width;
     }
 
     @Override
-    public Integer getHeight()
+    public Double getHeight()
     {
         return height;
     }
 
-    public void setHeight(Integer height)
+    public void setHeight(Double height)
     {
         this.height = height;
     }

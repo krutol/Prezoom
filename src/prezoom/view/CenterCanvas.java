@@ -2,6 +2,8 @@ package prezoom.view;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Point2D;
+import java.util.Objects;
 import javax.swing.*;
 
 import org.pushingpixels.trident.api.Timeline;
@@ -27,7 +29,9 @@ public class CenterCanvas extends JPanel
 //    private double yOffset = 0;
     private double xDiff;
     private double yDiff;
-    private final Point dragCanvasStartPoint = new Point(), dragObjStartPoint = new Point();
+    private final Point dragCanvasStartPoint = new Point(),
+            dragObjStartPoint = new Point(),
+            drawObjStartPoint = new Point();
 //    private GObject selectedObj;
 //    public GObject inspectedObj;
 
@@ -55,6 +59,14 @@ public class CenterCanvas extends JPanel
 //        objects.add(new GOval(150, 200, 50, 30, Color.BLUE, true, 3));
 //        objects.add(new GLine(500,500,672, 789, Color.magenta, 5));
 //    }
+
+    private Point2D toWorldCoordinates(Point point)
+    {
+        double mx = (point.getX() - getCurCamInfo().getOffsetX()) / getCurCamInfo().getPreZoomFactor();
+        double my = (point.getY() - getCurCamInfo().getOffsetY()) / getCurCamInfo().getPreZoomFactor();
+
+        return new Point2D.Double(mx, my);
+    }
 
     /**
      * add Mouse Listener, Mouse Wheel Listener, and Mouse Motion Listener to this panel
@@ -174,9 +186,13 @@ public class CenterCanvas extends JPanel
 //        }
         GObjectManager.drawAll(g2);
 
+        if (GObjectManager.drawingObj != null)
+            GObjectManager.drawingObj.draw(g2);
+
         g2.dispose();
 
-        MainWindow.inspectorPanel.rearrangeValues();
+        if (GObjectManager.drawingObj != null || GObjectManager.draggedObj != null)
+            MainWindow.inspectorPanel.rearrangeValues();
 
 
     }
@@ -230,7 +246,13 @@ public class CenterCanvas extends JPanel
                 isDragging = true;
                 setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 repaint();
-            } else if (GObjectManager.draggedObj != null)
+            }
+            else if (!GObjectManager.drawingType.isEmpty())
+            {
+                GObjectManager.updateDrawingObj(drawObjStartPoint, toWorldCoordinates(e.getPoint()));
+                GObjectManager.inspectedObj = GObjectManager.drawingObj;
+
+            }else if (GObjectManager.draggedObj != null)
             {
                 //int mx = e.getX();
                 //int my = e.getY();
@@ -275,10 +297,11 @@ public class CenterCanvas extends JPanel
         @Override
         public void mouseMoved(MouseEvent e)
         {
-            double mx = (e.getX() - getCurCamInfo().getOffsetX()) / getCurCamInfo().getPreZoomFactor();
-            double my = (e.getY() - getCurCamInfo().getOffsetY()) / getCurCamInfo().getPreZoomFactor();
-            MainWindow.statusBar.setStatusText(String.format("Moving at [%d,%d]", (int)mx, (int)my));
-            if (GObjectManager.findSelected(mx, my) != null)
+            Point2D point2D = toWorldCoordinates(e.getPoint());
+            MainWindow.statusBar.setStatusText(String.format("Moving at [%d,%d]", (int)point2D.getX(), (int)point2D.getY()));
+            if (!GObjectManager.drawingType.isEmpty())
+                setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+            else if (GObjectManager.findSelected(point2D) != null)
                 setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
             else
                 setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -290,6 +313,7 @@ public class CenterCanvas extends JPanel
             //mxstart = e.getX();
             //mystart = e.getY();
             dragObjStartPoint.setLocation(e.getPoint());
+            GObjectManager.drawingType = "";
             //dragObjStartPoint = e.getPoint();
         }
 
@@ -305,6 +329,7 @@ public class CenterCanvas extends JPanel
             //dragCanvasStartPoint = MouseInfo.getPointerInfo().getLocation();
             dragCanvasStartPoint.setLocation(MouseInfo.getPointerInfo().getLocation());
 
+
             //mxstart = e.getX();
             //mystart = e.getY();
             dragObjStartPoint.setLocation(e.getPoint());
@@ -313,8 +338,8 @@ public class CenterCanvas extends JPanel
 
             //mxstart -= o_X;
             //mystart -= o_Y;
-            double mx = (e.getX() - getCurCamInfo().getOffsetX()) / getCurCamInfo().getPreZoomFactor();
-            double my = (e.getY() - getCurCamInfo().getOffsetY()) / getCurCamInfo().getPreZoomFactor();
+            Point2D point2D = toWorldCoordinates(e.getPoint());
+            drawObjStartPoint.setLocation(point2D);
 //        int mx=e.getX();
 //        int my=e.getY();
 //            for (GObject go : objects)
@@ -327,7 +352,7 @@ public class CenterCanvas extends JPanel
 //                    //Main.app.inspectorPanel.rearrangeValues();
 //                }
 //            }
-            GObjectManager.draggedObj = GObjectManager.findSelected(mx,my);
+            GObjectManager.draggedObj = GObjectManager.findSelected(point2D);
             GObjectManager.inspectedObj = GObjectManager.draggedObj;
 
             //repaint();
@@ -340,6 +365,10 @@ public class CenterCanvas extends JPanel
         {
             isReleased = true;
             GObjectManager.draggedObj = null;
+
+            if(GObjectManager.drawingObj != null && !GObjectManager.drawingType.isEmpty())
+                GObjectManager.addGObject(GObjectManager.drawingObj);
+            GObjectManager.drawingObj = null;
             setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             repaint();
         }

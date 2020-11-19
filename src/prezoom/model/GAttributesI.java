@@ -1,8 +1,6 @@
 package prezoom.model;
 
 import java.awt.*;
-import java.lang.reflect.Method;
-import java.util.Map;
 
 /**
  * The interface of the Grapgical Attibutes
@@ -38,13 +36,13 @@ public interface GAttributesI extends Cloneable, MethodMapI
 
     void setLineWidth(Integer lineWidth);
 
-    Integer getWidth();
+    Double getWidth();
 
-    void setWidth(Integer width);
+    void setWidth(Double width);
 
-    Integer getHeight();
+    Double getHeight();
 
-    void setHeight(Integer height);
+    void setHeight(Double height);
 
     Double getX2();
 
