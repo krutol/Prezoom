@@ -99,6 +99,9 @@ public abstract class GObject
 //        double x = getCurrentAttributes().getX(), y = getCurrentAttributes().getY();
 //        int w = getCurrentAttributes().getWidth(), h = getCurrentAttributes().getHeight();
 //        return mx >= x && mx <= x + w && my >= y && my <= y + h;
+        if (!getCurrentAttributes().getVisible())
+            return false;
+
         return drawShape.contains(mx,my);
     }
 
@@ -126,7 +129,7 @@ public abstract class GObject
      */
     public Point2D[] getResizePoints()
     {
-        if (getCurrentAttributes() == null)
+        if (getCurrentAttributes() == null || !getCurrentAttributes().getVisible())
             return null;
         Point2D[] points = new Point2D[2];
         points[0]= new Point2D.Double(getCurrentAttributes().getX(), getCurrentAttributes().getY());

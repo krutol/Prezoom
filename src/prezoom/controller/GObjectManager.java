@@ -151,7 +151,7 @@ public class GObjectManager
                         obj = new GOval(pX, pY, width, height, drawingColor, drawingFilled, drawingLineWidth);
                         break;
                     case "Circle":
-                        obj = new GOval(pX, pY, width, width, drawingColor, drawingFilled, drawingLineWidth);
+                        obj = new GCircle(pX, pY, width, drawingColor, drawingFilled, drawingLineWidth);
                         break;
                 }
             }else

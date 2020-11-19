@@ -39,13 +39,21 @@ public class GAttributeManager
     {
         for (int i = 0; i< StateManager.getTotal_State_Number(); i++)
         {
+            GAttributesI attributes;
             if (i!=getCurrent_State())
-                state_Attributes_list.add(null);
+            {
+                //state_Attributes_list.add(null);
+                attributes = attributes = new GAttributes(x == null?null:0.0,
+                        y == null?null:0.0, col == null?null:new Color(238,238,238), filled == null?null:false,
+                        lineWidth == null?null:0, width == null?null:0.0, height == null?null:0.0,
+                        x2 == null?null:0.0, y2 == null?null:0.0, visible == null?null:false);
+
+            }
             else
             {
-                GAttributesI attributes = new GAttributes(x,y,col,filled,lineWidth, width, height, x2, y2, visible);
-                state_Attributes_list.add(i,attributes);
+                attributes = new GAttributes(x, y, col, filled, lineWidth, width, height, x2, y2, visible);
             }
+            state_Attributes_list.add(i,attributes);
         }
         updateCur_Attributes();
     }

@@ -38,6 +38,9 @@ public class GLine extends GObject
     @Override
     public boolean inShape(double mx, double my)
     {
+        if (!getCurrentAttributes().getVisible())
+            return false;
+
         return drawShape.getBounds().contains(mx,my);
     }
 }
