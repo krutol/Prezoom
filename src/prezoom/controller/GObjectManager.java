@@ -178,6 +178,7 @@ public class GObjectManager
             drawingObj.getAttributeManager().finishDrawingNew();
             addGObject(drawingObj);
             drawingObj = null;
+            drawingType = "";
         }
     }
 

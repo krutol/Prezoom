@@ -330,7 +330,6 @@ public class CenterCanvas extends JPanel
             //mxstart = e.getX();
             //mystart = e.getY();
             dragObjStartPoint.setLocation(e.getPoint());
-            GObjectManager.drawingType = "";
             //dragObjStartPoint = e.getPoint();
         }
 
@@ -408,7 +407,7 @@ public class CenterCanvas extends JPanel
         @Override
         public void mouseExited(MouseEvent e)
         {
-            GObjectManager.drawingType = "";
+
         }
 
     }
