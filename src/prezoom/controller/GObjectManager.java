@@ -192,6 +192,7 @@ public class GObjectManager
         if (points == null) return;
         double SIZE = 11;
 
+        g2.setColor(Color.BLACK);
         g2.setStroke(new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 
         if (resizeRecs == null)
