@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class GAttributes implements GAttributesI
 {
-    protected String label;
+    protected String textString;
     protected Double x, y;
     protected Color col;
     protected Boolean filled;
@@ -22,6 +22,9 @@ public class GAttributes implements GAttributesI
     protected Double x2, y2;
     protected BasicStroke stroke;
     protected Boolean visible = true;
+    protected String fontName;
+    protected Integer fontStyle;
+    protected Integer fontSize;
     private final Map<String, Method> getters, setters;
 
     /**
@@ -47,7 +50,10 @@ public class GAttributes implements GAttributesI
      * @param y2        y2 of the object, if applicable
      * @param visible   whether visible
      */
-    public GAttributes(Double x, Double y, Color col, Boolean filled, Integer lineWidth, Double width, Double height, Double x2, Double y2, Boolean visible)
+    public GAttributes(Double x, Double y, Color col, Boolean filled,
+                       Integer lineWidth, Double width, Double height,
+                       Double x2, Double y2, Boolean visible,
+                       String fontName, Integer fontStyle, Integer fontSize, String textString)
     {
         this.x = x;
         this.y = y;
@@ -59,6 +65,10 @@ public class GAttributes implements GAttributesI
         this.x2 = x2;
         this.y2 = y2;
         this.visible = visible;
+        this.fontName = fontName;
+        this.fontStyle = fontStyle;
+        this.fontSize = fontSize;
+        this.textString = textString;
         this.getters = MethodFactory.getNonNullGetters(this);
         this.setters = MethodFactory.getNonNullSetters(this);
     }
@@ -76,15 +86,15 @@ public class GAttributes implements GAttributesI
     }
 
     @Override
-    public String getLabel()
+    public String getTextString()
     {
-        return label;
+        return textString;
     }
 
     @Override
-    public void setLabel(String label)
+    public void setTextString(String textString)
     {
-        this.label = label;
+        this.textString = textString;
     }
 
     @Override
@@ -210,6 +220,36 @@ public class GAttributes implements GAttributesI
     public void setVisible(Boolean visible)
     {
         this.visible = visible;
+    }
+
+    public String getFontName()
+    {
+        return fontName;
+    }
+
+    public void setFontName(String fontName)
+    {
+        this.fontName = fontName;
+    }
+
+    public Integer getFontStyle()
+    {
+        return fontStyle;
+    }
+
+    public void setFontStyle(Integer fontStyle)
+    {
+        this.fontStyle = fontStyle;
+    }
+
+    public Integer getFontSize()
+    {
+        return fontSize;
+    }
+
+    public void setFontSize(Integer fontSize)
+    {
+        this.fontSize = fontSize;
     }
 
     @Override

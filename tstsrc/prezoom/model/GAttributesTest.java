@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GAttributesTest
 {
     GAttributes gAttributes = new GAttributes(100.0,200.0, Color.blue,
-            true, 5, 100.0, 50.0, 120.0, 230.0, true);
+            true, 5, 100.0, 50.0, 120.0, 230.0, true, null, null, null,null);
 
     @Test
     void testClone()
@@ -32,7 +32,7 @@ class GAttributesTest
         assertEquals(gAttributes.lineWidth, att_clone.lineWidth);
         assertEquals(gAttributes.filled, att_clone.filled);
         assertEquals(gAttributes.visible, att_clone.visible);
-        assertEquals(gAttributes.label, att_clone.label);
+        assertEquals(gAttributes.textString, att_clone.textString);
         assertEquals(gAttributes.stroke, att_clone.stroke);
     }
 }

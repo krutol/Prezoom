@@ -11,7 +11,8 @@ public class GOval extends GObject
 {
     public GOval(double x, double y, double w, double h, Color col, Boolean filled, int lineWidth)
     {
-        super(x, y, col, filled, lineWidth, w, h, null,null,true);
+        super(x, y, col, filled, lineWidth, w, h,
+                null,null,true, null, null, null, null);
         this.drawShape = new Ellipse2D.Double(x, y, w, h);
     }
 

@@ -39,7 +39,10 @@ public abstract class GObject
      * @param y2 y2 of the object, if applicable
      * @param visible whether visible
      */
-    protected GObject(Double x, Double y, Color col, Boolean filled, Integer lineWidth, Double width, Double height, Double x2, Double y2, Boolean visible)
+    protected GObject(Double x, Double y, Color col, Boolean filled,
+                      Integer lineWidth, Double width, Double height,
+                      Double x2, Double y2, Boolean visible,
+                      String fontName, Integer fontStyle, Integer fontSize, String textString)
     {
         //this.id = id;
 //        this.x = x;
@@ -60,7 +63,8 @@ public abstract class GObject
 //            }
 //        }
 //        updateCur_Attributes();
-        gAttributeManager = new GAttributeManager(x, y, col, filled, lineWidth, width, height, x2, y2, visible);
+        gAttributeManager = new GAttributeManager(x, y, col, filled, lineWidth, width, height,
+                x2, y2, visible, fontName, fontStyle, fontSize, textString);
 
     }
 

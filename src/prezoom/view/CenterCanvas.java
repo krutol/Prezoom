@@ -3,7 +3,6 @@ package prezoom.view;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import javax.swing.*;
 
 import org.pushingpixels.trident.api.Timeline;
@@ -83,8 +82,9 @@ public class CenterCanvas extends JPanel
         SwingRepaintTimeline repaintTimeline = SwingRepaintTimeline.repaintBuilder(this)
                 .setAutoRepaintMode(true).build();
         repaintTimeline.playLoop(Timeline.RepeatBehavior.LOOP);
-    }
 
+        setLayout(null);
+    }
     /*
       move the camera to the given location
 
@@ -192,7 +192,7 @@ public class CenterCanvas extends JPanel
         if (GObjectManager.inspectedObj != null)
             GObjectManager.drawResizePoints(g2);
 
-        g2.dispose();
+        //g2.dispose();
 
         if (GObjectManager.drawingObj != null
                 || GObjectManager.draggedObj != null

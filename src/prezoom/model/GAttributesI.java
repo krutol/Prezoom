@@ -12,9 +12,9 @@ public interface GAttributesI extends Cloneable, MethodMapI
 {
     Object clone() throws CloneNotSupportedException;
 
-    String getLabel();
+    String getTextString();
 
-    void setLabel(String label);
+    void setTextString(String textString);
 
     Double getX();
 
@@ -59,4 +59,16 @@ public interface GAttributesI extends Cloneable, MethodMapI
     Boolean getVisible();
 
     void setVisible(Boolean visible);
+
+    String getFontName();
+
+    void setFontName(String fontName);
+
+    Integer getFontStyle();
+
+    void setFontStyle(Integer fontStyle);
+
+    Integer getFontSize();
+
+    void setFontSize(Integer fontSize);
 }

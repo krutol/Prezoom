@@ -13,7 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class GAttributeManagerTest
 {
     GAttributeManager gAttributeManager = new GAttributeManager(null,null,null,null,
-            null,null,null,null,null,null);
+            null,null,null,
+            null,null,null, null, null, null, null);
 
     @Test
     void getCur_Attributes()

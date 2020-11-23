@@ -114,7 +114,7 @@ public class InspectorPanel extends JPanel
             {
                 if (i == 0)
                 {
-                    text.setText("" + currAttr.getLabel());//+gatt.getClass());
+                    text.setText("" + currAttr.getTextString());//+gatt.getClass());
 
                 } else if (i == 1)
                 {
@@ -165,7 +165,7 @@ public class InspectorPanel extends JPanel
                 {
                     text = textBoxLabel.getText() + e.getKeyChar();
                 }
-                currAttr.setLabel(text);
+                currAttr.setTextString(text);
                 //Main.app.centerCanvas.repaint();
                 textBoxLabel.requestFocusInWindow();
             } else if (e.getSource().equals(textBoxX))

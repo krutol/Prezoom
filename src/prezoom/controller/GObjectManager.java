@@ -72,6 +72,9 @@ public class GObjectManager
     public static boolean drawingFilled = false;
 
     private static final ArrayList<GObject> gObjectList = new ArrayList<>();
+    static {
+        gObjectList.add(new GText("Test",50.0,50.0,Color.BLACK,100.0,100.0,true,"Default", 0, 20));
+    }
 
     /**
      * draw all the objects on canvas
@@ -303,6 +306,8 @@ public class GObjectManager
         for (GObject obj: gObjectList)
         {
             obj.getAttributeManager().updateCur_Attributes();
+            if (obj instanceof GText)
+                ((GText) obj).updateTextString();
         }
     }
 
