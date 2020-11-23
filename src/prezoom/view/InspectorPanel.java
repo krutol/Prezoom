@@ -1,19 +1,15 @@
 package prezoom.view;
 
 import prezoom.controller.GObjectManager;
-import prezoom.model.GAttributesI;
-import prezoom.model.GLine;
-import prezoom.model.GOval;
-import prezoom.model.GRectangle;
+import prezoom.model.*;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.EventObject;
-import java.util.Hashtable;
-import java.util.Iterator;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
 import javax.swing.table.*;
 /**
  * TODO
@@ -46,6 +42,7 @@ public class InspectorPanel extends JPanel
     private String[] col_names = {"", ""};
     private RowEditorModel rm;
     private Component editedComp;
+    private GAttributesI curr_attr;
     InspectorPanel getInspectorRef(){
         return this;
     }
@@ -78,23 +75,14 @@ public class InspectorPanel extends JPanel
         public int valueExistsAtCell(Object e)
         {
             Iterator iter = data.keys().asIterator();
-            while(iter.hasNext()){
-                Integer key = (Integer)iter.next();
-                String value = ((TableCellEditor)data.get(key)).getCellEditorValue()+"";
-                String prop = ((CustomTableModel)table.getModel()).getPropName(key.intValue());
+            while(iter.hasNext()) {
+                Integer key = (Integer) iter.next();
+                String value = ((TableCellEditor) data.get(key)).getCellEditorValue() + "";
+                String prop = ((CustomTableModel) table.getModel()).getPropName(key.intValue());
                 Component comp = null;
-                if(prop.equals("Label")
-                        || prop.equals("X")
-                        || prop.equals("Y")
-                        || prop.equals("Width")
-                        || prop.equals("Height")
-                        || prop.equals("X2")
-                        || prop.equals("Y2")
-                        || prop.equals("LineWidth")){
-                    comp = (JTextField) ((TableCellEditor)data.get(key)).getTableCellEditorComponent(table, value, true, key.intValue(), 1);
-                }else if(prop.equals("IsFilled")){
+                if (prop.equals("filled")){
                     comp = (JCheckBox) ((TableCellEditor)data.get(key)).getTableCellEditorComponent(table, value, true, key.intValue(), 1);
-                }else if(prop.equals("Color")){
+                }else {
                     comp = (JTextField) ((TableCellEditor)data.get(key)).getTableCellEditorComponent(table, value, true, key.intValue(), 1);
                 }
                 if(comp.equals(e)){
@@ -114,6 +102,7 @@ public class InspectorPanel extends JPanel
         public void setPropNames(String[] props)
         {
             this.prop_names = props;
+
         }
         public String[] getPropNames()
         {
@@ -125,6 +114,9 @@ public class InspectorPanel extends JPanel
                 return null;
             if (col==0)
                 return prop_names[row];
+
+            if(table.getRowEditorModel().getEditor(row)==null)
+                return null;
             return table.getRowEditorModel().getEditor(row).getCellEditorValue();
             //return super.getValueAt(row,col);
         }
@@ -228,24 +220,24 @@ public class InspectorPanel extends JPanel
         JTextField tf = new JTextField("label");
         DefaultCellEditor ed = new DefaultCellEditor(tf);
         // tell the RowEditorModel to use ed for row 1
-        rm.addEditorForRow(0,ed);
+        //rm.addEditorForRow(0,ed);
 
         tf = new JTextField("text");
         ed = new DefaultCellEditor(tf);
         // tell the RowEditorModel to use ed for row 1
-        rm.addEditorForRow(1,ed);
+        //rm.addEditorForRow(1,ed);
 
         tf = new JTextField("");
         ed = new DefaultCellEditor(tf);
-        rm.addEditorForRow(2,ed);
+        //rm.addEditorForRow(2,ed);
 
         tf = new JTextField("");
         ed = new DefaultCellEditor(tf);
-        rm.addEditorForRow(3,ed);
+        //rm.addEditorForRow(3,ed);
 
         tf = new JTextField("");
         ed = new DefaultCellEditor(tf);
-        rm.addEditorForRow(4,ed);
+        //rm.addEditorForRow(4,ed);
 
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane);
@@ -272,14 +264,15 @@ public class InspectorPanel extends JPanel
             Component cell = super.getTableCellRendererComponent(
                     table, obj, isSelected, hasFocus, row, column);
             if (GObjectManager.inspectedObj != null){
-                GAttributesI currAttr = GObjectManager.inspectedObj.getCurrentAttributes();
-                if(currAttr != null) {
+                //GAttributesI currAttr = GObjectManager.inspectedObj.getCurrentAttributes();
+                if( curr_attr != null) {
                     String attr = getAttribute(row);
-                    if (attr != null && attr.equals("Color")) {
-                        cell.setBackground(currAttr.getCol());
-                    }else{
+                    System.out.println("attr-"+attr+", row-"+row);
+                    if (attr != null && attr.equals("col")) {
+                        cell.setBackground(curr_attr.getCol());
+                    }else if(attr==null){
+                    }else
                         cell.setBackground(Color.white);
-                    }
                 }
             }
             return cell;
@@ -310,135 +303,116 @@ public class InspectorPanel extends JPanel
         }
     }
 
-    /**
-     * Set the values in the inspector panel textboxes
-     * x, y, width, height
-     */
+    public void invokeSetter(Map setterMap, String key, GAttributesI attr, Object param) throws IllegalAccessException, InvocationTargetException{
+
+        for (Object entry : setterMap.entrySet()) {
+            String currKey = ((Map.Entry<String, Method>)entry).getKey();
+            if(currKey.equals(key)){
+                ((Map.Entry<String, Method>)entry).getValue().invoke(attr, param);
+            }
+        }
+    }
+        /**
+         * Set the values in the inspector panel textboxes
+         * x, y, width, height
+         */
     public void rearrangeValues()
     {
         if (GObjectManager.inspectedObj == null)
             return;
 
         GAttributesI currAttr = GObjectManager.inspectedObj.getCurrentAttributes();
+        curr_attr = currAttr;
         if(currAttr == null)
             return;
         TableColumn tcol = table.getColumnModel().getColumn(1);
         tcol.setCellRenderer(new CustomTableCellRenderer());
         table.getRowEditorModel().clear();
         int numAttr = 0;
-        if(GObjectManager.inspectedObj.getClass().equals(GOval.class)){
-            numAttr = this.ovalAttributes.length;
-            ((CustomTableModel)model).setPropNames(this.ovalAttributes);
-        }else if(GObjectManager.inspectedObj.getClass().equals(GLine.class)){
-            numAttr = this.lineAttributes.length;
-            ((CustomTableModel)model).setPropNames(this.lineAttributes);
-        }else if(GObjectManager.inspectedObj.getClass().equals(GRectangle.class)){
-            numAttr = this.rectAttributes.length;
-            ((CustomTableModel)model).setPropNames(this.rectAttributes);
-        }
+        Map<String, Method> cur_map = currAttr.validGetterMap();
+        Map<String, Method> setter_map = currAttr.validSetterMap();
+
+        ((CustomTableModel)model).setPropNames(cur_map.keySet().toArray(new String[0]));
+        numAttr = cur_map.size();
         int i = 0;
         PanelKeyboardListener panelKeyListener = new PanelKeyboardListener();
         editedComp = null;
-        while(i<numAttr){
+
+        for (Map.Entry<String, Method> entry : cur_map.entrySet()) {
             String attr = getAttribute(i);
-            if (attr.equals("Label"))
-            {
-                editedComp = new JTextField(currAttr.getLabel());
-                editedComp.addKeyListener(panelKeyListener);
-                DefaultCellEditor ed = new DefaultCellEditor((JTextField) editedComp);
-                table.getRowEditorModel().addEditorForRow(i, ed);
-            } else if (attr.equals("X"))
-            {
-                editedComp = new JTextField(currAttr.getX()+"");
-                editedComp.addKeyListener(panelKeyListener);
-                DefaultCellEditor ed = new DefaultCellEditor((JTextField) editedComp);
-                table.getRowEditorModel().addEditorForRow(i, ed);
-            } else if (attr.equals("Y"))
-            {
-                editedComp = new JTextField(currAttr.getY()+"");
-                editedComp.addKeyListener(panelKeyListener);
-                DefaultCellEditor ed = new DefaultCellEditor((JTextField) editedComp);
-                table.getRowEditorModel().addEditorForRow(i, ed);
-            } else if (attr.equals("Width"))
-            {
-                editedComp = new JTextField(currAttr.getWidth()+"");
-                editedComp.addKeyListener(panelKeyListener);
-                DefaultCellEditor ed = new DefaultCellEditor((JTextField) editedComp);
-                table.getRowEditorModel().addEditorForRow(i, ed);
-            } else if (attr.equals("Height"))
-            {
-                editedComp = new JTextField(currAttr.getHeight()+"");
-                editedComp.addKeyListener(panelKeyListener);
-                DefaultCellEditor ed = new DefaultCellEditor((JTextField) editedComp);
-                table.getRowEditorModel().addEditorForRow(i, ed);
-            } else if (attr.equals("X2"))
-            {
-                editedComp = new JTextField(currAttr.getX2()+"");
-                editedComp.addKeyListener(panelKeyListener);
-                DefaultCellEditor ed = new DefaultCellEditor((JTextField) editedComp);
-                table.getRowEditorModel().addEditorForRow(i, ed);
-            } else if (attr.equals("Y2"))
-            {
-                editedComp = new JTextField(currAttr.getY2()+"");
-                editedComp.addKeyListener(panelKeyListener);
-                DefaultCellEditor ed = new DefaultCellEditor((JTextField) editedComp);
+            try {
 
-                table.getRowEditorModel().addEditorForRow(i, ed);
-            } else if (attr.equals("Color"))
+                if (attr.equals("col")) {
+                    editedComp = new JTextField("");
+                    editedComp.setBackground((Color)entry.getValue().invoke(currAttr));
+                    editedComp.addMouseListener(new MouseListener() {
+
+                        public void mouseClicked(MouseEvent e) {
+                            try{
+                                Color color = JColorChooser.showDialog(getInspectorRef(), "Select a color", currAttr.getCol());
+                                ((JTextField)e.getSource()).setBackground(color);
+                                invokeSetter(setter_map, entry.getKey(), currAttr, color);
+                            }catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException ex){
+
+                            }
+                        }
+
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+
+                        }
+
+                        @Override
+                        public void mouseReleased(MouseEvent e) {
+
+                        }
+
+                        @Override
+                        public void mouseEntered(MouseEvent e) {
+
+                        }
+
+                        @Override
+                        public void mouseExited(MouseEvent e) {
+
+                        }
+                    });
+                    DefaultCellEditor ed = new CustomCellEditor((JTextField) editedComp);
+
+                    table.getRowEditorModel().addEditorForRow(i, ed);
+                } else if (attr.equals("filled")) {
+                    editedComp = new JCheckBox((((Boolean)entry.getValue().invoke(currAttr))).toString()+"");
+                    ((JCheckBox) editedComp).addItemListener(new ItemListener() {
+                        @Override
+                        public void itemStateChanged(ItemEvent e) {
+                            try{
+                                if (e.getStateChange() == 1)
+                                    invokeSetter(setter_map, entry.getKey(), currAttr, new Boolean(true));
+                                else
+                                    invokeSetter(setter_map, entry.getKey(), currAttr, new Boolean(false));
+                            }catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException ex){
+
+                            }
+
+                        }
+                    });
+                    DefaultCellEditor ed = new DefaultCellEditor((JCheckBox) editedComp);
+                    table.getRowEditorModel().addEditorForRow(i, ed);
+                } else if (attr.equals("lineWidth")){
+                    editedComp = new JTextField(((Integer)entry.getValue().invoke(currAttr)).intValue() + "");
+                    editedComp.addKeyListener(panelKeyListener);
+                    DefaultCellEditor ed = new DefaultCellEditor((JTextField) editedComp);
+                    table.getRowEditorModel().addEditorForRow(i, ed);
+                } else if(attr.equals("visible")){
+                } else {
+                    editedComp = new JTextField(((Double)entry.getValue().invoke(currAttr)).toString());
+                    editedComp.addKeyListener(panelKeyListener);
+                    DefaultCellEditor ed = new DefaultCellEditor((JTextField) editedComp);
+                    table.getRowEditorModel().addEditorForRow(i, ed);
+                }
+            } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException e)
             {
-                editedComp = new JTextField("");
-                editedComp.setBackground(currAttr.getCol());
-                editedComp.addMouseListener(new MouseListener() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        Color color=JColorChooser.showDialog(getInspectorRef(),"Select a color",currAttr.getCol());
-                        editedComp.setBackground(color);
-                        currAttr.setCol(color);
-                    }
-
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-
-                    }
-
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-
-                    }
-
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-
-                    }
-
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-
-                    }
-                });
-                DefaultCellEditor ed = new CustomCellEditor((JTextField) editedComp);
-
-                table.getRowEditorModel().addEditorForRow(i, ed);
-            } else if (attr.equals("IsFilled"))
-            {
-                editedComp = new JCheckBox();
-                ((JCheckBox)editedComp).addItemListener(new ItemListener() {
-                    @Override
-                    public void itemStateChanged(ItemEvent e) {
-                        if(e.getStateChange()==1)
-                            currAttr.setFilled(true);
-                        else
-                            currAttr.setFilled(false);
-                    }
-                });
-                DefaultCellEditor ed = new DefaultCellEditor((JCheckBox) editedComp);
-                table.getRowEditorModel().addEditorForRow(i, ed);
-            } else if (attr.equals("LineWidth"))
-            {
-                editedComp = new JTextField(currAttr.getLineWidth().intValue()+"");
-                editedComp.addKeyListener(panelKeyListener);
-                DefaultCellEditor ed = new DefaultCellEditor((JTextField) editedComp);
-                table.getRowEditorModel().addEditorForRow(i, ed);
+                //e.printStackTrace();
             }
             i++;
         }
@@ -465,145 +439,71 @@ public class InspectorPanel extends JPanel
             GAttributesI currAttr = GObjectManager.inspectedObj.getCurrentAttributes();
             if (currAttr == null)
                 return;
+            Map<String, Method> getter_map = currAttr.validGetterMap();
+            Map<String, Method> cur_map = currAttr.validSetterMap();
+
             String text = "";
             int exists = getRowModelEditor().valueExistsAtCell((JTextField)e.getSource());
-            if(exists>-1) {
-                String textBoxText = "";
-                if(e.getSource().getClass().equals(JTextField.class)) {
-                    textBoxText = ((JTextField) e.getSource()).getText();
-                }else if(e.getSource().getClass().equals(JComboBox.class)){
+            String attr = getAttribute(exists);
+            String textBoxText = "";
+            if(e.getSource().getClass().equals(JTextField.class)) {
+                textBoxText = ((JTextField) e.getSource()).getText();
+            }else if(e.getSource().getClass().equals(JComboBox.class)){
+
+            }
+            if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+            {
+                if (textBoxText.length() > 0)
+                    text = textBoxText.substring(0, textBoxText.length() - 1);
+            } else
+            {
+                text = textBoxText + e.getKeyChar();
+            }
+            if(exists>-1){
+                Set<Map.Entry<String, Method>> getterSet = getter_map.entrySet();
+                Iterator iter = getterSet.iterator();
+                for (Map.Entry<String, Method> entry : cur_map.entrySet()) {
+                    Map.Entry<String, Method> entryGetter = null;
+                    if(iter.hasNext())
+                        entryGetter = (Map.Entry<String, Method>)iter.next();
+                    if(entryGetter==null)
+                        break;
+                    if(entry.getKey().equals(attr)){
+                        try{
+                            Object value = entryGetter.getValue().invoke(currAttr);
+                            if (GObjectManager.inspectedObj != null)
+                            {
+                                if(value instanceof Double){
+                                    if (text.length() == 0)
+                                        entry.getValue().invoke(currAttr, new Double(0.0));
+                                    else
+                                        entry.getValue().invoke(currAttr, Double.parseDouble(text));
+                                }else if(value instanceof Integer){
+                                    if (text.length() == 0)
+                                        entry.getValue().invoke(attr, new Integer(0));
+                                    else
+                                        entry.getValue().invoke(currAttr, Integer.parseInt(text));
+                                }else if(value instanceof Boolean){
+                                    if (text.length() == 0)
+                                        entry.getValue().invoke(currAttr, new Boolean(false));
+                                    else
+                                        entry.getValue().invoke(currAttr, Boolean.parseBoolean(text));
+                                }else if(value instanceof Color){
+                                    if (text.length() == 0)
+                                        entry.getValue().invoke(currAttr, new Color(0,0,0));
+                                    else
+                                        entry.getValue().invoke(currAttr, value);
+                                }
+                            }
+
+                        }catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException ex){
+                            //System.out.println(ex);
+                        }
+
+                    }
 
                 }
-                if (getAttribute(exists).equals("Label")) {
-                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
-                    {
-                        if (textBoxText.length() > 0)
-                            text = textBoxText.substring(0, textBoxText.length() - 1);
-                    } else
-                    {
-                        text = textBoxText + e.getKeyChar();
-                    }
-                    currAttr.setLabel(text);
-                }else if (getAttribute(exists).equals("X"))
-                {
-                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
-                    {
-                        if (textBoxText.length() > 0)
-                            text = textBoxText.substring(0, textBoxText.length() - 1);
-                    } else
-                    {
-                        text = textBoxText + e.getKeyChar();
-                    }
-                    if (GObjectManager.inspectedObj != null)
-                    {
-                        if (text.length() == 0)
-                            currAttr.setX(0.0);
-                        else
-                            currAttr.setX(Double.parseDouble(text));
-                    }
-                }else if (getAttribute(exists).equals("Y"))
-                {
-                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
-                    {
-                        if (textBoxText.length() > 0)
-                            text = textBoxText.substring(0, textBoxText.length() - 1);
-                    } else
-                    {
-                        text = textBoxText + e.getKeyChar();
-                    }
-                    if (GObjectManager.inspectedObj != null)
-                    {
-                        if (text.length() == 0)
-                            currAttr.setY(0.0);
-                        else
-                            currAttr.setY(Double.parseDouble(text));
-                    }
-                } else if (getAttribute(exists).equals("Width"))
-                {
-                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
-                    {
-                        if (textBoxText.length() > 0)
-                            text = textBoxText.substring(0, textBoxText.length() - 1);
-                    } else
-                    {
-                        text = textBoxText + e.getKeyChar();
-                    }
-                    if (GObjectManager.inspectedObj != null)
-                    {
-                        if (text.length() == 0)
-                            currAttr.setWidth(0.0);
-                        else
-                            currAttr.setWidth(Double.parseDouble(text));
-                    }
-                } else if (getAttribute(exists).equals("Height"))
-                {
-                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
-                    {
-                        if (textBoxText.length() > 0)
-                            text = textBoxText.substring(0, textBoxText.length() - 1);
-                    } else
-                    {
-                        text = textBoxText + e.getKeyChar();
-                    }
-                    if (GObjectManager.inspectedObj != null)
-                    {
-                        if (text.length() == 0)
-                            currAttr.setHeight(0.0);
-                        else
-                            currAttr.setHeight(Double.parseDouble(text));
-                    }
-                }else if (getAttribute(exists).equals("X2"))
-                {
-                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
-                    {
-                        if (textBoxText.length() > 0)
-                            text = textBoxText.substring(0, textBoxText.length() - 1);
-                    } else
-                    {
-                        text = textBoxText + e.getKeyChar();
-                    }
-                    if (GObjectManager.inspectedObj != null)
-                    {
-                        if (text.length() == 0)
-                            currAttr.setX2(0.0);
-                        else
-                            currAttr.setX2(Double.parseDouble(text));
-                    }
-                } else if (getAttribute(exists).equals("Y2"))
-                {
-                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
-                    {
-                        if (textBoxText.length() > 0)
-                            text = textBoxText.substring(0, textBoxText.length() - 1);
-                    } else
-                    {
-                        text = textBoxText + e.getKeyChar();
-                    }
-                    if (GObjectManager.inspectedObj != null)
-                    {
-                        if (text.length() == 0)
-                            currAttr.setY2(0.0);
-                        else
-                            currAttr.setY2(Double.parseDouble(text));
-                    }
-                } else if (getAttribute(exists).equals("LineWidth"))
-                {
-                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
-                    {
-                        if (textBoxText.length() > 0)
-                            text = textBoxText.substring(0, textBoxText.length() - 1);
-                    } else
-                    {
-                        text = textBoxText + e.getKeyChar();
-                    }
-                    if (GObjectManager.inspectedObj != null)
-                    {
-                        if (text.length() == 0)
-                            currAttr.setLineWidth(0);
-                        else
-                            currAttr.setLineWidth(Integer.parseInt(text));
-                    }
-                }
+
             }
         }
 
