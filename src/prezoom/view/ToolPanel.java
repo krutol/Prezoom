@@ -8,7 +8,6 @@ import java.util.Objects;
 
 import prezoom.controller.GObjectManager;
 import prezoom.controller.StateManager;
-import prezoom.model.*;
 
 /**
  * TODO
@@ -26,18 +25,18 @@ import prezoom.model.*;
 
 public class ToolPanel extends JPanel
 {
-    private JButton btn_addState;
-    private JButton btn_delState;
-    private JButton btn_PlayStart;
-    private JButton btn_PlayCurrent;
-    private JButton btn_Text;
-    private JComboBox<String> btn_Shape;
-    private JButton btn_Img;
+    private final JButton btn_addState;
+    private final JButton btn_delState;
+    private final JButton btn_PlayStart;
+    private final JButton btn_PlayCurrent;
+    private final JButton btn_Text;
+    private final JComboBox<String> btn_Shape;
+    private final JButton btn_Img;
 
     public ToolPanel()
     {
         setBackground(Color.darkGray);                          //customize the panel
-        setPreferredSize(new Dimension(-1, 50));
+        setMinimumSize(new Dimension(-1, 50));
         setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
         //setBorder(BorderFactory.createLineBorder(Color.BLACK));
 

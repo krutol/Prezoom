@@ -12,68 +12,61 @@ import prezoom.controller.StateManager;
  * @author Ajanthan Paramasamy >
  * create date: 2020/11/18
  **/
-public class PresentationWindow extends JFrame
+public class PresentationWindow extends JDialog
 {
     //public static prezoom.controller.StateManager stateManager = new prezoom.controller.StateManager();
 
-
-    public static CenterCanvas centerCanvas;
-    
-
-    public PresentationWindow(String title, boolean isPlayFromCurrent) throws HeadlessException
+    public PresentationWindow(String title, boolean isPlayFromCurrent)
     {
-        super(title);
+        //super(title);
 
-
-        centerCanvas = new CenterCanvas();
-        add(centerCanvas,"Center");
+        add(MainWindow.centerCanvas,"Center");
         
         final int[] indexes = new int[2];
         
         // Get Total Number of States
         indexes[0] = StateManager.getTotal_State_Number();
-        indexes[1] = 0;
-        
+
         if (isPlayFromCurrent) {
         	indexes[1] = StateManager.getCurrent_State(); 
         }
-        
+
         addKeyListener(new KeyAdapter() {
-        	// Get Total Number of States
-        	int total_states = indexes[0];
+            // Get Total Number of States
+            final int total_states = indexes[0];
             // Assume Current State's Index is 0
-        	int current_state = indexes[1];
-        	
+            int current_state = indexes[1];
+
             public void keyPressed(KeyEvent ke) {  // handler
-            	if(ke.getKeyCode() == ke.VK_ESCAPE) {
-            		MainWindow.statePanel.updatePressedBtn();
-                    setVisible(false); // trying to close
-                 } 
-            	else if(ke.getKeyCode() == ke.VK_LEFT) {
-            		if(current_state != 0) {
-            			current_state -= 1;
-            			StateManager.switchState(current_state);
-            		} 
-                } else if(ke.getKeyCode() == ke.VK_RIGHT) {
-                	if (current_state < total_states-1) {
-                		current_state += 1;
-                		StateManager.switchState(current_state);
-                	} else {
-                		MainWindow.statePanel.updatePressedBtn();
-                		setVisible(false);
-                	}
-                }  
-           } 
+                if(ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    setVisible(false);
+                }
+                else if(ke.getKeyCode() == KeyEvent.VK_LEFT) {
+                    if(current_state != 0) {
+                        current_state -= 1;
+                        StateManager.switchState(current_state);
+                    }
+                } else if(ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    if (current_state < total_states-1) {
+                        current_state += 1;
+                        StateManager.switchState(current_state);
+                    } else {
+
+                        setVisible(false);
+                    }
+                }
+            }
         });
-        
 //        add(colorPalette, "South");
 //        add(paintToolPanel, "West");
 //        add(new JScrollPane(drawingPanel), "Center");
 
         // this.setIconImage(Image);    //setting JFrame's icon image
-        this.setSize(1366, 768);     //set size of the application
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);   //set default close operation
+        this.setSize((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth(),
+                (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight());     //set size of the application
+        //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        //this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);   //set default close operation
         this.setLocationRelativeTo(null);                               //set locating to the middle of the screen
         this.setUndecorated(true);
         this.setVisible(true);                                          //set visible

@@ -40,7 +40,7 @@ public class StatePanel extends JPanel
         JToggleButton state_btn = new JToggleButton("state " + StateManager.getCurrent_State());
 
         state_btn.setBackground(Color.lightGray);
-        state_btn.setPreferredSize(new Dimension(120,50));
+        state_btn.setMinimumSize(new Dimension(120,50));
         state_btn.addActionListener(e ->
         {
             int state = states_btn_list.indexOf(state_btn);

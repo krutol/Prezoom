@@ -81,6 +81,7 @@ public class CenterCanvas extends JPanel
         addMouseWheelListener(new MouseActionHandler());
         addMouseMotionListener(new MouseActionHandler());
         addMouseListener(new MouseActionHandler());
+        setPreferredSize(new Dimension(1280,720));
 
         SwingRepaintTimeline repaintTimeline = SwingRepaintTimeline.repaintBuilder(this)
                 .setAutoRepaintMode(true).build();
