@@ -69,7 +69,7 @@ public class StatePanel extends JPanel
     /**
      * update the pressed status of state buttons according to the current state
      */
-    private void updatePressedBtn()
+    public void updatePressedBtn()
     {
         states_btn_list.get(StateManager.getCurrent_State()).setSelected(true);
 //        for (JToggleButton btn : states_btn_list)
