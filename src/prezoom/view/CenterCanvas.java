@@ -22,8 +22,7 @@ public class CenterCanvas extends JPanel
 //    private int mxstart, mystart;
 //    private double zoomFactor = 1;
 //    private double prevZoomFactor = 1;
-    private boolean isDragging;
-    private boolean isReleased;
+    private boolean isDraggingCanvas;
 //    private double xOffset = 0;
 //    private double yOffset = 0;
     private double xDiff;
@@ -132,31 +131,13 @@ public class CenterCanvas extends JPanel
         //AffineTransform at = new AffineTransform();
         CameraInfoI cam = getCurCamInfo();
 
-        if (isDragging)
+        if (isDraggingCanvas)
         {
-            //System.out.println(xOffset + xDiff);
-//            at.translate(xOffset + xDiff, yOffset + yDiff);
-//            at.scale(zoomFactor, zoomFactor);
-//            g2.transform(at);
-            //cameraManager.setCamInfo(xOffset + xDiff,yOffset + yDiff,zoomFactor);
-            //cameraManager.moveCamera(g2, xOffset + xDiff, yOffset + yDiff, zoomFactor, prevZoomFactor);
             CameraManager.moveCamera(g2,cam.getOffsetX()+xDiff,cam.getOffsetY()+yDiff,
                     cam.getZoomFactor(),cam.getPreZoomFactor());
-            if (isReleased)
-            {
-//                xOffset += xDiff;
-//                yOffset += yDiff;
-                cam.setOffsetX(cam.getOffsetX()+xDiff);
-                cam.setOffsetY(cam.getOffsetY()+yDiff);
-                isDragging = false;
-            }
         } else
         {
-//            at.translate(xOffset, yOffset);
-//            at.scale(zoomFactor, zoomFactor);
-//            g2.transform(at);
-            //cameraManager.setCamInfo(xOffset,yOffset,zoomFactor);
-            //cameraManager.moveCamera(g2,xOffset,yOffset,zoomFactor);
+//
             CameraManager.moveCamera(g2);
         }
 
@@ -239,7 +220,7 @@ public class CenterCanvas extends JPanel
                 xDiff = curPoint.getX() - dragCanvasStartPoint.getX();
                 yDiff = curPoint.getY() - dragCanvasStartPoint.getY();
 
-                isDragging = true;
+                isDraggingCanvas = true;
                 setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
             else if (!GObjectManager.drawingType.isEmpty())
@@ -333,7 +314,6 @@ public class CenterCanvas extends JPanel
         @Override
         public void mousePressed(MouseEvent e)
         {
-            isReleased = false;
             //dragCanvasStartPoint = MouseInfo.getPointerInfo().getLocation();
             dragCanvasStartPoint.setLocation(MouseInfo.getPointerInfo().getLocation());
 
@@ -380,7 +360,14 @@ public class CenterCanvas extends JPanel
         @Override
         public void mouseReleased(MouseEvent e)
         {
-            isReleased = true;
+            if (isDraggingCanvas)
+            {
+                CameraInfoI cam = getCurCamInfo();
+                cam.setOffsetX(cam.getOffsetX() + xDiff);
+                cam.setOffsetY(cam.getOffsetY() + yDiff);
+                isDraggingCanvas = false;
+            }
+
             GObjectManager.draggedObj = null;
             GObjectManager.resizedObj = null;
 
