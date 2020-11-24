@@ -146,8 +146,8 @@ public class ToolPanel extends JPanel
             	new PresentationWindow("Play Current Mode", true);
             } else if (btn_Text.equals(source))
             {//TODO
-            	TextBox tarea = new TextBox();
-            	CenterCanvas.gObjectManager.addGComponent(tarea);
+//            	TextBox tarea = new TextBox();
+//            	CenterCanvas.gObjectManager.addGComponent(tarea);
             } else if (btn_Shape.equals(source))
             {//TODO
                 // for test
