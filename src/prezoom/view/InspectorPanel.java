@@ -1,7 +1,7 @@
 package prezoom.view;
 
 import prezoom.controller.GObjectManager;
-import prezoom.model.*;
+import prezoom.model.MethodMapI;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -27,21 +27,19 @@ import javax.swing.table.*;
 
 public class InspectorPanel extends JPanel
 {
-    private JTableInspector table;
-    private CustomTableModel model;
-    private String[] col_names = {"Names", "Values"};
-    private RowEditorModel rm;
-    private Component editedComp;
-    private GAttributesI curr_attr;
+    private final JTableInspector jTableInspector;
+    private final CustomTableModel customTableModel;
+    private final RowEditorModel rowEditorModel;
+    private MethodMapI curr_attr;
 
-    private class RowEditorModel
+    private static class RowEditorModel
     {
-        private Hashtable data;
-        private JTable table;
+        private final Hashtable<Integer, TableCellEditor> data;
+        private final JTable table;
 
         public RowEditorModel(JTable table)
         {
-            data = new Hashtable();
+            data = new Hashtable<>();
             this.table = table;
         }
 
@@ -57,7 +55,7 @@ public class InspectorPanel extends JPanel
 
         public TableCellEditor getEditor(int row)
         {
-            return (TableCellEditor) data.get(row);
+            return data.get(row);
         }
 
         public void clear()
@@ -67,23 +65,16 @@ public class InspectorPanel extends JPanel
 
         public int valueExistsAtCell(Object e)
         {
-            Iterator iter = data.keys().asIterator();
+            Iterator<Integer> iter = data.keys().asIterator();
             while (iter.hasNext())
             {
-                Integer key = (Integer) iter.next();
-                String value = ((TableCellEditor) data.get(key)).getCellEditorValue() + "";
-                String prop = ((CustomTableModel) table.getModel()).getPropName(key.intValue());
-                Component comp = null;
-                if (prop.equals("filled"))
-                {
-                    comp = (JCheckBox) ((TableCellEditor) data.get(key)).getTableCellEditorComponent(table, value, true, key.intValue(), 1);
-                } else
-                {
-                    comp = (JTextField) ((TableCellEditor) data.get(key)).getTableCellEditorComponent(table, value, true, key.intValue(), 1);
-                }
+                Integer key = iter.next();
+                String value = data.get(key).getCellEditorValue() + "";
+                Component comp;
+                comp = data.get(key).getTableCellEditorComponent(table, value, true, key, 1);
                 if (comp.equals(e))
                 {
-                    return key.intValue();
+                    return key;
                 }
             }
             return -1;
@@ -119,9 +110,9 @@ public class InspectorPanel extends JPanel
             if (col == 0)
                 return prop_names[row];
 
-            if (table.getRowEditorModel().getEditor(row) == null)
+            if (jTableInspector.getRowEditorModel().getEditor(row) == null)
                 return null;
-            return table.getRowEditorModel().getEditor(row).getCellEditorValue();
+            return jTableInspector.getRowEditorModel().getEditor(row).getCellEditorValue();
             //return super.getValueAt(row,col);
         }
 
@@ -134,13 +125,11 @@ public class InspectorPanel extends JPanel
 
         public boolean isCellEditable(int row, int col)
         {
-            if (col == 0)
-                return false;
-            return true;
+            return col != 0;
         }
     }
 
-    private class JTableInspector extends JTable
+    private static class JTableInspector extends JTable
     {
         protected RowEditorModel rm;
 
@@ -179,7 +168,7 @@ public class InspectorPanel extends JPanel
         public JTableX(final Vector rowData, final Vector columnNames)
         {
             super(rowData, columnNames);
-            rm = null;
+            rowEditorModel = null;
         }
 
          */
@@ -227,56 +216,47 @@ public class InspectorPanel extends JPanel
         title.setTitleColor(Color.white);
         setBorder(title);
 
-        model = new CustomTableModel(col_names, 12);
+        String[] col_names = {"Names", "Values"};
+        customTableModel = new CustomTableModel(col_names, 12);
 
-        table = new JTableInspector(model);
-        rm = new RowEditorModel(table);
-        table.setRowEditorModel(rm);
+        jTableInspector = new JTableInspector(customTableModel);
+        rowEditorModel = new RowEditorModel(jTableInspector);
+        jTableInspector.setRowEditorModel(rowEditorModel);
         //GAttributesI currAttr = GObjectManager.inspectedObj.getCurrentAttributes();
 
 //        JTextField tf = new JTextField("label");
 //        DefaultCellEditor ed = new DefaultCellEditor(tf);
 //        // tell the RowEditorModel to use ed for row 1
-//        //rm.addEditorForRow(0,ed);
+//        //rowEditorModel.addEditorForRow(0,ed);
 //
 //        tf = new JTextField("text");
 //        ed = new DefaultCellEditor(tf);
 //        // tell the RowEditorModel to use ed for row 1
-//        //rm.addEditorForRow(1,ed);
+//        //rowEditorModel.addEditorForRow(1,ed);
 //
 //        tf = new JTextField("");
 //        ed = new DefaultCellEditor(tf);
-//        //rm.addEditorForRow(2,ed);
+//        //rowEditorModel.addEditorForRow(2,ed);
 //
 //        tf = new JTextField("");
 //        ed = new DefaultCellEditor(tf);
-//        //rm.addEditorForRow(3,ed);
+//        //rowEditorModel.addEditorForRow(3,ed);
 //
 //        tf = new JTextField("");
 //        ed = new DefaultCellEditor(tf);
-        //rm.addEditorForRow(4,ed);
+        //rowEditorModel.addEditorForRow(4,ed);
 
-        JScrollPane scrollPane = new JScrollPane(table);
+        JScrollPane scrollPane = new JScrollPane(jTableInspector);
         add(scrollPane);
-        table.setPreferredScrollableViewportSize(new Dimension(100, 200));
+        jTableInspector.setPreferredScrollableViewportSize(new Dimension(100, 200));
     }
 
-    public String getAttribute(int i)
+    private String getAttribute(int i)
     {
-        String[] propNames = ((CustomTableModel) model).getPropNames();
+        String[] propNames = customTableModel.getPropNames();
         if (i > propNames.length - 1)
             return null;
-        return ((CustomTableModel) model).getPropNames()[i];
-    }
-
-    public DefaultTableModel getModel()
-    {
-        return model;
-    }
-
-    public RowEditorModel getRowModelEditor()
-    {
-        return rm;
+        return customTableModel.getPropNames()[i];
     }
 
     class CustomTableCellRenderer extends DefaultTableCellRenderer
@@ -295,7 +275,13 @@ public class InspectorPanel extends JPanel
                     //System.out.println("attr-" + attr + ", row-" + row);
                     if (attr != null && attr.equals("col"))
                     {
-                        cell.setBackground(curr_attr.getCol());
+                        try
+                        {
+                            cell.setBackground((Color) curr_attr.validGetterMap().get("col").invoke(curr_attr));
+                        } catch (IllegalAccessException | InvocationTargetException e)
+                        {
+                            e.printStackTrace();
+                        }
                     } else if (attr == null)
                     {
                     } else
@@ -306,7 +292,7 @@ public class InspectorPanel extends JPanel
         }
     }
 
-    private class CustomCellEditor extends DefaultCellEditor
+    private static class CustomCellEditor extends DefaultCellEditor
     {
 
         public CustomCellEditor(JTextField comp)
@@ -335,7 +321,7 @@ public class InspectorPanel extends JPanel
         }
     }
 
-    public void invokeSetter(Map<String, Method> setterMap, String key, GAttributesI attr, Object param) throws IllegalAccessException, InvocationTargetException
+    public void invokeSetter(Map<String, Method> setterMap, String key, MethodMapI attr, Object param) throws IllegalAccessException, InvocationTargetException
     {
 
 //        for (Map.Entry<String, Method> entry : setterMap.entrySet())
@@ -358,22 +344,20 @@ public class InspectorPanel extends JPanel
         if (GObjectManager.inspectedObj == null)
             return;
 
-        GAttributesI currAttr = GObjectManager.inspectedObj.getCurrentAttributes();
+        MethodMapI currAttr = GObjectManager.inspectedObj.getCurrentAttributes();
         curr_attr = currAttr;
         if (currAttr == null)
             return;
-        TableColumn tcol = table.getColumnModel().getColumn(1);
+        TableColumn tcol = jTableInspector.getColumnModel().getColumn(1);
         tcol.setCellRenderer(new CustomTableCellRenderer());
-        table.getRowEditorModel().clear();
-        int numAttr = 0;
+        jTableInspector.getRowEditorModel().clear();
         Map<String, Method> cur_map = currAttr.validGetterMap();
         Map<String, Method> setter_map = currAttr.validSetterMap();
 
-        ((CustomTableModel) model).setPropNames(cur_map.keySet().toArray(new String[0]));
-        numAttr = cur_map.size();
+        customTableModel.setPropNames(cur_map.keySet().toArray(new String[0]));
         int i = 0;
         PanelKeyboardListener panelKeyListener = new PanelKeyboardListener();
-        editedComp = null;
+        Component editedComp;
 
         for (Map.Entry<String, Method> entry : cur_map.entrySet())
         {
@@ -381,90 +365,96 @@ public class InspectorPanel extends JPanel
             try
             {
 
-                if (attr.equals("col"))
+                switch (Objects.requireNonNull(attr))
                 {
-                    editedComp = new JTextField("");
-                    editedComp.setBackground((Color) entry.getValue().invoke(currAttr));
-                    editedComp.addMouseListener(new MouseListener()
+                    case "col":
                     {
-
-                        public void mouseClicked(MouseEvent e)
+                        editedComp = new JTextField("");
+                        editedComp.setBackground((Color) entry.getValue().invoke(currAttr));
+                        editedComp.addMouseListener(new MouseListener()
                         {
-                            try
+
+                            public void mouseClicked(MouseEvent e)
                             {
-                                Color color = JColorChooser.showDialog(MainWindow.centerCanvas, "Select a color", currAttr.getCol());
-                                ((JTextField) e.getSource()).setBackground(color);
-                                invokeSetter(setter_map, entry.getKey(), currAttr, color);
-                            } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException ex)
+                                try
+                                {
+                                    Color color = JColorChooser.showDialog(MainWindow.centerCanvas, "Select a color", (Color) cur_map.get("col").invoke(currAttr));
+                                    ((JTextField) e.getSource()).setBackground(color);
+                                    invokeSetter(setter_map, entry.getKey(), currAttr, color);
+                                } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException ignored)
+                                {
+
+                                }
+                            }
+
+                            @Override
+                            public void mousePressed(MouseEvent e)
                             {
 
                             }
-                        }
 
-                        @Override
-                        public void mousePressed(MouseEvent e)
-                        {
+                            @Override
+                            public void mouseReleased(MouseEvent e)
+                            {
 
-                        }
+                            }
 
-                        @Override
-                        public void mouseReleased(MouseEvent e)
-                        {
+                            @Override
+                            public void mouseEntered(MouseEvent e)
+                            {
 
-                        }
+                            }
 
-                        @Override
-                        public void mouseEntered(MouseEvent e)
-                        {
+                            @Override
+                            public void mouseExited(MouseEvent e)
+                            {
 
-                        }
+                            }
+                        });
+                        DefaultCellEditor ed = new CustomCellEditor((JTextField) editedComp);
 
-                        @Override
-                        public void mouseExited(MouseEvent e)
-                        {
-
-                        }
-                    });
-                    DefaultCellEditor ed = new CustomCellEditor((JTextField) editedComp);
-
-                    table.getRowEditorModel().addEditorForRow(i, ed);
-                } else if (attr.equals("filled"))
-                {
-                    editedComp = new JCheckBox((((Boolean) entry.getValue().invoke(currAttr))).toString() + "");
-                    ((JCheckBox) editedComp).addItemListener(new ItemListener()
+                        jTableInspector.getRowEditorModel().addEditorForRow(i, ed);
+                        break;
+                    }
+                    case "filled":
                     {
-                        @Override
-                        public void itemStateChanged(ItemEvent e)
+                        editedComp = new JCheckBox((((Boolean) entry.getValue().invoke(currAttr))).toString() + "");
+                        ((JCheckBox) editedComp).addItemListener(e ->
                         {
                             try
                             {
-                                if (e.getStateChange() == 1)
-                                    invokeSetter(setter_map, entry.getKey(), currAttr, new Boolean(true));
+                                if (e.getStateChange() == ItemEvent.SELECTED)
+                                    invokeSetter(setter_map, entry.getKey(), currAttr, Boolean.TRUE);
                                 else
-                                    invokeSetter(setter_map, entry.getKey(), currAttr, new Boolean(false));
-                            } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException ex)
+                                    invokeSetter(setter_map, entry.getKey(), currAttr, Boolean.FALSE);
+                            } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException ignored)
                             {
 
                             }
 
-                        }
-                    });
-                    DefaultCellEditor ed = new DefaultCellEditor((JCheckBox) editedComp);
-                    table.getRowEditorModel().addEditorForRow(i, ed);
-                } else if (attr.equals("lineWidth"))
-                {
-                    editedComp = new JTextField(((Integer) entry.getValue().invoke(currAttr)).intValue() + "");
-                    editedComp.addKeyListener(panelKeyListener);
-                    DefaultCellEditor ed = new DefaultCellEditor((JTextField) editedComp);
-                    table.getRowEditorModel().addEditorForRow(i, ed);
-                } else if (attr.equals("visible"))
-                {
-                } else
-                {
-                    editedComp = new JTextField(((Double) entry.getValue().invoke(currAttr)).toString());
-                    editedComp.addKeyListener(panelKeyListener);
-                    DefaultCellEditor ed = new DefaultCellEditor((JTextField) editedComp);
-                    table.getRowEditorModel().addEditorForRow(i, ed);
+                        });
+                        DefaultCellEditor ed = new DefaultCellEditor((JCheckBox) editedComp);
+                        jTableInspector.getRowEditorModel().addEditorForRow(i, ed);
+                        break;
+                    }
+                    case "lineWidth":
+                    {
+                        editedComp = new JTextField(entry.getValue().invoke(currAttr) + "");
+                        editedComp.addKeyListener(panelKeyListener);
+                        DefaultCellEditor ed = new DefaultCellEditor((JTextField) editedComp);
+                        jTableInspector.getRowEditorModel().addEditorForRow(i, ed);
+                        break;
+                    }
+                    case "visible":
+                        break;
+                    default:
+                    {
+                        editedComp = new JTextField(entry.getValue().invoke(currAttr).toString());
+                        editedComp.addKeyListener(panelKeyListener);
+                        DefaultCellEditor ed = new DefaultCellEditor((JTextField) editedComp);
+                        jTableInspector.getRowEditorModel().addEditorForRow(i, ed);
+                        break;
+                    }
                 }
             } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException e)
             {
@@ -472,7 +462,7 @@ public class InspectorPanel extends JPanel
             }
             i++;
         }
-        ((AbstractTableModel) model).fireTableDataChanged();
+        customTableModel.fireTableDataChanged();
     }
 
     private class PanelKeyboardListener implements KeyListener
@@ -492,14 +482,14 @@ public class InspectorPanel extends JPanel
             if (GObjectManager.inspectedObj == null)
                 return;
 
-            GAttributesI currAttr = GObjectManager.inspectedObj.getCurrentAttributes();
+            MethodMapI currAttr = GObjectManager.inspectedObj.getCurrentAttributes();
             if (currAttr == null)
                 return;
             Map<String, Method> getter_map = currAttr.validGetterMap();
             Map<String, Method> cur_map = currAttr.validSetterMap();
 
             String text = "";
-            int exists = getRowModelEditor().valueExistsAtCell((JTextField) e.getSource());
+            int exists = rowEditorModel.valueExistsAtCell(e.getSource());
             String attr = getAttribute(exists);
             String textBoxText = "";
             if (e.getSource().getClass().equals(JTextField.class))
@@ -520,12 +510,12 @@ public class InspectorPanel extends JPanel
             if (exists > -1)
             {
                 Set<Map.Entry<String, Method>> getterSet = getter_map.entrySet();
-                Iterator iter = getterSet.iterator();
+                Iterator<Map.Entry<String, Method>> iter = getterSet.iterator();
                 for (Map.Entry<String, Method> entry : cur_map.entrySet())
                 {
                     Map.Entry<String, Method> entryGetter = null;
                     if (iter.hasNext())
-                        entryGetter = (Map.Entry<String, Method>) iter.next();
+                        entryGetter = iter.next();
                     if (entryGetter == null)
                         break;
                     if (entry.getKey().equals(attr))
@@ -538,19 +528,19 @@ public class InspectorPanel extends JPanel
                                 if (value instanceof Double)
                                 {
                                     if (text.length() == 0)
-                                        entry.getValue().invoke(currAttr, new Double(0.0));
+                                        entry.getValue().invoke(currAttr, 0.0);
                                     else
                                         entry.getValue().invoke(currAttr, Double.parseDouble(text));
                                 } else if (value instanceof Integer)
                                 {
                                     if (text.length() == 0)
-                                        entry.getValue().invoke(attr, new Integer(0));
+                                        entry.getValue().invoke(attr, 0);
                                     else
                                         entry.getValue().invoke(currAttr, Integer.parseInt(text));
                                 } else if (value instanceof Boolean)
                                 {
                                     if (text.length() == 0)
-                                        entry.getValue().invoke(currAttr, new Boolean(false));
+                                        entry.getValue().invoke(currAttr, Boolean.FALSE);
                                     else
                                         entry.getValue().invoke(currAttr, Boolean.parseBoolean(text));
                                 } else if (value instanceof Color)
