@@ -8,7 +8,7 @@ import java.awt.*;
  * @author Zhijie Lan<p>
  * create date: 2020/11/17<p>
  **/
-public interface GAttributesI extends Cloneable, MethodMapI
+public interface GAttributesI extends Cloneable, AttributeMapI
 {
     Object clone() throws CloneNotSupportedException;
 

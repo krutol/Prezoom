@@ -1,7 +1,7 @@
 package prezoom.controller;
 
 import org.pushingpixels.trident.api.Timeline;
-import prezoom.model.MethodMapI;
+import prezoom.model.AttributeMapI;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -26,14 +26,14 @@ public class InterpolationFactory
         // return when both are null. one of them can be null to build fade in/out effect.
         if (preObj == null || curObj == null)
             return;
-        else if (!(preObj instanceof MethodMapI) || !(curObj instanceof MethodMapI))
+        else if (!(preObj instanceof AttributeMapI) || !(curObj instanceof AttributeMapI))
             return;
         else
         // when both are not null, make sure they are the same type of class
             if (preObj.getClass() != curObj.getClass())
                 return;
 
-        MethodMapI curM = (MethodMapI) curObj;
+        AttributeMapI curM = (AttributeMapI) curObj;
 
         Map<String, Method> cur_map = curM.validGetterMap();
         Timeline.Builder tBuilder = Timeline.builder(curObj);

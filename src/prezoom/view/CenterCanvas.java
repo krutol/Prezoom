@@ -9,8 +9,9 @@ import org.pushingpixels.trident.api.Timeline;
 import org.pushingpixels.trident.api.swing.SwingRepaintTimeline;
 import prezoom.controller.GAttributeManager;
 import prezoom.controller.GObjectManager;
-import prezoom.model.*;
+import prezoom.model.CameraInfoI;
 import prezoom.controller.CameraManager;
+import prezoom.model.GAttributesI;
 
 /** The center canvas where you can edit the presentation, move the camera, etc.
  * @author Zhijie Lan<p>
@@ -48,6 +49,8 @@ public class CenterCanvas extends JPanel
     {
         return CameraManager.cur_CamInfo;
     }
+
+
 
     // for test purpose
 //    public ArrayList<GObject> objects = new ArrayList<>();
@@ -267,23 +270,24 @@ public class CenterCanvas extends JPanel
 //            double z = 1;
 //            if (zoomFactor<1)
 //                z = zoomFactor;
-                GObject draggedObj = GObjectManager.draggedObj;
+                GAttributesI draggedObj_curAttr = GObjectManager.draggedObj.getCurrentAttributes();
 
-                draggedObj.getCurrentAttributes()
-                        .setX(draggedObj.getCurrentAttributes().getX() +
+                draggedObj_curAttr
+                        .setX(draggedObj_curAttr.getX() +
                                 /*(int)*/((point.getX() - dragObjStartPoint.getX()) / getCurCamInfo().getPreZoomFactor()));
 
-                draggedObj.getCurrentAttributes()
-                        .setY(draggedObj.getCurrentAttributes().getY() +
+                draggedObj_curAttr
+                        .setY(draggedObj_curAttr.getY() +
                                 /*(int)*/((point.getY() - dragObjStartPoint.getY()) / getCurCamInfo().getPreZoomFactor()));
-                if (draggedObj instanceof GLine)
+                if (draggedObj_curAttr.getX2() != null
+                        && draggedObj_curAttr.getY2() != null)
                 {
-                    draggedObj.getCurrentAttributes()
-                            .setX2(draggedObj.getCurrentAttributes().getX2() +
+                    draggedObj_curAttr
+                            .setX2(draggedObj_curAttr.getX2() +
                                     /*(int)*/((point.getX() - dragObjStartPoint.getX()) / getCurCamInfo().getPreZoomFactor()));
 
-                    draggedObj.getCurrentAttributes()
-                            .setY2(draggedObj.getCurrentAttributes().getY2() +
+                    draggedObj_curAttr
+                            .setY2(draggedObj_curAttr.getY2() +
                                     /*(int)*/((point.getY() - dragObjStartPoint.getY()) / getCurCamInfo().getPreZoomFactor()));
                 }
                 //selectedObj.setX(mx);

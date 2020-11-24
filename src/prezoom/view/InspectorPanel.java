@@ -1,7 +1,7 @@
 package prezoom.view;
 
 import prezoom.controller.GObjectManager;
-import prezoom.model.MethodMapI;
+import prezoom.model.AttributeMapI;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -30,7 +30,7 @@ public class InspectorPanel extends JPanel
     private final JTableInspector jTableInspector;
     private final CustomTableModel customTableModel;
     private final RowEditorModel rowEditorModel;
-    private MethodMapI curr_attr;
+    private AttributeMapI curr_attr;
 
     private static class RowEditorModel
     {
@@ -321,7 +321,7 @@ public class InspectorPanel extends JPanel
         }
     }
 
-    public void invokeSetter(Map<String, Method> setterMap, String key, MethodMapI attr, Object param) throws IllegalAccessException, InvocationTargetException
+    private void invokeSetter(Map<String, Method> setterMap, String key, AttributeMapI attr, Object param)
     {
 
 //        for (Map.Entry<String, Method> entry : setterMap.entrySet())
@@ -332,7 +332,13 @@ public class InspectorPanel extends JPanel
 //                entry.getValue().invoke(attr, param);
 //            }
 //        }
-        setterMap.get(key).invoke(attr,param);
+        try
+        {
+            setterMap.get(key).invoke(attr,param);
+        } catch (IllegalAccessException | InvocationTargetException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -344,7 +350,7 @@ public class InspectorPanel extends JPanel
         if (GObjectManager.inspectedObj == null)
             return;
 
-        MethodMapI currAttr = GObjectManager.inspectedObj.getCurrentAttributes();
+        AttributeMapI currAttr = GObjectManager.inspectedObj.getCurrentAttributes();
         curr_attr = currAttr;
         if (currAttr == null)
             return;
@@ -421,16 +427,10 @@ public class InspectorPanel extends JPanel
                         editedComp = new JCheckBox((((Boolean) entry.getValue().invoke(currAttr))).toString() + "");
                         ((JCheckBox) editedComp).addItemListener(e ->
                         {
-                            try
-                            {
-                                if (e.getStateChange() == ItemEvent.SELECTED)
-                                    invokeSetter(setter_map, entry.getKey(), currAttr, Boolean.TRUE);
-                                else
-                                    invokeSetter(setter_map, entry.getKey(), currAttr, Boolean.FALSE);
-                            } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException ignored)
-                            {
-
-                            }
+                            if (e.getStateChange() == ItemEvent.SELECTED)
+                                invokeSetter(setter_map, entry.getKey(), currAttr, Boolean.TRUE);
+                            else
+                                invokeSetter(setter_map, entry.getKey(), currAttr, Boolean.FALSE);
 
                         });
                         DefaultCellEditor ed = new DefaultCellEditor((JCheckBox) editedComp);
@@ -482,7 +482,7 @@ public class InspectorPanel extends JPanel
             if (GObjectManager.inspectedObj == null)
                 return;
 
-            MethodMapI currAttr = GObjectManager.inspectedObj.getCurrentAttributes();
+            AttributeMapI currAttr = GObjectManager.inspectedObj.getCurrentAttributes();
             if (currAttr == null)
                 return;
             Map<String, Method> getter_map = currAttr.validGetterMap();

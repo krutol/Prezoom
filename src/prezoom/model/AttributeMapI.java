@@ -9,7 +9,7 @@ import java.util.Map;
  * @author Zhijie Lan<p>
  * create date: 2020/11/18<p>
  **/
-public interface MethodMapI
+public interface AttributeMapI
 {
     Map<String, Method> validSetterMap();
 
