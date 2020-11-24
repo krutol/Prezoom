@@ -22,7 +22,6 @@ public class CenterCanvas extends JPanel
 //    private int mxstart, mystart;
 //    private double zoomFactor = 1;
 //    private double prevZoomFactor = 1;
-    private boolean isZooming;
     private boolean isDragging;
     private boolean isReleased;
 //    private double xOffset = 0;
@@ -82,9 +81,9 @@ public class CenterCanvas extends JPanel
 
         if (isPresenting)
         {
-            addMouseWheelListener(new PresentModeActionHandler());
-            addMouseMotionListener(new PresentModeActionHandler());
-            addMouseListener(new PresentModeActionHandler());
+//            addMouseWheelListener(new PresentModeActionHandler());
+//            addMouseMotionListener(new PresentModeActionHandler());
+//            addMouseListener(new PresentModeActionHandler());
         }
         else {
             addMouseWheelListener(new EditModeActionHandler());
@@ -133,38 +132,7 @@ public class CenterCanvas extends JPanel
         //AffineTransform at = new AffineTransform();
         CameraInfoI cam = getCurCamInfo();
 
-        if (isZooming)
-        {
-
-            double xRel = MouseInfo.getPointerInfo().getLocation().getX() - getLocationOnScreen().getX();
-            double yRel = MouseInfo.getPointerInfo().getLocation().getY() - getLocationOnScreen().getY();
-
-            //double zoomDiv = zoomFactor / prevZoomFactor;
-
-//            xOffset = (zoomDiv) * (xOffset) + (1 - zoomDiv) * xRel;
-//            yOffset = (zoomDiv) * (yOffset) + (1 - zoomDiv) * yRel;
-//
-//            prevZoomFactor = zoomFactor;
-//            at.translate(xOffset, yOffset);
-//            at.scale(zoomFactor, zoomFactor);
-//            g2.transform(at);
-
-            //cameraManager.setCamInfo(xOffset,yOffset,zoomFactor);
-            //cameraManager.moveCamera(g2, xOffset, yOffset, zoomFactor, prevZoomFactor);
-
-            double zoomDiv = cam.getZoomFactor() / cam.getPreZoomFactor();
-
-            cam.setOffsetX((zoomDiv) * (cam.getOffsetX()) + (1 - zoomDiv) * xRel);
-            cam.setOffsetY((zoomDiv) * (cam.getOffsetY()) + (1 - zoomDiv) * yRel);
-
-            cam.setPreZoomFactor(cam.getZoomFactor());
-
-            CameraManager.moveCamera(g2);
-
-            //System.out.println(zoomFactor+" "+cur_off_x+" "+cur_off_y);
-
-            isZooming = false;
-        } else if (isDragging)
+        if (isDragging)
         {
             //System.out.println(xOffset + xDiff);
 //            at.translate(xOffset + xDiff, yOffset + yDiff);
@@ -227,8 +195,6 @@ public class CenterCanvas extends JPanel
         @Override
         public void mouseWheelMoved(MouseWheelEvent e)
         {
-
-            isZooming = true;
             CameraInfoI cam = getCurCamInfo();
 
             //Zoom in
@@ -243,6 +209,16 @@ public class CenterCanvas extends JPanel
                 cam.setZoomFactor(cam.getZoomFactor()/1.1);
                 repaint();
             }
+
+            double xRel = MouseInfo.getPointerInfo().getLocation().getX() - getLocationOnScreen().getX();
+            double yRel = MouseInfo.getPointerInfo().getLocation().getY() - getLocationOnScreen().getY();
+
+            double zoomDiv = cam.getZoomFactor() / cam.getPreZoomFactor();
+
+            cam.setOffsetX((zoomDiv) * (cam.getOffsetX()) + (1 - zoomDiv) * xRel);
+            cam.setOffsetY((zoomDiv) * (cam.getOffsetY()) + (1 - zoomDiv) * yRel);
+
+            cam.setPreZoomFactor(cam.getZoomFactor());
 
             MainWindow.statusBar.setZoomText(String.format("Zoom: %3.2f %%", cam.getZoomFactor() * 100));
 
@@ -428,102 +404,7 @@ public class CenterCanvas extends JPanel
 
     }
 
-    private class PresentModeActionHandler implements MouseWheelListener, MouseMotionListener, MouseListener
-    {
-        /**
-         * deal with zooming
-         *
-         * @param e mouse action
-         */
-        @Override
-        public void mouseWheelMoved(MouseWheelEvent e)
-        {
 
-            isZooming = true;
-            CameraInfoI cam = getCurCamInfo();
-
-            //Zoom in
-            if (e.getWheelRotation() < 0)
-            {
-                cam.setZoomFactor(cam.getZoomFactor()*1.1);
-                repaint();
-            }
-            //Zoom out
-            if (e.getWheelRotation() > 0)
-            {
-                cam.setZoomFactor(cam.getZoomFactor()/1.1);
-                repaint();
-            }
-
-        }
-
-        /**
-         * deal with dragging
-         *
-         * @param e mouse action
-         */
-        @Override
-        public void mouseDragged(MouseEvent e)
-        {
-
-            if (SwingUtilities.isRightMouseButton(e))
-            {
-                Point curPoint = e.getLocationOnScreen();
-                xDiff = curPoint.getX() - dragCanvasStartPoint.getX();
-                yDiff = curPoint.getY() - dragCanvasStartPoint.getY();
-
-                isDragging = true;
-                setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            }
-            repaint();
-
-        }
-
-        @Override
-        public void mouseMoved(MouseEvent e)
-        {
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e)
-        {
-        }
-
-        /**
-         * when pressed check whether an object is selected
-         *
-         * @param e mouse action
-         */
-        @Override
-        public void mousePressed(MouseEvent e)
-        {
-            isReleased = false;
-            dragCanvasStartPoint.setLocation(MouseInfo.getPointerInfo().getLocation());
-
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e)
-        {
-            isReleased = true;
-
-            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-            repaint();
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e)
-        {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e)
-        {
-
-        }
-
-    }
 
 }
 
