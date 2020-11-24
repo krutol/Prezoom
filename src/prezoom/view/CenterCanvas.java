@@ -173,6 +173,7 @@ public class CenterCanvas extends JPanel
 //                go.draw(g2);
 //        }
         gObjectManager.drawAll(g2);
+        gObjectManager.drawAll(this);
 
         g2.dispose();
 

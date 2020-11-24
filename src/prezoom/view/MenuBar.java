@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 import prezoom.Main;
+import prezoom.view.PresentationWindow;
 
 /** TODO
  * Class used to display the application's menu bar
@@ -53,7 +54,12 @@ public class MenuBar extends JMenuBar
         playFromCurrent = new JMenuItem("Play From Current");
 
         playFromStart.addActionListener(itemHandler);
-        playFromCurrent.addActionListener(itemHandler);
+//        playFromCurrent.addActionListener(itemHandler);
+        playFromStart.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                    System.exit(0);
+            }
+        });
 
         menu_play.add(playFromStart);
         menu_play.add(playFromCurrent);
@@ -150,6 +156,7 @@ public class MenuBar extends JMenuBar
                 JOptionPane.showMessageDialog(null, "This application was made for the purpose of the ENGI-9874 Project.\n\n" +
                         "Created by: Team Charlie\nTeam Members: Abhishek Sharma, P.Ajanthan, Tianxing Li, Zhijie Lan, Ziyang Li\nCreated date: 01 November 2020");
             }
+            
         }
     }
 

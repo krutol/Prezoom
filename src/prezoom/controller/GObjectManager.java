@@ -4,6 +4,8 @@ import prezoom.model.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
+
 /**
  * The manager that manages all the graphical objects on the canvas.
  *
@@ -13,6 +15,8 @@ import java.util.ArrayList;
 public class GObjectManager
 {
     private final ArrayList<GObject> gObjectList = new ArrayList<>();
+    private final ArrayList<JPanel> gComponentList = new ArrayList<>();
+    
     {
         // for test purpose
         gObjectList.add(new GRectangle(50, 100, 30, 40, Color.red, false, 1));
@@ -33,6 +37,13 @@ public class GObjectManager
                 obj.draw(g2);
         }
     }
+    
+    public void drawAll(JPanel parent) {
+    	for (JPanel obj: gComponentList) {
+    		parent.add(obj);
+    	}
+    }
+    
 
     /**
      * find if the given x,y select an object
@@ -95,6 +106,11 @@ public class GObjectManager
     public void addGObject(GObject obj)
     {
         gObjectList.add(obj);
+    }
+    
+    public void addGComponent(JPanel obj) 
+    {
+    	gComponentList.add(obj);
     }
 
 

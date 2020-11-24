@@ -145,10 +145,14 @@ public class ToolPanel extends JPanel
                 StateManager.deleteState(StateManager.getCurrent_State());
             } else if (btn_PlayStart.equals(source))
             {//TODO
+            	new PresentationWindow("Play Mode", false);
             } else if (btn_PlayCurrent.equals(source))
             {//TODO
+            	new PresentationWindow("Play Current Mode", true);
             } else if (btn_Text.equals(source))
             {//TODO
+            	TextBox tarea = new TextBox();
+            	CenterCanvas.gObjectManager.addGComponent(tarea);
             } else if (btn_Shape.equals(source))
             {//TODO
                 // for test
