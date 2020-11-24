@@ -70,7 +70,7 @@ public class MainWindow extends JFrame
 
         add(NorthPanel,"North");
 
-        centerCanvas = new CenterCanvas();
+        centerCanvas = new CenterCanvas(false);
         add(centerCanvas,"Center");
 
         statusBar = new StatusBar();

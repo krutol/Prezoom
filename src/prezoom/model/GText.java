@@ -50,7 +50,7 @@ public class GText extends GObject
         updateTextArea();
         updateTextString();
 
-        MainWindow.centerCanvas.add(textArea);
+        //MainWindow.centerCanvas.add(textArea);
     }
 
     @Override

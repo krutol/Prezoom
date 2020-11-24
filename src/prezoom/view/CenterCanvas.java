@@ -73,15 +73,26 @@ public class CenterCanvas extends JPanel
     /**
      * add Mouse Listener, Mouse Wheel Listener, and Mouse Motion Listener to this panel
      */
-    public CenterCanvas()
+    public CenterCanvas(boolean isPresenting)
     {
 //        addMouseWheelListener(this);
 //        addMouseMotionListener(this);
 //        addMouseListener(this);
-        addMouseWheelListener(new MouseActionHandler());
-        addMouseMotionListener(new MouseActionHandler());
-        addMouseListener(new MouseActionHandler());
-        setPreferredSize(new Dimension(1280,720));
+
+
+        if (isPresenting)
+        {
+            addMouseWheelListener(new PresentModeActionHandler());
+            addMouseMotionListener(new PresentModeActionHandler());
+            addMouseListener(new PresentModeActionHandler());
+        }
+        else {
+            addMouseWheelListener(new EditModeActionHandler());
+            addMouseMotionListener(new EditModeActionHandler());
+            addMouseListener(new EditModeActionHandler());
+            setPreferredSize(new Dimension(1280,720));
+        }
+
 
         SwingRepaintTimeline repaintTimeline = SwingRepaintTimeline.repaintBuilder(this)
                 .setAutoRepaintMode(true).build();
@@ -206,7 +217,7 @@ public class CenterCanvas extends JPanel
 
     }
 
-    private class MouseActionHandler implements MouseWheelListener, MouseMotionListener, MouseListener
+    private class EditModeActionHandler implements MouseWheelListener, MouseMotionListener, MouseListener
     {
         /**
          * deal with zooming
@@ -417,5 +428,104 @@ public class CenterCanvas extends JPanel
 
     }
 
+    private class PresentModeActionHandler implements MouseWheelListener, MouseMotionListener, MouseListener
+    {
+        /**
+         * deal with zooming
+         *
+         * @param e mouse action
+         */
+        @Override
+        public void mouseWheelMoved(MouseWheelEvent e)
+        {
+
+            isZooming = true;
+            CameraInfoI cam = getCurCamInfo();
+
+            //Zoom in
+            if (e.getWheelRotation() < 0)
+            {
+                cam.setZoomFactor(cam.getZoomFactor()*1.1);
+                repaint();
+            }
+            //Zoom out
+            if (e.getWheelRotation() > 0)
+            {
+                cam.setZoomFactor(cam.getZoomFactor()/1.1);
+                repaint();
+            }
+
+        }
+
+        /**
+         * deal with dragging
+         *
+         * @param e mouse action
+         */
+        @Override
+        public void mouseDragged(MouseEvent e)
+        {
+
+            if (SwingUtilities.isRightMouseButton(e))
+            {
+                Point curPoint = e.getLocationOnScreen();
+                xDiff = curPoint.getX() - dragCanvasStartPoint.getX();
+                yDiff = curPoint.getY() - dragCanvasStartPoint.getY();
+
+                isDragging = true;
+                setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+            repaint();
+
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e)
+        {
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e)
+        {
+        }
+
+        /**
+         * when pressed check whether an object is selected
+         *
+         * @param e mouse action
+         */
+        @Override
+        public void mousePressed(MouseEvent e)
+        {
+            isReleased = false;
+            dragCanvasStartPoint.setLocation(MouseInfo.getPointerInfo().getLocation());
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e)
+        {
+            isReleased = true;
+
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            repaint();
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e)
+        {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e)
+        {
+
+        }
+
+    }
+
 }
+
+
 

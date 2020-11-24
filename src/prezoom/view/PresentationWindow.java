@@ -20,7 +20,7 @@ public class PresentationWindow extends JDialog
     {
         //super(title);
 
-        add(MainWindow.centerCanvas,"Center");
+        add(new CenterCanvas(true),"Center");
         
         final int[] indexes = new int[2];
         
