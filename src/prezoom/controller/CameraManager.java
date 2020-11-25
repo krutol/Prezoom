@@ -19,10 +19,17 @@ public class CameraManager
      * the array that stores info of each state
      */
     static ArrayList<CameraInfoI> state_CamInfo_list = new ArrayList<>();
+
     /**
      * the info for the current state
      */
     public static CameraInfoI cur_CamInfo;
+
+    /**
+     * the camera location used to navigate in the present canvas during presentation,
+     * but not affect the stored state camera
+     */
+    public static CameraInfoI presentationCamera = new CameraInfo();
 
     static
     {
@@ -80,8 +87,8 @@ public class CameraManager
     public static void moveCamera(Graphics2D g2)
     {
         AffineTransform at = new AffineTransform();
-        at.translate(cur_CamInfo.getOffsetX(), cur_CamInfo.getOffsetY());
-        at.scale(cur_CamInfo.getZoomFactor(), cur_CamInfo.getZoomFactor());
+        at.translate(getCorrectCamera().getOffsetX(), getCorrectCamera().getOffsetY());
+        at.scale(getCorrectCamera().getZoomFactor(), getCorrectCamera().getZoomFactor());
         g2.transform(at);
     }
 
@@ -100,9 +107,18 @@ public class CameraManager
      *
      * @return the current camera info
      */
-    public static CameraInfoI getCur_CamInfo()
+    private static CameraInfoI getCur_CamInfoFromList()
     {
         return state_CamInfo_list.get(getCurrent_State());
+    }
+
+    /**
+     * get the current camera info
+     * @return {@link #cur_CamInfo} if not presenting, {@link #presentationCamera} if presenting
+     */
+    public static CameraInfoI getCorrectCamera()
+    {
+        return PresentManager.isPresenting ? presentationCamera : cur_CamInfo;
     }
 
     /**
@@ -111,27 +127,41 @@ public class CameraManager
      */
     public static void updateCur_CamInfo()
     {
-        //this.cur_CamInfo = getCur_CamInfo();
+        //this.cur_CamInfo = getCur_CamInfoFromList();
 //        if (Main.app != null)
 //        Main.app.centerCanvas.setCanvasCamera(cur_CamInfo.getOffsetX(),
 //                cur_CamInfo.getOffsetY(), cur_CamInfo.getZoomFactor(), cur_CamInfo.getPreZoomFactor());
         if (cur_CamInfo != null)
         {
-            CameraInfoI preCam = cur_CamInfo;
-            cur_CamInfo = getCur_CamInfo();
-            InterpolationFactory.buildInterpolation(preCam, cur_CamInfo);
-//            //cur_CamInfo = (CameraInfo) cur_CamInfo.clone();
-//            Timeline camTimeLine = Timeline.builder(cur_CamInfo)
-//                    .addPropertyToInterpolate("offsetX", preCam.getOffsetX(), cur_CamInfo.getOffsetX())
-//                    .addPropertyToInterpolate("offsetY", preCam.getOffsetY(), cur_CamInfo.getOffsetY())
-//                    .addPropertyToInterpolate("zoomFactor", preCam.getZoomFactor(), cur_CamInfo.getZoomFactor())
-//                    .addPropertyToInterpolate("preZoomFactor", preCam.getPreZoomFactor(), cur_CamInfo.getPreZoomFactor())
-//                    .build();
-//            camTimeLine.play();
+            CameraInfoI preCam = cur_CamInfo, curCam;
+            cur_CamInfo = getCur_CamInfoFromList();
+            if (PresentManager.isPresenting)
+            {
+//                presentationCamera.setOffsetX(cur_CamInfo.getOffsetX());
+//                presentationCamera.setOffsetY(cur_CamInfo.getOffsetY());
+//                presentationCamera.setZoomFactor(cur_CamInfo.getZoomFactor());
+//                presentationCamera.setPreZoomFactor(cur_CamInfo.getPreZoomFactor());
+                try
+                {
+                    preCam = (CameraInfoI) presentationCamera.clone();
+                    presentationCamera = (CameraInfoI) cur_CamInfo.clone();
+                } catch (CloneNotSupportedException e)
+                {
+                    e.printStackTrace();
+                }
+                curCam = presentationCamera;
+
+            }
+            else
+            {
+                curCam = cur_CamInfo;
+            }
+
+            InterpolationFactory.buildInterpolation(preCam, curCam);
 
         } else
         {
-            cur_CamInfo = getCur_CamInfo();
+            cur_CamInfo = getCur_CamInfoFromList();
         }
 
 

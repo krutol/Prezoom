@@ -106,7 +106,8 @@ public class GText extends GObject
             textArea.setFont(font);
 
         Rectangle rec = new Rectangle(x.intValue(),y.intValue(),width.intValue(),height.intValue());
-        if (!textArea.getBounds().equals(rec))
+        //if (!textArea.getBounds().equals(rec))
+            textArea.setLocation(x.intValue(), y.intValue());
             textArea.setBounds(rec);
 
     }

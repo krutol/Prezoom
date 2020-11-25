@@ -3,9 +3,7 @@ package prezoom.controller;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import prezoom.view.MainWindow;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -75,6 +73,6 @@ class CameraManagerTest
     @Test
     void getCur_CamInfo()
     {
-        assertNotNull(CameraManager.getCur_CamInfo());
+        assertNotNull(CameraManager.getCorrectCamera());
     }
 }

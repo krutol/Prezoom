@@ -45,7 +45,7 @@ public class CenterCanvas extends JPanel
 
     private CameraInfoI getCurCamInfo()
     {
-        return CameraManager.cur_CamInfo;
+        return CameraManager.getCorrectCamera();
     }
 
 
@@ -76,7 +76,6 @@ public class CenterCanvas extends JPanel
 //        addMouseWheelListener(this);
 //        addMouseMotionListener(this);
 //        addMouseListener(this);
-
 
         if (isPresenting)
         {
@@ -162,8 +161,6 @@ public class CenterCanvas extends JPanel
                 || GObjectManager.draggedObj != null
                 || GObjectManager.resizedObj != null)
             MainWindow.inspectorPanel.rearrangeValues();
-
-
     }
 
     private class EditModeActionHandler implements MouseWheelListener, MouseMotionListener, MouseListener
@@ -306,15 +303,18 @@ public class CenterCanvas extends JPanel
                 && GObjectManager.findSelected(toWorldCoordinates(e.getPoint())) != null)
             {
                 Point2D point2D = toWorldCoordinates(e.getPoint());
+
                 JPopupMenu menu = new JPopupMenu();
                 JMenuItem delete = new JMenuItem("Delete");
                 delete.addActionListener(e1 -> GObjectManager.deleteGObject(GObjectManager.findSelected(point2D)));
-
                 delete.setBackground(Color.lightGray);
+
                 menu.add(delete);
                 menu.show(CenterCanvas.this, e.getX(), e.getY());
 
             }
+
+
             dragObjStartPoint.setLocation(e.getPoint());
             CenterCanvas.this.requestFocus();
             //dragObjStartPoint = e.getPoint();
@@ -407,7 +407,7 @@ public class CenterCanvas extends JPanel
         @Override
         public void mouseExited(MouseEvent e)
         {
-
+            GObjectManager.resizePointObj = null;
         }
 
     }

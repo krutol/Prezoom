@@ -79,7 +79,7 @@ public class GObjectManager
      */
     public static boolean drawingFilled = false;
 
-    private static final ArrayList<JTextArea> jTextAreaList = new ArrayList<>();
+    protected static final ArrayList<JTextArea> jTextAreaList = new ArrayList<>();
     private static final ArrayList<GObject> gObjectList = new ArrayList<>();
 
     /**

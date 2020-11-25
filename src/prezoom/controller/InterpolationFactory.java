@@ -35,10 +35,10 @@ public class InterpolationFactory
 
         AttributeMapI curM = (AttributeMapI) curObj;
 
-        Map<String, Method> cur_map = curM.validGetterMap();
+        Map<String, Method> getterMap = curM.validGetterMap();
         Timeline.Builder tBuilder = Timeline.builder(curObj);
-
-        for (Map.Entry<String, Method> entry : cur_map.entrySet()) {
+        // build property to timeline
+        for (Map.Entry<String, Method> entry : getterMap.entrySet()) {
 
             try
             {
@@ -48,6 +48,19 @@ public class InterpolationFactory
                 //e.printStackTrace();
             }
 
+        }
+
+        // set the values of the current object as the previous objects' to get smooth animation
+        Map<String, Method> setterMap = curM.validSetterMap();
+        for (Map.Entry<String, Method> setter : setterMap.entrySet())
+        {
+            try
+            {
+                setter.getValue().invoke(curObj, getterMap.get(setter.getKey()).invoke(preObj));
+            } catch (IllegalAccessException | InvocationTargetException e)
+            {
+                e.printStackTrace();
+            }
         }
 
         Timeline timeline = tBuilder.build();

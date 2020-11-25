@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 import prezoom.controller.GObjectManager;
+import prezoom.controller.PresentManager;
 import prezoom.controller.StateManager;
 
 /**
@@ -139,10 +140,10 @@ public class ToolPanel extends JPanel
                 StateManager.deleteState(StateManager.getCurrent_State());
             } else if (btn_PlayStart.equals(source))
             {//TODO
-            	new PresentationWindow("Play Mode", false);
+                PresentManager.startPresent(true);
             } else if (btn_PlayCurrent.equals(source))
             {//TODO
-            	new PresentationWindow("Play Current Mode", true);
+                PresentManager.startPresent(false);
             } else if (btn_Text.equals(source))
             {//TODO
                 GObjectManager.drawingType = "Text";
