@@ -16,6 +16,7 @@ import java.awt.geom.Rectangle2D;
 public class GText extends GObject
 {
     public JTextArea textArea;
+    private boolean inShape;
 
     public GText(String textString, Double x, Double y, Color col, Double width, Double height,
                  String fontName, Integer fontStyle, Integer fontSize)
@@ -49,9 +50,10 @@ public class GText extends GObject
         double x = getCurrentAttributes().getX(), y = getCurrentAttributes().getY();
         double w = getCurrentAttributes().getWidth(), h = getCurrentAttributes().getHeight();
 
-        if (textArea.isFocusOwner())
+        this.drawShape = new Rectangle2D.Double(x, y, w, h);
+
+        if (textArea.isFocusOwner() || inShape)
         {
-            this.drawShape = new Rectangle2D.Double(x, y, w, h);
             g.setStroke(new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
                     10, new float[]{5}, 0));
             g.draw(drawShape);
@@ -65,7 +67,14 @@ public class GText extends GObject
         double EDGE = 20;
 
         rec.setFrame(rec.getX()-EDGE/2, rec.getY()-EDGE, rec.getWidth()+EDGE, rec.getHeight()+EDGE*2);
-        return rec.contains(mx, my);
+
+        if (rec.contains(mx, my))
+        {
+            inShape = true;
+            return true;
+        }
+        inShape = false;
+        return false;
     }
 
     private void updateTextArea()

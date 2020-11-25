@@ -34,6 +34,11 @@ public class GObjectManager
     public static GObject resizedObj;
 
     /**
+     * the object that shows the resize point
+     */
+    public static GObject resizePointObj;
+
+    /**
      * the small rectangles on the diagonal of the shapes,
      * used to resize the shapes
      */
@@ -198,7 +203,7 @@ public class GObjectManager
      */
     public static void drawResizePoints(Graphics2D g2)
     {
-        Point2D[] points = inspectedObj.getResizePoints();
+        Point2D[] points = resizePointObj.getResizePoints();
         if (points == null) return;
         double SIZE = 11;
 

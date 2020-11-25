@@ -23,7 +23,6 @@ public class CenterCanvas extends JPanel
 //    private double zoomFactor = 1;
 //    private double prevZoomFactor = 1;
     private boolean isDraggingCanvas;
-    private boolean drawResizePoint;
 //    private double xOffset = 0;
 //    private double yOffset = 0;
     private double xDiff;
@@ -154,7 +153,7 @@ public class CenterCanvas extends JPanel
         if (GObjectManager.drawingObj != null)
             GObjectManager.drawingObj.draw(g2);
 
-        if (GObjectManager.inspectedObj != null && drawResizePoint)
+        if (GObjectManager.resizePointObj != null)
             GObjectManager.drawResizePoints(g2);
 
         //g2.dispose();
@@ -349,9 +348,9 @@ public class CenterCanvas extends JPanel
                 if (GObjectManager.draggedObj != null)
                 {
                     GObjectManager.inspectedObj = GObjectManager.draggedObj;
-                    drawResizePoint = true;
+                    GObjectManager.resizePointObj = GObjectManager.draggedObj;
                 }else
-                    drawResizePoint = false;
+                    GObjectManager.resizePointObj = null;
 
             }
             else
