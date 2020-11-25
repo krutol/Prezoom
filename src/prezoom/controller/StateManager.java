@@ -36,6 +36,7 @@ public class StateManager
 
         current_State = state;
         MainWindow.statusBar.setCurStateText("Current State: "+current_State);
+        MainWindow.statePanel.updatePressedBtn();
 
         updateStateData();
     }

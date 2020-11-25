@@ -20,7 +20,9 @@ public class PresentationWindow extends JDialog
     {
         //super(title);
 
-        add(new CenterCanvas(true),"Center");
+        CenterCanvas present = new CenterCanvas(true);
+        present.requestFocus();
+        add(present,"Center");
         
         final int[] indexes = new int[2];
         
@@ -39,7 +41,7 @@ public class PresentationWindow extends JDialog
 
             public void keyPressed(KeyEvent ke) {  // handler
                 if(ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    setVisible(false);
+                    dispose();
                 }
                 else if(ke.getKeyCode() == KeyEvent.VK_LEFT) {
                     if(current_state != 0) {
@@ -52,7 +54,7 @@ public class PresentationWindow extends JDialog
                         StateManager.switchState(current_state);
                     } else {
 
-                        setVisible(false);
+                        dispose();
                     }
                 }
             }
@@ -63,7 +65,7 @@ public class PresentationWindow extends JDialog
 
         // this.setIconImage(Image);    //setting JFrame's icon image
         this.setSize((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth(),
-                (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight());     //set size of the application
+                (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight());
         //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         //this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);   //set default close operation

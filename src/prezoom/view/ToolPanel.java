@@ -135,7 +135,7 @@ public class ToolPanel extends JPanel
             {
                 StateManager.insertState();
             } else if (btn_delState.equals(source))
-            {//TODO
+            {
                 StateManager.deleteState(StateManager.getCurrent_State());
             } else if (btn_PlayStart.equals(source))
             {//TODO
@@ -145,11 +145,9 @@ public class ToolPanel extends JPanel
             	new PresentationWindow("Play Current Mode", true);
             } else if (btn_Text.equals(source))
             {//TODO
-//            	TextBox tarea = new TextBox();
-//            	CenterCanvas.gObjectManager.addGComponent(tarea);
+                GObjectManager.drawingType = "Text";
             } else if (btn_Shape.equals(source))
-            {//TODO
-                // for test
+            {
                 String str_selected = Objects.requireNonNull(btn_Shape.getSelectedItem()).toString();
 
                 GObjectManager.drawingType = str_selected.trim();

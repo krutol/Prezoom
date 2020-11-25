@@ -209,7 +209,7 @@ public class InspectorPanel extends JPanel
     public InspectorPanel()
     {
         setBackground(Color.darkGray);                          //customize the panel
-        setMinimumSize(new Dimension(120, -1));
+        setPreferredSize(new Dimension(120, -1));
         setLayout(new FlowLayout(FlowLayout.CENTER, 5, 10));
 
         TitledBorder title = BorderFactory.createTitledBorder("Inspector");

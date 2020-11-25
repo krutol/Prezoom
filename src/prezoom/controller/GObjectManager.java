@@ -1,7 +1,10 @@
 package prezoom.controller;
 
 import prezoom.model.*;
+import prezoom.view.CenterCanvas;
+import prezoom.view.MainWindow;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -71,10 +74,8 @@ public class GObjectManager
      */
     public static boolean drawingFilled = false;
 
+    private static final ArrayList<JTextArea> jTextAreaList = new ArrayList<>();
     private static final ArrayList<GObject> gObjectList = new ArrayList<>();
-    static {
-        gObjectList.add(new GText("Test",50.0,50.0,Color.BLACK,100.0,100.0,true,"Default", 0, 20));
-    }
 
     /**
      * draw all the objects on canvas
@@ -155,6 +156,12 @@ public class GObjectManager
                         break;
                     case "Circle":
                         obj = new GCircle(pX, pY, width, drawingColor, drawingFilled, drawingLineWidth);
+                        break;
+                    case "Text":
+                        obj = new GText("Text Area", pX, pY, Color.BLACK, width, height, "", 0, 20);
+                        JTextArea text = ((GText) obj).textArea;
+                        addTextArea(text);
+                        text.requestFocus();
                         break;
                 }
             }else
@@ -341,5 +348,15 @@ public class GObjectManager
     public static void addGObject(GObject obj)
     {
         gObjectList.add(obj);
+    }
+
+    /**
+     * add a JTextArea component to the list and center canvas
+     * @param obj the text area
+     */
+    public static void addTextArea(JTextArea obj)
+    {
+        jTextAreaList.add(obj);
+        MainWindow.centerCanvas.add(obj);
     }
 }

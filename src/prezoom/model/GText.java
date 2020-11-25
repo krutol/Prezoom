@@ -1,7 +1,10 @@
 package prezoom.model;
 
+import prezoom.view.MainWindow;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Rectangle2D;
@@ -14,31 +17,19 @@ public class GText extends GObject
 {
     public JTextArea textArea;
 
-    public GText(String textString, Double x, Double y, Color col, Double width, Double height, Boolean visible,
+    public GText(String textString, Double x, Double y, Color col, Double width, Double height,
                  String fontName, Integer fontStyle, Integer fontSize)
     {
         super(x, y, col, null, null, width, height,
-                null, null, visible, fontName, fontStyle, fontSize, textString);
+                null, null, true, fontName, fontStyle, fontSize, textString);
         this.drawShape = new Rectangle2D.Double(x, y, width, height);
 
         this.textArea = new JTextArea();
         textArea.setOpaque(false);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
-        this.textArea.addKeyListener(new KeyListener()
+        this.textArea.addKeyListener(new KeyAdapter()
         {
-            @Override
-            public void keyTyped(KeyEvent e)
-            {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e)
-            {
-
-            }
-
             @Override
             public void keyReleased(KeyEvent e)
             {
@@ -47,8 +38,7 @@ public class GText extends GObject
         });
         updateTextArea();
         updateTextString();
-
-        //MainWindow.centerCanvas.add(textArea);
+        textArea.requestFocus();
     }
 
     @Override
@@ -59,10 +49,13 @@ public class GText extends GObject
         double x = getCurrentAttributes().getX(), y = getCurrentAttributes().getY();
         double w = getCurrentAttributes().getWidth(), h = getCurrentAttributes().getHeight();
 
-        this.drawShape = new Rectangle2D.Double(x, y, w, h);
-        g.setStroke(new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
-                10, new float[]{5}, 0));
-        g.draw(drawShape);
+        if (textArea.isFocusOwner())
+        {
+            this.drawShape = new Rectangle2D.Double(x, y, w, h);
+            g.setStroke(new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
+                    10, new float[]{5}, 0));
+            g.draw(drawShape);
+        }
     }
 
     @Override
@@ -71,7 +64,7 @@ public class GText extends GObject
         Rectangle2D rec = this.drawShape.getBounds2D();
         double EDGE = 20;
 
-        rec.setFrame(rec.getX()-EDGE/2, rec.getY()-EDGE/2, rec.getWidth()+EDGE, rec.getHeight()+EDGE);
+        rec.setFrame(rec.getX()-EDGE/2, rec.getY()-EDGE, rec.getWidth()+EDGE, rec.getHeight()+EDGE*2);
         return rec.contains(mx, my);
     }
 
@@ -93,10 +86,16 @@ public class GText extends GObject
 //            textArea.setText(textString);
 //            stateChanged = false;
 //        }
-        textArea.setFont(new Font(fontName, fontStyle, fontSize));
         textArea.setVisible(visible);
         textArea.setForeground(col);
-        textArea.setBounds(x.intValue(),y.intValue(),width.intValue(),height.intValue());
+
+        Font font = new Font(fontName, fontStyle, fontSize);
+        if (!textArea.getFont().equals(font))
+            textArea.setFont(font);
+
+        Rectangle rec = new Rectangle(x.intValue(),y.intValue(),width.intValue(),height.intValue());
+        if (!textArea.getBounds().equals(rec))
+            textArea.setBounds(rec);
 
     }
 
