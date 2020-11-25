@@ -63,6 +63,9 @@ public class GText extends GObject
     @Override
     public boolean inShape(double mx, double my)
     {
+        if (!getCurrentAttributes().getVisible())
+            return false;
+
         Rectangle2D rec = this.drawShape.getBounds2D();
         double EDGE = 20;
 

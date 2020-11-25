@@ -72,7 +72,7 @@ public class GObjectManager
     /**
      * the line width of the new shape
      */
-    public static int drawingLineWidth = 5;
+    public static int drawingLineWidth = 3;
 
     /**
      * whether the new shape is filled
