@@ -56,7 +56,7 @@ public class InterpolationFactory
 //        Timeline camTimeLine = Timeline.builder(curObj)
 //                    .addPropertyToInterpolate("x", preObj != null ? preObj.getX() : 0, curObj.getX())
 //                    .addPropertyToInterpolate("y", preObj != null ? preObj.getY() : 0, curObj.getY())
-//                    .addPropertyToInterpolate("col", preObj != null ? preObj.getCol() : Color.white, curObj.getCol())
+//                    .addPropertyToInterpolate("color", preObj != null ? preObj.getColor() : Color.white, curObj.getColor())
 //                    .addPropertyToInterpolate("lineWidth", preObj != null ? preObj.getLineWidth() : 1, curObj.getLineWidth())
 //                    .addPropertyToInterpolate("width", preObj != null ? preObj.getWidth() : 0, curObj.getWidth())
 //                    .addPropertyToInterpolate("height", preObj != null ? preObj.getHeight() : 0, curObj.getHeight())

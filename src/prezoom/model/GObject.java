@@ -47,7 +47,7 @@ public abstract class GObject
         //this.id = id;
 //        this.x = x;
 //        this.y = y;
-//        this.col = col;
+//        this.color = color;
 //        this.filled = filled;
 //        this.lineWidth = lineWidth;
         //state_Attributes_map.put(getCurrent_State(), attributes);
@@ -58,7 +58,7 @@ public abstract class GObject
 //                state_Attributes_list.add(null);
 //            else
 //            {
-//                GAttributes attributes = new GAttributes(x,y,col,filled,lineWidth, width, height, x2, y2, visible);
+//                GAttributes attributes = new GAttributes(x,y,color,filled,lineWidth, width, height, x2, y2, visible);
 //                state_Attributes_list.add(i,attributes);
 //            }
 //        }
@@ -76,14 +76,14 @@ public abstract class GObject
 
     /**
     * General function to draw all kinds of shapes
-    * use {@link GAttributes#col} as color.
+    * use {@link GAttributes#color} as color.
     * use {@link GAttributes#filled} to depend whether calling {@link Graphics2D#fill(Shape)} or {@link Graphics2D#draw(Shape)}.
     * use {@link GAttributes#stroke} to set the line style
     * @param g the Graphics to paint
     */
     protected void drawing(Graphics2D g)
     {
-        g.setColor(getCurrentAttributes().getCol());
+        g.setColor(getCurrentAttributes().getColor());
         if (getCurrentAttributes().getFilled() != null && getCurrentAttributes().getFilled()) g.fill(drawShape);
         else
         {

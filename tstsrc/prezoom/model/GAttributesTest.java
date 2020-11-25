@@ -22,7 +22,7 @@ class GAttributesTest
 
         assertNotSame(gAttributes, att_clone);
 
-        assertEquals(gAttributes.col, att_clone.col);
+        assertEquals(gAttributes.color, att_clone.color);
         assertEquals(gAttributes.height, att_clone.height);
         assertEquals(gAttributes.width, att_clone.width);
         assertEquals(gAttributes.x, att_clone.x);

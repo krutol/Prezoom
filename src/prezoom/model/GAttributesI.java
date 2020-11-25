@@ -24,9 +24,9 @@ public interface GAttributesI extends Cloneable, AttributeMapI
 
     void setY(Double y);
 
-    Color getCol();
+    Color getColor();
 
-    void setCol(Color col);
+    void setColor(Color color);
 
     Boolean getFilled();
 

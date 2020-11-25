@@ -15,7 +15,7 @@ public class GAttributes implements GAttributesI
 {
     protected String textString;
     protected Double x, y;
-    protected Color col;
+    protected Color color;
     protected Boolean filled;
     protected Integer lineWidth;
     protected Double width, height;
@@ -41,7 +41,7 @@ public class GAttributes implements GAttributesI
      *
      * @param x         location, x
      * @param y         location, y
-     * @param col       paint color
+     * @param color       paint color
      * @param filled    whether filled
      * @param lineWidth width of lines
      * @param width     width of the object, if applicable
@@ -50,14 +50,14 @@ public class GAttributes implements GAttributesI
      * @param y2        y2 of the object, if applicable
      * @param visible   whether visible
      */
-    public GAttributes(Double x, Double y, Color col, Boolean filled,
+    public GAttributes(Double x, Double y, Color color, Boolean filled,
                        Integer lineWidth, Double width, Double height,
                        Double x2, Double y2, Boolean visible,
                        String fontName, Integer fontStyle, Integer fontSize, String textString)
     {
         this.x = x;
         this.y = y;
-        this.col = col;
+        this.color = color;
         this.filled = filled;
         this.lineWidth = lineWidth;
         this.width = width;
@@ -120,15 +120,15 @@ public class GAttributes implements GAttributesI
     }
 
     @Override
-    public Color getCol()
+    public Color getColor()
     {
-        return col;
+        return color;
     }
 
     @Override
-    public void setCol(Color col)
+    public void setColor(Color color)
     {
-        this.col = col;
+        this.color = color;
     }
 
     @Override

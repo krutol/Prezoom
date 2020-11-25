@@ -102,10 +102,10 @@ public class MenuBar extends JMenuBar
             }
             if (event.getSource() == newFile)       //if New File
             {
-                Color ori = GObjectManager.inspectedObj.getCurrentAttributes().getCol();
+                Color ori = GObjectManager.inspectedObj.getCurrentAttributes().getColor();
                 Color col = JColorChooser.showDialog(Main.app,"choose a color", ori);
                 if (col != null)
-                GObjectManager.inspectedObj.getCurrentAttributes().setCol(col);
+                GObjectManager.inspectedObj.getCurrentAttributes().setColor(col);
 
 //                BufferedImage bi = new BufferedImage(1024, 768, BufferedImage.TYPE_INT_ARGB);   //create new BufferedImage
 //                prezoom.Main.paint.drawingPanel.clearImage(bi);                                         //clear current image

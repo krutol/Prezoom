@@ -95,7 +95,7 @@ public class GAttributeManager
 //            Timeline camTimeLine = Timeline.builder(cur_Attributes)
 //                    .addPropertyToInterpolate("x", preAttributes != null ? preAttributes.getX() : 0, cur_Attributes.getX())
 //                    .addPropertyToInterpolate("y", preAttributes != null ? preAttributes.getY() : 0, cur_Attributes.getY())
-//                    .addPropertyToInterpolate("col", preAttributes != null ? preAttributes.getCol() : Color.white, cur_Attributes.getCol())
+//                    .addPropertyToInterpolate("color", preAttributes != null ? preAttributes.getColor() : Color.white, cur_Attributes.getColor())
 //                    .addPropertyToInterpolate("lineWidth", preAttributes != null ? preAttributes.getLineWidth() : 1, cur_Attributes.getLineWidth())
 //                    .addPropertyToInterpolate("width", preAttributes != null ? preAttributes.getWidth() : 0, cur_Attributes.getWidth())
 //                    .addPropertyToInterpolate("height", preAttributes != null ? preAttributes.getHeight() : 0, cur_Attributes.getHeight())

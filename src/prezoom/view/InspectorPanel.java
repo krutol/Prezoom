@@ -113,7 +113,7 @@ public class InspectorPanel extends JPanel
             if (jTableInspector.getRowEditorModel().getEditor(row) == null)
                 return null;
             return jTableInspector.getRowEditorModel().getEditor(row).getCellEditorValue();
-            //return super.getValueAt(row,col);
+            //return super.getValueAt(row,color);
         }
 
         public String getPropName(int row)
@@ -273,11 +273,11 @@ public class InspectorPanel extends JPanel
                 {
                     String attr = getAttribute(row);
                     //System.out.println("attr-" + attr + ", row-" + row);
-                    if (attr != null && attr.equals("col"))
+                    if (attr != null && attr.equals("color"))
                     {
                         try
                         {
-                            cell.setBackground((Color) curr_attr.validGetterMap().get("col").invoke(curr_attr));
+                            cell.setBackground((Color) curr_attr.validGetterMap().get("color").invoke(curr_attr));
                         } catch (IllegalAccessException | InvocationTargetException e)
                         {
                             e.printStackTrace();
@@ -373,7 +373,7 @@ public class InspectorPanel extends JPanel
 
                 switch (Objects.requireNonNull(attr))
                 {
-                    case "col":
+                    case "color":
                     {
                         editedComp = new JTextField("");
                         editedComp.setBackground((Color) entry.getValue().invoke(currAttr));
@@ -384,7 +384,7 @@ public class InspectorPanel extends JPanel
                             {
                                 try
                                 {
-                                    Color color = JColorChooser.showDialog(MainWindow.centerCanvas, "Select a color", (Color) cur_map.get("col").invoke(currAttr));
+                                    Color color = JColorChooser.showDialog(MainWindow.centerCanvas, "Select a color", (Color) cur_map.get("color").invoke(currAttr));
                                     ((JTextField) e.getSource()).setBackground(color);
                                     invokeSetter(setter_map, entry.getKey(), currAttr, color);
                                 } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException ignored)

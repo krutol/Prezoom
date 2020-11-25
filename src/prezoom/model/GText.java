@@ -1,7 +1,5 @@
 package prezoom.model;
 
-import prezoom.view.MainWindow;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -82,7 +80,7 @@ public class GText extends GObject
         GAttributesI cur_Att = getCurrentAttributes();
         Double x = cur_Att.getX();
         Double y = cur_Att.getY();
-        Color col = cur_Att.getCol();
+        Color col = cur_Att.getColor();
         Double width = cur_Att.getWidth();
         Double height = cur_Att.getHeight();
         Boolean visible = cur_Att.getVisible();
