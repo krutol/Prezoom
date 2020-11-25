@@ -364,4 +364,21 @@ public class GObjectManager
         jTextAreaList.add(obj);
         MainWindow.centerCanvas.add(obj);
     }
+
+    /**
+     * delete an object. If the object is a text box, delete the text area as well
+     * @param obj the object to be deleted
+     */
+    public static void deleteGObject(GObject obj)
+    {
+        if (obj instanceof GText)
+        {
+            MainWindow.centerCanvas.remove(((GText) obj).textArea);
+            jTextAreaList.remove(((GText) obj).textArea);
+        }
+        gObjectList.remove(obj);
+
+        resizePointObj = null;
+        inspectedObj = null;
+    }
 }

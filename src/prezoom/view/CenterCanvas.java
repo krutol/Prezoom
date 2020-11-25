@@ -302,8 +302,21 @@ public class CenterCanvas extends JPanel
         {
             //mxstart = e.getX();
             //mystart = e.getY();
+            if (SwingUtilities.isRightMouseButton(e)
+                && GObjectManager.findSelected(toWorldCoordinates(e.getPoint())) != null)
+            {
+                Point2D point2D = toWorldCoordinates(e.getPoint());
+                JPopupMenu menu = new JPopupMenu();
+                JMenuItem delete = new JMenuItem("Delete");
+                delete.addActionListener(e1 -> GObjectManager.deleteGObject(GObjectManager.findSelected(point2D)));
+
+                delete.setBackground(Color.lightGray);
+                menu.add(delete);
+                menu.show(CenterCanvas.this, e.getX(), e.getY());
+
+            }
             dragObjStartPoint.setLocation(e.getPoint());
-            MainWindow.centerCanvas.requestFocus();
+            CenterCanvas.this.requestFocus();
             //dragObjStartPoint = e.getPoint();
         }
 
