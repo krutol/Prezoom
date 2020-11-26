@@ -5,6 +5,7 @@ import prezoom.model.CameraInfoI;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 /**
@@ -90,6 +91,34 @@ public class CameraManager
         at.translate(getCorrectCamera().getOffsetX(), getCorrectCamera().getOffsetY());
         at.scale(getCorrectCamera().getZoomFactor(), getCorrectCamera().getZoomFactor());
         g2.transform(at);
+    }
+
+
+    /**
+     * from view coordinate to world coordinate according to current camera location
+     * @param point view coordinate
+     * @return world coordinate
+     */
+    public static Point2D toWorldCoordinates(Point point)
+    {
+        double wX = (point.getX() - getCorrectCamera().getOffsetX()) / getCorrectCamera().getPreZoomFactor();
+        double wY = (point.getY() - getCorrectCamera().getOffsetY()) / getCorrectCamera().getPreZoomFactor();
+
+        return new Point2D.Double(wX, wY);
+    }
+
+    /**
+     * from world coordinate to view coordinate according to current camera location
+     * @param wX world coordinate X
+     * @param wY world coordinate Y
+     * @return view coordinate
+     */
+    public static Point2D toViewCoordinates(double wX, double wY)
+    {
+        double vX = wX*getCorrectCamera().getPreZoomFactor() + getCorrectCamera().getOffsetX();
+        double vY = wY*getCorrectCamera().getPreZoomFactor() + getCorrectCamera().getOffsetY();
+
+        return new Point2D.Double(vX, vY);
     }
 
     /**

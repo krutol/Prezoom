@@ -1,12 +1,13 @@
 package prezoom.model;
 
+import prezoom.controller.CameraManager;
 import prezoom.view.MainWindow;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicTextAreaUI;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -39,7 +40,9 @@ public class GText extends GObject
         });
         updateTextArea();
         updateTextString();
+
         textArea.requestFocus();
+
     }
 
     @Override
@@ -105,9 +108,12 @@ public class GText extends GObject
         if (!textArea.getFont().equals(font))
             textArea.setFont(font);
 
-        Rectangle rec = new Rectangle(x.intValue(),y.intValue(),width.intValue(),height.intValue());
-        //if (!textArea.getBounds().equals(rec))
-            textArea.setLocation(x.intValue(), y.intValue());
+        Point2D viewLocation = CameraManager.toViewCoordinates(x,y);
+        Rectangle rec = new Rectangle((int)viewLocation.getX(),(int)viewLocation.getY(),
+                (int)(width*CameraManager.getCorrectCamera().getZoomFactor()),
+                (int)(height*CameraManager.getCorrectCamera().getZoomFactor()));
+
+        if (!textArea.getBounds().equals(rec))
             textArea.setBounds(rec);
 
     }

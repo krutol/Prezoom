@@ -49,7 +49,6 @@ public class CenterCanvas extends JPanel
     }
 
 
-
     // for test purpose
 //    public ArrayList<GObject> objects = new ArrayList<>();
 //
@@ -59,15 +58,6 @@ public class CenterCanvas extends JPanel
 //        objects.add(new GOval(150, 200, 50, 30, Color.BLUE, true, 3));
 //        objects.add(new GLine(500,500,672, 789, Color.magenta, 5));
 //    }
-
-    private Point2D toWorldCoordinates(Point point)
-    {
-        double mx = (point.getX() - getCurCamInfo().getOffsetX()) / getCurCamInfo().getPreZoomFactor();
-        double my = (point.getY() - getCurCamInfo().getOffsetY()) / getCurCamInfo().getPreZoomFactor();
-
-        return new Point2D.Double(mx, my);
-    }
-
     /**
      * add Mouse Listener, Mouse Wheel Listener, and Mouse Motion Listener to this panel
      */
@@ -126,7 +116,7 @@ public class CenterCanvas extends JPanel
 
         super.paintComponent(g);
 
-        Graphics2D g2 = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D) g.create();
         //AffineTransform at = new AffineTransform();
         CameraInfoI cam = getCurCamInfo();
 
@@ -136,7 +126,6 @@ public class CenterCanvas extends JPanel
                     cam.getZoomFactor(),cam.getPreZoomFactor());
         } else
         {
-//
             CameraManager.moveCamera(g2);
         }
 
@@ -155,7 +144,7 @@ public class CenterCanvas extends JPanel
         if (GObjectManager.resizePointObj != null)
             GObjectManager.drawResizePoints(g2);
 
-        //g2.dispose();
+        g2.dispose();
 
         if (GObjectManager.drawingObj != null
                 || GObjectManager.draggedObj != null
@@ -222,7 +211,7 @@ public class CenterCanvas extends JPanel
             }
             else if (!GObjectManager.drawingType.isEmpty())
             {
-                GObjectManager.drawingObj = GObjectManager.updateResizing(drawObjStartPoint, toWorldCoordinates(e.getPoint()),
+                GObjectManager.drawingObj = GObjectManager.updateResizing(drawObjStartPoint, CameraManager.toWorldCoordinates(e.getPoint()),
                         GObjectManager.drawingObj, GObjectManager.drawingType);
                 GObjectManager.inspectedObj = GObjectManager.drawingObj;
 
@@ -264,7 +253,7 @@ public class CenterCanvas extends JPanel
 
             } else if (GObjectManager.resizedObj != null)
             {
-                Point2D cursor = toWorldCoordinates(e.getPoint());
+                Point2D cursor = CameraManager.toWorldCoordinates(e.getPoint());
 
                 String type = GObjectManager.resizedObj.getClass().getSimpleName().substring(1);
 
@@ -282,7 +271,7 @@ public class CenterCanvas extends JPanel
         @Override
         public void mouseMoved(MouseEvent e)
         {
-            Point2D point2D = toWorldCoordinates(e.getPoint());
+            Point2D point2D = CameraManager.toWorldCoordinates(e.getPoint());
             MainWindow.statusBar.setStatusText(String.format("Moving at [%d,%d]", (int)point2D.getX(), (int)point2D.getY()));
             if (!GObjectManager.drawingType.isEmpty())
                 setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
@@ -300,9 +289,9 @@ public class CenterCanvas extends JPanel
             //mxstart = e.getX();
             //mystart = e.getY();
             if (SwingUtilities.isRightMouseButton(e)
-                && GObjectManager.findSelected(toWorldCoordinates(e.getPoint())) != null)
+                && GObjectManager.findSelected(CameraManager.toWorldCoordinates(e.getPoint())) != null)
             {
-                Point2D point2D = toWorldCoordinates(e.getPoint());
+                Point2D point2D = CameraManager.toWorldCoordinates(e.getPoint());
 
                 JPopupMenu menu = new JPopupMenu();
                 JMenuItem delete = new JMenuItem("Delete");
@@ -340,7 +329,7 @@ public class CenterCanvas extends JPanel
 
             //mxstart -= o_X;
             //mystart -= o_Y;
-            Point2D point2D = toWorldCoordinates(e.getPoint());
+            Point2D point2D = CameraManager.toWorldCoordinates(e.getPoint());
             drawObjStartPoint.setLocation(point2D);
 //        int mx=e.getX();
 //        int my=e.getY();

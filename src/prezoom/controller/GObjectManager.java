@@ -1,7 +1,6 @@
 package prezoom.controller;
 
 import prezoom.model.*;
-import prezoom.view.CenterCanvas;
 import prezoom.view.MainWindow;
 
 import javax.swing.*;
