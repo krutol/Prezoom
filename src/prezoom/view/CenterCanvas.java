@@ -483,6 +483,8 @@ public class CenterCanvas extends JPanel
                     pWindow.nextState();
                 else if (SwingUtilities.isRightMouseButton(e))
                     pWindow.previousState();
+                else if (SwingUtilities.isMiddleMouseButton(e))
+                    pWindow.currentState();
             }
         }
 

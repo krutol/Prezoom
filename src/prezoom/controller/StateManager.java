@@ -31,7 +31,8 @@ public class StateManager
      */
     public static void switchState(int state)
     {
-        if (state == current_State)
+        if (state == current_State
+            && !PresentManager.isPresenting)
             return;
 
         current_State = state;

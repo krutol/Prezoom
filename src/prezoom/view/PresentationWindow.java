@@ -77,6 +77,11 @@ public class PresentationWindow extends JDialog
         }
     }
 
+    public void currentState()
+    {
+        StateManager.switchState(current_state);
+    }
+
     private class ActionHandler implements KeyListener
     {
         @Override
@@ -97,6 +102,9 @@ public class PresentationWindow extends JDialog
             } else if (ke.getKeyCode() == KeyEvent.VK_RIGHT)
             {
                 nextState();
+            } else if(ke.getKeyCode() == KeyEvent.VK_SPACE)
+            {
+                currentState();
             }
         }
 
