@@ -1,6 +1,7 @@
 package prezoom.model;
 
 import prezoom.controller.CameraManager;
+import prezoom.controller.GObjectManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,7 +59,12 @@ public class GText extends GObject
             g.setStroke(new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
                     10, new float[]{5}, 0));
             g.draw(drawShape);
+            if (textArea.isFocusOwner())
+                GObjectManager.resizePointObj = this;
         }
+
+        if (!inShape && GObjectManager.resizePointObj == this)
+            GObjectManager.resizePointObj = null;
     }
 
     @Override
@@ -70,7 +76,7 @@ public class GText extends GObject
         Rectangle2D rec = this.drawShape.getBounds2D();
         double EDGE = 20;
 
-        rec.setFrame(rec.getX()-EDGE/2, rec.getY()-EDGE, rec.getWidth()+EDGE, rec.getHeight()+EDGE*2);
+        rec.setFrame(rec.getX()-EDGE, rec.getY()-EDGE, rec.getWidth()+EDGE*2, rec.getHeight()+EDGE*2);
 
         if (rec.contains(mx, my))
         {
