@@ -37,6 +37,24 @@ public class GText extends GObject
                 getCurrentAttributes().setTextString(textArea.getText());
             }
         });
+        this.textArea.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                super.focusLost(e);
+                GObjectManager.resizePointObj = null;
+            }
+        });
+        this.textArea.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseEntered(MouseEvent e)
+            {
+                super.mouseEntered(e);
+                GObjectManager.resizePointObj = GText.this;
+            }
+        });
         updateTextArea();
         updateTextString();
 
@@ -62,9 +80,10 @@ public class GText extends GObject
             if (textArea.isFocusOwner())
                 GObjectManager.resizePointObj = this;
         }
-
-        if (!inShape && GObjectManager.resizePointObj == this)
+        else if (GObjectManager.resizePointObj == this)
             GObjectManager.resizePointObj = null;
+
+
     }
 
     @Override
