@@ -7,10 +7,8 @@ import javax.swing.*;
 
 import org.pushingpixels.trident.api.Timeline;
 import org.pushingpixels.trident.api.swing.SwingRepaintTimeline;
-import prezoom.controller.GAttributeManager;
-import prezoom.controller.GObjectManager;
+import prezoom.controller.*;
 import prezoom.model.CameraInfoI;
-import prezoom.controller.CameraManager;
 import prezoom.model.GAttributesI;
 
 /** The center canvas where you can edit the presentation, move the camera, etc.
@@ -27,6 +25,7 @@ public class CenterCanvas extends JPanel
     private final Point dragCanvasStartPoint = new Point(),
             dragObjStartPoint = new Point(),
             drawObjStartPoint = new Point();
+    private final JLabel pageLabel = new JLabel("", JLabel.CENTER);
 //    private GObject selectedObj;
 //    public GObject inspectedObj;
 
@@ -69,6 +68,11 @@ public class CenterCanvas extends JPanel
             addMouseWheelListener(new PresentModeActionHandler());
             addMouseMotionListener(new PresentModeActionHandler());
             addMouseListener(new PresentModeActionHandler());
+            pageLabel.setBounds((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2-50,
+                    (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight()-30,
+                    100,30);
+            pageLabel.setFont(pageLabel.getFont().deriveFont(Font.BOLD, 16));
+            add(pageLabel);
         }
         else {
             addMouseWheelListener(new EditModeActionHandler());
@@ -124,6 +128,10 @@ public class CenterCanvas extends JPanel
 
         if (GObjectManager.resizePointObj != null)
             GObjectManager.drawResizePoints(g2);
+
+        if (PresentManager.isPresenting)
+            pageLabel.setText(StateManager.getCurrent_State()+1+
+                    "/"+StateManager.getTotal_State_Number());
 
         g2.dispose();
 

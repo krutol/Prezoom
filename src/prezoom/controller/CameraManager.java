@@ -126,13 +126,7 @@ public class CameraManager
      */
     public static void initializePresentationCamera()
     {
-        try
-        {
-            presentationCamera = getCur_CamInfoFromList().clone();
-        } catch (CloneNotSupportedException e)
-        {
-            e.printStackTrace();
-        }
+        updateCur_CamInfo();
     }
 
     /**
@@ -188,6 +182,12 @@ public class CameraManager
                 {
                     preCam = presentationCamera.clone();
                     presentationCamera = cur_CamInfo.clone();
+                    presentationCamera.setZoomFactor(
+                            presentationCamera.getZoomFactor()*
+                            PresentManager.presentZoomFactor);
+                    presentationCamera.setPreZoomFactor(
+                            presentationCamera.getPreZoomFactor()*
+                                    PresentManager.presentZoomFactor);
                 } catch (CloneNotSupportedException e)
                 {
                     e.printStackTrace();

@@ -74,7 +74,6 @@ public class PresentationWindow extends JDialog
         this.setVisible(true);                                          //set visible
         // setStaringColor();
 
-
     }
 
 }

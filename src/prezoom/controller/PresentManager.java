@@ -5,6 +5,7 @@ import prezoom.view.MainWindow;
 import prezoom.view.PresentationWindow;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * The class to manage the presentation
@@ -19,6 +20,8 @@ public class PresentManager
      */
     public static boolean isPresenting = false;
 
+    public static double presentZoomFactor;
+
     /**
      * generate a presentation window to present
      * switch state to beginning if necessary
@@ -32,6 +35,7 @@ public class PresentManager
             StateManager.switchState(0);
         }
 
+        setPresentZoomFactor();
         CameraManager.initializePresentationCamera();
 
         new PresentationWindow();
@@ -76,5 +80,15 @@ public class PresentManager
             t.setFocusable(true);
             MainWindow.centerCanvas.add(t);
         }
+    }
+
+    public static void setPresentZoomFactor()
+    {
+        double hZoom = Toolkit.getDefaultToolkit().getScreenSize().getHeight()
+                /MainWindow.centerCanvas.getHeight();
+        double wZoom = Toolkit.getDefaultToolkit().getScreenSize().getWidth()
+                /MainWindow.centerCanvas.getWidth();
+
+        presentZoomFactor = (hZoom+wZoom)/2;
     }
 }
