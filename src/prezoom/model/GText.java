@@ -127,14 +127,14 @@ public class GText extends GObject
         textArea.setVisible(visible);
         textArea.setForeground(col);
 
-        String s = textArea.getFont().getFontName();
-
         if (fontName.isEmpty()
-            ||textArea.getFont().getFontName().equals("Default")
+            || textArea.getFont().getFontName().equals("Default")
             || textArea.getFont().getFontName().equals(fontName))
         {
             fontSize = fontSize*CameraManager.getCorrectCamera().getZoomFactor();
-            textArea.setFont(textArea.getFont().deriveFont(fontSize.floatValue()));
+            Font font = textArea.getFont().deriveFont(fontSize.floatValue());
+            if (!textArea.getFont().equals(font))
+                textArea.setFont(font);
         }
         else
         {

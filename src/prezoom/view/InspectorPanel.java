@@ -323,15 +323,6 @@ public class InspectorPanel extends JPanel
 
     private void invokeSetter(Map<String, Method> setterMap, String key, AttributeMapI attr, Object param)
     {
-
-//        for (Map.Entry<String, Method> entry : setterMap.entrySet())
-//        {
-//            String currKey = entry.getKey();
-//            if (currKey.equals(key))
-//            {
-//                entry.getValue().invoke(attr, param);
-//            }
-//        }
         try
         {
             setterMap.get(key).invoke(attr,param);
@@ -377,43 +368,22 @@ public class InspectorPanel extends JPanel
                     {
                         editedComp = new JTextField("");
                         editedComp.setBackground((Color) entry.getValue().invoke(currAttr));
-                        editedComp.addMouseListener(new MouseListener()
+                        editedComp.addMouseListener(new MouseAdapter()
                         {
-
+                            @Override
                             public void mouseClicked(MouseEvent e)
                             {
+                                super.mouseClicked(e);
                                 try
                                 {
-                                    Color color = JColorChooser.showDialog(MainWindow.centerCanvas, "Select a color", (Color) cur_map.get("color").invoke(currAttr));
+                                    Color color = JColorChooser.showDialog(MainWindow.centerCanvas,
+                                            "Select a color", (Color) cur_map.get("color").invoke(currAttr));
                                     ((JTextField) e.getSource()).setBackground(color);
                                     invokeSetter(setter_map, entry.getKey(), currAttr, color);
-                                } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException ignored)
+                                } catch (IllegalAccessException | InvocationTargetException err)
                                 {
-
+                                    err.printStackTrace();
                                 }
-                            }
-
-                            @Override
-                            public void mousePressed(MouseEvent e)
-                            {
-
-                            }
-
-                            @Override
-                            public void mouseReleased(MouseEvent e)
-                            {
-
-                            }
-
-                            @Override
-                            public void mouseEntered(MouseEvent e)
-                            {
-
-                            }
-
-                            @Override
-                            public void mouseExited(MouseEvent e)
-                            {
 
                             }
                         });
@@ -456,9 +426,9 @@ public class InspectorPanel extends JPanel
                         break;
                     }
                 }
-            } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException e)
+            } catch (IllegalAccessException | InvocationTargetException e)
             {
-                //e.printStackTrace();
+                e.printStackTrace();
             }
             i++;
         }
