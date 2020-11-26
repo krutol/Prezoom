@@ -24,7 +24,7 @@ public class GAttributes implements GAttributesI
     protected Boolean visible = true;
     protected String fontName;
     protected Integer fontStyle;
-    protected Integer fontSize;
+    protected Double fontSize;
     private final Map<String, Method> getters, setters;
 
     /**
@@ -53,7 +53,7 @@ public class GAttributes implements GAttributesI
     public GAttributes(Double x, Double y, Color color, Boolean filled,
                        Integer lineWidth, Double width, Double height,
                        Double x2, Double y2, Boolean visible,
-                       String fontName, Integer fontStyle, Integer fontSize, String textString)
+                       String fontName, Integer fontStyle, Double fontSize, String textString)
     {
         this.x = x;
         this.y = y;
@@ -242,12 +242,12 @@ public class GAttributes implements GAttributesI
         this.fontStyle = fontStyle;
     }
 
-    public Integer getFontSize()
+    public Double getFontSize()
     {
         return fontSize;
     }
 
-    public void setFontSize(Integer fontSize)
+    public void setFontSize(Double fontSize)
     {
         this.fontSize = fontSize;
     }

@@ -38,7 +38,7 @@ public class GAttributeManager
     public GAttributeManager(Double x, Double y, Color col, Boolean filled,
                              Integer lineWidth, Double width, Double height,
                              Double x2, Double y2, Boolean visible,
-                             String fontName, Integer fontStyle, Integer fontSize, String textString)
+                             String fontName, Integer fontStyle, Double fontSize, String textString)
     {
         for (int i = 0; i< StateManager.getTotal_State_Number(); i++)
         {
@@ -50,7 +50,7 @@ public class GAttributeManager
                         y == null?null:0.0, col == null?null:new Color(238,238,238), filled == null?null:false,
                         lineWidth == null?null:0, width == null?null:0.0, height == null?null:0.0,
                         x2 == null?null:0.0, y2 == null?null:0.0, visible == null?null:false,
-                        fontName == null?null:"Default", fontStyle == null?null:0, fontSize == null?null:0,
+                        fontName == null?null:"Default", fontStyle == null?null:0, fontSize == null?null:0.0,
                         textString==null?null:"");
 
             }

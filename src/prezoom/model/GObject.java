@@ -42,7 +42,7 @@ public abstract class GObject
     protected GObject(Double x, Double y, Color col, Boolean filled,
                       Integer lineWidth, Double width, Double height,
                       Double x2, Double y2, Boolean visible,
-                      String fontName, Integer fontStyle, Integer fontSize, String textString)
+                      String fontName, Integer fontStyle, Double fontSize, String textString)
     {
         //this.id = id;
 //        this.x = x;

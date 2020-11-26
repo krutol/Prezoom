@@ -68,7 +68,7 @@ public interface GAttributesI extends Cloneable, AttributeMapI
 
     void setFontStyle(Integer fontStyle);
 
-    Integer getFontSize();
+    Double getFontSize();
 
-    void setFontSize(Integer fontSize);
+    void setFontSize(Double fontSize);
 }

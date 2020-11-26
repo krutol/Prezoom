@@ -18,7 +18,7 @@ public class GText extends GObject
     private boolean inShape;
 
     public GText(String textString, Double x, Double y, Color col, Double width, Double height,
-                 String fontName, Integer fontStyle, Integer fontSize)
+                 String fontName, Integer fontStyle, Double fontSize)
     {
         super(x, y, col, null, null, width, height,
                 null, null, true, fontName, fontStyle, fontSize, textString);
@@ -92,7 +92,7 @@ public class GText extends GObject
         Boolean visible = cur_Att.getVisible();
         String fontName = cur_Att.getFontName();
         Integer fontStyle = cur_Att.getFontStyle();
-        Integer fontSize = cur_Att.getFontSize();
+        Double fontSize = cur_Att.getFontSize();
 
 //        if (stateChanged)
 //        {
@@ -102,9 +102,21 @@ public class GText extends GObject
         textArea.setVisible(visible);
         textArea.setForeground(col);
 
-        Font font = new Font(fontName, fontStyle, fontSize);
-        if (!textArea.getFont().equals(font))
+        String s = textArea.getFont().getFontName();
+
+        if (fontName.isEmpty()
+            ||textArea.getFont().getFontName().equals("Default")
+            || textArea.getFont().getFontName().equals(fontName))
+        {
+            fontSize = fontSize*CameraManager.getCorrectCamera().getZoomFactor();
+            textArea.setFont(textArea.getFont().deriveFont(fontSize.floatValue()));
+        }
+        else
+        {
+            Font font = new Font(fontName, fontStyle, fontSize.intValue());
             textArea.setFont(font);
+        }
+
 
         Point2D viewLocation = CameraManager.toViewCoordinates(x,y);
         Rectangle rec = new Rectangle((int)viewLocation.getX(),(int)viewLocation.getY(),

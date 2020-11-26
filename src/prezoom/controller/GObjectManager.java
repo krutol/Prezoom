@@ -162,7 +162,7 @@ public class GObjectManager
                         obj = new GCircle(pX, pY, width, drawingColor, drawingFilled, drawingLineWidth);
                         break;
                     case "Text":
-                        obj = new GText("Text Area", pX, pY, Color.BLACK, width, height, "", 0, 20);
+                        obj = new GText("Text Area", pX, pY, Color.BLACK, width, height, "", 0, 20.0);
                         JTextArea text = ((GText) obj).textArea;
                         addTextArea(text);
                         text.requestFocus();
