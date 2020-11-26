@@ -80,9 +80,9 @@ public class GAttributes implements GAttributesI
      * @throws CloneNotSupportedException nothing
      */
     @Override
-    public Object clone() throws CloneNotSupportedException
+    public GAttributes clone() throws CloneNotSupportedException
     {
-        return super.clone();
+        return (GAttributes) super.clone();
     }
 
     @Override

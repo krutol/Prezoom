@@ -8,7 +8,7 @@ package prezoom.model;
  **/
 public interface CameraInfoI extends Cloneable, AttributeMapI
 {
-    Object clone() throws CloneNotSupportedException;
+    CameraInfo clone() throws CloneNotSupportedException;
 
     double getOffsetX();
 

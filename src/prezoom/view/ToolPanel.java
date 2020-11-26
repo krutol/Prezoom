@@ -139,13 +139,13 @@ public class ToolPanel extends JPanel
             {
                 StateManager.deleteState(StateManager.getCurrent_State());
             } else if (btn_PlayStart.equals(source))
-            {//TODO
+            {
                 PresentManager.startPresent(true);
             } else if (btn_PlayCurrent.equals(source))
-            {//TODO
+            {
                 PresentManager.startPresent(false);
             } else if (btn_Text.equals(source))
-            {//TODO
+            {
                 GObjectManager.drawingType = "Text";
             } else if (btn_Shape.equals(source))
             {

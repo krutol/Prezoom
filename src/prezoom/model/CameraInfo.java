@@ -59,9 +59,9 @@ public class CameraInfo implements CameraInfoI
      * @throws CloneNotSupportedException nothing
      */
     @Override
-    public Object clone() throws CloneNotSupportedException
+    public CameraInfo clone() throws CloneNotSupportedException
     {
-        return super.clone();
+        return (CameraInfo) super.clone();
     }
 
     public double getOffsetX()

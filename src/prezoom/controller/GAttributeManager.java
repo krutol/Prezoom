@@ -46,7 +46,7 @@ public class GAttributeManager
             if (i!=getCurrent_State())
             {
                 //state_Attributes_list.add(null);
-                attributes = attributes = new GAttributes(x == null?null:0.0,
+                attributes = new GAttributes(x == null?null:0.0,
                         y == null?null:0.0, col == null?null:new Color(238,238,238), filled == null?null:false,
                         lineWidth == null?null:0, width == null?null:0.0, height == null?null:0.0,
                         x2 == null?null:0.0, y2 == null?null:0.0, visible == null?null:false,
@@ -122,7 +122,7 @@ public class GAttributeManager
             {
                 try
                 {
-                    attributes = (GAttributesI) state_Attributes_list.get(getCurrent_State()-1).clone();
+                    attributes = state_Attributes_list.get(getCurrent_State()-1).clone();
                 } catch (CloneNotSupportedException e)
                 {
                     e.printStackTrace();
@@ -159,7 +159,7 @@ public class GAttributeManager
             GAttributesI attributes = null;
             try
             {
-                attributes = (GAttributesI) cur_Attributes.clone();
+                attributes = cur_Attributes.clone();
             } catch (CloneNotSupportedException e)
             {
                 e.printStackTrace();

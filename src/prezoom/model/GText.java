@@ -1,10 +1,8 @@
 package prezoom.model;
 
 import prezoom.controller.CameraManager;
-import prezoom.view.MainWindow;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicTextAreaUI;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Point2D;

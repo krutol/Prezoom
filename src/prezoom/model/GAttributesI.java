@@ -10,7 +10,7 @@ import java.awt.*;
  **/
 public interface GAttributesI extends Cloneable, AttributeMapI
 {
-    Object clone() throws CloneNotSupportedException;
+    GAttributes clone() throws CloneNotSupportedException;
 
     String getTextString();
 

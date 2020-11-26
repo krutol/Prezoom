@@ -122,6 +122,20 @@ public class CameraManager
     }
 
     /**
+     * set the location of presentation camera
+     */
+    public static void initializePresentationCamera()
+    {
+        try
+        {
+            presentationCamera = getCur_CamInfoFromList().clone();
+        } catch (CloneNotSupportedException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * get the current state index
      *
      * @return current state index
@@ -172,8 +186,8 @@ public class CameraManager
 //                presentationCamera.setPreZoomFactor(cur_CamInfo.getPreZoomFactor());
                 try
                 {
-                    preCam = (CameraInfoI) presentationCamera.clone();
-                    presentationCamera = (CameraInfoI) cur_CamInfo.clone();
+                    preCam = presentationCamera.clone();
+                    presentationCamera = cur_CamInfo.clone();
                 } catch (CloneNotSupportedException e)
                 {
                     e.printStackTrace();
@@ -209,7 +223,7 @@ public class CameraManager
         {
             try
             {
-                cameraInfo = (CameraInfoI) state_CamInfo_list.get(getCurrent_State() - 1).clone();
+                cameraInfo = state_CamInfo_list.get(getCurrent_State() - 1).clone();
             } catch (CloneNotSupportedException e)
             {
                 e.printStackTrace();

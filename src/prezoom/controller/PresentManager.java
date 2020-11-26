@@ -1,7 +1,5 @@
 package prezoom.controller;
 
-import prezoom.model.CameraInfo;
-import prezoom.model.CameraInfoI;
 import prezoom.view.CenterCanvas;
 import prezoom.view.MainWindow;
 import prezoom.view.PresentationWindow;
@@ -33,6 +31,8 @@ public class PresentManager
         {
             StateManager.switchState(0);
         }
+
+        CameraManager.initializePresentationCamera();
 
         new PresentationWindow();
     }
