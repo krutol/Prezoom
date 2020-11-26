@@ -134,6 +134,9 @@ public class CenterCanvas extends JPanel
 
         CameraManager.moveCamera(g2);
 
+        double d = g2.getTransform().getScaleX();
+        double d1 = g2.getTransform().getScaleY();
+
         GObjectManager.drawAll(g2);
 
         if (GObjectManager.drawingObj != null)

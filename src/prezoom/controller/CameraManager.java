@@ -179,12 +179,21 @@ public class CameraManager
                     preCam = presentationCamera.clone();
                     presentationCamera = cur_CamInfo.clone();
 
+                    presentationCamera.setOffsetX(
+                            PresentManager.presentZoomFactor *
+                                    presentationCamera.getOffsetX());
+                    presentationCamera.setOffsetY(
+                            PresentManager.presentZoomFactor *
+                                    presentationCamera.getOffsetY());
+
                     presentationCamera.setZoomFactor(
                             presentationCamera.getZoomFactor()*
                             PresentManager.presentZoomFactor);
                     presentationCamera.setPreZoomFactor(
                             presentationCamera.getPreZoomFactor()*
                                     PresentManager.presentZoomFactor);
+
+
                 } catch (CloneNotSupportedException e)
                 {
                     e.printStackTrace();
