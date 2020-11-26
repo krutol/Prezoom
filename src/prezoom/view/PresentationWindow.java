@@ -19,6 +19,11 @@ public class PresentationWindow extends JDialog
 {
     //public static prezoom.controller.StateManager stateManager = new prezoom.controller.StateManager();
 
+    // Get Total Number of States
+    final int total_states = StateManager.getTotal_State_Number();
+    // Assume Current State's Index is 0
+    int current_state = StateManager.getCurrent_State();
+
     public PresentationWindow()
     {
         CenterCanvas presentCanvas = new CenterCanvas(true);
@@ -27,38 +32,8 @@ public class PresentationWindow extends JDialog
 
         PresentManager.addTextComponentToPresenter(presentCanvas);
 
-        addKeyListener(new KeyAdapter()
-        {
-            // Get Total Number of States
-            final int total_states = StateManager.getTotal_State_Number();
-            // Assume Current State's Index is 0
-            int current_state = StateManager.getCurrent_State();
-
-            public void keyPressed(KeyEvent ke)
-            {  // handler
-                if (ke.getKeyCode() == KeyEvent.VK_ESCAPE)
-                {
-                    PresentManager.endPresent(PresentationWindow.this);
-                } else if (ke.getKeyCode() == KeyEvent.VK_LEFT)
-                {
-                    if (current_state != 0)
-                    {
-                        current_state--;
-                        StateManager.switchState(current_state);
-                    }
-                } else if (ke.getKeyCode() == KeyEvent.VK_RIGHT)
-                {
-                    if (current_state < total_states - 1)
-                    {
-                        current_state++;
-                        StateManager.switchState(current_state);
-                    } else
-                    {
-                        PresentManager.endPresent(PresentationWindow.this);
-                    }
-                }
-            }
-        });
+        ActionHandler actionHandler = new ActionHandler();
+        addKeyListener(actionHandler);
 //        add(colorPalette, "South");
 //        add(paintToolPanel, "West");
 //        add(new JScrollPane(drawingPanel), "Center");
@@ -76,4 +51,62 @@ public class PresentationWindow extends JDialog
 
     }
 
+    public void exitPresent()
+    {
+        PresentManager.endPresent(PresentationWindow.this);
+    }
+
+    public void nextState()
+    {
+        if (current_state < total_states - 1)
+        {
+            current_state++;
+            StateManager.switchState(current_state);
+        } else
+        {
+            exitPresent();
+        }
+    }
+
+    public void previousState()
+    {
+        if (current_state != 0)
+        {
+            current_state--;
+            StateManager.switchState(current_state);
+        }
+    }
+
+    private class ActionHandler implements KeyListener
+    {
+        @Override
+        public void keyTyped(KeyEvent e)
+        {
+
+        }
+
+        @Override
+        public void keyPressed(KeyEvent ke)
+        {  // handler
+            if (ke.getKeyCode() == KeyEvent.VK_ESCAPE)
+            {
+                exitPresent();
+            } else if (ke.getKeyCode() == KeyEvent.VK_LEFT)
+            {
+                previousState();
+            } else if (ke.getKeyCode() == KeyEvent.VK_RIGHT)
+            {
+                nextState();
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e)
+        {
+
+        }
+
+    }
+
 }
+

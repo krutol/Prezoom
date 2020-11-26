@@ -83,13 +83,6 @@ public class MenuBar extends JMenuBar
         return fileChooser;
     }
 
-    public static BufferedImage getScreenShot(Component component)    //used to get the current image drawn on the screen
-    {
-        BufferedImage image = new BufferedImage(component.getWidth(), component.getHeight(), BufferedImage.TYPE_INT_RGB);
-        component.paint(image.getGraphics());   // paints into image's Graphics
-        return image;
-    }
-
     //ACTION EVENTS
     private class MenuOptionsHandler implements ActionListener
     {
@@ -113,6 +106,7 @@ public class MenuBar extends JMenuBar
             }
             if (event.getSource() == saveFile)      //if Save file
             {
+                MainWindow.statePanel.updateBtnImage(MainWindow.centerCanvas.getScreenShot());
 
 //                JFileChooser jFileChooser = getFileChooser();                                            //open file chooser
 //                int result = jFileChooser.showSaveDialog(prezoom.Main.paint.drawingPanel);

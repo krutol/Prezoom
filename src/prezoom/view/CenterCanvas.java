@@ -3,6 +3,7 @@ package prezoom.view;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 import org.pushingpixels.trident.api.Timeline;
@@ -88,6 +89,18 @@ public class CenterCanvas extends JPanel
 
         setLayout(null);
     }
+
+    /**
+     * used to get the current image drawn on the screen
+     * @return the screen shot image
+     */
+    public BufferedImage getScreenShot()
+    {
+        BufferedImage image = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+        this.paint(image.getGraphics());   // paints into image's Graphics
+        return image;
+    }
+
     /*
       move the camera to the given location
 
@@ -139,6 +152,7 @@ public class CenterCanvas extends JPanel
                 || GObjectManager.draggedObj != null
                 || GObjectManager.resizedObj != null)
             MainWindow.inspectorPanel.rearrangeValues();
+
     }
 
     private class EditModeActionHandler implements MouseWheelListener, MouseMotionListener, MouseListener
@@ -369,6 +383,7 @@ public class CenterCanvas extends JPanel
 
             GObjectManager.finishDrawingNew();
 
+            MainWindow.statePanel.updateBtnImage(getScreenShot());
             setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             repaint();
         }
@@ -376,13 +391,14 @@ public class CenterCanvas extends JPanel
         @Override
         public void mouseEntered(MouseEvent e)
         {
-
+            MainWindow.statePanel.updateBtnImage(getScreenShot());
         }
 
         @Override
         public void mouseExited(MouseEvent e)
         {
             GObjectManager.resizePointObj = null;
+            MainWindow.statePanel.updateBtnImage(getScreenShot());
         }
 
     }
@@ -459,6 +475,15 @@ public class CenterCanvas extends JPanel
         @Override
         public void mouseClicked(MouseEvent e)
         {
+            if (PresentManager.isPresenting)
+            {
+                PresentationWindow pWindow = (PresentationWindow) CenterCanvas.
+                        this.getParent().getParent().getParent().getParent();
+                if (SwingUtilities.isLeftMouseButton(e))
+                    pWindow.nextState();
+                else if (SwingUtilities.isRightMouseButton(e))
+                    pWindow.previousState();
+            }
         }
 
         /**

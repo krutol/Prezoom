@@ -81,7 +81,7 @@ public class MainWindow extends JFrame
         holderPanel.add(statePanel, "North");
         holderPanel.setBackground(Color.darkGray);
         JScrollPane stateScroll = new JScrollPane(holderPanel);
-        stateScroll.setPreferredSize(new Dimension(150,-1));
+        stateScroll.setPreferredSize(new Dimension(160,-1));
         stateScroll.getVerticalScrollBar().setUnitIncrement(15);
         add(stateScroll,"West");
 

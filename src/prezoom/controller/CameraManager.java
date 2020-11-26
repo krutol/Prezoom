@@ -174,14 +174,11 @@ public class CameraManager
             cur_CamInfo = getCur_CamInfoFromList();
             if (PresentManager.isPresenting)
             {
-//                presentationCamera.setOffsetX(cur_CamInfo.getOffsetX());
-//                presentationCamera.setOffsetY(cur_CamInfo.getOffsetY());
-//                presentationCamera.setZoomFactor(cur_CamInfo.getZoomFactor());
-//                presentationCamera.setPreZoomFactor(cur_CamInfo.getPreZoomFactor());
                 try
                 {
                     preCam = presentationCamera.clone();
                     presentationCamera = cur_CamInfo.clone();
+
                     presentationCamera.setZoomFactor(
                             presentationCamera.getZoomFactor()*
                             PresentManager.presentZoomFactor);
