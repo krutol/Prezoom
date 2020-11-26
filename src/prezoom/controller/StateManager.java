@@ -88,6 +88,8 @@ public class StateManager
 
         updateStateData();
 
+        MainWindow.statePanel.updateBtnImage(MainWindow.centerCanvas.getScreenShot());
+
     }
 
     /**

@@ -99,7 +99,7 @@ public class StatePanel extends JPanel
 
 
         Graphics2D img_g = (Graphics2D) img.getGraphics();
-        img_g.setColor(Color.RED);
+        img_g.setColor(new Color(250,100,100));
         img_g.setStroke(new BasicStroke(50, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         img_g.drawRect(0,0,img.getWidth(),img.getHeight());
         Image image_selected = img.getScaledInstance((int)button.getPreferredSize().getWidth(),
