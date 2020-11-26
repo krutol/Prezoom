@@ -2,6 +2,8 @@ package prezoom.model;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -67,13 +69,14 @@ class MethodFactory
                             // add proper error handling here
                         }
                     });
-            return map;
+            return sortAsDeclaredOrder(map,bean);
         } catch (IntrospectionException e)
         {
             // and here, too
             return Collections.emptyMap();
         }
     }
+
     public static Map<String, Method> getNonNullSetters(Object bean)
     {
         try
@@ -97,11 +100,27 @@ class MethodFactory
                             // add proper error handling here
                         }
                     });
-            return map;
+            return sortAsDeclaredOrder(map,bean);
         } catch (IntrospectionException e)
         {
             // and here, too
             return Collections.emptyMap();
         }
+    }
+
+    private static Map<String, Method> sortAsDeclaredOrder(Map<String, Method> unordered_mp, Object obj)
+    {
+        Map<String, Method> map = new LinkedHashMap<>();
+
+        for (Field field:obj.getClass().getDeclaredFields())
+        {
+            Method m = unordered_mp.get(field.getName());
+            if (m != null)
+            {
+                map.put(field.getName(), m);
+            }
+        }
+
+        return map;
     }
 }

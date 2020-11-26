@@ -15,11 +15,11 @@ public class GAttributes implements GAttributesI
 {
     protected String textString;
     protected Double x, y;
+    protected Double x2, y2;
+    protected Double width, height;
     protected Color color;
     protected Boolean filled;
     protected Integer lineWidth;
-    protected Double width, height;
-    protected Double x2, y2;
     protected BasicStroke stroke;
     protected Boolean visible = true;
     protected String fontName;
