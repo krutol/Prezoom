@@ -28,6 +28,7 @@ hs_err_pid*
 
 # ignore IDE files
 /.idea
+*.idae
 /out
 *.iml
 /bin/
