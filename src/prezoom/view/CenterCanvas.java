@@ -156,6 +156,14 @@ public class CenterCanvas extends JPanel
                 || GObjectManager.resizedObj != null)
             MainWindow.inspectorPanel.rearrangeValues();
 
+        //if camera manage updatedCamerInfo is updated
+        if(CameraManager.updatedCameraInfo) {
+            //update the cameraInspectorPanel
+            MainWindow.cameraInspectorPanel.rearrangeValues();
+
+            //set the updatedCameraInfo to false after camera inspector panel update
+            CameraManager.updatedCameraInfo = false;
+        }
     }
 
     private class EditModeActionHandler implements MouseWheelListener, MouseMotionListener, MouseListener
@@ -194,6 +202,10 @@ public class CenterCanvas extends JPanel
             cam.setPreZoomFactor(cam.getZoomFactor());
 
             MainWindow.statusBar.setZoomText(String.format("Zoom: %3.2f %%", cam.getZoomFactor() * 100));
+
+            //set the updatedCameraInfo to true after mouse wheel has updated
+            //the camera info
+            CameraManager.updatedCameraInfo = true;
 
         }
 
@@ -523,8 +535,6 @@ public class CenterCanvas extends JPanel
         }
 
     }
-
-
 
 }
 

@@ -37,6 +37,7 @@ public class MainWindow extends JFrame
     public static InspectorPanel inspectorPanel;
 
 
+    public static CameraInspectorPanel cameraInspectorPanel;
 
     /**
      * Creates a new, initially invisible <code>Frame</code> with the
@@ -85,8 +86,28 @@ public class MainWindow extends JFrame
         stateScroll.getVerticalScrollBar().setUnitIncrement(15);
         add(stateScroll,"West");
 
+        //create Shape inspector panel
         inspectorPanel = new InspectorPanel();
-        add(inspectorPanel, "East");
+
+        //holder panel for Shape inspector and camera inspector
+        JPanel holderInspectorPanel = new JPanel(new GridLayout(2, 1));
+
+        //add Shape inspector panel to holder
+        holderInspectorPanel.add(inspectorPanel, "Center");
+
+        //create camera inspector panel
+        cameraInspectorPanel = new CameraInspectorPanel();
+
+        //add Camera inspector to holder panel
+        holderInspectorPanel.add(cameraInspectorPanel, "Center");
+
+        //create scroll pane
+        JScrollPane inspectorScroll1= new JScrollPane(holderInspectorPanel);
+        inspectorScroll1.setPreferredSize(new Dimension(150,500));
+        inspectorScroll1.getVerticalScrollBar().setUnitIncrement(15);
+
+        //add the holder
+        add(inspectorScroll1,"East");
 
 //        add(colorPalette, "South");
 //        add(paintToolPanel, "West");
