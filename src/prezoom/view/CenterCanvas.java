@@ -134,9 +134,6 @@ public class CenterCanvas extends JPanel
 
         CameraManager.moveCamera(g2);
 
-        double d = g2.getTransform().getScaleX();
-        double d1 = g2.getTransform().getScaleY();
-
         GObjectManager.drawAll(g2);
 
         if (GObjectManager.drawingObj != null)
@@ -156,7 +153,7 @@ public class CenterCanvas extends JPanel
                 || GObjectManager.resizedObj != null)
             MainWindow.inspectorPanel.rearrangeValues();
 
-        //if camera manage updatedCamerInfo is updated
+        //if camera manage updatedCameraInfo is updated
         if(CameraManager.updatedCameraInfo) {
             //update the cameraInspectorPanel
             MainWindow.cameraInspectorPanel.rearrangeValues();
@@ -231,6 +228,7 @@ public class CenterCanvas extends JPanel
                 dragCanvasStartPoint.setLocation(curPoint);
 
                 setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                CameraManager.updatedCameraInfo = true;
             }
             else if (!GObjectManager.drawingType.isEmpty())
             {
@@ -354,19 +352,8 @@ public class CenterCanvas extends JPanel
             //mystart -= o_Y;
             Point2D point2D = CameraManager.toWorldCoordinates(e.getPoint());
             drawObjStartPoint.setLocation(point2D);
-//        int mx=e.getX();
-//        int my=e.getY();
-//            for (GObject go : objects)
-//            {
-//                if (go.inShape(mx, my))
-//                {
-//                    selectedObj = go;
-//                    inspectedObj = go;
-//                    break;
-//                    //Main.app.inspectorPanel.rearrangeValues();
-//                }
-//            }
             GObjectManager.updateResizablePoint(point2D);
+
             if (GObjectManager.selectedResizePoint == null)
             {
                 GObjectManager.draggedObj = GObjectManager.findSelected(point2D);
@@ -377,8 +364,7 @@ public class CenterCanvas extends JPanel
                 }else
                     GObjectManager.resizePointObj = null;
 
-            }
-            else
+            } else
             {
                 GObjectManager.resizedObj = GObjectManager.inspectedObj;
             }

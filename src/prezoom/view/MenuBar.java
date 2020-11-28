@@ -106,8 +106,6 @@ public class MenuBar extends JMenuBar
             }
             if (event.getSource() == saveFile)      //if Save file
             {
-                MainWindow.statePanel.updateBtnImage(MainWindow.centerCanvas.getScreenShot());
-
 //                JFileChooser jFileChooser = getFileChooser();                                            //open file chooser
 //                int result = jFileChooser.showSaveDialog(prezoom.Main.paint.drawingPanel);
 //                if (result== JFileChooser.APPROVE_OPTION )

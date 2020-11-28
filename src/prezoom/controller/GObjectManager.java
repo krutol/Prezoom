@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
@@ -185,6 +186,9 @@ public class GObjectManager
 
     }
 
+    /**
+     * finishing drawing the new objects
+     */
     public static void finishDrawingNew()
     {
         if (drawingObj != null && !drawingType.isEmpty())
@@ -193,7 +197,20 @@ public class GObjectManager
             addGObject(drawingObj);
             drawingObj = null;
             drawingType = "";
+
         }
+    }
+
+    public static void addImageObject(BufferedImage image)
+    {
+        Point2D p = CameraManager.toWorldCoordinates(new Point(100,100));
+
+        GImage gImage = new GImage(image, p.getX(),p.getY(),
+                (double) image.getWidth(), (double) image.getHeight());
+
+        drawingObj = gImage;
+        drawingType = "Image";
+        finishDrawingNew();
     }
 
     /**

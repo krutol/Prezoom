@@ -93,21 +93,21 @@ public class MainWindow extends JFrame
         JPanel holderInspectorPanel = new JPanel(new GridLayout(2, 1));
 
         //add Shape inspector panel to holder
-        holderInspectorPanel.add(inspectorPanel, "Center");
+        holderInspectorPanel.add(inspectorPanel);
 
         //create camera inspector panel
         cameraInspectorPanel = new CameraInspectorPanel();
 
         //add Camera inspector to holder panel
-        holderInspectorPanel.add(cameraInspectorPanel, "Center");
+        holderInspectorPanel.add(cameraInspectorPanel);
 
         //create scroll pane
-        JScrollPane inspectorScroll1= new JScrollPane(holderInspectorPanel);
-        inspectorScroll1.setPreferredSize(new Dimension(150,500));
-        inspectorScroll1.getVerticalScrollBar().setUnitIncrement(15);
+//        JScrollPane inspectorScroll1= new JScrollPane(holderInspectorPanel);
+//        inspectorScroll1.setPreferredSize(new Dimension(150,500));
+//        inspectorScroll1.getVerticalScrollBar().setUnitIncrement(15);
 
         //add the holder
-        add(inspectorScroll1,"East");
+        add(holderInspectorPanel,"East");
 
 //        add(colorPalette, "South");
 //        add(paintToolPanel, "West");

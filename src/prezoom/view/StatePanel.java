@@ -87,7 +87,8 @@ public class StatePanel extends JPanel
     }
 
     /**
-     * update btn img
+     * update btn image
+     * @param img the screen shot
      */
     public void updateBtnImage(BufferedImage img)
     {

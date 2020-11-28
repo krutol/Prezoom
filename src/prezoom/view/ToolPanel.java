@@ -1,9 +1,15 @@
 package prezoom.view;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageFilter;
+import java.io.IOException;
 import java.util.Objects;
 
 import prezoom.controller.GObjectManager;
@@ -33,6 +39,8 @@ public class ToolPanel extends JPanel
     private final JButton btn_Text;
     private final JComboBox<String> btn_Shape;
     private final JButton btn_Img;
+
+    private JFileChooser imageChooser = new JFileChooser();
 
     public ToolPanel()
     {
@@ -119,6 +127,12 @@ public class ToolPanel extends JPanel
         add(left_panel, "West");
         add(center_panel, "Center");
         add(right_panel, "East");
+
+        imageChooser.setMultiSelectionEnabled(false);
+        imageChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        FileFilter imageFilter = new FileNameExtensionFilter(
+                "Image files", ImageIO.getReaderFileSuffixes());
+        imageChooser.setFileFilter(imageFilter);
     }
 
     private class ToolBtnHandler implements ActionListener
@@ -154,7 +168,19 @@ public class ToolPanel extends JPanel
                 GObjectManager.drawingType = str_selected.trim();
 
             } else if (btn_Img.equals(source))
-            {//TODO
+            {
+                if (imageChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION )                                      //if OK
+                {
+                    try
+                    {
+                        BufferedImage bufImage = ImageIO.read(imageChooser.getSelectedFile());
+                        GObjectManager.addImageObject(bufImage);
+
+                    } catch (IOException ex)
+                    {
+                        JOptionPane.showMessageDialog(null, "Could not open file");
+                    }
+                }
             }
         }
     }
