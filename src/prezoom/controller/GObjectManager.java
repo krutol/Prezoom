@@ -79,8 +79,8 @@ public class GObjectManager
      */
     public static boolean drawingFilled = false;
 
-    protected static final ArrayList<JTextArea> jTextAreaList = new ArrayList<>();
-    private static final ArrayList<GObject> gObjectList = new ArrayList<>();
+    protected static ArrayList<JTextArea> jTextAreaList = new ArrayList<>();
+    protected static ArrayList<GObject> gObjectList = new ArrayList<>();
 
     /**
      * draw all the objects on canvas
@@ -354,10 +354,13 @@ public class GObjectManager
      */
     public static void deleteStateToGObjects(int state)
     {
-        for (GObject obj: gObjectList)
-        {
-            obj.getAttributeManager().deleteAttributeState(state);
-        }
+        if (StateManager.getTotal_State_Number() == 0)
+            gObjectList = new ArrayList<>();
+        else
+            for (GObject obj: gObjectList)
+            {
+                obj.getAttributeManager().deleteAttributeState(state);
+            }
     }
 
     /**

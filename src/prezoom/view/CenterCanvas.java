@@ -96,6 +96,8 @@ public class CenterCanvas extends JPanel
      */
     public BufferedImage getScreenShot()
     {
+        if (this.getWidth() == 0 || this.getHeight() == 0)
+            return null;
         BufferedImage image = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
         this.paint(image.getGraphics());   // paints into image's Graphics
         return image;

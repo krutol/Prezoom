@@ -26,14 +26,15 @@ public class CameraInfo implements CameraInfoI
      */
     private double preZoomFactor = 1;
 
-    private final Map<String, Method> getters, setters;
+    //commented, cuz The Method cannot be serialized to save
+    //private final Map<String, Method> getters, setters;
 
     /**
      * the default value constructor, x = y = 0, zoomFactor = 1;
      */
     public CameraInfo() {
-        this.getters = MethodFactory.getNonNullGetters(this);
-        this.setters = MethodFactory.getNonNullSetters(this);
+//        this.getters = MethodFactory.getNonNullGetters(this);
+//        this.setters = MethodFactory.getNonNullSetters(this);
     }
 
     /**
@@ -49,8 +50,8 @@ public class CameraInfo implements CameraInfoI
         this.offsetY = offsetY;
         this.zoomFactor = zoomFactor;
         this.preZoomFactor = preZoomFactor;
-        this.getters = MethodFactory.getNonNullGetters(this);
-        this.setters = MethodFactory.getNonNullSetters(this);
+//        this.getters = MethodFactory.getNonNullGetters(this);
+//        this.setters = MethodFactory.getNonNullSetters(this);
     }
 
     /**
@@ -106,11 +107,11 @@ public class CameraInfo implements CameraInfoI
 
     public Map<String, Method> validSetterMap()
     {
-        return setters;
+        return MethodFactory.getNonNullSetters(this);
     }
 
     public Map<String, Method> validGetterMap()
     {
-        return getters;
+        return MethodFactory.getNonNullGetters(this);
     }
 }

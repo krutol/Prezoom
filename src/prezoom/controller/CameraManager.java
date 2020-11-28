@@ -19,7 +19,7 @@ public class CameraManager
     /**
      * the array that stores info of each state
      */
-    static ArrayList<CameraInfoI> state_CamInfo_list = new ArrayList<>();
+    protected static ArrayList<CameraInfoI> state_CamInfo_list = new ArrayList<>();
 
     /**
      * the info for the current state
@@ -258,7 +258,10 @@ public class CameraManager
      */
     public static void deleteCamState(int state)
     {
-        state_CamInfo_list.remove(state);
+        if (StateManager.getTotal_State_Number() == 0)
+            state_CamInfo_list = new ArrayList<>();
+        else
+            state_CamInfo_list.remove(state);
         // comment the update,  set it be triggered by the state manager to avoid double update
         //updateCur_CamInfo();
     }

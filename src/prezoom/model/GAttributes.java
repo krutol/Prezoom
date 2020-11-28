@@ -25,15 +25,16 @@ public class GAttributes implements GAttributesI
     protected String fontName;
     protected Integer fontStyle;
     protected Double fontSize;
-    private final Map<String, Method> getters, setters;
+    //commented, cuz The Method cannot be serialized to save
+    //private final Map<String, Method> getters, setters;
 
     /**
      * the default value constructor
      */
     public GAttributes()
     {
-        this.getters = MethodFactory.getNonNullGetters(this);
-        this.setters = MethodFactory.getNonNullSetters(this);
+//        this.getters = MethodFactory.getNonNullGetters(this);
+//        this.setters = MethodFactory.getNonNullSetters(this);
     }
 
     /**
@@ -69,8 +70,8 @@ public class GAttributes implements GAttributesI
         this.fontStyle = fontStyle;
         this.fontSize = fontSize;
         this.textString = textString;
-        this.getters = MethodFactory.getNonNullGetters(this);
-        this.setters = MethodFactory.getNonNullSetters(this);
+//        this.getters = MethodFactory.getNonNullGetters(this);
+//        this.setters = MethodFactory.getNonNullSetters(this);
     }
 
     /**
@@ -255,12 +256,12 @@ public class GAttributes implements GAttributesI
     @Override
     public Map<String, Method> validSetterMap()
     {
-        return setters;
+        return MethodFactory.getNonNullSetters(this);
     }
 
     @Override
     public Map<String, Method> validGetterMap()
     {
-        return getters;
+        return MethodFactory.getNonNullGetters(this);
     }
 }

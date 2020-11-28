@@ -55,6 +55,7 @@ public class StatePanel extends JPanel
         states_btn_list.add(StateManager.getCurrent_State(), state_btn);
 
         updatePressedBtn();
+        updateBtnImage(MainWindow.centerCanvas.getScreenShot());
         rearrangeBtn();
     }
 
@@ -74,7 +75,8 @@ public class StatePanel extends JPanel
      */
     public void updatePressedBtn()
     {
-        states_btn_list.get(StateManager.getCurrent_State()).setSelected(true);
+        if(!states_btn_list.isEmpty())
+            states_btn_list.get(StateManager.getCurrent_State()).setSelected(true);
 //        for (JToggleButton btn : states_btn_list)
 //            btn.getModel().setPressed(false);
 //        states_btn_list.get(StateManager.current_State).getModel().setPressed(true);
@@ -86,6 +88,9 @@ public class StatePanel extends JPanel
      */
     public void updateBtnImage(BufferedImage img)
     {
+        if (img == null)
+            return;
+
         JToggleButton button = states_btn_list.get(StateManager.getCurrent_State());
 
         Image image = img.getScaledInstance((int)button.getPreferredSize().getWidth(),

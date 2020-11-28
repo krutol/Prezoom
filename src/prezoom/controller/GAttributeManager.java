@@ -4,6 +4,7 @@ import prezoom.model.GAttributes;
 import prezoom.model.GAttributesI;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /** This class is the manager to manage the state related functions for the attributes of graphical objects.
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  * @author Zhijie Lan<p>
  * create date: 2020/11/6
  **/
-public class GAttributeManager
+public class GAttributeManager implements Serializable
 {
     ArrayList<GAttributesI> state_Attributes_list = new ArrayList<>();
     //int current_State = 0;

@@ -4,12 +4,13 @@ import prezoom.controller.GAttributeManager;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 
 /** The base class for all graphical objects
  * @author Zhijie Lan<p>
  * create date: 2020/11/1
  **/
-public abstract class GObject
+public abstract class GObject implements Serializable
 {
     //protected HashMap<Integer,prezoom.model.GAttributes> state_Attributes_map = new HashMap<>(); //Attributes of each state
 //    protected ArrayList<GAttributes> state_Attributes_list = new ArrayList<>();

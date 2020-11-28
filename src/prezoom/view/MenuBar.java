@@ -1,13 +1,21 @@
 package prezoom.view;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageFilter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 
 import prezoom.Main;
 import prezoom.controller.GObjectManager;
+import prezoom.controller.SaveLoadManager;
 
 /** TODO
  * Class used to display the application's menu bar
@@ -73,11 +81,16 @@ public class MenuBar extends JMenuBar
 
     //FILE METHODS
 
-    public JFileChooser getFileChooser()
+    private JFileChooser getFileChooser()
     {
         if (fileChooser ==null)
         {
             fileChooser = new JFileChooser();                        //create file chooser
+            fileChooser.setFileFilter(
+                    new FileNameExtensionFilter("PreZoom Presentation Project",
+                            "pzm"));
+            fileChooser.setMultiSelectionEnabled(false);
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             //fileChooser.setFileFilter(new PNGFileFilter());         //set file extension to .png
         }
         return fileChooser;
@@ -95,10 +108,10 @@ public class MenuBar extends JMenuBar
             }
             if (event.getSource() == newFile)       //if New File
             {
-                Color ori = GObjectManager.inspectedObj.getCurrentAttributes().getColor();
-                Color col = JColorChooser.showDialog(Main.app,"choose a color", ori);
-                if (col != null)
-                GObjectManager.inspectedObj.getCurrentAttributes().setColor(col);
+//                Color ori = GObjectManager.inspectedObj.getCurrentAttributes().getColor();
+//                Color col = JColorChooser.showDialog(Main.app,"choose a color", ori);
+//                if (col != null)
+//                GObjectManager.inspectedObj.getCurrentAttributes().setColor(col);
 
 //                BufferedImage bi = new BufferedImage(1024, 768, BufferedImage.TYPE_INT_ARGB);   //create new BufferedImage
 //                prezoom.Main.paint.drawingPanel.clearImage(bi);                                         //clear current image
@@ -106,36 +119,25 @@ public class MenuBar extends JMenuBar
             }
             if (event.getSource() == saveFile)      //if Save file
             {
-//                JFileChooser jFileChooser = getFileChooser();                                            //open file chooser
-//                int result = jFileChooser.showSaveDialog(prezoom.Main.paint.drawingPanel);
-//                if (result== JFileChooser.APPROVE_OPTION )
-//                {
-//                    try
-//                    {
-//                        File selectedFile = jFileChooser.getSelectedFile();
-//                        selectedFile = new File(selectedFile.getAbsolutePath() + ".png");      //get isSelected file
-//                        BufferedImage img = getScreenShot(prezoom.Main.paint.drawingPanel);            //get current image screenshot
-//                        ImageIO.write(img, "png", selectedFile);                               //write the image to the isSelected file
-//                    } catch (IOException ioe)
-//                    {
-//                        JOptionPane.showMessageDialog(null, "Could not save the file");
-//                    }
-//                }
+                JFileChooser jFileChooser = getFileChooser();                                            //open file chooser
+                int result = jFileChooser.showSaveDialog(null);
+                if (result== JFileChooser.APPROVE_OPTION )
+                {
+                    File selectedFile = jFileChooser.getSelectedFile();
+                    selectedFile = new File(selectedFile.getAbsolutePath() + ".pzm");
+                    SaveLoadManager saveLoadManager = new SaveLoadManager(true);
+                    saveLoadManager.save(selectedFile);
+                }
             }
             if (event.getSource() == openFile)       //if Open file
             {
-                JFileChooser ch = getFileChooser();                                            //open file chooser
-                int result = ch.showOpenDialog(MainWindow.centerCanvas);
-//                if (result== JFileChooser.APPROVE_OPTION )                                      //if OK
-//                {
-//                    try
-//                    {
-//                        prezoom.Main.paint.drawingPanel.setOSImage(ImageIO.read(ch.getSelectedFile())); //set current image to isSelected image
-//                    } catch (IOException ex)
-//                    {
-//                        JOptionPane.showMessageDialog(null, "Could not open file");
-//                    }
-//                }
+                JFileChooser jFileChooser = getFileChooser();                                            //open file chooser
+                int result = jFileChooser.showOpenDialog(null);
+                if (result== JFileChooser.APPROVE_OPTION )                                      //if OK
+                {
+                    SaveLoadManager saveLoadManager = new SaveLoadManager(false);
+                    saveLoadManager.load(jFileChooser.getSelectedFile());
+                }
             }
 //            if (event.getSource() == howToPaint)       //if Help
 //            {
