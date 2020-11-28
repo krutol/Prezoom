@@ -11,7 +11,7 @@ import java.awt.geom.Rectangle2D;
  **/
 public class GImage extends GObject
 {
-    private Image image;
+    private final Image image;
     public GImage(Image image, Double x, Double y, Double width, Double height)
     {
         super(x, y, null, null, null,
@@ -31,15 +31,5 @@ public class GImage extends GObject
 
         g.drawImage(image,x.intValue(), y.intValue(),
                 w.intValue(), h.intValue(),null);
-    }
-
-    public Image getImage()
-    {
-        return image;
-    }
-
-    public void setImage(Image image)
-    {
-        this.image = image;
     }
 }

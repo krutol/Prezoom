@@ -3,9 +3,8 @@ package prezoom.controller;
 import prezoom.view.MainWindow;
 import prezoom.view.StatePanel;
 
-import javax.swing.*;
 
-/** This is the class that controls all the state changes in Prezoom.
+/** This is the class that controls all the state changes in PreZoom.
  * @author Zhijie Lan<p>
  * create date: 2020/11/4
  **/
@@ -74,17 +73,12 @@ public class StateManager
         total_State_Number++;
         MainWindow.statusBar.setCurStateText("Current State: "+current_State);
 
-        //insert state button
-        MainWindow.statePanel.insertStateBtn();
-
         //insert camera info
         CameraManager.insertCamState();
         //insert attribute to objects
         GObjectManager.insertStateToGObjects();
-//        for (GObject o: Main.app.centerCanvas.objects)
-//        {
-//            o.getAttributeManager().insertAttributeState();
-//        }
+        //insert state button
+        MainWindow.statePanel.insertStateBtn();
 
         updateStateData();
 
@@ -107,19 +101,12 @@ public class StateManager
 
         total_State_Number--;
 
-
-        // delete state button
-        MainWindow.statePanel.deleteStateBtn(state);
-
         // delete camera info
         CameraManager.deleteCamState(state);
         // delete attributes form objects
         GObjectManager.deleteStateToGObjects(state);
-//        for (GObject o: Main.app.centerCanvas.objects)
-//        {
-//            o.getAttributeManager().deleteAttributeState(state);
-//        }
-
+        // delete state button
+        MainWindow.statePanel.deleteStateBtn(state);
         // make sure having at least 1 state
         if (total_State_Number == 0)
         {

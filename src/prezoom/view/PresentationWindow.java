@@ -17,8 +17,6 @@ import prezoom.controller.StateManager;
  **/
 public class PresentationWindow extends JDialog
 {
-    //public static prezoom.controller.StateManager stateManager = new prezoom.controller.StateManager();
-
     // Get Total Number of States
     final int total_states = StateManager.getTotal_State_Number();
     // Assume Current State's Index is 0

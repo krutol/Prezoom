@@ -18,27 +18,10 @@ import prezoom.model.GAttributesI;
  **/
 public class CenterCanvas extends JPanel
 {
-//    private int mxstart, mystart;
-//    private double zoomFactor = 1;
-//    private double prevZoomFactor = 1;
-//    private double xOffset = 0;
-//    private double yOffset = 0;
     private final Point dragCanvasStartPoint = new Point(),
             dragObjStartPoint = new Point(),
             drawObjStartPoint = new Point();
     private final JLabel pageLabel = new JLabel("", JLabel.CENTER);
-//    private GObject selectedObj;
-//    public GObject inspectedObj;
-
-//    /**
-//     * the camera state manager
-//     */
-//    public static CameraManager cameraManager = new CameraManager();
-//
-//    /**
-//     * the object manager
-//     */
-//    public static GObjectManager gObjectManager = new GObjectManager();
 
     private CameraInfoI getCurCamInfo()
     {
@@ -46,24 +29,11 @@ public class CenterCanvas extends JPanel
     }
 
 
-    // for test purpose
-//    public ArrayList<GObject> objects = new ArrayList<>();
-//
-//    {
-//        objects.add(new GRectangle(50, 100, 30, 40, Color.red, false, 1));
-//        objects.add(new GRectangle(350, 500, 30, 40, Color.GREEN, true, 10));
-//        objects.add(new GOval(150, 200, 50, 30, Color.BLUE, true, 3));
-//        objects.add(new GLine(500,500,672, 789, Color.magenta, 5));
-//    }
     /**
      * add Mouse Listener, Mouse Wheel Listener, and Mouse Motion Listener to this panel
      */
     public CenterCanvas(boolean isPresenting)
     {
-//        addMouseWheelListener(this);
-//        addMouseMotionListener(this);
-//        addMouseListener(this);
-
         if (isPresenting)
         {
             addMouseWheelListener(new PresentModeActionHandler());
@@ -102,22 +72,6 @@ public class CenterCanvas extends JPanel
         this.paint(image.getGraphics());   // paints into image's Graphics
         return image;
     }
-
-    /*
-      move the camera to the given location
-
-      @param xOffset        x offset
-     * @param yOffset        y offset
-     * @param zoomFactor     zoom index
-     * @param prevZoomFactor previous zoom index that is used to get better effect when zooming
-     */
-//    public void setCanvasCamera(double xOffset, double yOffset, double zoomFactor, double prevZoomFactor)
-//    {
-//        this.xOffset = xOffset;
-//        this.yOffset = yOffset;
-//        this.zoomFactor = zoomFactor;
-//        this.prevZoomFactor = prevZoomFactor;
-//    }
 
     /**
      * override the default paint method to deal with dragging, zooming by {@link CameraManager#moveCamera(Graphics2D, double, double, double, double)}.
