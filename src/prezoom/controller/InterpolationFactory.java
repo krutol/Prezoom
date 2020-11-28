@@ -5,7 +5,9 @@ import prezoom.model.AttributeMapI;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * The class to build the interpolation for objects
@@ -37,6 +39,7 @@ public class InterpolationFactory
 
         Map<String, Method> getterMap = curM.validGetterMap();
         Timeline.Builder tBuilder = Timeline.builder(curObj);
+        Set<String> errorSet = new HashSet<>();
         // build property to timeline
         for (Map.Entry<String, Method> entry : getterMap.entrySet()) {
 
@@ -46,6 +49,7 @@ public class InterpolationFactory
             } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException e)
             {
                 //e.printStackTrace();
+                errorSet.add(entry.getKey());
             }
 
         }
@@ -56,7 +60,8 @@ public class InterpolationFactory
         {
             try
             {
-                setter.getValue().invoke(curObj, getterMap.get(setter.getKey()).invoke(preObj));
+                if (!errorSet.contains(setter.getKey()))
+                    setter.getValue().invoke(curObj, getterMap.get(setter.getKey()).invoke(preObj));
             } catch (IllegalAccessException | InvocationTargetException e)
             {
                 e.printStackTrace();
