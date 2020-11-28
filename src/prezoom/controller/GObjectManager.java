@@ -205,10 +205,8 @@ public class GObjectManager
     {
         Point2D p = CameraManager.toWorldCoordinates(new Point(100,100));
 
-        GImage gImage = new GImage(image, p.getX(),p.getY(),
+        drawingObj = new GImage(image, p.getX(),p.getY(),
                 (double) image.getWidth(), (double) image.getHeight());
-
-        drawingObj = gImage;
         drawingType = "Image";
         finishDrawingNew();
     }

@@ -1,17 +1,11 @@
 package prezoom.view;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 
-import prezoom.Main;
 import prezoom.controller.StateManager;
 
 /** The panel that shows all the state sequentially

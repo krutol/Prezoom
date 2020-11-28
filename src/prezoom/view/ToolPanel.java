@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageFilter;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -40,7 +39,7 @@ public class ToolPanel extends JPanel
     private final JComboBox<String> btn_Shape;
     private final JButton btn_Img;
 
-    private JFileChooser imageChooser = new JFileChooser();
+    private final JFileChooser imageChooser = new JFileChooser();
 
     public ToolPanel()
     {

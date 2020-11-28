@@ -1,7 +1,7 @@
 package prezoom.model;
 
 /**
- * The interface of the camera infomation
+ * The interface of the camera information
  *
  * @author Zhijie Lan<p>
  * create date: 2020/11/17<p>
