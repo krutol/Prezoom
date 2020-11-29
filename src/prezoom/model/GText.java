@@ -134,7 +134,7 @@ public class GText extends GObject
             || textArea.getFont().getFontName().equals(fontName))
         {
             fontSize = fontSize*CameraManager.getCorrectCamera().getZoomFactor();
-            Font font = textArea.getFont().deriveFont(fontSize.floatValue());
+            Font font = textArea.getFont().deriveFont(fontStyle,fontSize.floatValue());
             if (!textArea.getFont().equals(font))
                 textArea.setFont(font);
         }
