@@ -7,6 +7,7 @@
   - [Classes UML](#classes-uml)
   - [Classes Dependency based on Packages](#classes-dependency-based-on-packages)
   - [Classes Description](#classes-description)
+  - [Assignments](#assign)
 
 ## Packages UML
 ![Package Structure](res/Package_structure.png)
@@ -82,3 +83,6 @@
     | InterpolationFactory | The class to build the interpolation for objects. |
     | PresentManager | The class to manage the presentation. |
     | SaveLoadManager | The class to mange saving and loading |
+
+
+## Assignments
