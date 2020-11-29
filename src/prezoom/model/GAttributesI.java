@@ -1,7 +1,6 @@
 package prezoom.model;
 
 import java.awt.*;
-import java.io.Serializable;
 
 /**
  * The interface of the Graphical Attributes
@@ -9,7 +8,7 @@ import java.io.Serializable;
  * @author Zhijie Lan<p>
  * create date: 2020/11/17<p>
  **/
-public interface GAttributesI extends Cloneable, AttributeMapI, Serializable
+public interface GAttributesI extends Cloneable, AttributeMapI
 {
     GAttributes clone() throws CloneNotSupportedException;
 

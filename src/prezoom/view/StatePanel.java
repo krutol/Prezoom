@@ -1,11 +1,17 @@
 package prezoom.view;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
+import prezoom.Main;
 import prezoom.controller.StateManager;
 
 /** The panel that shows all the state sequentially
@@ -55,7 +61,6 @@ public class StatePanel extends JPanel
         states_btn_list.add(StateManager.getCurrent_State(), state_btn);
 
         updatePressedBtn();
-        updateBtnImage(MainWindow.centerCanvas.getScreenShot());
         rearrangeBtn();
     }
 
@@ -75,8 +80,7 @@ public class StatePanel extends JPanel
      */
     public void updatePressedBtn()
     {
-        if(!states_btn_list.isEmpty())
-            states_btn_list.get(StateManager.getCurrent_State()).setSelected(true);
+        states_btn_list.get(StateManager.getCurrent_State()).setSelected(true);
 //        for (JToggleButton btn : states_btn_list)
 //            btn.getModel().setPressed(false);
 //        states_btn_list.get(StateManager.current_State).getModel().setPressed(true);
@@ -88,9 +92,6 @@ public class StatePanel extends JPanel
      */
     public void updateBtnImage(BufferedImage img)
     {
-        if (img == null)
-            return;
-
         JToggleButton button = states_btn_list.get(StateManager.getCurrent_State());
 
         Image image = img.getScaledInstance((int)button.getPreferredSize().getWidth(),

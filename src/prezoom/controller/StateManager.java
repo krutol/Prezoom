@@ -3,8 +3,9 @@ package prezoom.controller;
 import prezoom.view.MainWindow;
 import prezoom.view.StatePanel;
 
+import javax.swing.*;
 
-/** This is the class that controls all the state changes in PreZoom.
+/** This is the class that controls all the state changes in Prezoom.
  * @author Zhijie Lan<p>
  * create date: 2020/11/4
  **/
@@ -73,14 +74,21 @@ public class StateManager
         total_State_Number++;
         MainWindow.statusBar.setCurStateText("Current State: "+current_State);
 
+        //insert state button
+        MainWindow.statePanel.insertStateBtn();
+
         //insert camera info
         CameraManager.insertCamState();
         //insert attribute to objects
         GObjectManager.insertStateToGObjects();
-        //insert state button
-        MainWindow.statePanel.insertStateBtn();
+//        for (GObject o: Main.app.centerCanvas.objects)
+//        {
+//            o.getAttributeManager().insertAttributeState();
+//        }
 
         updateStateData();
+
+        MainWindow.statePanel.updateBtnImage(MainWindow.centerCanvas.getScreenShot());
 
     }
 
@@ -94,6 +102,13 @@ public class StateManager
      */
     public static void deleteState(int state)
     {
+        // make sure having at least 1 state
+        if (total_State_Number == 1)
+        {
+            JOptionPane.showMessageDialog(null, "Cannot delete the one last state");
+            return;
+        }
+
         // if delete the last state, and the current state is the last one
         // change the current to the second to last
         if (current_State == state && state == total_State_Number-1)
@@ -101,19 +116,18 @@ public class StateManager
 
         total_State_Number--;
 
+
+        // delete state button
+        MainWindow.statePanel.deleteStateBtn(state);
+
         // delete camera info
         CameraManager.deleteCamState(state);
         // delete attributes form objects
         GObjectManager.deleteStateToGObjects(state);
-        // delete state button
-        MainWindow.statePanel.deleteStateBtn(state);
-        // make sure having at least 1 state
-        if (total_State_Number == 0)
-        {
-//            JOptionPane.showMessageDialog(null,
-//                    "The data of the last state is cleared\nCannot delete the one last state");
-            insertState();
-        }
+//        for (GObject o: Main.app.centerCanvas.objects)
+//        {
+//            o.getAttributeManager().deleteAttributeState(state);
+//        }
 
         updateStateData();
 
@@ -127,29 +141,5 @@ public class StateManager
     public static int getTotal_State_Number()
     {
         return total_State_Number;
-    }
-
-    public static void setTotal_State_Number(int total_State_Number)
-    {
-        StateManager.total_State_Number = total_State_Number;
-    }
-
-    public static void clearAllStateData()
-    {
-        for (int i = total_State_Number-1; i >= 0; i--)
-        {
-            deleteState(i);
-        }
-    }
-
-    public static void reloadSavedData()
-    {
-        PresentManager.resetTextComponentToCanvas();
-        for (int i = 1; i < total_State_Number; i++)
-        {
-            current_State = i;
-            MainWindow.statePanel.insertStateBtn();
-        }
-        StateManager.switchState(0);
     }
 }

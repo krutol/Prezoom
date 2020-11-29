@@ -79,8 +79,8 @@ public class GObjectManager
      */
     public static boolean drawingFilled = false;
 
-    protected static ArrayList<JTextArea> jTextAreaList = new ArrayList<>();
-    protected static ArrayList<GObject> gObjectList = new ArrayList<>();
+    protected static final ArrayList<JTextArea> jTextAreaList = new ArrayList<>();
+    private static final ArrayList<GObject> gObjectList = new ArrayList<>();
 
     /**
      * draw all the objects on canvas
@@ -205,8 +205,10 @@ public class GObjectManager
     {
         Point2D p = CameraManager.toWorldCoordinates(new Point(100,100));
 
-        drawingObj = new GImage(image, p.getX(),p.getY(),
+        GImage gImage = new GImage(image, p.getX(),p.getY(),
                 (double) image.getWidth(), (double) image.getHeight());
+
+        drawingObj = gImage;
         drawingType = "Image";
         finishDrawingNew();
     }
@@ -354,13 +356,10 @@ public class GObjectManager
      */
     public static void deleteStateToGObjects(int state)
     {
-        if (StateManager.getTotal_State_Number() == 0)
-            gObjectList = new ArrayList<>();
-        else
-            for (GObject obj: gObjectList)
-            {
-                obj.getAttributeManager().deleteAttributeState(state);
-            }
+        for (GObject obj: gObjectList)
+        {
+            obj.getAttributeManager().deleteAttributeState(state);
+        }
     }
 
     /**

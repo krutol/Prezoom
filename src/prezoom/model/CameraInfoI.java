@@ -1,14 +1,12 @@
 package prezoom.model;
 
-import java.io.Serializable;
-
 /**
- * The interface of the camera information
+ * The interface of the camera infomation
  *
  * @author Zhijie Lan<p>
  * create date: 2020/11/17<p>
  **/
-public interface CameraInfoI extends Cloneable, AttributeMapI, Serializable
+public interface CameraInfoI extends Cloneable, AttributeMapI
 {
     CameraInfo clone() throws CloneNotSupportedException;
 

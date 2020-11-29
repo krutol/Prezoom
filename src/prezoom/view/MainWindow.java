@@ -2,8 +2,6 @@ package prezoom.view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 /** This main GUI window which holds all the child GUI windows
  * @author Zhijie Lan<p>
@@ -11,6 +9,8 @@ import java.awt.event.WindowEvent;
  **/
 public class MainWindow extends JFrame
 {
+    //public static prezoom.controller.StateManager stateManager = new prezoom.controller.StateManager();
+
     /**
      * the menu bar
      */
@@ -34,7 +34,7 @@ public class MainWindow extends JFrame
     /**
      * The panel that shows editable attributes of selected objects and other useful info
      */
-    public static InspectorPanel inspectorPanel;
+    public static ShapeInspectorPanel inspectorPanel;
 
 
     public static CameraInspectorPanel cameraInspectorPanel;
@@ -66,13 +66,13 @@ public class MainWindow extends JFrame
         toolPanel = new ToolPanel();
 
         JPanel NorthPanel = new JPanel(new BorderLayout());
-        NorthPanel.add(menuBar, "North");
-        NorthPanel.add(toolPanel, "Center");
+        NorthPanel.add(menuBar,"North");
+        NorthPanel.add(toolPanel,"Center");
 
-        add(NorthPanel, "North");
+        add(NorthPanel,"North");
 
         centerCanvas = new CenterCanvas(false);
-        add(centerCanvas, "Center");
+        add(centerCanvas,"Center");
 
         statusBar = new StatusBar();
         add(statusBar, "South");
@@ -82,12 +82,12 @@ public class MainWindow extends JFrame
         holderPanel.add(statePanel, "North");
         holderPanel.setBackground(Color.darkGray);
         JScrollPane stateScroll = new JScrollPane(holderPanel);
-        stateScroll.setPreferredSize(new Dimension(160, -1));
+        stateScroll.setPreferredSize(new Dimension(160,-1));
         stateScroll.getVerticalScrollBar().setUnitIncrement(15);
-        add(stateScroll, "West");
+        add(stateScroll,"West");
 
         //create Shape inspector panel
-        inspectorPanel = new InspectorPanel();
+        inspectorPanel = new ShapeInspectorPanel("Shape Inspect");
 
         //holder panel for Shape inspector and camera inspector
         JPanel holderInspectorPanel = new JPanel(new GridLayout(2, 1));
@@ -96,7 +96,7 @@ public class MainWindow extends JFrame
         holderInspectorPanel.add(inspectorPanel);
 
         //create camera inspector panel
-        cameraInspectorPanel = new CameraInspectorPanel();
+        cameraInspectorPanel = new CameraInspectorPanel("Camera Inspect");
 
         //add Camera inspector to holder panel
         holderInspectorPanel.add(cameraInspectorPanel);
@@ -107,7 +107,7 @@ public class MainWindow extends JFrame
 //        inspectorScroll1.getVerticalScrollBar().setUnitIncrement(15);
 
         //add the holder
-        add(holderInspectorPanel, "East");
+        add(holderInspectorPanel,"East");
 
 //        add(colorPalette, "South");
 //        add(paintToolPanel, "West");
@@ -116,31 +116,12 @@ public class MainWindow extends JFrame
         // this.setIconImage(Image);    //setting JFrame's icon image
         this.setSize(1366, 768);     //set size of the application
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        //this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);   //set default close operation
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);   //set default close operation
         this.setLocationRelativeTo(null);                               //set locating to the middle of the screen
         this.setVisible(true);                                          //set visible
         // setStaringColor();
 
 
-        addWindowListener(new WindowAdapter()
-        {
-            @Override
-            public void windowClosing(WindowEvent e)
-            {
-                super.windowClosing(e);
-                int result = JOptionPane.showConfirmDialog(null,
-                        "Are you sure you want to exit PreZoom?",
-                        "Confirm Exit", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
-                if (result == JOptionPane.OK_OPTION)
-                {
-                    System.exit(0);
-                }
-
-            }
-        });
     }
-
-
 
 }

@@ -13,13 +13,16 @@ import java.util.ArrayList;
  *
  * @author Zhijie Lan<p>
  * create date: 2020/11/4
+ *
+ * changed: Abhishek Sharma
+ * variable updatedCameraInfo added to track if camera is updated
  **/
 public class CameraManager
 {
     /**
      * the array that stores info of each state
      */
-    protected static ArrayList<CameraInfoI> state_CamInfo_list = new ArrayList<>();
+    static ArrayList<CameraInfoI> state_CamInfo_list = new ArrayList<>();
 
     /**
      * the info for the current state
@@ -258,10 +261,7 @@ public class CameraManager
      */
     public static void deleteCamState(int state)
     {
-        if (StateManager.getTotal_State_Number() == 0)
-            state_CamInfo_list = new ArrayList<>();
-        else
-            state_CamInfo_list.remove(state);
+        state_CamInfo_list.remove(state);
         // comment the update,  set it be triggered by the state manager to avoid double update
         //updateCur_CamInfo();
     }

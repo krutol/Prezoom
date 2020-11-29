@@ -61,6 +61,6 @@ public class GLine extends GObject
         double wy = my - cy;
 
         return (Math.abs(ux * wx + uy * wy) <= m
-                && Math.abs(vx * wx + vy * wy) <= att.getLineWidth()/2.0+20);
+                && Math.abs(vx * wx + vy * wy) <= att.getLineWidth()/2+20);
     }
 }

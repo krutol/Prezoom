@@ -18,10 +18,31 @@ import prezoom.model.GAttributesI;
  **/
 public class CenterCanvas extends JPanel
 {
+//    private int mxstart, mystart;
+//    private double zoomFactor = 1;
+//    private double prevZoomFactor = 1;
+//    private double xOffset = 0;
+//    private double yOffset = 0;
     private final Point dragCanvasStartPoint = new Point(),
             dragObjStartPoint = new Point(),
             drawObjStartPoint = new Point();
     private final JLabel pageLabel = new JLabel("", JLabel.CENTER);
+
+    //self reference
+    private final JPanel self;
+
+//    private GObject selectedObj;
+//    public GObject inspectedObj;
+
+//    /**
+//     * the camera state manager
+//     */
+//    public static CameraManager cameraManager = new CameraManager();
+//
+//    /**
+//     * the object manager
+//     */
+//    public static GObjectManager gObjectManager = new GObjectManager();
 
     private CameraInfoI getCurCamInfo()
     {
@@ -29,11 +50,24 @@ public class CenterCanvas extends JPanel
     }
 
 
+    // for test purpose
+//    public ArrayList<GObject> objects = new ArrayList<>();
+//
+//    {
+//        objects.add(new GRectangle(50, 100, 30, 40, Color.red, false, 1));
+//        objects.add(new GRectangle(350, 500, 30, 40, Color.GREEN, true, 10));
+//        objects.add(new GOval(150, 200, 50, 30, Color.BLUE, true, 3));
+//        objects.add(new GLine(500,500,672, 789, Color.magenta, 5));
+//    }
     /**
      * add Mouse Listener, Mouse Wheel Listener, and Mouse Motion Listener to this panel
      */
     public CenterCanvas(boolean isPresenting)
     {
+//        addMouseWheelListener(this);
+//        addMouseMotionListener(this);
+//        addMouseListener(this);
+
         if (isPresenting)
         {
             addMouseWheelListener(new PresentModeActionHandler());
@@ -52,6 +86,30 @@ public class CenterCanvas extends JPanel
             setPreferredSize(new Dimension(1280,720));
         }
 
+        //store tis in self
+        this.self = this;
+
+        //add focus listener to canvas
+        addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent arg0) {
+                //remove focus listener
+                //self.removeFocusListener(this);
+
+                //set focus on the last row of inspector panel to remove focus from
+                //the currently edited cell, if the opposite component of the event
+                //is currently edited cell
+                MainWindow.inspectorPanel.jTableInspector.setFocusOnLastRowFirstColumn(arg0.getOppositeComponent());
+
+                //set focus on the last row of camera inspector panel
+                MainWindow.cameraInspectorPanel.jTableInspector.setFocusOnLastRowFirstColumn(arg0.getOppositeComponent());
+                //self.addFocusListener(this);
+            }
+
+            @Override
+            public void focusLost(FocusEvent arg0) {
+            }
+        });
 
         SwingRepaintTimeline repaintTimeline = SwingRepaintTimeline.repaintBuilder(this)
                 .setAutoRepaintMode(true).build();
@@ -66,12 +124,26 @@ public class CenterCanvas extends JPanel
      */
     public BufferedImage getScreenShot()
     {
-        if (this.getWidth() == 0 || this.getHeight() == 0)
-            return null;
         BufferedImage image = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
         this.paint(image.getGraphics());   // paints into image's Graphics
         return image;
     }
+
+    /*
+      move the camera to the given location
+
+      @param xOffset        x offset
+     * @param yOffset        y offset
+     * @param zoomFactor     zoom index
+     * @param prevZoomFactor previous zoom index that is used to get better effect when zooming
+     */
+//    public void setCanvasCamera(double xOffset, double yOffset, double zoomFactor, double prevZoomFactor)
+//    {
+//        this.xOffset = xOffset;
+//        this.yOffset = yOffset;
+//        this.zoomFactor = zoomFactor;
+//        this.prevZoomFactor = prevZoomFactor;
+//    }
 
     /**
      * override the default paint method to deal with dragging, zooming by {@link CameraManager#moveCamera(Graphics2D, double, double, double, double)}.
@@ -129,13 +201,39 @@ public class CenterCanvas extends JPanel
         @Override
         public void mouseWheelMoved(MouseWheelEvent e)
         {
-            zoomCanvas(e);
+            CameraInfoI cam = getCurCamInfo();
 
-            MainWindow.statusBar.setZoomText(String.format("Zoom: %3.2f %%", getCurCamInfo().getZoomFactor() * 100));
+            //Zoom in
+            if (e.getWheelRotation() < 0)
+            {
+                cam.setZoomFactor(cam.getZoomFactor()*1.1);
+                repaint();
+            }
+            //Zoom out
+            if (e.getWheelRotation() > 0)
+            {
+                cam.setZoomFactor(cam.getZoomFactor()/1.1);
+                repaint();
+            }
+
+            double xRel = MouseInfo.getPointerInfo().getLocation().getX() - getLocationOnScreen().getX();
+            double yRel = MouseInfo.getPointerInfo().getLocation().getY() - getLocationOnScreen().getY();
+
+            double zoomDiv = cam.getZoomFactor() / cam.getPreZoomFactor();
+
+            cam.setOffsetX((zoomDiv) * (cam.getOffsetX()) + (1 - zoomDiv) * xRel);
+            cam.setOffsetY((zoomDiv) * (cam.getOffsetY()) + (1 - zoomDiv) * yRel);
+
+            cam.setPreZoomFactor(cam.getZoomFactor());
+
+            MainWindow.statusBar.setZoomText(String.format("Zoom: %3.2f %%", cam.getZoomFactor() * 100));
 
             //set the updatedCameraInfo to true after mouse wheel has updated
             //the camera info
             CameraManager.updatedCameraInfo = true;
+
+            //on mouse wheel motion event focus back to center canvas
+            CenterCanvas.this.requestFocus();
 
         }
 
@@ -150,7 +248,17 @@ public class CenterCanvas extends JPanel
 
             if (SwingUtilities.isRightMouseButton(e))
             {
-                dragCanvas(e);
+                CameraInfoI cam = getCurCamInfo();
+                Point curPoint = e.getLocationOnScreen();
+                double xDiff = curPoint.getX() - dragCanvasStartPoint.getX();
+                double yDiff = curPoint.getY() - dragCanvasStartPoint.getY();
+
+                cam.setOffsetX(cam.getOffsetX()+xDiff);
+                cam.setOffsetY(cam.getOffsetY()+yDiff);
+
+                dragCanvasStartPoint.setLocation(curPoint);
+
+                setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 CameraManager.updatedCameraInfo = true;
             }
             else if (!GObjectManager.drawingType.isEmpty())
@@ -310,6 +418,12 @@ public class CenterCanvas extends JPanel
             MainWindow.statePanel.updateBtnImage(getScreenShot());
             setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             repaint();
+
+            //set focus on the last row first column
+            MainWindow.inspectorPanel.jTableInspector.setFocusOnLastRowFirstColumn();
+
+            //set focus on the last row first column
+            MainWindow.cameraInspectorPanel.jTableInspector.setFocusOnLastRowFirstColumn();
         }
 
         @Override
@@ -337,7 +451,30 @@ public class CenterCanvas extends JPanel
         @Override
         public void mouseWheelMoved(MouseWheelEvent e)
         {
-            zoomCanvas(e);
+            CameraInfoI cam = getCurCamInfo();
+
+            //Zoom in
+            if (e.getWheelRotation() < 0)
+            {
+                cam.setZoomFactor(cam.getZoomFactor()*1.1);
+                repaint();
+            }
+            //Zoom out
+            if (e.getWheelRotation() > 0)
+            {
+                cam.setZoomFactor(cam.getZoomFactor()/1.1);
+                repaint();
+            }
+
+            double xRel = MouseInfo.getPointerInfo().getLocation().getX() - getLocationOnScreen().getX();
+            double yRel = MouseInfo.getPointerInfo().getLocation().getY() - getLocationOnScreen().getY();
+
+            double zoomDiv = cam.getZoomFactor() / cam.getPreZoomFactor();
+
+            cam.setOffsetX((zoomDiv) * (cam.getOffsetX()) + (1 - zoomDiv) * xRel);
+            cam.setOffsetY((zoomDiv) * (cam.getOffsetY()) + (1 - zoomDiv) * yRel);
+
+            cam.setPreZoomFactor(cam.getZoomFactor());
 
         }
 
@@ -352,7 +489,17 @@ public class CenterCanvas extends JPanel
 
             if (SwingUtilities.isRightMouseButton(e))
             {
-                dragCanvas(e);
+                CameraInfoI cam = getCurCamInfo();
+                Point curPoint = e.getLocationOnScreen();
+                double xDiff = curPoint.getX() - dragCanvasStartPoint.getX();
+                double yDiff = curPoint.getY() - dragCanvasStartPoint.getY();
+
+                cam.setOffsetX(cam.getOffsetX()+xDiff);
+                cam.setOffsetY(cam.getOffsetY()+yDiff);
+
+                dragCanvasStartPoint.setLocation(curPoint);
+
+                setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
             repaint();
 
@@ -410,49 +557,6 @@ public class CenterCanvas extends JPanel
 
         }
 
-    }
-
-    private void dragCanvas(MouseEvent e)
-    {
-        CameraInfoI cam = getCurCamInfo();
-        Point curPoint = e.getLocationOnScreen();
-        double xDiff = curPoint.getX() - dragCanvasStartPoint.getX();
-        double yDiff = curPoint.getY() - dragCanvasStartPoint.getY();
-
-        cam.setOffsetX(cam.getOffsetX() + xDiff);
-        cam.setOffsetY(cam.getOffsetY() + yDiff);
-
-        dragCanvasStartPoint.setLocation(curPoint);
-
-        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }
-
-    private void zoomCanvas(MouseWheelEvent e)
-    {
-        CameraInfoI cam = getCurCamInfo();
-
-        //Zoom in
-        if (e.getWheelRotation() < 0)
-        {
-            cam.setZoomFactor(cam.getZoomFactor() * 1.1);
-            repaint();
-        }
-        //Zoom out
-        if (e.getWheelRotation() > 0)
-        {
-            cam.setZoomFactor(cam.getZoomFactor() / 1.1);
-            repaint();
-        }
-
-        double xRel = MouseInfo.getPointerInfo().getLocation().getX() - getLocationOnScreen().getX();
-        double yRel = MouseInfo.getPointerInfo().getLocation().getY() - getLocationOnScreen().getY();
-
-        double zoomDiv = cam.getZoomFactor() / cam.getPreZoomFactor();
-
-        cam.setOffsetX((zoomDiv) * (cam.getOffsetX()) + (1 - zoomDiv) * xRel);
-        cam.setOffsetY((zoomDiv) * (cam.getOffsetY()) + (1 - zoomDiv) * yRel);
-
-        cam.setPreZoomFactor(cam.getZoomFactor());
     }
 
 }

@@ -22,6 +22,6 @@ public class Main
     public static void main(String[] args)
     {
         //app = new MainWindow("main");
-        SwingUtilities.invokeLater(()->app = new MainWindow("PreZoom"));
+        SwingUtilities.invokeLater(()->app = new MainWindow("Prezoom"));
     }
 }
