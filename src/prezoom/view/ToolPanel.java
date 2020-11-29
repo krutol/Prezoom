@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -85,7 +86,7 @@ public class ToolPanel extends JPanel
         btn_PlayStart.setPreferredSize(new Dimension(60, 40));
         btn_PlayCurrent.setPreferredSize(new Dimension(80, 40));
         btn_Text.setPreferredSize(new Dimension(60, 40));
-        btn_Shape.setPreferredSize(new Dimension(70, 40));
+        btn_Shape.setPreferredSize(new Dimension(90, 40));
         btn_Img.setPreferredSize(new Dimension(70, 40));
 
 //                btn_addState

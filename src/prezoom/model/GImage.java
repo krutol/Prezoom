@@ -1,8 +1,7 @@
 package prezoom.model;
 
-import prezoom.controller.GObjectManager;
-import prezoom.controller.PresentManager;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -15,14 +14,14 @@ import java.awt.image.BufferedImage;
  **/
 public class GImage extends GObject
 {
-    private final Image image;
-    public GImage(Image image, Double x, Double y, Double width, Double height)
+    private final ImageIcon image;
+    public GImage(BufferedImage image, Double x, Double y, Double width, Double height)
     {
         super(x, y, null, null, null,
                 width, height, null, null, true,
                 null, null, null, null);
         this.drawShape = new Rectangle2D.Double(x, y, width, height);
-        this.image = image;
+        this.image = new ImageIcon(image);
     }
 
     @Override
@@ -41,7 +40,7 @@ public class GImage extends GObject
             g.draw(drawShape);
             g.drawString("Invisible Image", (float) (x+w/2-50), (float) (y+h/2));
         } else
-            g.drawImage(image,x.intValue(), y.intValue(),
+            g.drawImage(image.getImage(),x.intValue(), y.intValue(),
                 w.intValue(), h.intValue(),null);
     }
 }

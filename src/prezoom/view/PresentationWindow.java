@@ -9,7 +9,7 @@ import prezoom.controller.PresentManager;
 import prezoom.controller.StateManager;
 
 /**
- * This main GUI window which holds all the child GUI windows
+ * This presentation window
  * Team Charlie
  *
  * @author Ajanthan Paramasamy >
