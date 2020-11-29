@@ -96,6 +96,17 @@ public abstract class GObject implements Serializable
             g.setStroke(new BasicStroke(getCurrentAttributes().getLineWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             g.draw(drawShape);
         }
+
+        g.setColor(Color.BLACK);
+        if (!getCurrentAttributes().getVisible())
+            if (getCurrentAttributes().getX2() != null && getCurrentAttributes().getY2() != null)
+                g.drawString("Invisible " + this.getClass().getSimpleName().substring(1),
+                    (float) (getCurrentAttributes().getX()+getCurrentAttributes().getX2())/2-30,
+                    (float) (getCurrentAttributes().getY()+getCurrentAttributes().getY2())/2);
+            else
+                g.drawString("Invisible " + this.getClass().getSimpleName().substring(1),
+                        (float) (getCurrentAttributes().getX()+getCurrentAttributes().getWidth()/2) -50,
+                        (float) (getCurrentAttributes().getY()+getCurrentAttributes().getHeight()/2));
     }
 
     /**
