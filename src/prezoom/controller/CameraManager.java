@@ -154,7 +154,10 @@ public class CameraManager
      */
     private static CameraInfoI getCur_CamInfoFromList()
     {
-        return state_CamInfo_list.get(getCurrent_State());
+        if (getCurrent_State() < state_CamInfo_list.size())
+            return state_CamInfo_list.get(getCurrent_State());
+        else
+            return null;
     }
 
     /**

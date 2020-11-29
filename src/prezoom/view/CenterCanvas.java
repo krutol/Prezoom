@@ -107,6 +107,7 @@ public class CenterCanvas extends JPanel
 //        if (GObjectManager.drawingObj != null
 //                || GObjectManager.draggedObj != null
 //                || GObjectManager.resizedObj != null)
+        if (StateManager.getTotal_State_Number() > 0)
             MainWindow.attributePanel.rearrangeValues();
 
         //if camera manage updatedCameraInfo is updated

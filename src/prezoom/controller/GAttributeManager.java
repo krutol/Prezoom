@@ -77,7 +77,10 @@ public class GAttributeManager implements Serializable
     public GAttributesI getCur_Attributes()
     {
         //return state_Attributes_map.get(getCurrent_State());
-        return state_Attributes_list.get(getCurrent_State());
+        if (getCurrent_State()< state_Attributes_list.size())
+            return state_Attributes_list.get(getCurrent_State());
+        else
+            return null;
     }
 
     /**
