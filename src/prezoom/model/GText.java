@@ -2,6 +2,7 @@ package prezoom.model;
 
 import prezoom.controller.CameraManager;
 import prezoom.controller.GObjectManager;
+import prezoom.controller.PresentManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -72,7 +73,8 @@ public class GText extends GObject
 
         this.drawShape = new Rectangle2D.Double(x, y, w, h);
 
-        if (textArea.isFocusOwner() || inShape)
+        if (!PresentManager.isPresenting &&
+                (textArea.isFocusOwner() || inShape))
         {
             g.setStroke(new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
                     10, new float[]{5}, 0));

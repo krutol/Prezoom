@@ -1,35 +1,29 @@
-/**
- *
- * @author Abhishek Sharma<p>
- * create date: 2020/11/26<p>
- *  **/
-
 package prezoom.view;
 
 import prezoom.controller.CameraManager;
-import prezoom.controller.GObjectManager;
 import prezoom.model.AttributeMapI;
 import prezoom.view.InspectorPanel.RowEditorModel;
 import prezoom.view.InspectorPanel.CustomTableModel;
-import prezoom.view.InspectorPanel.JTableInspector;
 import prezoom.view.InspectorPanel.PanelKeyboardListener;
 
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
+/**
+ * @author Abhishek Sharma<p>
+ * create date: 2020/11/26<p>
+ **/
 public class CameraInspectorPanel extends JPanel
 {
-    private final JTableInspector jTableInspector;
+    private final InspectorPanel.JInspectorTable jInspectorTable;
     private final CustomTableModel customTableModel;
     private final RowEditorModel rowEditorModel;
     private final PanelKeyboardListener panelKeyListener;
-    private AttributeMapI curr_attr;
 
     //construct the camera inspector panel
     public CameraInspectorPanel()
@@ -54,16 +48,16 @@ public class CameraInspectorPanel extends JPanel
         customTableModel = new CustomTableModel(rowEditorModel, col_names, 6);
 
         //create the inspector table
-        jTableInspector = new JTableInspector(customTableModel);
-        jTableInspector.setRowEditorModel(rowEditorModel);
+        jInspectorTable = new InspectorPanel.JInspectorTable(customTableModel);
+        jInspectorTable.setRowEditorModel(rowEditorModel);
 
         //create a key listener for camera inspector attribute values
-        panelKeyListener = new CameraPanelKeyboardListener(jTableInspector);
+        panelKeyListener = new CameraPanelKeyboardListener(jInspectorTable);
 
         //add an scroll pane
-        JScrollPane scrollPane = new JScrollPane(jTableInspector);
+        JScrollPane scrollPane = new JScrollPane(jInspectorTable);
         add(scrollPane);
-        jTableInspector.setPreferredScrollableViewportSize(new Dimension(100, 200));
+        jInspectorTable.setPreferredScrollableViewportSize(new Dimension(100, 200));
     }
 
     /**
@@ -76,13 +70,9 @@ public class CameraInspectorPanel extends JPanel
             return;
 
         AttributeMapI currAttr = CameraManager.getCorrectCamera();
-        curr_attr = currAttr;
-
-        if (currAttr == null)
-            return;
 
         //clear the row editor model
-        jTableInspector.getRowEditorModel().clear();
+        jInspectorTable.getRowEditorModel().clear();
         Map<String, Method> cur_map = currAttr.validGetterMap();
         Map<String, Method> setter_map = currAttr.validSetterMap();
 
@@ -98,7 +88,7 @@ public class CameraInspectorPanel extends JPanel
             String attr = customTableModel.getAttribute(i);
             try
             {
-                if (attr!=null)
+                if (attr != null)
                 {
                     //add the text field to handle double values in the attribute value fields
                     editedComp = new JTextField(entry.getValue().invoke(currAttr).toString());
@@ -110,7 +100,7 @@ public class CameraInspectorPanel extends JPanel
                     DefaultCellEditor ed = new DefaultCellEditor((JTextField) editedComp);
 
                     //add the editor to the row editor model
-                    jTableInspector.getRowEditorModel().addEditorForRow(i, ed);
+                    jInspectorTable.getRowEditorModel().addEditorForRow(i, ed);
                 }
             } catch (IllegalAccessException | InvocationTargetException e)
             {
@@ -124,20 +114,19 @@ public class CameraInspectorPanel extends JPanel
     //key listener class to handle key events for camera inspector table cells
     private class CameraPanelKeyboardListener extends PanelKeyboardListener
     {
-        CameraPanelKeyboardListener(JTableInspector table){
+        CameraPanelKeyboardListener(InspectorPanel.JInspectorTable table)
+        {
             super(table);
         }
 
         //set current (currAttr) attribute to cameraInfo from camera manager
-        public void setCurrAttr() {
+        public void setCurrAttr()
+        {
             if (CameraManager.getCorrectCamera() == null)
                 return;
 
             currAttr = CameraManager.getCorrectCamera();
         }
-    }
-    public void keyReleased(KeyEvent e)
-    {
     }
 
 }

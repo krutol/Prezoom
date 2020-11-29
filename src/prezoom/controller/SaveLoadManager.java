@@ -40,7 +40,10 @@ public class SaveLoadManager implements Serializable
             output.close();
         } catch (IOException e)
         {
-            e.printStackTrace();
+            //e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Cannot save this file",
+                    "Save failed", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -54,7 +57,9 @@ public class SaveLoadManager implements Serializable
         } catch (IOException | ClassNotFoundException e)
         {
             //e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Cannot open this file");
+            JOptionPane.showMessageDialog(null,
+                    "Cannot open this file",
+                    "Open failed", JOptionPane.ERROR_MESSAGE);
         }
 
         if (loadData != null)

@@ -289,7 +289,7 @@ public class CenterCanvas extends JPanel
 
             } else
             {
-                GObjectManager.resizedObj = GObjectManager.inspectedObj;
+                GObjectManager.resizedObj = GObjectManager.resizePointObj;
             }
 
 

@@ -27,7 +27,7 @@ import javax.swing.table.*;
 
 public class InspectorPanel extends JPanel
 {
-    private final JTableInspector jTableInspector;
+    private final JInspectorTable jInspectorTable;
     private final CustomTableModel customTableModel;
     private final RowEditorModel rowEditorModel;
     private final PanelKeyboardListener panelKeyListener;
@@ -75,7 +75,7 @@ public class InspectorPanel extends JPanel
         }
 
         //check if the object e exists as attribute edior view component
-        public int valueExistsAtCell(JTableInspector table, Object e)
+        public int valueExistsAtCell(JInspectorTable table, Object e)
         {
             Iterator<Integer> iter = data.keys().asIterator();
             while (iter.hasNext())
@@ -175,61 +175,14 @@ public class InspectorPanel extends JPanel
     }
 
     //extending from JTable to model row editor model per row
-    public static class JTableInspector extends JTable
+    public static class JInspectorTable extends JTable
     {
         protected RowEditorModel rm;
 
-        //default constructor
-        public JTableInspector()
-        {
-            super();
-            rm = null;
-        }
-
-        public JTableInspector(TableModel tm)
+        public JInspectorTable(TableModel tm)
         {
             super(tm);
             rm = null;
-        }
-
-        public JTableInspector(TableModel tm, TableColumnModel cm)
-        {
-            super(tm, cm);
-            rm = null;
-        }
-
-        public JTableInspector(TableModel tm, TableColumnModel cm,
-                               ListSelectionModel sm)
-        {
-            super(tm, cm, sm);
-            rm = null;
-        }
-
-        public JTableInspector(int rows, int cols)
-        {
-            super(rows, cols);
-            rm = null;
-        }
-
-        /*
-        public JTableX(final Vector rowData, final Vector columnNames)
-        {
-            super(rowData, columnNames);
-            rowEditorModel = null;
-        }
-
-         */
-        public JTableInspector(final Object[][] rowData, final Object[] colNames)
-        {
-            super(rowData, colNames);
-            rm = null;
-        }
-
-        // new constructor
-        public JTableInspector(TableModel tm, RowEditorModel rm)
-        {
-            super(tm, null, null);
-            this.rm = rm;
         }
 
         //set the row editor model for the table
@@ -274,36 +227,13 @@ public class InspectorPanel extends JPanel
         rowEditorModel = new RowEditorModel();
         customTableModel = new CustomTableModel(rowEditorModel, col_names, 12);
 
-        jTableInspector = new JTableInspector(customTableModel);
-        jTableInspector.setRowEditorModel(rowEditorModel);
-        panelKeyListener = new PanelKeyboardListener(jTableInspector);
-        //GAttributesI currAttr = GObjectManager.inspectedObj.getCurrentAttributes();
+        jInspectorTable = new JInspectorTable(customTableModel);
+        jInspectorTable.setRowEditorModel(rowEditorModel);
+        panelKeyListener = new PanelKeyboardListener(jInspectorTable);
 
-//        JTextField tf = new JTextField("label");
-//        DefaultCellEditor ed = new DefaultCellEditor(tf);
-//        // tell the RowEditorModel to use ed for row 1
-//        //rowEditorModel.addEditorForRow(0,ed);
-//
-//        tf = new JTextField("text");
-//        ed = new DefaultCellEditor(tf);
-//        // tell the RowEditorModel to use ed for row 1
-//        //rowEditorModel.addEditorForRow(1,ed);
-//
-//        tf = new JTextField("");
-//        ed = new DefaultCellEditor(tf);
-//        //rowEditorModel.addEditorForRow(2,ed);
-//
-//        tf = new JTextField("");
-//        ed = new DefaultCellEditor(tf);
-//        //rowEditorModel.addEditorForRow(3,ed);
-//
-//        tf = new JTextField("");
-//        ed = new DefaultCellEditor(tf);
-        //rowEditorModel.addEditorForRow(4,ed);
-
-        JScrollPane scrollPane = new JScrollPane(jTableInspector);
+        JScrollPane scrollPane = new JScrollPane(jInspectorTable);
         add(scrollPane);
-        jTableInspector.setPreferredScrollableViewportSize(new Dimension(100, 200));
+        jInspectorTable.setPreferredScrollableViewportSize(new Dimension(100, 200));
     }
 
     //table cell renderer class to paint the background of cell holding the value of the color
@@ -399,11 +329,11 @@ public class InspectorPanel extends JPanel
             return;
 
         //set the cell renderer for the table for column 1
-        TableColumn tcol = jTableInspector.getColumnModel().getColumn(1);
+        TableColumn tcol = jInspectorTable.getColumnModel().getColumn(1);
         tcol.setCellRenderer(new CustomTableCellRenderer());
 
         //clear the row editor model before refreshing custom table model
-        jTableInspector.getRowEditorModel().clear();
+        jInspectorTable.getRowEditorModel().clear();
         Map<String, Method> cur_map = currAttr.validGetterMap();
         Map<String, Method> setter_map = currAttr.validSetterMap();
 
@@ -449,8 +379,8 @@ public class InspectorPanel extends JPanel
                                     ((JTextField) e.getSource()).setBackground(color);
 
                                     //edit the last+1 row to get the focus out of color textbox
-                                    jTableInspector.editCellAt(rowEditorModel.getSize(), 0, null);
-                                    jTableInspector.requestFocus();
+                                    jInspectorTable.editCellAt(rowEditorModel.getSize(), 0, null);
+                                    jInspectorTable.requestFocus();
 
                                     //set the value of attribute for the shape
                                     invokeSetter(setter_map, entry.getKey(), currAttr, color);
@@ -466,7 +396,7 @@ public class InspectorPanel extends JPanel
                         DefaultCellEditor ed = new CustomCellEditor((JTextField) editedComp);
 
                         //add the editor for a row
-                        jTableInspector.getRowEditorModel().addEditorForRow(i, ed);
+                        jInspectorTable.getRowEditorModel().addEditorForRow(i, ed);
                         break;
                     }
                     //if its boolean visible or filled
@@ -484,7 +414,7 @@ public class InspectorPanel extends JPanel
 
                         });
                         DefaultCellEditor ed = new DefaultCellEditor((JCheckBox) editedComp);
-                        jTableInspector.getRowEditorModel().addEditorForRow(i, ed);
+                        jInspectorTable.getRowEditorModel().addEditorForRow(i, ed);
                         break;
                     }
                     case "lineWidth":
@@ -493,7 +423,7 @@ public class InspectorPanel extends JPanel
                         editedComp = new JTextField(entry.getValue().invoke(currAttr) + "");
                         editedComp.addKeyListener(panelKeyListener);
                         DefaultCellEditor ed = new DefaultCellEditor((JTextField) editedComp);
-                        jTableInspector.getRowEditorModel().addEditorForRow(i, ed);
+                        jInspectorTable.getRowEditorModel().addEditorForRow(i, ed);
                         break;
                     }
                     //default is for double values and the view component is textfield
@@ -502,7 +432,7 @@ public class InspectorPanel extends JPanel
                         editedComp = new JTextField(entry.getValue().invoke(currAttr).toString());
                         editedComp.addKeyListener(panelKeyListener);
                         DefaultCellEditor ed = new DefaultCellEditor((JTextField) editedComp);
-                        jTableInspector.getRowEditorModel().addEditorForRow(i, ed);
+                        jInspectorTable.getRowEditorModel().addEditorForRow(i, ed);
                         break;
                     }
                 }
@@ -521,9 +451,9 @@ public class InspectorPanel extends JPanel
     protected static class PanelKeyboardListener implements KeyListener
     {
         AttributeMapI currAttr;
-        JTableInspector table;
+        JInspectorTable table;
 
-        PanelKeyboardListener(JTableInspector table){
+        PanelKeyboardListener(JInspectorTable table){
             this.table = table;
         }
         /**
@@ -559,7 +489,7 @@ public class InspectorPanel extends JPanel
             //check if the event source i.e. the view component is present in the
             //row editor model if so return the position which is the row at which
             //attrbute is stored
-            int exists = table.getRowEditorModel().valueExistsAtCell(table, (JTextField)e.getSource());
+            int exists = table.getRowEditorModel().valueExistsAtCell(table, e.getSource());
             if(exists>-1){
                 //if event source is present
                 //get the attribute name
@@ -584,45 +514,45 @@ public class InspectorPanel extends JPanel
                 try{
 
                     //invoke the get method from the getter map
-                    Object value = ((Method)getter_map.get(attr)).invoke(currAttr);
+                    Object value = getter_map.get(attr).invoke(currAttr);
 
                     //if the value is double
                     if(value instanceof Double){
                         //if textbox is empty set the 0.0 as value
                         if (text.length() == 0)
-                            ((Method)cur_map.get(attr)).invoke(currAttr, new Double(0.0));
+                            cur_map.get(attr).invoke(currAttr, 0.0);
 
                         //else update the value from textbox by calling the setter method
                             // on the method object using setter map
                         else
-                            ((Method)cur_map.get(attr)).invoke(currAttr, Double.parseDouble(text));
+                            cur_map.get(attr).invoke(currAttr, Double.parseDouble(text));
 
                     }else if(value instanceof Integer){
                         //if textbox is empty set the 0 as value
                         if (text.length() == 0)
-                            ((Method)cur_map.get(attr)).invoke(attr, new Integer(0));
+                            cur_map.get(attr).invoke(attr, 0);
                         else
-                            ((Method)cur_map.get(attr)).invoke(currAttr, Integer.parseInt(text));
+                            cur_map.get(attr).invoke(currAttr, Integer.parseInt(text));
 
                     }else if(value instanceof Boolean){
                         //if textbox is empty set the 0 as value
                         if (text.length() == 0)
-                            ((Method)cur_map.get(attr)).invoke(currAttr, new Boolean(false));
+                            cur_map.get(attr).invoke(currAttr, Boolean.FALSE);
                         else
-                            ((Method)cur_map.get(attr)).invoke(currAttr, Boolean.parseBoolean(text));
+                            cur_map.get(attr).invoke(currAttr, Boolean.parseBoolean(text));
 
                     }else if(value instanceof Color){
                         //if textbox is empty set the color as default
                         if (text.length() == 0)
-                            ((Method)cur_map.get(attr)).invoke(currAttr, new Color(0,0,0));
+                            cur_map.get(attr).invoke(currAttr, new Color(0,0,0));
                         else
-                            ((Method)cur_map.get(attr)).invoke(currAttr, value);
+                            cur_map.get(attr).invoke(currAttr, value);
 
                     }else{
                         if (text.length() == 0)
-                            ((Method)cur_map.get(attr)).invoke(currAttr, 0.0);
+                            cur_map.get(attr).invoke(currAttr, 0.0);
                         else
-                            ((Method)cur_map.get(attr)).invoke(currAttr, Double.parseDouble(text));
+                            cur_map.get(attr).invoke(currAttr, Double.parseDouble(text));
                     }
 
                 }catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException ex){
