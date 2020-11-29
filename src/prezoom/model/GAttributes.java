@@ -221,6 +221,16 @@ public class GAttributes implements GAttributesI
     public void setVisible(Boolean visible)
     {
         this.visible = visible;
+        Color color = getColor();
+        if (!visible && color.getAlpha() == 255)
+        {
+            color = new Color(color.getRed(), color.getGreen(), color.getBlue(), 30);
+            setColor(color);
+        } else if (color.getAlpha() != 255)
+        {
+            color = new Color(color.getRed(), color.getGreen(), color.getBlue(), 255);
+            setColor(color);
+        }
     }
 
     public String getFontName()

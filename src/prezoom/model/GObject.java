@@ -1,6 +1,7 @@
 package prezoom.model;
 
 import prezoom.controller.GAttributeManager;
+import prezoom.controller.PresentManager;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -84,6 +85,10 @@ public abstract class GObject implements Serializable
     */
     protected void drawing(Graphics2D g)
     {
+        if (!getCurrentAttributes().getVisible()
+            && PresentManager.isPresenting)
+            return;
+
         g.setColor(getCurrentAttributes().getColor());
         if (getCurrentAttributes().getFilled() != null && getCurrentAttributes().getFilled()) g.fill(drawShape);
         else
@@ -104,8 +109,6 @@ public abstract class GObject implements Serializable
 //        double x = getCurrentAttributes().getX(), y = getCurrentAttributes().getY();
 //        int w = getCurrentAttributes().getWidth(), h = getCurrentAttributes().getHeight();
 //        return mx >= x && mx <= x + w && my >= y && my <= y + h;
-        if (!getCurrentAttributes().getVisible())
-            return false;
 
         return drawShape.contains(mx,my);
     }
@@ -134,7 +137,7 @@ public abstract class GObject implements Serializable
      */
     public Point2D[] getResizePoints()
     {
-        if (getCurrentAttributes() == null || !getCurrentAttributes().getVisible())
+        if (getCurrentAttributes() == null)
             return null;
         Point2D[] points = new Point2D[2];
         points[0]= new Point2D.Double(getCurrentAttributes().getX(), getCurrentAttributes().getY());
