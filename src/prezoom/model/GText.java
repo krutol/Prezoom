@@ -74,11 +74,14 @@ public class GText extends GObject
         this.drawShape = new Rectangle2D.Double(x, y, w, h);
 
         if (!PresentManager.isPresenting &&
-                (textArea.isFocusOwner() || inShape))
+                (textArea.isFocusOwner() || inShape || !getCurrentAttributes().getVisible()))
         {
+            g.setColor(Color.BLACK);
             g.setStroke(new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
                     10, new float[]{5}, 0));
             g.draw(drawShape);
+            if (!getCurrentAttributes().getVisible())
+                g.drawString("Invisible Text", (float) (x+w/2-50), (float) (y+h/2));
             if (textArea.isFocusOwner())
                 GObjectManager.resizePointObj = this;
         }

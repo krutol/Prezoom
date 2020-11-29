@@ -222,6 +222,8 @@ public class GAttributes implements GAttributesI
     {
         this.visible = visible;
         Color color = getColor();
+        if (color==null)
+            return;
         if (!visible && color.getAlpha() == 255)
         {
             color = new Color(color.getRed(), color.getGreen(), color.getBlue(), 30);
