@@ -34,10 +34,10 @@ public class MainWindow extends JFrame
     /**
      * The panel that shows editable attributes of selected objects and other useful info
      */
-    public static InspectorPanel inspectorPanel;
+    public static AttributePanel attributePanel;
 
 
-    public static CameraInspectorPanel cameraInspectorPanel;
+    public static CameraPanel cameraPanel;
 
     /**
      * Creates a new, initially invisible <code>Frame</code> with the
@@ -87,19 +87,19 @@ public class MainWindow extends JFrame
         add(stateScroll, "West");
 
         //create Shape inspector panel
-        inspectorPanel = new InspectorPanel();
+        attributePanel = new AttributePanel();
 
         //holder panel for Shape inspector and camera inspector
         JPanel holderInspectorPanel = new JPanel(new GridLayout(2, 1));
 
         //add Shape inspector panel to holder
-        holderInspectorPanel.add(inspectorPanel);
+        holderInspectorPanel.add(attributePanel);
 
         //create camera inspector panel
-        cameraInspectorPanel = new CameraInspectorPanel();
+        cameraPanel = new CameraPanel();
 
         //add Camera inspector to holder panel
-        holderInspectorPanel.add(cameraInspectorPanel);
+        holderInspectorPanel.add(cameraPanel);
 
         //create scroll pane
 //        JScrollPane inspectorScroll1= new JScrollPane(holderInspectorPanel);

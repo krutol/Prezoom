@@ -50,7 +50,7 @@ public class InspectorTable extends JTable
         Component component;
         if (obj != null)
         {
-            this.editorClass = obj.getClass();
+            this.editorClass = obj.getClass();//The class type of each row
             component = super.prepareEditor(editor,row,column);
             this.editorClass = null;
         }else

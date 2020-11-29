@@ -1,7 +1,6 @@
 package prezoom.view;
 
 import prezoom.controller.CameraManager;
-import prezoom.controller.GObjectManager;
 import prezoom.view.table.InspectorTable;
 import prezoom.view.table.InspectorTableModel;
 
@@ -13,12 +12,12 @@ import java.awt.*;
  * @author Abhishek Sharma<p>
  * create date: 2020/11/26<p>
  **/
-public class CameraInspectorPanel extends JPanel
+public class CameraPanel extends JPanel
 {
-    private final InspectorTable inspectorTable;
+    private final InspectorTable cameraTable;
 
     //construct the camera inspector panel
-    public CameraInspectorPanel()
+    public CameraPanel()
     {
         //set background for the panel
         setBackground(Color.darkGray);                          //customize the panel
@@ -34,12 +33,12 @@ public class CameraInspectorPanel extends JPanel
         String[] col_names = {"Names", "Values"};
 
         //create the inspector table
-        inspectorTable = new InspectorTable(new InspectorTableModel(col_names, 6));
+        cameraTable = new InspectorTable(new InspectorTableModel(col_names, 6));
 
         //add an scroll pane
-        JScrollPane scrollPane = new JScrollPane(inspectorTable);
+        JScrollPane scrollPane = new JScrollPane(cameraTable);
         add(scrollPane);
-        inspectorTable.setPreferredScrollableViewportSize(new Dimension(100, 200));
+        cameraTable.setPreferredScrollableViewportSize(new Dimension(100, 200));
     }
 
     /**
@@ -48,7 +47,7 @@ public class CameraInspectorPanel extends JPanel
      */
     public void rearrangeValues()
     {
-        inspectorTable.rearrangeValues(CameraManager.getCorrectCamera());
+        cameraTable.rearrangeValues(CameraManager.getCorrectCamera());
     }
 
 }

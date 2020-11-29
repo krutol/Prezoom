@@ -2,8 +2,6 @@ package prezoom.view.table;
 
 import prezoom.model.AttributeMapI;
 
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -36,7 +34,6 @@ public class InspectorTableModel extends DefaultTableModel
             {
                 String name = (String) getValueAt(e.getLastRow(), 0);
                 Object value = getValueAt(e.getLastRow(), 1);
-                Class<?> c = value.getClass();
                 setter_map.get(name).invoke(inspectedAtt, value);
             } catch (IllegalAccessException | InvocationTargetException illegalAccessException)
             {

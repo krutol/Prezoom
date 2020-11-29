@@ -122,7 +122,8 @@ public class MenuBar extends JMenuBar
                 if (result== JFileChooser.APPROVE_OPTION )
                 {
                     File selectedFile = jFileChooser.getSelectedFile();
-                    selectedFile = new File(selectedFile.getAbsolutePath() + ".pzm");
+                    if (!selectedFile.getAbsolutePath().contains(".pzm"))
+                        selectedFile = new File(selectedFile.getAbsolutePath() + ".pzm");
                     SaveLoadManager saveLoadManager = new SaveLoadManager(true);
                     saveLoadManager.save(selectedFile);
                 }

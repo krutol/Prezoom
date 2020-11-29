@@ -57,6 +57,8 @@ public class StateManager
 //        }
         // repaint canvas
         //Main.app.centerCanvas.repaint();
+        MainWindow.attributePanel.rearrangeValues();
+        MainWindow.cameraPanel.rearrangeValues();
 
     }
 

@@ -2,7 +2,6 @@ package prezoom.view;
 
 
 import prezoom.controller.GObjectManager;
-import prezoom.model.AttributeMapI;
 import prezoom.view.table.InspectorTable;
 import prezoom.view.table.InspectorTableModel;
 
@@ -23,16 +22,16 @@ import java.awt.*;
  * --code:update center canvas object with the values in inspector panel attributes
  **/
 
-public class InspectorPanel extends JPanel
+public class AttributePanel extends JPanel
 {
-    private final InspectorTable inspectorTable;
+    private final InspectorTable attributeTable;
 
     /**
      * construct the inspector panel
      * initialize the custom table model, row editor model and JInspector table
      * and add to the panel
      */
-    public InspectorPanel()
+    public AttributePanel()
     {
         setBackground(Color.darkGray);                          //customize the panel
         setPreferredSize(new Dimension(120, -1));
@@ -44,15 +43,15 @@ public class InspectorPanel extends JPanel
 
         String[] col_names = {"Names", "Values"};
 
-        inspectorTable = new InspectorTable(new InspectorTableModel(col_names, 12));
+        attributeTable = new InspectorTable(new InspectorTableModel(col_names, 12));
 
-        JScrollPane scrollPane = new JScrollPane(inspectorTable);
+        JScrollPane scrollPane = new JScrollPane(attributeTable);
         add(scrollPane);
     }
 
 
     /**
-     * Set the values in the inspector panel textboxes
+     * Set the values in the inspector panel text boxes
      * x, y, width, height
      */
     public void rearrangeValues()
@@ -61,7 +60,7 @@ public class InspectorPanel extends JPanel
         if (GObjectManager.inspectedObj == null)
             return;
 
-        inspectorTable.rearrangeValues(GObjectManager.inspectedObj.getCurrentAttributes());
+        attributeTable.rearrangeValues(GObjectManager.inspectedObj.getCurrentAttributes());
     }
 
 

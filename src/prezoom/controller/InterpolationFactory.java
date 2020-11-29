@@ -28,6 +28,8 @@ public class InterpolationFactory
         // return when both are null. one of them can be null to build fade in/out effect.
         if (preObj == null || curObj == null)
             return;
+        else if(preObj.equals(curObj))
+            return;
         else if (!(preObj instanceof AttributeMapI) || !(curObj instanceof AttributeMapI))
             return;
         else
