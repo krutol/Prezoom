@@ -17,11 +17,11 @@ public class GAttributes implements GAttributesI
     protected Double x, y;
     protected Double x2, y2;
     protected Double width, height;
+    protected Integer lineWidth;
     protected Color color;
     protected Boolean filled;
-    protected Integer lineWidth;
-    protected BasicStroke stroke;
     protected Boolean visible = true;
+    protected BasicStroke stroke;
     protected String fontName;
     protected Integer fontStyle;
     protected Double fontSize;
@@ -263,5 +263,11 @@ public class GAttributes implements GAttributesI
     public Map<String, Method> validGetterMap()
     {
         return MethodFactory.getNonNullGetters(this);
+    }
+
+    @Override
+    public Map<String, Object> validAttributeMap()
+    {
+        return MethodFactory.getNonNullProperties(this);
     }
 }

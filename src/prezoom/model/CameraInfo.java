@@ -114,4 +114,11 @@ public class CameraInfo implements CameraInfoI
     {
         return MethodFactory.getNonNullGetters(this);
     }
+
+    public Map<String, Object> validAttributeMap()
+    {
+        return MethodFactory.getNonNullProperties(this);
+    }
+
+
 }

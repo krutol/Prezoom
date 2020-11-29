@@ -249,7 +249,6 @@ public class CenterCanvas extends JPanel
 
 
             dragObjStartPoint.setLocation(e.getPoint());
-            CenterCanvas.this.requestFocus();
             //dragObjStartPoint = e.getPoint();
         }
 
@@ -261,6 +260,7 @@ public class CenterCanvas extends JPanel
         @Override
         public void mousePressed(MouseEvent e)
         {
+            CenterCanvas.this.requestFocus();
             //dragCanvasStartPoint = MouseInfo.getPointerInfo().getLocation();
             dragCanvasStartPoint.setLocation(MouseInfo.getPointerInfo().getLocation());
 

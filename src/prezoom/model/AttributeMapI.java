@@ -14,4 +14,6 @@ public interface AttributeMapI
     Map<String, Method> validSetterMap();
 
     Map<String, Method> validGetterMap();
+
+    Map<String, Object> validAttributeMap();
 }
