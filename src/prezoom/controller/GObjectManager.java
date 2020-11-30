@@ -356,7 +356,12 @@ public class GObjectManager
     public static void deleteStateToGObjects(int state)
     {
         if (StateManager.getTotal_State_Number() == 0)
+        {
+            for(JTextArea t: jTextAreaList)
+                MainWindow.centerCanvas.remove(t);
             gObjectList = new ArrayList<>();
+            jTextAreaList = new ArrayList<>();
+        }
         else
             for (GObject obj: gObjectList)
             {
