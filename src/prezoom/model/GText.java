@@ -38,14 +38,21 @@ public class GText extends GObject
                 getCurrentAttributes().setTextString(textArea.getText());
             }
         });
-        this.textArea.addFocusListener(new FocusAdapter()
+        this.textArea.addFocusListener(new FocusListener()
         {
+            @Override
+            public void focusGained(FocusEvent e)
+            {
+                GObjectManager.inspectedObj = GText.this;
+            }
+
             @Override
             public void focusLost(FocusEvent e)
             {
-                super.focusLost(e);
+                //super.focusLost(e);
                 GObjectManager.resizePointObj = null;
             }
+
         });
         this.textArea.addMouseListener(new MouseAdapter()
         {
