@@ -54,12 +54,15 @@
 <br/>
 
 + ### __Iteration 2__(Presentation):
-  + What we will do in the next iteration:
+  + What we have done during this section:
     + (Trans-Trigger) To change the trigger condition for moving from one state to the next.
-    + (Trans-Duration) To change the amount of time it takes to move from one state to the next.
     + Animation
     + (Pres-start) To move from edit mode to presentation mode either starting at the beginning or starting at the current state.
     + (Pres-States) To show each state of the presentation in succession.
     + (Pres-trigger) The presentation begins moving to the next state when the appropriate trigger event happens.
-    + (Pres-skip) To move quickly forward or backward without transition.
     + (Pres-end) To exit presentation mode and entering edit mode.
+    + Save and load files.
+    + The edit mode change to presentation mode.
+    + InspectorPanel design.
+    + CameraInspectorPanel design.
+    + Preview for each state (or each slide).

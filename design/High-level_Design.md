@@ -7,6 +7,7 @@
   - [Classes UML](#classes-uml)
   - [Classes Dependency based on Packages](#classes-dependency-based-on-packages)
   - [Classes Description](#classes-description)
+  - [Assignments](#assign)
 
 ## Packages UML
 ![Package Structure](res/Package_structure.png)
@@ -49,20 +50,28 @@
   + | Class Name | Description |
     | :--------- | :---------- |
     | GObject | The base class for all graphical objects  | 
-    | GAttributes | The base attribute class that holds all the attribute an object has |
-    | CameraInfo | The base class for camera info that contains all |
-    | GRectangle, GOval, GLine, etc. | The classes that implement corresponding graphics |
+    | GAttributes | The base attribute class that holds all the attribute an object has. |
+    | CameraInfo | The base class for camera info. |
+    | GRectangle, GOval, GLine, GCircle, GImage, GText| The classes that implement corresponding graphics. |
+    | AttributeMapI | The interface for getting the getter and setter map. |
+    | CameraInfoI | The interface of the camera information. |
+    | GAttributesI | The interface of the Graphical Attributes. |
+    | MethodFactory | To generate maps that contain all non null filed names, values, getter methods, or setter method of a class. |
+
+
 
 + View
   + | Class Name | Description |
     | :--------- | :---------- |
-    | MainWindow | This is the main GUI window that holds all the child GUI panels |
+    | MainWindow | This is the main GUI window that holds all the child GUI panels. |
     | CenterCanvas | The center canvas where you can edit the presentation, move the camera, etc. |
-    | InspectorPanel | The panel where you can check/edit attributes of the selected object, camera information, etc. |
+    | InspectorPanel | The panel where you can check/edit attributes of the selected object, etc. |
     | MenuBar | Class used to display the application's menu bar |
     | StatePanel | The panel that shows all the state sequentially |
     | StatusBar | The bar at the bottom to show some info |
     | ToolPanel | The panel that contains different function buttons |
+    | CameraInspectorPanel | The panel where you can check/edit attributes of the camera information. |
+    | PresentationWindow | The window to present the presentation. |
 
 + Controller
   + | Class Name | Description |
@@ -70,3 +79,10 @@
     | StateManager | This is the class that controls all the state changes in Prezoom. |
     | GAttributeManager | This class is the manager to manage the state related functions for the attributes of graphical objects. Each GObject has a GAttributeManager. |
     | CameraManager | This class is the manager to manage all the camera related functions, including movement, info, states. |
+    | GOjectManager | The manager that manages all the graphical objects on the canvas. |
+    | InterpolationFactory | The class to build the interpolation for objects. |
+    | PresentManager | The class to manage the presentation. |
+    | SaveLoadManager | The class to mange saving and loading |
+
+
+## Assignments
