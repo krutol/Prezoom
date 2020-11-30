@@ -166,6 +166,7 @@ public class GObjectManager
                         break;
                     case "Text":
                         obj = new GText("Text Area", pX, pY, Color.BLACK, width, height, "", 0, 20.0);
+                        addTextArea((GText) obj);
                         break;
                 }
             }else
