@@ -1,14 +1,15 @@
 package prezoom.controller;
 
 import prezoom.model.*;
+import prezoom.view.CenterCanvas;
 import prezoom.view.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.util.ArrayList;
 
 /**
@@ -80,7 +81,7 @@ public class GObjectManager
      */
     public static boolean drawingFilled = false;
 
-    protected static ArrayList<JTextArea> jTextAreaList = new ArrayList<>();
+    //protected static ArrayList<JTextArea> jTextAreaList = new ArrayList<>();
     protected static ArrayList<GObject> gObjectList = new ArrayList<>();
 
     /**
@@ -165,9 +166,6 @@ public class GObjectManager
                         break;
                     case "Text":
                         obj = new GText("Text Area", pX, pY, Color.BLACK, width, height, "", 0, 20.0);
-                        JTextArea text = ((GText) obj).textArea;
-                        addTextArea(text);
-                        text.requestFocus();
                         break;
                 }
             }else
@@ -357,10 +355,8 @@ public class GObjectManager
     {
         if (StateManager.getTotal_State_Number() == 0)
         {
-            for(JTextArea t: jTextAreaList)
-                MainWindow.centerCanvas.remove(t);
+            deleteAllTextArea();
             gObjectList = new ArrayList<>();
-            jTextAreaList = new ArrayList<>();
         }
         else
             for (GObject obj: gObjectList)
@@ -380,12 +376,51 @@ public class GObjectManager
 
     /**
      * add a JTextArea component to the list and center canvas
-     * @param obj the text area
+     * @param textObj the GText object that holds the JTextArea
      */
-    public static void addTextArea(JTextArea obj)
+    public static void addTextArea(GText textObj)
     {
-        jTextAreaList.add(obj);
-        MainWindow.centerCanvas.add(obj);
+        JTextArea textArea = textObj.textArea;
+        textArea.addKeyListener(new KeyAdapter()
+        {
+            @Override
+            public void keyReleased(KeyEvent e)
+            {
+                textObj.getCurrentAttributes().setTextString(textArea.getText());
+            }
+        });
+        textArea.addFocusListener(new FocusListener()
+        {
+            @Override
+            public void focusGained(FocusEvent e)
+            {
+                GObjectManager.inspectedObj = textObj;
+            }
+
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                //super.focusLost(e);
+                GObjectManager.resizePointObj = null;
+            }
+
+        });
+        textArea.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseEntered(MouseEvent e)
+            {
+                super.mouseEntered(e);
+                GObjectManager.resizePointObj = textObj;
+            }
+        });
+        MainWindow.centerCanvas.add(textArea);
+        textArea.requestFocus();
+    }
+
+    public static void deleteTextArea(GText textObj)
+    {
+        MainWindow.centerCanvas.remove(textObj.textArea);
     }
 
     /**
@@ -396,12 +431,53 @@ public class GObjectManager
     {
         if (obj instanceof GText)
         {
-            MainWindow.centerCanvas.remove(((GText) obj).textArea);
-            jTextAreaList.remove(((GText) obj).textArea);
+            deleteTextArea((GText) obj);
         }
         gObjectList.remove(obj);
 
         resizePointObj = null;
         inspectedObj = null;
+    }
+
+    public static void reloadAllTextArea()
+    {
+        for (GObject obj: gObjectList)
+            if (obj instanceof GText)
+                addTextArea((GText) obj);
+    }
+
+    public static void deleteAllTextArea()
+    {
+        for(GObject obj: gObjectList)
+            if (obj instanceof GText)
+                deleteTextArea((GText) obj);
+    }
+
+    public static void addTextComponentToPresenter(CenterCanvas presentCanvas)
+    {
+        for(GObject obj: GObjectManager.gObjectList)
+        {
+            if (obj instanceof GText)
+            {
+                GText gText = (GText) obj;
+                gText.textArea.setEditable(false);
+                gText.textArea.setFocusable(false);
+                presentCanvas.add(gText.textArea);
+            }
+        }
+    }
+
+    public static void resetTextComponentToCanvas()
+    {
+        for(GObject obj: GObjectManager.gObjectList)
+        {
+            if (obj instanceof GText)
+            {
+                GText gText = (GText) obj;
+                gText.textArea.setEditable(true);
+                gText.textArea.setFocusable(true);
+                MainWindow.centerCanvas.add(gText.textArea);
+            }
+        }
     }
 }

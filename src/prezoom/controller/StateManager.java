@@ -146,7 +146,8 @@ public class StateManager
 
     public static void reloadSavedData()
     {
-        PresentManager.resetTextComponentToCanvas();
+        GObjectManager.reloadAllTextArea();
+
         for (int i = 1; i < total_State_Number; i++)
         {
             current_State = i;

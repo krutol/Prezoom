@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class SaveLoadManager implements Serializable
 {
     ArrayList<CameraInfoI> state_CamInfo_list;
-    ArrayList<JTextArea> jTextAreaList;
     ArrayList<GObject> gObjectList;
     int  total_State_Number;
 
@@ -26,7 +25,6 @@ public class SaveLoadManager implements Serializable
         {
             total_State_Number = StateManager.getTotal_State_Number();
             state_CamInfo_list = CameraManager.state_CamInfo_list;
-            jTextAreaList = GObjectManager.jTextAreaList;
             gObjectList = GObjectManager.gObjectList;
         }
     }
@@ -67,7 +65,6 @@ public class SaveLoadManager implements Serializable
             StateManager.clearAllStateData();
 
             GObjectManager.gObjectList = loadData.gObjectList;
-            GObjectManager.jTextAreaList = loadData.jTextAreaList;
             CameraManager.state_CamInfo_list = loadData.state_CamInfo_list;
             StateManager.setTotal_State_Number(loadData.total_State_Number);
 

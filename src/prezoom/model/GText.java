@@ -30,39 +30,7 @@ public class GText extends GObject
         textArea.setOpaque(false);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
-        this.textArea.addKeyListener(new KeyAdapter()
-        {
-            @Override
-            public void keyReleased(KeyEvent e)
-            {
-                getCurrentAttributes().setTextString(textArea.getText());
-            }
-        });
-        this.textArea.addFocusListener(new FocusListener()
-        {
-            @Override
-            public void focusGained(FocusEvent e)
-            {
-                GObjectManager.inspectedObj = GText.this;
-            }
 
-            @Override
-            public void focusLost(FocusEvent e)
-            {
-                //super.focusLost(e);
-                GObjectManager.resizePointObj = null;
-            }
-
-        });
-        this.textArea.addMouseListener(new MouseAdapter()
-        {
-            @Override
-            public void mouseEntered(MouseEvent e)
-            {
-                super.mouseEntered(e);
-                GObjectManager.resizePointObj = GText.this;
-            }
-        });
         updateTextArea();
         updateTextString();
 

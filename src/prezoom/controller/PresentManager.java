@@ -1,5 +1,7 @@
 package prezoom.controller;
 
+import prezoom.model.GObject;
+import prezoom.model.GText;
 import prezoom.view.CenterCanvas;
 import prezoom.view.MainWindow;
 import prezoom.view.PresentationWindow;
@@ -61,12 +63,7 @@ public class PresentManager
      */
     public static void addTextComponentToPresenter(CenterCanvas presentCanvas)
     {
-        for(JTextArea t: GObjectManager.jTextAreaList)
-        {
-            t.setEditable(false);
-            t.setFocusable(false);
-            presentCanvas.add(t);
-        }
+        GObjectManager.addTextComponentToPresenter(presentCanvas);
     }
 
     /**
@@ -74,12 +71,7 @@ public class PresentManager
      */
     public static void resetTextComponentToCanvas()
     {
-        for(JTextArea t: GObjectManager.jTextAreaList)
-        {
-            t.setEditable(true);
-            t.setFocusable(true);
-            MainWindow.centerCanvas.add(t);
-        }
+        GObjectManager.resetTextComponentToCanvas();
     }
 
     public static void setPresentZoomFactor()

@@ -25,8 +25,8 @@ public class GAttributes implements GAttributesI
     protected String fontName;
     protected Integer fontStyle;
     protected Double fontSize;
-    //commented, cuz The Method cannot be serialized to save
-    //private final Map<String, Method> getters, setters;
+    //transient, cuz The Method cannot be serialized to save
+    private transient Map<String, Method> getters, setters;
 
     /**
      * the default value constructor
@@ -268,13 +268,19 @@ public class GAttributes implements GAttributesI
     @Override
     public Map<String, Method> validSetterMap()
     {
-        return MethodFactory.getNonNullSetters(this);
+        if (setters == null)
+            setters = MethodFactory.getNonNullSetters(this);
+
+        return setters;
     }
 
     @Override
     public Map<String, Method> validGetterMap()
     {
-        return MethodFactory.getNonNullGetters(this);
+        if (getters == null)
+            getters = MethodFactory.getNonNullGetters(this);
+
+        return getters;
     }
 
     @Override
