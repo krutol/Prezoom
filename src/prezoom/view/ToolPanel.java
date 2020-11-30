@@ -121,8 +121,8 @@ public class ToolPanel extends JPanel
         center_panel.add(btn_PlayCurrent);
 
         right_panel.add(btn_Text);
-        right_panel.add(btn_Shape);
         right_panel.add(btn_Img);
+        right_panel.add(btn_Shape);
 
         add(left_panel, "West");
         add(center_panel, "Center");
