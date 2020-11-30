@@ -1,13 +1,10 @@
 package prezoom.model;
 
-import java.lang.reflect.Method;
-import java.util.Map;
-
 /** the base class for camera info
  * @author Zhijie Lan<p>
  * create date: 2020/11/4
  **/
-public class CameraInfo implements CameraInfoI
+public class CameraInfo extends AttributeMap implements CameraInfoI
 {
     /**
      * x offset
@@ -25,9 +22,6 @@ public class CameraInfo implements CameraInfoI
      * previous zoom index
      */
     private double preZoomFactor = 1;
-
-    //commented, cuz The Method cannot be serialized to save
-    //private final Map<String, Method> getters, setters;
 
     /**
      * the default value constructor, x = y = 0, zoomFactor = 1;
@@ -104,21 +98,5 @@ public class CameraInfo implements CameraInfoI
     {
         this.preZoomFactor = preZoomFactor;
     }
-
-    public Map<String, Method> validSetterMap()
-    {
-        return MethodFactory.getNonNullSetters(this);
-    }
-
-    public Map<String, Method> validGetterMap()
-    {
-        return MethodFactory.getNonNullGetters(this);
-    }
-
-    public Map<String, Object> validAttributeMap()
-    {
-        return MethodFactory.getNonNullProperties(this);
-    }
-
 
 }

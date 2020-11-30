@@ -5,6 +5,8 @@ import prezoom.model.AttributeMapI;
 import javax.swing.table.DefaultTableModel;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,8 +45,8 @@ public class InspectorTableModel extends DefaultTableModel
     }
 
     //attribute names
-    public String[] prop_names = {"Label", "X", "Y",
-            "Width", "Height"};
+    public ArrayList<String> prop_names = new ArrayList<>(Arrays.asList("Label", "X", "Y",
+            "Width", "Height"));
 
     public Map<Integer, Object> prop_map = new HashMap<>();
 
@@ -55,14 +57,14 @@ public class InspectorTableModel extends DefaultTableModel
     public boolean isRearranging = false;
 
     //set all the attributes for a table
-    public void setPropNames(String[] props)
+    public void setPropNames(ArrayList<String> props)
     {
         this.prop_names = props;
         fireTableDataChanged();
     }
 
     //get the attributes
-    public String[] getPropNames()
+    public ArrayList<String> getPropNames()
     {
         return this.prop_names;
     }
@@ -72,13 +74,13 @@ public class InspectorTableModel extends DefaultTableModel
     public Object getValueAt(int row, int col)
     {
         //if row is greater than the total attributes length return null
-        if (row > prop_names.length - 1)
+        if (row > prop_names.size() - 1)
             return null;
 
         //if column is 0 then return the name of the attribute
         //as names are stored at nth row column 0
         if (col == 0)
-            return prop_names[row];
+            return prop_names.get(row);
 
         //return null if there is no value stored for editor for that row
         if (prop_map.size() <= row)

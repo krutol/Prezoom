@@ -40,6 +40,8 @@ public class InterpolationFactory
         AttributeMapI curM = (AttributeMapI) curObj;
 
         Map<String, Method> getterMap = curM.validGetterMap();
+        Map<String, Method> setterMap = curM.validSetterMap();
+
         Timeline.Builder tBuilder = Timeline.builder(curObj);
         Set<String> errorSet = new HashSet<>();
         // build property to timeline
@@ -57,7 +59,6 @@ public class InterpolationFactory
         }
 
         // set the values of the current object as the previous objects' to get smooth animation
-        Map<String, Method> setterMap = curM.validSetterMap();
         for (Map.Entry<String, Method> setter : setterMap.entrySet())
         {
             try

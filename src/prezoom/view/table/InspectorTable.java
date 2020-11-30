@@ -9,7 +9,7 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -104,17 +104,19 @@ public class InspectorTable extends JTable
         model.isRearranging = true;
         model.setter_map = setterMap;
         model.inspectedAtt = currAttr;
-        getterMap.remove("preZoomFactor");
-        String[] names = getterMap.keySet().toArray(new String[0]);
 
-        if (!Arrays.equals(model.getPropNames(), names))
-            model.setPropNames(getterMap.keySet().toArray(new String[0]));
 
-        for (int i = 0; i < names.length; i++)
+        ArrayList<String> names = new ArrayList<>(getterMap.keySet());
+        names.remove("preZoomFactor");
+        names.remove("textString");
+        if (!model.getPropNames().equals(names))
+            model.setPropNames(names);
+
+        for (int i = 0; i < names.size(); i++)
         {
             try
             {
-                model.setValueAt(getterMap.get(names[i]).invoke(currAttr), i, 1);
+                model.setValueAt(getterMap.get(names.get(i)).invoke(currAttr), i, 1);
             } catch (IllegalAccessException | InvocationTargetException e)
             {
                 e.printStackTrace();

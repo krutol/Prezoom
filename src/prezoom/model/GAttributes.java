@@ -1,8 +1,6 @@
 package prezoom.model;
 
 import java.awt.*;
-import java.lang.reflect.Method;
-import java.util.Map;
 
 /**
  * The base attribute class that holds all the attribute an object has
@@ -11,7 +9,7 @@ import java.util.Map;
  * create date: 2020/11/2
  **/
 
-public class GAttributes implements GAttributesI
+public class GAttributes extends AttributeMap implements GAttributesI
 {
     protected String textString;
     protected Double x, y;
@@ -25,8 +23,6 @@ public class GAttributes implements GAttributesI
     protected String fontName;
     protected Integer fontStyle;
     protected Double fontSize;
-    //transient, cuz The Method cannot be serialized to save
-    private transient Map<String, Method> getters, setters;
 
     /**
      * the default value constructor
@@ -263,29 +259,5 @@ public class GAttributes implements GAttributesI
     public void setFontSize(Double fontSize)
     {
         this.fontSize = fontSize;
-    }
-
-    @Override
-    public Map<String, Method> validSetterMap()
-    {
-        if (setters == null)
-            setters = MethodFactory.getNonNullSetters(this);
-
-        return setters;
-    }
-
-    @Override
-    public Map<String, Method> validGetterMap()
-    {
-        if (getters == null)
-            getters = MethodFactory.getNonNullGetters(this);
-
-        return getters;
-    }
-
-    @Override
-    public Map<String, Object> validAttributeMap()
-    {
-        return MethodFactory.getNonNullProperties(this);
     }
 }
