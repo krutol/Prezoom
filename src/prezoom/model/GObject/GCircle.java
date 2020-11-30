@@ -1,4 +1,4 @@
-package prezoom.model;
+package prezoom.model.GObject;
 
 import java.awt.*;
 

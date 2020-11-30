@@ -2,13 +2,14 @@ package prezoom.controller;
 
 import prezoom.model.GAttributes;
 import prezoom.model.GAttributesI;
+import prezoom.model.GObject.GObject;
 
 import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 /** This class is the manager to manage the state related functions for the attributes of graphical objects.
- *  Each {@link prezoom.model.GObject} has a manager.
+ *  Each {@link GObject} has a manager.
  * @author Zhijie Lan<p>
  * create date: 2020/11/6
  **/

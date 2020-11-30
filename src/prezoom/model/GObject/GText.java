@@ -1,12 +1,12 @@
-package prezoom.model;
+package prezoom.model.GObject;
 
 import prezoom.controller.CameraManager;
 import prezoom.controller.GObjectManager;
 import prezoom.controller.PresentManager;
+import prezoom.model.GAttributesI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 

@@ -1,5 +1,7 @@
-package prezoom.model;
+package prezoom.model.GObject;
 
+
+import prezoom.controller.PresentManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,14 +34,15 @@ public class GImage extends GObject
 
         this.drawShape = new Rectangle2D.Double(x, y, w, h);
 
-        if (!getCurrentAttributes().getVisible())
+        if (!getCurrentAttributes().getVisible()
+            &&!PresentManager.isPresenting)
         {
             g.setColor(Color.BLACK);
             g.setStroke(new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
                     50, new float[]{50}, 0));
             g.draw(drawShape);
             g.drawString("Invisible Image", (float) (x+w/2-50), (float) (y+h/2));
-        } else
+        } else if (getCurrentAttributes().getVisible())
             g.drawImage(image.getImage(),x.intValue(), y.intValue(),
                 w.intValue(), h.intValue(),null);
     }

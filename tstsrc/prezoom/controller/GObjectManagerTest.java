@@ -3,13 +3,9 @@ package prezoom.controller;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import prezoom.model.GLine;
-import prezoom.model.GOval;
-import prezoom.model.GRectangle;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
+import prezoom.model.GObject.GLine;
+import prezoom.model.GObject.GOval;
+import prezoom.model.GObject.GRectangle;
 
 import static org.junit.jupiter.api.Assertions.*;
 

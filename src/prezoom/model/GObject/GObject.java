@@ -1,7 +1,9 @@
-package prezoom.model;
+package prezoom.model.GObject;
 
 import prezoom.controller.GAttributeManager;
 import prezoom.controller.PresentManager;
+import prezoom.model.GAttributes;
+import prezoom.model.GAttributesI;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -78,9 +80,9 @@ public abstract class GObject implements Serializable
 
     /**
     * General function to draw all kinds of shapes
-    * use {@link GAttributes#color} as color.
-    * use {@link GAttributes#filled} to depend whether calling {@link Graphics2D#fill(Shape)} or {@link Graphics2D#draw(Shape)}.
-    * use {@link GAttributes#stroke} to set the line style
+    * use {@link GAttributes#getColor()} as color.
+    * use {@link GAttributes#getFilled()} to depend whether calling {@link Graphics2D#fill(Shape)} or {@link Graphics2D#draw(Shape)}.
+    * use {@link GAttributes#getWidth()} to set the line style
     * @param g the Graphics to paint
     */
     protected void drawing(Graphics2D g)

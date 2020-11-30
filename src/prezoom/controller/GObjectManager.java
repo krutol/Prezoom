@@ -1,6 +1,6 @@
 package prezoom.controller;
 
-import prezoom.model.*;
+import prezoom.model.GObject.*;
 import prezoom.view.CenterCanvas;
 import prezoom.view.MainWindow;
 

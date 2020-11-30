@@ -1,4 +1,6 @@
-package prezoom.model;
+package prezoom.model.GObject;
+
+import prezoom.model.GAttributesI;
 
 import java.awt.*;
 import java.awt.geom.Line2D;

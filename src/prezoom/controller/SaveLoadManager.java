@@ -1,7 +1,7 @@
 package prezoom.controller;
 
 import prezoom.model.CameraInfoI;
-import prezoom.model.GObject;
+import prezoom.model.GObject.GObject;
 
 import javax.swing.*;
 import java.io.*;

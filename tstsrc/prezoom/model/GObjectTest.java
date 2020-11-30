@@ -1,8 +1,11 @@
 package prezoom.model;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import prezoom.model.GObject.GLine;
+import prezoom.model.GObject.GObject;
+import prezoom.model.GObject.GOval;
+import prezoom.model.GObject.GRectangle;
 
 import java.awt.*;
 
