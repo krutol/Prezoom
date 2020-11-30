@@ -19,6 +19,8 @@
     - Contains view classes that implement Swing GUI. 
 + Controller
     - Contains manager classes that manage interactions between the model and the view, affecting data such as states, attributes, camera, etc.
++ Table
+    - Contains inspector table classes and color renderer.
 
 ## Third Party Packages
 + Trident
@@ -65,13 +67,21 @@
     | :--------- | :---------- |
     | MainWindow | This is the main GUI window that holds all the child GUI panels. |
     | CenterCanvas | The center canvas where you can edit the presentation, move the camera, etc. |
-    | InspectorPanel | The panel where you can check/edit attributes of the selected object, etc. |
     | MenuBar | Class used to display the application's menu bar |
     | StatePanel | The panel that shows all the state sequentially |
     | StatusBar | The bar at the bottom to show some info |
     | ToolPanel | The panel that contains different function buttons |
-    | CameraInspectorPanel | The panel where you can check/edit attributes of the camera information. |
     | PresentationWindow | The window to present the presentation. |
+    | AttributePanel | Construct the inspector panel. |
+    | CameraPanel | Construct the camera inspector panel. |
+
++ Table (inner package in View)
+  + | Class Name | Description |
+    | :--------- | :---------- |
+    | ColorEditor | To set up the editor to create the color chooser dialog. |
+    | ColorRenderer | Rendering the color for the object. |
+    | InspectorTable | Extending from JTable to model row editor model per row. |
+    | InspectorTableModel | Custom table model with row editor model. |
 
 + Controller
   + | Class Name | Description |
@@ -86,3 +96,9 @@
 
 
 ## Assignments
+
++ Abhishek Sharma
++ P.Ajanthan
++ Tianxing Li
++ Zhijie Lan
++ Ziyang Li
