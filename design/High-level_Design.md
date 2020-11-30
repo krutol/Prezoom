@@ -97,6 +97,8 @@
 
 ## Assignments
 
+The project was finished by the each member of group Charlie.
+
 + Abhishek Sharma
   + Finish the state diagram to design the first version software.
   + Design the first version presentation mode.
