@@ -116,7 +116,7 @@
   + Combine the MVC structure for the whole project.
   + The main designer for the Control package.
 + Ziyang Li
-  + The main design of the project.
+  + The main diagram design of the project.
   + Draw the Class diagram and design the high level of the project.
   + Add the each object functions to model package.
 
