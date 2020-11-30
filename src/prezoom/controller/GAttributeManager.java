@@ -51,7 +51,7 @@ public class GAttributeManager implements Serializable
                         y == null?null:0.0, col == null?null:new Color(238,238,238), filled == null?null:false,
                         lineWidth == null?null:0, width == null?null:0.0, height == null?null:0.0,
                         x2 == null?null:0.0, y2 == null?null:0.0, visible == null?null:true,
-                        fontName == null?null:"Default", fontStyle == null?null:0, fontSize == null?null:0.0,
+                        fontName == null?null:"", fontStyle == null?null:0, fontSize == null?null:0.0,
                         textString==null?null:"");
 
             }

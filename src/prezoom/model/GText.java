@@ -97,6 +97,10 @@ public class GText extends GObject
         Rectangle2D rec = this.drawShape.getBounds2D();
         double EDGE = 20;
 
+        if (rec.getWidth() != 0
+                && rec.getHeight() != 0
+                && rec.getX() != 0
+                && rec.getY() != 0)
         rec.setFrame(rec.getX()-EDGE, rec.getY()-EDGE, rec.getWidth()+EDGE*2, rec.getHeight()+EDGE*2);
 
         if (rec.contains(mx, my))
