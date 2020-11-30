@@ -98,7 +98,25 @@
 ## Assignments
 
 + Abhishek Sharma
+  + Finish the state diagram to design the first version software.
+  + Design the first version presentation mode.
+  + Design the present GUI in the View package.
 + P.Ajanthan
+  + Finish the sequence diagram to design the first version software.
+  + Design the first version inspector panel.
+  + Help to finish the table package.
 + Tianxing Li
+  + Finish the user stories and lexcion.
+  + Draw the package diagram.
+  + Attend to design the test part.
 + Zhijie Lan
+  + Team leader and design the whole srtructure of the project.
+  + Draw the use case diagram and corresponding the user stories.
+  + Attend to desgin the test part.
+  + Combine the MVC structure for the whole project.
+  + The main designer for the Control package.
 + Ziyang Li
+  + The main design of the project.
+  + Draw the Class diagram and design the high level of the project.
+  + Add the each object functions to model package.
+
