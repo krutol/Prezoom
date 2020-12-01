@@ -139,6 +139,7 @@ public class CenterCanvas extends JPanel
         dragCanvasStartPoint.setLocation(curPoint);
 
         setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        CameraManager.updatedCameraInfo = true;
     }
 
     /**
@@ -171,6 +172,7 @@ public class CenterCanvas extends JPanel
         cam.setOffsetY((zoomDiv) * (cam.getOffsetY()) + (1 - zoomDiv) * yRel);
 
         cam.setPreZoomFactor(cam.getZoomFactor());
+        CameraManager.updatedCameraInfo = true;
     }
 
     /**
@@ -189,11 +191,6 @@ public class CenterCanvas extends JPanel
             zoomCanvas(e);
 
             MainWindow.statusBar.setZoomText(String.format("Zoom: %3.2f %%", getCurCamInfo().getZoomFactor() * 100));
-
-            //set the updatedCameraInfo to true after mouse wheel has updated
-            //the camera info
-            CameraManager.updatedCameraInfo = true;
-
         }
 
         /**
@@ -212,7 +209,6 @@ public class CenterCanvas extends JPanel
             if (SwingUtilities.isRightMouseButton(e))
             {
                 dragCanvas(e);
-                CameraManager.updatedCameraInfo = true;
             }
             else if (!GObjectManager.drawingType.isEmpty())
             {
@@ -259,6 +255,9 @@ public class CenterCanvas extends JPanel
 
                 GObjectManager.updateResizing(point1,point2,GObjectManager.resizedObj, type);
 
+            } else if (SwingUtilities.isLeftMouseButton(e))
+            {
+                dragCanvas(e);
             }
             repaint();
 
@@ -398,11 +397,7 @@ public class CenterCanvas extends JPanel
         @Override
         public void mouseDragged(MouseEvent e)
         {
-
-            if (SwingUtilities.isRightMouseButton(e))
-            {
-                dragCanvas(e);
-            }
+            dragCanvas(e);
             repaint();
 
         }
