@@ -87,6 +87,12 @@ public class GObjectManager
     protected static ArrayList<GObject> gObjectList = new ArrayList<>();
 
     /**
+     * the listener to dispatch the mouse event to the canvas in the presentation mode,
+     * so that the text area will not intercept the user input
+     */
+    private static final MouseDispatcher mouseDispatcher = new MouseDispatcher();
+
+    /**
      * draw all the objects on canvas
      * @param g2 graphics to paint
      */
@@ -493,6 +499,8 @@ public class GObjectManager
                 GText gText = (GText) obj;
                 gText.textArea.setEditable(false);
                 gText.textArea.setFocusable(false);
+                gText.textArea.addMouseListener(mouseDispatcher);
+                gText.textArea.addMouseMotionListener(mouseDispatcher);
                 presentCanvas.add(gText.textArea);
             }
         }
@@ -510,8 +518,67 @@ public class GObjectManager
                 GText gText = (GText) obj;
                 gText.textArea.setEditable(true);
                 gText.textArea.setFocusable(true);
+                gText.textArea.removeMouseListener(mouseDispatcher);
+                gText.textArea.removeMouseMotionListener(mouseDispatcher);
                 MainWindow.centerCanvas.add(gText.textArea);
             }
+        }
+    }
+
+    /**
+     * the listener to dispatch the mouse event to the canvas in the presentation mode,
+     * so that the text area will not intercept the user input
+     */
+    private static class MouseDispatcher implements MouseListener, MouseMotionListener
+    {
+
+        @Override
+        public void mouseClicked(MouseEvent e)
+        {
+            Component source = (Component) e.getSource();
+            source.getParent().dispatchEvent(e);
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e)
+        {
+            Component source = (Component) e.getSource();
+            source.getParent().dispatchEvent(e);
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e)
+        {
+            Component source = (Component) e.getSource();
+            source.getParent().dispatchEvent(e);
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e)
+        {
+            Component source = (Component) e.getSource();
+            source.getParent().dispatchEvent(e);
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e)
+        {
+            Component source = (Component) e.getSource();
+            source.getParent().dispatchEvent(e);
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e)
+        {
+            Component source = (Component) e.getSource();
+            source.getParent().dispatchEvent(e);
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e)
+        {
+            Component source = (Component) e.getSource();
+            source.getParent().dispatchEvent(e);
         }
     }
 }
