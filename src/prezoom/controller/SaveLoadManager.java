@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * The class to mange saving and loading
  *
  * @author Zhijie Lan<p>
- * create date: 2020/11/28<p>
+ * create date: 2020/11/28
  **/
 public class SaveLoadManager implements Serializable
 {

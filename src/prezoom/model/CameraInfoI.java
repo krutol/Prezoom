@@ -6,7 +6,7 @@ import java.io.Serializable;
  * The interface of the camera information
  *
  * @author Zhijie Lan<p>
- * create date: 2020/11/17<p>
+ * create date: 2020/11/17
  **/
 public interface CameraInfoI extends Cloneable, AttributeMapI, Serializable
 {

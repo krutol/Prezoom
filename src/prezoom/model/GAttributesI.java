@@ -7,7 +7,7 @@ import java.io.Serializable;
  * The interface of the Graphical Attributes
  *
  * @author Zhijie Lan<p>
- * create date: 2020/11/17<p>
+ * create date: 2020/11/17
  **/
 public interface GAttributesI extends Cloneable, AttributeMapI, Serializable
 {

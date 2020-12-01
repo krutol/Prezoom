@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * The manager that manages all the graphical objects on the canvas.
  *
  * @author Zhijie Lan<p>
- * create date: 2020/11/15<p>
+ * create date: 2020/11/15
  **/
 public class GObjectManager
 {

@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * The abstract class for getting the getter and setter map
  * @author Zhijie Lan<p>
- * create date: 2020/11/18<p>
+ * create date: 2020/11/18
  **/
 public abstract class AttributeMap implements AttributeMapI
 {

@@ -12,7 +12,7 @@ import java.awt.geom.Rectangle2D;
 
 /**
  * @author Zhijie Lan<p>
- * create date: 2020/11/22<p>
+ * create date: 2020/11/22
  **/
 public class GText extends GObject
 {

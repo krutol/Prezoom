@@ -10,16 +10,21 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * The class to build the interpolation for objects
- * The given object must implement {@link prezoom.model.AttributeMapI}
+ * The class to build the interpolation for objects.
+ * The given object must implement {@link prezoom.model.AttributeMapI}.
+ * using a third party lib, Trident.
+ * @see org.pushingpixels.trident
  * @author Zhijie Lan<p>
- * create date: 2020/11/18<p>
+ * create date: 2020/11/18
  **/
 public class InterpolationFactory
 {
     /**
      * transverse all the fields of a class using getter and setter functions
-     * to build interpolation between the previous object and the current object
+     * to build interpolation between the previous object and the current object.
+     * Using {@link Timeline#builder()} to build timeline
+     * and {@link org.pushingpixels.trident.api.TimelinePropertyBuilder} to build interpolation
+     * @see org.pushingpixels.trident
      * @param preObj the previous object
      * @param curObj the current object
      */

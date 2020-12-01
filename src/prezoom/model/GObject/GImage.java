@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  * The Image Object
  *
  * @author Zhijie Lan<p>
- * create date: 2020/11/27<p>
+ * create date: 2020/11/27
  **/
 public class GImage extends GObject
 {

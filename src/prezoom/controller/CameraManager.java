@@ -28,13 +28,11 @@ public class CameraManager
 
 
     /**
-     * if camera info updated
-     * will be called from CenterCanvas EditModeActionHandler.mouseWheelMoved
-     * which sets it to true when the mouse wheel is moved suggesting that camera info has updated
+     * if camera info updated sets it to true
      */
     public static boolean updatedCameraInfo = false;
 
- /**
+    /**
      * the camera location used to navigate in the present canvas during presentation,
      * but not affect the stored state camera
      */

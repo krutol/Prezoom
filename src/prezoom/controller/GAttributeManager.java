@@ -38,6 +38,10 @@ public class GAttributeManager implements Serializable
      * @param x2 x2 of the object, if applicable
      * @param y2 y2 of the object, if applicable
      * @param visible whether visible
+     * @param fontName font name
+     * @param fontSize font size
+     * @param fontStyle plain, bold, or italic
+     * @param textString the text content
      */
     public GAttributeManager(Double x, Double y, Color col, Boolean filled,
                              Integer lineWidth, Double width, Double height,

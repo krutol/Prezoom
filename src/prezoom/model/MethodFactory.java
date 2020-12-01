@@ -10,7 +10,7 @@ import java.util.*;
  * to generate maps that contain all non null filed names, values, getter methods, or setter method of a class.
  * ordered as declared
  * @author Zhijie Lan<p>
- * create date: 2020/11/18<p>
+ * create date: 2020/11/18
  **/
 class MethodFactory
 {

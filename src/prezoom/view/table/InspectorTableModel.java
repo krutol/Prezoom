@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * The custom table model for the inspector table
  * @author Abhishek Sharma<p>
- * create date: 2020/11/26<p>
+ * create date: 2020/11/26
  **/
 public class InspectorTableModel extends DefaultTableModel
 {

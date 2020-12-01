@@ -21,9 +21,9 @@ import prezoom.controller.StateManager;
  * @author Zhijie Lan<p>
  * create date: 2020/11/3<p>
  * * Changed(Abhishek Sharma):
- * *  --> class: ToolPanel method: constructor, added circle to the list of drop down shapes
+ * *  -- class: ToolPanel method: constructor, added circle to the list of drop down shapes
  * *
- * *  --> class:ToolBtnHandler, method: actionPerformed()
+ * *  -- class:ToolBtnHandler, method: actionPerformed()
  * *      --code: if the shape is one among, add the shape to Main.app.centerCanvas.objects.add(shape)
  * *      --code: refresh the inspector panel Main.app.inspectorPanel.rearrangeValues();
  **/

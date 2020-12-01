@@ -32,6 +32,7 @@ public class CenterCanvas extends JPanel
     /**
      * add Mouse Listener, Mouse Wheel Listener, and Mouse Motion Listener to this panel
      * if in the presentation mode, set another set of listener
+     * @param isPresenting whether the canvas is using for presentation
      */
     public CenterCanvas(boolean isPresenting)
     {

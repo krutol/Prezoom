@@ -9,7 +9,7 @@ import java.awt.geom.Line2D;
  * The line objects
  *
  * @author Zhijie Lan<p>
- * create date: 2020/11/14<p>
+ * create date: 2020/11/14
  **/
 public class GLine extends GObject
 {

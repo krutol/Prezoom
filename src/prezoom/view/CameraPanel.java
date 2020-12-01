@@ -11,7 +11,7 @@ import java.awt.*;
 /**
  * the panel that show the attributes of the selected camera
  * @author Abhishek Sharma<p>
- * create date: 2020/11/26<p>
+ * create date: 2020/11/26
  **/
 public class CameraPanel extends JPanel
 {

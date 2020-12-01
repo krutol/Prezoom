@@ -6,7 +6,7 @@ import java.awt.*;
  * The Circle class
  *
  * @author Zhijie Lan<p>
- * create date: 2020/11/18<p>
+ * create date: 2020/11/18
  **/
 public class GCircle extends GOval
 {

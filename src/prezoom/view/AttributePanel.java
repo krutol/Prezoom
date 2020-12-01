@@ -14,10 +14,10 @@ import java.awt.*;
  * @author Zhijie Lan<p>
  * create date: 2020/11/3<p>
  * Changed(Abhishek Sharma):
- * --> class: InspectorPanel method:rearrangeValues()
+ * -- class: InspectorPanel method:rearrangeValues()
  * --code: update the Inspector panel with the selectedObj attributes in centerCanvas
  * <p>
- * --> added class:PanelKeyboardListner, method: keyPressed()
+ * -- added class:PanelKeyboardListner, method: keyPressed()
  * --code:update center canvas object with the values in inspector panel attributes
  **/
 

@@ -9,7 +9,7 @@ import java.awt.*;
 /**
  * The class to manage the presentation
  * @author Zhijie Lan<p>
- * create date: 2020/11/25<p>
+ * create date: 2020/11/25
  **/
 public class PresentManager
 {

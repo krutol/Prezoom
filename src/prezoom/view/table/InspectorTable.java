@@ -18,7 +18,7 @@ import java.util.Map;
  * using {@link AttributeMapI#validGetterMap()} and {@link AttributeMapI#validSetterMap()} to update table
  * and edit values so that unnecessary switch/case and if statements are avoid
  * @author Abhishek Sharma<p>
- * create date: 2020/11/26<p>
+ * create date: 2020/11/26
  **/
 public class InspectorTable extends JTable
 {
@@ -129,6 +129,7 @@ public class InspectorTable extends JTable
 
     /**
      * update the values to the inspector table
+     * @param currAttr the attribute to be inspected
      */
     public void rearrangeValues(AttributeMapI currAttr)
     {

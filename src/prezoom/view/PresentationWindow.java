@@ -12,8 +12,8 @@ import prezoom.controller.StateManager;
  * This presentation window
  * Team Charlie
  *
- * @author Ajanthan Paramasamy >
- * create date: 2020/11/18
+ * @author Ajanthan Paramasamy
+ * <p>create date: 2020/11/18
  **/
 public class PresentationWindow extends JDialog
 {

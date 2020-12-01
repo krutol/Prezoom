@@ -44,6 +44,10 @@ public class GAttributes extends AttributeMap implements GAttributesI
      * @param x2        x2 of the object, if applicable
      * @param y2        y2 of the object, if applicable
      * @param visible   whether visible
+     * @param fontName font name
+     * @param fontSize font size
+     * @param fontStyle plain, bold, or italic
+     * @param textString the text content
      */
     public GAttributes(Double x, Double y, Color color, Boolean filled,
                        Integer lineWidth, Double width, Double height,
