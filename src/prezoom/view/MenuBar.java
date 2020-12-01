@@ -17,21 +17,28 @@ import prezoom.controller.StateManager;
  **/
 public class MenuBar extends JMenuBar
 {
-    //VARIABLES
-    public JMenu menu_file, menu_play, menu_help;
-    public JMenuItem quit, newFile, openFile, saveFile;
-    public JMenuItem playFromStart, playFromCurrent;
-    public JMenuItem about, instructions;
-    public JFileChooser fileChooser = null;
+    private final JMenuItem quit;
+    private final JMenuItem newFile;
+    private final JMenuItem openFile;
+    private final JMenuItem saveFile;
+    private final JMenuItem playFromStart;
+    private final JMenuItem playFromCurrent;
+    private final JMenuItem about;
+    private final JMenuItem instructions;
+    private JFileChooser fileChooser = null;
 
 
+    /**
+     * the constructor
+     */
     public MenuBar()
     {
         MenuOptionsHandler itemHandler = new MenuOptionsHandler();   //create the Menu ActionListener
 
-        menu_file = new JMenu("File");                                    //create the menu tabs and options
-        menu_play = new JMenu("Play");
-        menu_help = new JMenu("Help");
+
+        JMenu menu_file = new JMenu("File");//create the menu tabs and options
+        JMenu menu_play = new JMenu("Play");
+        JMenu menu_help = new JMenu("Help");
 
         //Items for File
         newFile = new JMenuItem("New File");
@@ -39,12 +46,12 @@ public class MenuBar extends JMenuBar
         saveFile = new JMenuItem("Save File");
         quit = new JMenuItem("Exit");
 
-        newFile.addActionListener(itemHandler);                      //add actionListeners
+        newFile.addActionListener(itemHandler);//add actionListeners
         openFile.addActionListener(itemHandler);
         saveFile.addActionListener(itemHandler);
         quit.addActionListener(itemHandler);
 
-        menu_file.add(newFile);                                           //add options to the menu
+        menu_file.add(newFile);//add options to the menu
         menu_file.add(openFile);
         menu_file.add(saveFile);
         menu_file.addSeparator();
@@ -76,8 +83,10 @@ public class MenuBar extends JMenuBar
         add(menu_help);
     }
 
-    //FILE METHODS
-
+    /**
+     * initialize the file chooser to get the file with custom extension ".pzm"
+     * @return the file chooser
+     */
     private JFileChooser getFileChooser()
     {
         if (fileChooser ==null)
@@ -93,7 +102,9 @@ public class MenuBar extends JMenuBar
         return fileChooser;
     }
 
-    //ACTION EVENTS
+    /**
+     * the listener
+     */
     private class MenuOptionsHandler implements ActionListener
     {
         public void actionPerformed(ActionEvent event)
@@ -117,7 +128,7 @@ public class MenuBar extends JMenuBar
             }
             else if (event.getSource() == saveFile)      //if Save file
             {
-                JFileChooser jFileChooser = getFileChooser();                                            //open file chooser
+                JFileChooser jFileChooser = getFileChooser();//open file chooser
                 int result = jFileChooser.showSaveDialog(null);
                 if (result== JFileChooser.APPROVE_OPTION )
                 {
@@ -130,9 +141,9 @@ public class MenuBar extends JMenuBar
             }
             else if (event.getSource() == openFile)       //if Open file
             {
-                JFileChooser jFileChooser = getFileChooser();                                            //open file chooser
+                JFileChooser jFileChooser = getFileChooser();//open file chooser
                 int result = jFileChooser.showOpenDialog(null);
-                if (result== JFileChooser.APPROVE_OPTION )                                      //if OK
+                if (result== JFileChooser.APPROVE_OPTION )//if OK
                 {
                     SaveLoadManager saveLoadManager = new SaveLoadManager(false);
                     saveLoadManager.load(jFileChooser.getSelectedFile());
@@ -163,8 +174,12 @@ public class MenuBar extends JMenuBar
             }
             else if (event.getSource() == about)         //if About
             {
-                JOptionPane.showMessageDialog(null, "This application was made for the purpose of the ENGI-9874 Project.\n\n" +
-                        "Created by: Team Charlie\nTeam Members: Abhishek Sharma, P.Ajanthan, Tianxing Li, Zhijie Lan, Ziyang Li\nCreated date: 01 November 2020",
+                JOptionPane.showMessageDialog(null,
+                        "This application was made for the purpose of the ENGI-9874 Project.\n\n" +
+                        "Created by: Team Charlie\n" +
+                                "Team Members: Abhishek Sharma," +
+                                " P.Ajanthan, Tianxing Li, Zhijie Lan," +
+                                " Ziyang Li\nCreated date: 01 November 2020",
                         "About", JOptionPane.INFORMATION_MESSAGE);
             }
             else if (event.getSource() == playFromStart)

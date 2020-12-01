@@ -54,13 +54,6 @@ public class CameraManager
         updateCur_CamInfo();
     }
 
-//    public void setCamInfo(double cam_x_offset, double cam_y_offset, double zoomFactor)
-//    {
-//        cur_CamInfo.cam_x_offset = cam_x_offset;
-//        cur_CamInfo.cam_y_offset = cam_y_offset;
-//        cur_CamInfo.am_zoomFactor = zoomFactor;
-//    }
-
     /**
      * move the camera to the given location
      *
@@ -68,20 +61,9 @@ public class CameraManager
      * @param cam_x_offset   x offset
      * @param cam_y_offset   y offset
      * @param zoomFactor     zoom index
-     * @param prevZoomFactor previous zoom index that is used to get better effect when zooming
      */
-    public static void moveCamera(Graphics2D g2, double cam_x_offset, double cam_y_offset, double zoomFactor, double prevZoomFactor)
+    public static void moveCamera(Graphics2D g2, double cam_x_offset, double cam_y_offset, double zoomFactor)
     {
-//        cur_CamInfo.setOffsetX(cam_x_offset);
-//        cur_CamInfo.setOffsetY(cam_y_offset);
-//        cur_CamInfo.setZoomFactor(zoomFactor);
-//        cur_CamInfo.setPreZoomFactor(prevZoomFactor);
-//
-//        AffineTransform at = new AffineTransform();
-//        at.translate(cur_CamInfo.getOffsetX(), cur_CamInfo.getOffsetY());
-//        at.scale(cur_CamInfo.getZoomFactor(), cur_CamInfo.getZoomFactor());
-//        g2.transform(at);
-
         AffineTransform at = new AffineTransform();
         at.translate(cam_x_offset, cam_y_offset);
         at.scale(zoomFactor, zoomFactor);

@@ -13,15 +13,24 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
+ * The custom table that can display the attributes of objects
+ * and each row has corresponding editor and renderer according to the class type of the row.
+ * using {@link AttributeMapI#validGetterMap()} and {@link AttributeMapI#validSetterMap()} to update table
+ * and edit values so that unnecessary switch/case and if statements are avoid
  * @author Abhishek Sharma<p>
  * create date: 2020/11/26<p>
  **/
-
-//extending from JTable to model row editor model per row
 public class InspectorTable extends JTable
 {
+    /**
+     * The Class type for the current editing cell
+     */
     private Class<?> editorClass;
 
+    /**
+     * The constructor
+     * @param tm the table model
+     */
     public InspectorTable(TableModel tm)
     {
         super(tm);
@@ -32,8 +41,12 @@ public class InspectorTable extends JTable
         this.putClientProperty("terminateEditOnFocusLost", true);
     }
 
-    //get the editor from row editor model at a cell identified
-    //by row, col
+    /**
+     * get the editor according to the Class type of each cell
+     * @param row row number
+     * @param col column number
+     * @return the cell editor
+     */
     public TableCellEditor getCellEditor(int row, int col)
     {
         Object obj = getValueAt(row, col);
@@ -44,6 +57,20 @@ public class InspectorTable extends JTable
         return super.getCellEditor(row, col);
     }
 
+    /**
+     * use this method to let each row have different cell editor.
+     * Set the {@link #editorClass} as the class type of the given cell before calling the super's method
+     * because in the super's method, {@link JTable#prepareEditor(TableCellEditor, int, int)}, it will call
+     * {@link #getColumnClass(int)} to determine the cell's editor type. By default, the JTable does not have
+     * the function to set the class type for each row.
+     * @see #getColumnClass(int)
+     * @param editor  the <code>TableCellEditor</code> to set up
+     * @param row     the row of the cell to edit,
+     *                where 0 is the first row
+     * @param column  the column of the cell to edit,
+     *                where 0 is the first column
+     * @return the <code>Component</code> being edited
+     */
     public Component prepareEditor(TableCellEditor editor, int row, int column)
     {
         Object obj = getValueAt(row, column);
@@ -62,6 +89,12 @@ public class InspectorTable extends JTable
 
     }
 
+    /**
+     * get the renderer according to the Class type of each cell
+     * @param row row number
+     * @param col column number
+     * @return the cell renderer
+     */
     public TableCellRenderer getCellRenderer(int row, int col)
     {
         Object obj = getValueAt(row, col);
@@ -71,6 +104,13 @@ public class InspectorTable extends JTable
         return super.getCellRenderer(row, col);
     }
 
+    /**
+     * return the class type.
+     * return {@link #editorClass} when it is not null.
+     * otherwise return super
+     * @param col the column number
+     * @return the class type
+     */
     public Class<?> getColumnClass(int col)
     {
         if (editorClass != null)
@@ -79,14 +119,16 @@ public class InspectorTable extends JTable
         return super.getColumnClass(col);
     }
 
+    /**
+     * clear the data of the table
+     */
     public void resetTable()
     {
         ((InspectorTableModel)this.getModel()).prop_map.clear();
     }
 
     /**
-     * Set the values in the inspector panel text boxes
-     * x, y, width, height
+     * update the values to the inspector table
      */
     public void rearrangeValues(AttributeMapI currAttr)
     {

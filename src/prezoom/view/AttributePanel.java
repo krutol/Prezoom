@@ -10,8 +10,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 /**
- * TODO
- *
+ * the panel that show the attributes of the selected object
  * @author Zhijie Lan<p>
  * create date: 2020/11/3<p>
  * Changed(Abhishek Sharma):
@@ -24,11 +23,14 @@ import java.awt.*;
 
 public class AttributePanel extends JPanel
 {
+    /**
+     * the table to display
+     */
     private final InspectorTable attributeTable;
 
     /**
-     * construct the inspector panel
-     * initialize the custom table model, row editor model and JInspector table
+     * constructor.
+     * initialize the custom table model
      * and add to the panel
      */
     public AttributePanel()
@@ -51,8 +53,7 @@ public class AttributePanel extends JPanel
 
 
     /**
-     * Set the values in the inspector panel text boxes
-     * x, y, width, height
+     * update the table
      */
     public void rearrangeValues()
     {

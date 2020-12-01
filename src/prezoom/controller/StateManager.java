@@ -19,11 +19,6 @@ public class StateManager
      */
     private static int total_State_Number = 1;
 
-//    public int getCurrent_State()
-//    {
-//        return current_State;
-//    }
-
     /**
      * Set the current state, and call {@link #updateStateData()}
      * @param state the state index
@@ -51,13 +46,7 @@ public class StateManager
         CameraManager.updateCur_CamInfo();
         // update attributes of GObjects
         GObjectManager.updateAllObject();
-//        for (GObject o: Main.app.centerCanvas.objects)
-//        {
-//            o.getAttributeManager().updateCur_Attributes();
-//        }
-        // repaint canvas
-        //Main.app.centerCanvas.repaint();
-        //
+
         MainWindow.cameraPanel.rearrangeValues();
 
     }
@@ -67,6 +56,7 @@ public class StateManager
      * @see StatePanel#insertStateBtn()
      * @see CameraManager#insertCamState()
      * @see GAttributeManager#insertAttributeState()
+     * @see GObjectManager#insertStateToGObjects()
      * @see #updateStateData()
      */
     public static void insertState()
@@ -87,9 +77,13 @@ public class StateManager
     }
 
     /**
-     * let all state-related class to delete a state, but the last one state cannot be deleted, then reload the state data
+     * let all state-related class to delete a state, but the last one state cannot be deleted.
+     * If trying to delete the last state, all data will be cleared,
+     * and then a brand new state will be created
+     * then reload the state data
      * @see StatePanel#deleteStateBtn(int)
      * @see CameraManager#deleteCamState(int)
+     * @see GObjectManager#deleteStateToGObjects(int)
      * @see GAttributeManager#deleteAttributeState(int)
      * @see #updateStateData()
      * @param state the state index to be deleted
@@ -121,21 +115,36 @@ public class StateManager
 
     }
 
+    /**
+     * get the current state number
+     * @return current state, 0-indexed
+     */
     public static int getCurrent_State()
     {
         return current_State;
     }
 
+    /**
+     * get the total number of states
+     * @return the total number
+     */
     public static int getTotal_State_Number()
     {
         return total_State_Number;
     }
 
+    /**
+     * set the total state number to the given number
+     * @param total_State_Number the total number of states
+     */
     public static void setTotal_State_Number(int total_State_Number)
     {
         StateManager.total_State_Number = total_State_Number;
     }
 
+    /**
+     * delete all data
+     */
     public static void clearAllStateData()
     {
         for (int i = total_State_Number-1; i >= 0; i--)
@@ -144,6 +153,10 @@ public class StateManager
         }
     }
 
+    /**
+     * after loading saved data from saving files,
+     * update all needed data
+     */
     public static void reloadSavedData()
     {
         GObjectManager.reloadAllTextArea();

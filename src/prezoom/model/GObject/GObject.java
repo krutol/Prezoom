@@ -15,11 +15,6 @@ import java.io.Serializable;
  **/
 public abstract class GObject implements Serializable
 {
-    //protected HashMap<Integer,prezoom.model.GAttributes> state_Attributes_map = new HashMap<>(); //Attributes of each state
-//    protected ArrayList<GAttributes> state_Attributes_list = new ArrayList<>();
-//    //int current_State = 0;
-//    GAttributes cur_Attributes;
-
     /**
      * the manager to manage the state of this object
      */
@@ -48,28 +43,8 @@ public abstract class GObject implements Serializable
                       Double x2, Double y2, Boolean visible,
                       String fontName, Integer fontStyle, Double fontSize, String textString)
     {
-        //this.id = id;
-//        this.x = x;
-//        this.y = y;
-//        this.color = color;
-//        this.filled = filled;
-//        this.lineWidth = lineWidth;
-        //state_Attributes_map.put(getCurrent_State(), attributes);
-        //state_Attributes_list = new ArrayList<>((Collections.nCopies(getCurrent_State(), null)));
-//        for (int i = 0; i< StateManager.total_State+1; i++)
-//        {
-//            if (i<getCurrent_State())
-//                state_Attributes_list.add(null);
-//            else
-//            {
-//                GAttributes attributes = new GAttributes(x,y,color,filled,lineWidth, width, height, x2, y2, visible);
-//                state_Attributes_list.add(i,attributes);
-//            }
-//        }
-//        updateCur_Attributes();
         gAttributeManager = new GAttributeManager(x, y, col, filled, lineWidth, width, height,
                 x2, y2, visible, fontName, fontStyle, fontSize, textString);
-
     }
 
     /**
@@ -119,10 +94,6 @@ public abstract class GObject implements Serializable
      */
     public boolean inShape(double mx, double my)
     {
-//        double x = getCurrentAttributes().getX(), y = getCurrentAttributes().getY();
-//        int w = getCurrentAttributes().getWidth(), h = getCurrentAttributes().getHeight();
-//        return mx >= x && mx <= x + w && my >= y && my <= y + h;
-
         return drawShape.contains(mx,my);
     }
 
@@ -145,7 +116,7 @@ public abstract class GObject implements Serializable
     }
 
     /**
-     * get the position of the diagonal points
+     * get the position of the diagonal points to draw the resize points
      * @return diagonal points
      */
     public Point2D[] getResizePoints()

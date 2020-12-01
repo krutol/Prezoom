@@ -26,10 +26,7 @@ public class CameraInfo extends AttributeMap implements CameraInfoI
     /**
      * the default value constructor, x = y = 0, zoomFactor = 1;
      */
-    public CameraInfo() {
-//        this.getters = MethodFactory.getNonNullGetters(this);
-//        this.setters = MethodFactory.getNonNullSetters(this);
-    }
+    public CameraInfo() {}
 
     /**
      * constructor with parameters
@@ -44,8 +41,6 @@ public class CameraInfo extends AttributeMap implements CameraInfoI
         this.offsetY = offsetY;
         this.zoomFactor = zoomFactor;
         this.preZoomFactor = preZoomFactor;
-//        this.getters = MethodFactory.getNonNullGetters(this);
-//        this.setters = MethodFactory.getNonNullSetters(this);
     }
 
     /**

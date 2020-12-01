@@ -6,8 +6,8 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
 /**
+ * The custom table renderer for the cells of JTables that has Color values
  * @author Oracle<p>
- * create date: 2020/11/29<p>
  * Copyright (c) 1995, 2008, Oracle and/or its affiliates. All rights reserved.
  **/
 public class ColorRenderer extends JLabel
@@ -17,12 +17,20 @@ public class ColorRenderer extends JLabel
     Border selectedBorder = null;
     boolean isBordered;
 
+    /**
+     * the constructor
+     * @param isBordered true to have border
+     *                   false to fill the cell
+     */
     public ColorRenderer(boolean isBordered)
     {
         this.isBordered = isBordered;
         setOpaque(true); //MUST do this for background to show up.
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Component getTableCellRendererComponent(
             JTable table, Object color,
             boolean isSelected, boolean hasFocus,

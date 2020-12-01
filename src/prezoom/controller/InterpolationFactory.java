@@ -11,7 +11,7 @@ import java.util.Set;
 
 /**
  * The class to build the interpolation for objects
- *
+ * The given object must implement {@link prezoom.model.AttributeMapI}
  * @author Zhijie Lan<p>
  * create date: 2020/11/18<p>
  **/

@@ -11,17 +11,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * The custom table model for the inspector table
  * @author Abhishek Sharma<p>
  * create date: 2020/11/26<p>
  **/
-
-//custom table model with row editor model
 public class InspectorTableModel extends DefaultTableModel
 {
-
-    //initialize column names which are two one to hold attribute name
-    //and other to hold attribute value
-    //set the row editor model for this custom table model
+    /**
+     * the constructor, adding a {@link javax.swing.event.TableModelListener}.
+     * if the table is changed, invoke the corresponding setter from the {@link AttributeMapI#validSetterMap()}
+     * to change the value of the {@link #inspectedAtt}
+     * @param col_names all the attribute names in the first column
+     * @param i the row number
+     */
     public InspectorTableModel(String[] col_names, int i)
     {
         super(col_names, i);
@@ -44,33 +46,60 @@ public class InspectorTableModel extends DefaultTableModel
         });
     }
 
-    //attribute names
-    public ArrayList<String> prop_names = new ArrayList<>(Arrays.asList("Label", "X", "Y",
+    /**
+     * the attribute names in the 1st column
+     */
+    private ArrayList<String> prop_names = new ArrayList<>(Arrays.asList("Label", "X", "Y",
             "Width", "Height"));
 
+    /**
+     * the data in the 2nd column
+     */
     public Map<Integer, Object> prop_map = new HashMap<>();
 
+    /**
+     * the setter map to change values of the {@link #inspectedAtt}
+     */
     public Map<String, Method> setter_map;
 
+    /**
+     * the source of the table
+     */
     public AttributeMapI inspectedAtt;
 
+    /**
+     * the table is rearranging by calling {@link InspectorTable#rearrangeValues(AttributeMapI)}.
+     * ignore table changes event.
+     */
     public boolean isRearranging = false;
 
-    //set all the attributes for a table
+    /**
+     * set the attribute names in the 1st column
+     * @param props the attribute name list
+     */
     public void setPropNames(ArrayList<String> props)
     {
         this.prop_names = props;
         fireTableDataChanged();
     }
 
-    //get the attributes
+    /**
+     * get the attribute name list in the 1st column
+     * @return the attribute name list
+     */
     public ArrayList<String> getPropNames()
     {
         return this.prop_names;
     }
 
-    //get the name and value of the attribute, names are stored in nth row and column 0
-    //values are stored in nth row and column 1
+    /**
+     * get the value of the table,
+     * names are stored in 1st column
+     * values are stored in 2nd column
+     * @param row row number
+     * @param col column number
+     * @return the value at the given row and column
+     */
     public Object getValueAt(int row, int col)
     {
         //if row is greater than the total attributes length return null
@@ -91,6 +120,12 @@ public class InspectorTableModel extends DefaultTableModel
         //return super.getValueAt(row,color);
     }
 
+    /**
+     * change the value at the given row and column
+     * @param value the new value
+     * @param row row number
+     * @param col column number
+     */
     public void setValueAt(Object value, int row, int col)
     {
         if (col != 1)
@@ -100,7 +135,12 @@ public class InspectorTableModel extends DefaultTableModel
         fireTableCellUpdated(row, col);
     }
 
-    //column 0 is uneditable, other columns are editable
+    /**
+     * the 1st name column cannot be edited
+     * @param row row number
+     * @param col column number
+     * @return true if column != 0
+     */
     public boolean isCellEditable(int row, int col)
     {
         return col != 0;

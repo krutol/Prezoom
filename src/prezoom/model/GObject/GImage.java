@@ -16,6 +16,9 @@ import java.awt.image.BufferedImage;
  **/
 public class GImage extends GObject
 {
+    /**
+     * the Image to be shown
+     */
     private final ImageIcon image;
     public GImage(BufferedImage image, Double x, Double y, Double width, Double height)
     {
@@ -26,6 +29,11 @@ public class GImage extends GObject
         this.image = new ImageIcon(image);
     }
 
+    /**
+     * draw the image to the canvas.
+     * When the Image is invisible, draw a rectangle with dash lines to represent invisible images
+     * @param g the Graphics to paint
+     */
     @Override
     public void draw(Graphics2D g)
     {

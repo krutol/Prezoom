@@ -62,33 +62,6 @@ public class GLine extends GObject
             return false;
 
     }
-//    @Override
-//    public boolean inShape(double mx, double my)
-//    {
-//        if (!getCurrentAttributes().getVisible())
-//            return false;
-//
-//        GAttributesI att = getCurrentAttributes();
-//        double x1 = Math.max(att.getX(), att.getX2());
-//        double x2 = Math.min(att.getX(), att.getX2());
-//        double y1 = Math.max(att.getY(), att.getY2());
-//        double y2 = Math.min(att.getY(), att.getY2());
-//
-//        double dx = (x2 - x1) / 2;
-//        double dy = (y2 - y1) / 2;
-//        double cx = (x2 + x1) / 2;
-//        double cy = (y2 + y1) / 2;
-//        double m = Math.hypot(dx, dy);
-//        double ux = dx / m;
-//        double uy = dy / m;
-//        double vx = -uy;
-//        double vy = ux;
-//        double wx = mx - cx;
-//        double wy = my - cy;
-//
-//        return (Math.abs(ux * wx + uy * wy) <= m
-//                && Math.abs(vx * wx + vy * wy) <= att.getLineWidth()/2.0+20);
-//    }
 
 
 }

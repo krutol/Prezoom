@@ -11,9 +11,21 @@ import java.util.Map;
  **/
 public interface AttributeMapI
 {
+    /**
+     * the map that has all the none null fields name and corresponding setter methods
+     * @return setter map, key: field names, value: setter methods
+     */
     Map<String, Method> validSetterMap();
 
+    /**
+     * the map that has all the none null fields name and corresponding getter methods
+     * @return setter map, key: field names, value: getter methods
+     */
     Map<String, Method> validGetterMap();
 
+    /**
+     * the map that has all the none null fields name and corresponding values
+     * @return setter map, key: field names, value: values of fields
+     */
     Map<String, Object> validAttributeMap();
 }

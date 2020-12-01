@@ -9,14 +9,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /** This class is the manager to manage the state related functions for the attributes of graphical objects.
- *  Each {@link GObject} has a manager.
+ *  Each {@link GObject} has a manager ot manage its own attributes.
  * @author Zhijie Lan<p>
  * create date: 2020/11/6
  **/
 public class GAttributeManager implements Serializable
 {
+    /**
+     * the list that store all attributes for each state.
+     */
     ArrayList<GAttributesI> state_Attributes_list = new ArrayList<>();
-    //int current_State = 0;
     /**
      * the attribute for the current state
      */
@@ -24,7 +26,7 @@ public class GAttributeManager implements Serializable
 
     /**
      * To construct a manager, the object's attributes will be generated and duplicated from the current state to the end state,
-     * but attributes for states before the current state are set to null, which means the object only exists from the current state.
+     * but attributes for states before the current state are set to 0, which means the object only exists from the current state.
      *
      * @param x location, x
      * @param y location, y
@@ -66,6 +68,10 @@ public class GAttributeManager implements Serializable
         updateCur_Attributes();
     }
 
+    /**
+     * get the state form teh state manager
+     * @return the current state number
+     */
     private int getCurrent_State()
     {
         return StateManager.getCurrent_State();
@@ -97,17 +103,6 @@ public class GAttributeManager implements Serializable
         if (cur_Attributes != null)
         {
             InterpolationFactory.buildInterpolation(preAttributes, cur_Attributes);
-//            Timeline camTimeLine = Timeline.builder(cur_Attributes)
-//                    .addPropertyToInterpolate("x", preAttributes != null ? preAttributes.getX() : 0, cur_Attributes.getX())
-//                    .addPropertyToInterpolate("y", preAttributes != null ? preAttributes.getY() : 0, cur_Attributes.getY())
-//                    .addPropertyToInterpolate("color", preAttributes != null ? preAttributes.getColor() : Color.white, cur_Attributes.getColor())
-//                    .addPropertyToInterpolate("lineWidth", preAttributes != null ? preAttributes.getLineWidth() : 1, cur_Attributes.getLineWidth())
-//                    .addPropertyToInterpolate("width", preAttributes != null ? preAttributes.getWidth() : 0, cur_Attributes.getWidth())
-//                    .addPropertyToInterpolate("height", preAttributes != null ? preAttributes.getHeight() : 0, cur_Attributes.getHeight())
-//                    .addPropertyToInterpolate("x2", preAttributes != null ? preAttributes.getX2() : 0, cur_Attributes.getX2())
-//                    .addPropertyToInterpolate("y2", preAttributes != null ? preAttributes.getY2() : 0, cur_Attributes.getY2())
-//                    .build();
-//            camTimeLine.play();
         }
 
     }

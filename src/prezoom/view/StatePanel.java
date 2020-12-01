@@ -77,9 +77,6 @@ public class StatePanel extends JPanel
     {
         if(!states_btn_list.isEmpty())
             states_btn_list.get(StateManager.getCurrent_State()).setSelected(true);
-//        for (JToggleButton btn : states_btn_list)
-//            btn.getModel().setPressed(false);
-//        states_btn_list.get(StateManager.current_State).getModel().setPressed(true);
     }
 
     /**

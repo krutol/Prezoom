@@ -36,7 +36,7 @@ class CameraManagerTest
     {
         AffineTransform aff_old = g2.getTransform();
 
-        CameraManager.moveCamera(g2,100,200,1.5,1.0);
+        CameraManager.moveCamera(g2,100,200,1.5);
 
         AffineTransform aff_new = g2.getTransform();
 

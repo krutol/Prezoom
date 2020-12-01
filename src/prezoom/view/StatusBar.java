@@ -13,6 +13,9 @@ public class StatusBar extends JPanel
     private final JLabel zoomText;
     private final JLabel curStateText;
 
+    /**
+     * the constructor
+     */
     public StatusBar()
     {
         setBackground(Color.darkGray);
@@ -33,16 +36,28 @@ public class StatusBar extends JPanel
 
     }
 
+    /**
+     * set the state text
+     * @param str the state text
+     */
     public void setCurStateText(String str)
     {
         curStateText.setText(str);
     }
 
+    /**
+     * set the status text
+     * @param str the status text
+     */
     public void setStatusText(String str)
     {
         statusText.setText(str);
     }
 
+    /**
+     * set the zoom text
+     * @param str the zoom text
+     */
     public void setZoomText(String str)
     {
         zoomText.setText(str);

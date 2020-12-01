@@ -7,8 +7,8 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * to generate maps that contain all non null filed names, values, getter methods, or setter method of a class
- *
+ * to generate maps that contain all non null filed names, values, getter methods, or setter method of a class.
+ * ordered as declared
  * @author Zhijie Lan<p>
  * create date: 2020/11/18<p>
  **/
@@ -19,12 +19,22 @@ class MethodFactory
     private static Map<String, Method> setter_map;
     private static Object currentObject;
 
+    /**
+     * to generate the map that has all the none null fields name and corresponding values
+     * @param bean the target object
+     * @return setter map, key: field names, value: values of fields
+     */
     public static Map<String, Object> getNonNullProperties(Object bean)
     {
         generateMaps(bean);
         return att_map;
     }
 
+    /**
+     * to generate the map that has all the none null fields name and corresponding getter methods
+     * @param bean the target object
+     * @return setter map, key: field names, value: getter methods
+     */
     public static Map<String, Method> getNonNullGetters(Object bean)
     {
         if (!bean.equals(currentObject))
@@ -34,6 +44,11 @@ class MethodFactory
         return getter_map;
     }
 
+    /**
+     * to generate the map that has all the none null fields name and corresponding setter methods
+     * @param bean the target object
+     * @return setter map, key: field names, value: setter methods
+     */
     public static Map<String, Method> getNonNullSetters(Object bean)
     {
         if (!bean.equals(currentObject))
@@ -43,6 +58,10 @@ class MethodFactory
         return setter_map;
     }
 
+    /**
+     * generate all three maps at ones
+     * @param bean the target objects
+     */
     private static void generateMaps(Object bean)
     {
         try
@@ -85,6 +104,12 @@ class MethodFactory
         }
     }
 
+    /**
+     * sorted the field names of the method maps as the declared order of the object class
+     * @param unordered_mp the unordered method map
+     * @param obj the target object
+     * @return the ordered method map
+     */
     private static Map<String, Method> sortAsDeclaredOrder(Map<String, Method> unordered_mp, Object obj)
     {
         Map<String, Method> map = new LinkedHashMap<>();
@@ -101,6 +126,12 @@ class MethodFactory
         return map;
     }
 
+    /**
+     * sorted the field names of the value maps as the declared order of the object class
+     * @param unordered_mp the unordered value map
+     * @param obj the target object
+     * @return the ordered value map
+     */
     private static Map<String, Object> sortAsDeclaredOrder(Object obj, Map<String, Object> unordered_mp)
     {
         Map<String, Object> map = new LinkedHashMap<>();

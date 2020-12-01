@@ -17,11 +17,18 @@ import prezoom.controller.StateManager;
  **/
 public class PresentationWindow extends JDialog
 {
-    // Get Total Number of States
+    /**
+     * Total Number of States
+     */
     final int total_states = StateManager.getTotal_State_Number();
-    // Assume Current State's Index is 0
+    /**
+     * the current state
+     */
     int current_state = StateManager.getCurrent_State();
 
+    /**
+     * the constructor to initialize a new {@link CenterCanvas} that is in presentation mode
+     */
     public PresentationWindow()
     {
         CenterCanvas presentCanvas = new CenterCanvas(true);
@@ -32,14 +39,10 @@ public class PresentationWindow extends JDialog
 
         ActionHandler actionHandler = new ActionHandler();
         addKeyListener(actionHandler);
-//        add(colorPalette, "South");
-//        add(paintToolPanel, "West");
-//        add(new JScrollPane(drawingPanel), "Center");
 
-        // this.setIconImage(Image);    //setting JFrame's icon image
+
         this.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth(),
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight());
-        //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         //this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);   //set default close operation
         this.setLocationRelativeTo(null);                               //set locating to the middle of the screen
@@ -49,11 +52,17 @@ public class PresentationWindow extends JDialog
 
     }
 
+    /**
+     * exit the presentation mode
+     */
     public void exitPresent()
     {
         PresentManager.endPresent(PresentationWindow.this);
     }
 
+    /**
+     * go to the next state
+     */
     public void nextState()
     {
         if (current_state < total_states - 1)
@@ -66,6 +75,9 @@ public class PresentationWindow extends JDialog
         }
     }
 
+    /**
+     * go to the previous state
+     */
     public void previousState()
     {
         if (current_state != 0)
@@ -75,11 +87,21 @@ public class PresentationWindow extends JDialog
         }
     }
 
+    /**
+     * go to the current state
+     */
     public void currentState()
     {
         StateManager.switchState(current_state);
     }
 
+    /**
+     * the listener.
+     * {@link #exitPresent()} when {@link KeyEvent#VK_ESCAPE}
+     * {@link #previousState()} when {@link KeyEvent#VK_LEFT}
+     * {@link #nextState()} when {@link KeyEvent#VK_RIGHT}
+     * {@link #currentState()} when {@link KeyEvent#VK_SPACE}
+     */
     private class ActionHandler implements KeyListener
     {
         @Override

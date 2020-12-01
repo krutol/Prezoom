@@ -5,15 +5,19 @@ import java.util.Map;
 
 /**
  * The abstract class for getting the getter and setter map
- *
  * @author Zhijie Lan<p>
  * create date: 2020/11/18<p>
  **/
 public abstract class AttributeMap implements AttributeMapI
 {
-    //transient, cuz The Method cannot be serialized to save
+    /**
+     * the map of getters and setters. transient, cuz The Method cannot be serialized to save
+     */
     private transient Map<String, Method> getters, setters;
 
+    /**
+     * {@inheritDoc}
+     */
     public Map<String, Method> validSetterMap()
     {
         if (setters == null)
@@ -22,6 +26,9 @@ public abstract class AttributeMap implements AttributeMapI
         return setters;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Map<String, Method> validGetterMap()
     {
         if (getters == null)
@@ -30,6 +37,9 @@ public abstract class AttributeMap implements AttributeMapI
         return getters;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Map<String, Object> validAttributeMap()
     {
         return MethodFactory.getNonNullProperties(this);

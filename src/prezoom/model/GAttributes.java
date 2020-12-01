@@ -29,8 +29,6 @@ public class GAttributes extends AttributeMap implements GAttributesI
      */
     public GAttributes()
     {
-//        this.getters = MethodFactory.getNonNullGetters(this);
-//        this.setters = MethodFactory.getNonNullSetters(this);
     }
 
     /**
@@ -66,8 +64,6 @@ public class GAttributes extends AttributeMap implements GAttributesI
         this.fontStyle = fontStyle;
         this.fontSize = fontSize;
         this.textString = textString;
-//        this.getters = MethodFactory.getNonNullGetters(this);
-//        this.setters = MethodFactory.getNonNullSetters(this);
     }
 
     /**
@@ -213,6 +209,11 @@ public class GAttributes extends AttributeMap implements GAttributesI
         return visible;
     }
 
+    /**
+     * when the objects are set to be invisible,
+     * change their color's alpha value in order to get a visual aid to identify invisible objects
+     * @param visible whether to be visible
+     */
     @Override
     public void setVisible(Boolean visible)
     {

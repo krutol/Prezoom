@@ -8,7 +8,6 @@ import java.awt.*;
 
 /**
  * The class to manage the presentation
- *
  * @author Zhijie Lan<p>
  * create date: 2020/11/25<p>
  **/
@@ -19,6 +18,9 @@ public class PresentManager
      */
     public static boolean isPresenting = false;
 
+    /**
+     * the zoom factor to zoom in the canvas to fit the full screen
+     */
     public static double presentZoomFactor;
 
     /**

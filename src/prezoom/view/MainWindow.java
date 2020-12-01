@@ -36,31 +36,19 @@ public class MainWindow extends JFrame
      */
     public static AttributePanel attributePanel;
 
-
+    /**
+     * The panel that shows editable attributes of camera and other useful info
+     */
     public static CameraPanel cameraPanel;
 
+
     /**
-     * Creates a new, initially invisible <code>Frame</code> with the
-     * specified title. Instantiates all the child windows.
-     * <p>
-     *
-     * This constructor sets the component's locale property to the value
-     * returned by <code>JComponent.getDefaultLocale</code>.
-     *
-     * @param title the title for the frame
-     * @throws HeadlessException if GraphicsEnvironment.isHeadless()
-     *                           returns true.
-     * @see GraphicsEnvironment#isHeadless
-     * @see Component#setSize
-     * @see Component#setVisible
-     * @see JComponent#getDefaultLocale
+     * The main window constructor. add all child view components.
+     * @param title name of the window
      */
-    public MainWindow(String title) throws HeadlessException
+    public MainWindow(String title)
     {
         super(title);
-
-        //JPanel mainPanel = new JPanel();
-        //add(mainPanel);                                         //add panels to the main JFrame
 
         menuBar = new MenuBar();
         toolPanel = new ToolPanel();
@@ -101,17 +89,8 @@ public class MainWindow extends JFrame
         //add Camera inspector to holder panel
         holderInspectorPanel.add(cameraPanel);
 
-        //create scroll pane
-//        JScrollPane inspectorScroll1= new JScrollPane(holderInspectorPanel);
-//        inspectorScroll1.setPreferredSize(new Dimension(150,500));
-//        inspectorScroll1.getVerticalScrollBar().setUnitIncrement(15);
-
         //add the holder
         add(holderInspectorPanel, "East");
-
-//        add(colorPalette, "South");
-//        add(paintToolPanel, "West");
-//        add(new JScrollPane(drawingPanel), "Center");
 
         // this.setIconImage(Image);    //setting JFrame's icon image
         this.setSize(1366, 768);     //set size of the application

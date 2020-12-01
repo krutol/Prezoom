@@ -7,8 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * The custom table editor for the cells of JTables that has Color values
  * @author Oracle<p>
- * create date: 2020/11/29<p>
  * Copyright (c) 1995, 2008, Oracle and/or its affiliates. All rights reserved.
  **/
 public class ColorEditor extends AbstractCellEditor
@@ -65,13 +65,17 @@ public class ColorEditor extends AbstractCellEditor
         }
     }
 
-    //Implement the one CellEditor method that AbstractCellEditor doesn't.
+    /**
+     * {@inheritDoc}
+     */
     public Object getCellEditorValue()
     {
         return currentColor;
     }
 
-    //Implement the one method defined by TableCellEditor.
+    /**
+     * {@inheritDoc}
+     */
     public Component getTableCellEditorComponent(JTable table,
                                                  Object value,
                                                  boolean isSelected,

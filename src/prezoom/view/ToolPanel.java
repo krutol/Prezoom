@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -17,7 +16,6 @@ import prezoom.controller.PresentManager;
 import prezoom.controller.StateManager;
 
 /**
- * TODO
  * the panel that contains different function buttons
  *
  * @author Zhijie Lan<p>
@@ -42,6 +40,9 @@ public class ToolPanel extends JPanel
 
     private final JFileChooser imageChooser = new JFileChooser();
 
+    /**
+     * the constructor
+     */
     public ToolPanel()
     {
         setBackground(Color.darkGray);                          //customize the panel
@@ -89,22 +90,6 @@ public class ToolPanel extends JPanel
         btn_Shape.setPreferredSize(new Dimension(90, 40));
         btn_Img.setPreferredSize(new Dimension(70, 40));
 
-//                btn_addState
-//        btn_delState
-//                btn_PlayStart
-//        btn_PlayCurrent
-//                btn_Text
-//        btn_Shape
-//                btn_Img
-//
-//        btn_addState
-//                btn_delState
-//        btn_PlayStart
-//                btn_PlayCurrent
-//        btn_Text
-//                btn_Shape
-//        btn_Img
-
         JPanel left_panel = new JPanel();
         JPanel center_panel = new JPanel();
         JPanel right_panel = new JPanel();
@@ -135,6 +120,9 @@ public class ToolPanel extends JPanel
         imageChooser.setFileFilter(imageFilter);
     }
 
+    /**
+     * the listener
+     */
     private class ToolBtnHandler implements ActionListener
     {
         /**
@@ -145,7 +133,7 @@ public class ToolPanel extends JPanel
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            Object source = e.getSource();//TODO
+            Object source = e.getSource();
             if (btn_addState.equals(source))
             {
                 StateManager.insertState();

@@ -31,6 +31,7 @@ public class CenterCanvas extends JPanel
 
     /**
      * add Mouse Listener, Mouse Wheel Listener, and Mouse Motion Listener to this panel
+     * if in the presentation mode, set another set of listener
      */
     public CenterCanvas(boolean isPresenting)
     {
@@ -52,7 +53,6 @@ public class CenterCanvas extends JPanel
             setPreferredSize(new Dimension(1280,720));
         }
 
-
         SwingRepaintTimeline repaintTimeline = SwingRepaintTimeline.repaintBuilder(this)
                 .setAutoRepaintMode(true).build();
         repaintTimeline.playLoop(Timeline.RepeatBehavior.LOOP);
@@ -61,7 +61,7 @@ public class CenterCanvas extends JPanel
     }
 
     /**
-     * used to get the current image drawn on the screen
+     * to get the current screen image
      * @return the screen shot image
      */
     public BufferedImage getScreenShot()
@@ -74,8 +74,9 @@ public class CenterCanvas extends JPanel
     }
 
     /**
-     * override the default paint method to deal with dragging, zooming by {@link CameraManager#moveCamera(Graphics2D, double, double, double, double)}.
-     * check objects' attributes for the current state from {@link GAttributeManager#getCur_Attributes()},
+     * override the default paint method to deal with dragging, zooming by {@link CameraManager#moveCamera(Graphics2D)}.
+     * drawing all objects by {@link GObjectManager#drawAll(Graphics2D)},
+     *
      * skip objects whose attributes for the current state do not exist
      *
      * @param g the graphics to paint
@@ -120,6 +121,60 @@ public class CenterCanvas extends JPanel
         }
     }
 
+    /**
+     * move the camera location
+     * @param e mouse event
+     */
+    private void dragCanvas(MouseEvent e)
+    {
+        CameraInfoI cam = getCurCamInfo();
+        Point curPoint = e.getLocationOnScreen();
+        double xDiff = curPoint.getX() - dragCanvasStartPoint.getX();
+        double yDiff = curPoint.getY() - dragCanvasStartPoint.getY();
+
+        cam.setOffsetX(cam.getOffsetX() + xDiff);
+        cam.setOffsetY(cam.getOffsetY() + yDiff);
+
+        dragCanvasStartPoint.setLocation(curPoint);
+
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }
+
+    /**
+     * scale the camera
+     * @param e mouse event
+     */
+    private void zoomCanvas(MouseWheelEvent e)
+    {
+        CameraInfoI cam = getCurCamInfo();
+
+        //Zoom in
+        if (e.getWheelRotation() < 0)
+        {
+            cam.setZoomFactor(cam.getZoomFactor() * 1.1);
+            repaint();
+        }
+        //Zoom out
+        if (e.getWheelRotation() > 0)
+        {
+            cam.setZoomFactor(cam.getZoomFactor() / 1.1);
+            repaint();
+        }
+
+        double xRel = MouseInfo.getPointerInfo().getLocation().getX() - getLocationOnScreen().getX();
+        double yRel = MouseInfo.getPointerInfo().getLocation().getY() - getLocationOnScreen().getY();
+
+        double zoomDiv = cam.getZoomFactor() / cam.getPreZoomFactor();
+
+        cam.setOffsetX((zoomDiv) * (cam.getOffsetX()) + (1 - zoomDiv) * xRel);
+        cam.setOffsetY((zoomDiv) * (cam.getOffsetY()) + (1 - zoomDiv) * yRel);
+
+        cam.setPreZoomFactor(cam.getZoomFactor());
+    }
+
+    /**
+     * the listener for the edit mode
+     */
     private class EditModeActionHandler implements MouseWheelListener, MouseMotionListener, MouseListener
     {
         /**
@@ -142,6 +197,10 @@ public class CenterCanvas extends JPanel
 
         /**
          * deal with dragging
+         * if mouse right clicked, drag the canvas.
+         * if {@link GObjectManager#drawingType} != null, drawing shapes.
+         * if {@link GObjectManager#draggedObj} != null, dragging the object
+         * if {@link GObjectManager#resizedObj} != null, resizing the object
          *
          * @param e mouse action
          */
@@ -162,14 +221,8 @@ public class CenterCanvas extends JPanel
 
             }else if (GObjectManager.draggedObj != null)
             {
-                //int mx = e.getX();
-                //int my = e.getY();
                 Point point = e.getPoint();
-                //System.out.println(mx-mxstart);
 
-//            double z = 1;
-//            if (zoomFactor<1)
-//                z = zoomFactor;
                 GAttributesI draggedObj_curAttr = GObjectManager.draggedObj.getCurrentAttributes();
 
                 draggedObj_curAttr
@@ -190,10 +243,7 @@ public class CenterCanvas extends JPanel
                             .setY2(draggedObj_curAttr.getY2() +
                                     /*(int)*/((point.getY() - dragObjStartPoint.getY()) / getCurCamInfo().getPreZoomFactor()));
                 }
-                //selectedObj.setX(mx);
-                //selectedObj.setY(my);
-                //mxstart = mx;
-                //mystart = my;
+
                 dragObjStartPoint.setLocation(point);
 
             } else if (GObjectManager.resizedObj != null)
@@ -213,6 +263,10 @@ public class CenterCanvas extends JPanel
 
         }
 
+        /**
+         * when mouse moving, keep updating the cursor type
+         * @param e mouse event
+         */
         @Override
         public void mouseMoved(MouseEvent e)
         {
@@ -228,11 +282,13 @@ public class CenterCanvas extends JPanel
                 setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
 
+        /**
+         * right click to pop up delete menu
+         * @param e mouse event
+         */
         @Override
         public void mouseClicked(MouseEvent e)
         {
-            //mxstart = e.getX();
-            //mystart = e.getY();
             if (SwingUtilities.isRightMouseButton(e)
                 && GObjectManager.findSelected(CameraManager.toWorldCoordinates(e.getPoint())) != null)
             {
@@ -250,11 +306,10 @@ public class CenterCanvas extends JPanel
 
 
             dragObjStartPoint.setLocation(e.getPoint());
-            //dragObjStartPoint = e.getPoint();
         }
 
         /**
-         * when pressed check whether an object is selected
+         * when pressed check whether an object or a resize point is selected
          *
          * @param e mouse action
          */
@@ -262,18 +317,12 @@ public class CenterCanvas extends JPanel
         public void mousePressed(MouseEvent e)
         {
             CenterCanvas.this.requestFocus();
-            //dragCanvasStartPoint = MouseInfo.getPointerInfo().getLocation();
+
             dragCanvasStartPoint.setLocation(MouseInfo.getPointerInfo().getLocation());
 
 
-            //mxstart = e.getX();
-            //mystart = e.getY();
             dragObjStartPoint.setLocation(e.getPoint());
-            //dragObjStartPoint = e.getPoint();
-            //System.out.println(mxstart);
 
-            //mxstart -= o_X;
-            //mystart -= o_Y;
             Point2D point2D = CameraManager.toWorldCoordinates(e.getPoint());
             drawObjStartPoint.setLocation(point2D);
             GObjectManager.updateResizablePoint(point2D);
@@ -293,11 +342,6 @@ public class CenterCanvas extends JPanel
                 GObjectManager.resizedObj = GObjectManager.resizePointObj;
             }
 
-
-
-            //repaint();
-            //mxstart=mx;
-            //mystart=my;
         }
 
         @Override
@@ -328,6 +372,9 @@ public class CenterCanvas extends JPanel
 
     }
 
+    /**
+     * the listener for the presentation mode.
+     */
     private class PresentModeActionHandler implements MouseWheelListener, MouseMotionListener, MouseListener
     {
         /**
@@ -364,6 +411,10 @@ public class CenterCanvas extends JPanel
         {
         }
 
+        /**
+         * deal with presentation mouse trigger
+         * @param e mouse event
+         */
         @Override
         public void mouseClicked(MouseEvent e)
         {
@@ -380,11 +431,6 @@ public class CenterCanvas extends JPanel
             }
         }
 
-        /**
-         * when pressed check whether an object is selected
-         *
-         * @param e mouse action
-         */
         @Override
         public void mousePressed(MouseEvent e)
         {
@@ -411,49 +457,6 @@ public class CenterCanvas extends JPanel
 
         }
 
-    }
-
-    private void dragCanvas(MouseEvent e)
-    {
-        CameraInfoI cam = getCurCamInfo();
-        Point curPoint = e.getLocationOnScreen();
-        double xDiff = curPoint.getX() - dragCanvasStartPoint.getX();
-        double yDiff = curPoint.getY() - dragCanvasStartPoint.getY();
-
-        cam.setOffsetX(cam.getOffsetX() + xDiff);
-        cam.setOffsetY(cam.getOffsetY() + yDiff);
-
-        dragCanvasStartPoint.setLocation(curPoint);
-
-        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }
-
-    private void zoomCanvas(MouseWheelEvent e)
-    {
-        CameraInfoI cam = getCurCamInfo();
-
-        //Zoom in
-        if (e.getWheelRotation() < 0)
-        {
-            cam.setZoomFactor(cam.getZoomFactor() * 1.1);
-            repaint();
-        }
-        //Zoom out
-        if (e.getWheelRotation() > 0)
-        {
-            cam.setZoomFactor(cam.getZoomFactor() / 1.1);
-            repaint();
-        }
-
-        double xRel = MouseInfo.getPointerInfo().getLocation().getX() - getLocationOnScreen().getX();
-        double yRel = MouseInfo.getPointerInfo().getLocation().getY() - getLocationOnScreen().getY();
-
-        double zoomDiv = cam.getZoomFactor() / cam.getPreZoomFactor();
-
-        cam.setOffsetX((zoomDiv) * (cam.getOffsetX()) + (1 - zoomDiv) * xRel);
-        cam.setOffsetY((zoomDiv) * (cam.getOffsetY()) + (1 - zoomDiv) * yRel);
-
-        cam.setPreZoomFactor(cam.getZoomFactor());
     }
 
 }

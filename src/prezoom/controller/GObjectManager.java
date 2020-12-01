@@ -81,7 +81,9 @@ public class GObjectManager
      */
     public static boolean drawingFilled = false;
 
-    //protected static ArrayList<JTextArea> jTextAreaList = new ArrayList<>();
+    /**
+     * the array list that holds all the GObject
+     */
     protected static ArrayList<GObject> gObjectList = new ArrayList<>();
 
     /**
@@ -175,7 +177,7 @@ public class GObjectManager
                 obj.getCurrentAttributes().setY(pY);
                 obj.getCurrentAttributes().setWidth(width);
                 if (type.equals("Circle"))
-                    obj.getCurrentAttributes().setHeight(width);
+                    obj.getCurrentAttributes().setHeight(width);//circles have same width and height
                 else
                     obj.getCurrentAttributes().setHeight(height);
             }
@@ -201,6 +203,10 @@ public class GObjectManager
         }
     }
 
+    /**
+     * add a Image
+     * @param image the image source
+     */
     public static void addImageObject(BufferedImage image)
     {
         Point2D p = CameraManager.toWorldCoordinates(new Point(100,100));
@@ -214,6 +220,7 @@ public class GObjectManager
     /**
      * to draw two small rectangle on the diagonal of shapes,
      * let the shapes resizable by dragging those points.
+     * @param g2 the graphics to paint
      */
     public static void drawResizePoints(Graphics2D g2)
     {
@@ -268,6 +275,11 @@ public class GObjectManager
         return getResizableRec(point.getX(),point.getY());
     }
 
+    /**
+     * draw two resize point to the object located at the given x, y
+     * @param x x location
+     * @param y y location
+     */
     public static void updateResizablePoint(double x, double y)
     {
         if (resizeRecs == null)
@@ -288,6 +300,10 @@ public class GObjectManager
 
     }
 
+    /**
+     * draw two resize point to the object located at the given x, y
+     * @param point location
+     */
     public static void updateResizablePoint(Point2D point)
     {
         updateResizablePoint(point.getX(), point.getY());
@@ -322,7 +338,6 @@ public class GObjectManager
         return findSelected(point2D.getX(), point2D.getY());
     }
 
-    //public static void upD
 
     /**
      * call the objects' attribute manager to update all their attributes
@@ -419,6 +434,10 @@ public class GObjectManager
         textArea.requestFocus();
     }
 
+    /**
+     * remove a JTextArea from the canvas
+     * @param textObj the GText object to be deleted
+     */
     public static void deleteTextArea(GText textObj)
     {
         MainWindow.centerCanvas.remove(textObj.textArea);
@@ -440,6 +459,9 @@ public class GObjectManager
         inspectedObj = null;
     }
 
+    /**
+     * transverse all GObjects, and add all JTextAreas to the canvas
+     */
     public static void reloadAllTextArea()
     {
         for (GObject obj: gObjectList)
@@ -447,6 +469,9 @@ public class GObjectManager
                 addTextArea((GText) obj);
     }
 
+    /**
+     * transverse all GObjects, and delete all JTextAreas to the canvas
+     */
     public static void deleteAllTextArea()
     {
         for(GObject obj: gObjectList)
@@ -454,6 +479,11 @@ public class GObjectManager
                 deleteTextArea((GText) obj);
     }
 
+    /**
+     * when start presenting, add all text areas components to the present canvas,
+     * and set the text areas being not editable and focusable
+     * @param presentCanvas the present canvas
+     */
     public static void addTextComponentToPresenter(CenterCanvas presentCanvas)
     {
         for(GObject obj: GObjectManager.gObjectList)
@@ -468,6 +498,9 @@ public class GObjectManager
         }
     }
 
+    /**
+     * when finishing presenting, reset all text areas back to the edit canvas
+     */
     public static void resetTextComponentToCanvas()
     {
         for(GObject obj: GObjectManager.gObjectList)

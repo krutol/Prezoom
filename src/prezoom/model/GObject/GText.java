@@ -16,8 +16,14 @@ import java.awt.geom.Rectangle2D;
  **/
 public class GText extends GObject
 {
+    /**
+     * the JTextArea to type in text
+     */
     public JTextArea textArea;
-    private boolean inShape;
+    /**
+     *  whether the objects is selected
+     */
+    private boolean isSelected;
 
     public GText(String textString, Double x, Double y, Color col, Double width, Double height,
                  String fontName, Integer fontStyle, Double fontSize)
@@ -38,6 +44,10 @@ public class GText extends GObject
 
     }
 
+    /**
+     * draw a rectangle with dash lines to represent the actual area of the JTextArea
+     * @param g the Graphics to paint
+     */
     @Override
     public void draw(Graphics2D g)
     {
@@ -49,7 +59,7 @@ public class GText extends GObject
         this.drawShape = new Rectangle2D.Double(x, y, w, h);
 
         if (!PresentManager.isPresenting &&
-                (textArea.isFocusOwner() || inShape || !getCurrentAttributes().getVisible()))
+                (textArea.isFocusOwner() || isSelected || !getCurrentAttributes().getVisible()))
         {
             g.setColor(Color.BLACK);
             g.setStroke(new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
@@ -66,6 +76,12 @@ public class GText extends GObject
 
     }
 
+    /**
+     * whether selected by the mouse
+     * @param mx mouse x
+     * @param my mouse y
+     * @return true if the mouse is at the peripheral area of the actual JTextArea
+     */
     @Override
     public boolean inShape(double mx, double my)
     {
@@ -80,13 +96,16 @@ public class GText extends GObject
 
         if (rec.contains(mx, my))
         {
-            inShape = true;
+            isSelected = true;
             return true;
         }
-        inShape = false;
+        isSelected = false;
         return false;
     }
 
+    /**
+     * update information for JTextArea component
+     */
     private void updateTextArea()
     {
         GAttributesI cur_Att = getCurrentAttributes();
@@ -100,11 +119,6 @@ public class GText extends GObject
         Integer fontStyle = cur_Att.getFontStyle();
         Double fontSize = cur_Att.getFontSize();
 
-//        if (stateChanged)
-//        {
-//            textArea.setText(textString);
-//            stateChanged = false;
-//        }
         textArea.setVisible(visible);
         textArea.setForeground(col);
 
@@ -134,6 +148,9 @@ public class GText extends GObject
 
     }
 
+    /**
+     * update the text content of the JTextArea
+     */
     public void updateTextString()
     {
         textArea.setText(getCurrentAttributes().getTextString());

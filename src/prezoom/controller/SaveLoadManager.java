@@ -15,10 +15,25 @@ import java.util.ArrayList;
  **/
 public class SaveLoadManager implements Serializable
 {
+    /**
+     * camera info for all states
+     */
     ArrayList<CameraInfoI> state_CamInfo_list;
+    /**
+     * all GObjects
+     */
     ArrayList<GObject> gObjectList;
+    /**
+     * the total number of states
+     */
     int  total_State_Number;
 
+    /**
+     * constructor of the save load manager
+     * @param isSave true to fetch the latest {@link CameraManager#state_CamInfo_list},
+     *               {@link GObjectManager#gObjectList}, and {@link StateManager#getTotal_State_Number()}
+     *               to be ready to save data.
+     */
     public SaveLoadManager(boolean isSave)
     {
         if (isSave)
@@ -29,6 +44,10 @@ public class SaveLoadManager implements Serializable
         }
     }
 
+    /**
+     * serialize the data to local file
+     * @param selectedFile the output file information
+     */
     public void save(File selectedFile)
     {
         try
@@ -45,6 +64,11 @@ public class SaveLoadManager implements Serializable
         }
     }
 
+    /**
+     * deserialize the local file to data,
+     * if success, clear all current data, and reload this data
+     * @param selectedFile the input file information
+     */
     public void load(File selectedFile)
     {
         SaveLoadManager loadData = null;
