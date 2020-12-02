@@ -38,7 +38,13 @@ public class InspectorTable extends JTable
         this.setPreferredScrollableViewportSize(new Dimension(100, 200));
         this.setDefaultRenderer(Color.class, new ColorRenderer(false));
         this.setDefaultEditor(Color.class, new ColorEditor());
+        String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment()
+                .getAvailableFontFamilyNames();
+//        JComboBox<String> fontBox = new JComboBox<>(fonts);
+//        DefaultCellEditor fontEditor = new DefaultCellEditor(fontBox);
+        this.setDefaultEditor(Font.class, new DefaultCellEditor(new JComboBox<>(fonts)));
         this.putClientProperty("terminateEditOnFocusLost", true);
+
     }
 
     /**
@@ -51,7 +57,10 @@ public class InspectorTable extends JTable
     {
         Object obj = getValueAt(row, col);
         if (obj != null)
-            return getDefaultEditor(obj.getClass());
+            if (getValueAt(row, 0) == "fontName")
+                return getDefaultEditor(Font.class);
+            else
+                return getDefaultEditor(obj.getClass());
 
 
         return super.getCellEditor(row, col);

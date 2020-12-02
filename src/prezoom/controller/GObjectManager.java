@@ -175,7 +175,7 @@ public class GObjectManager
                         obj = new GCircle(pX, pY, width, drawingColor, drawingFilled, drawingLineWidth);
                         break;
                     case "Text":
-                        obj = new GText("Text Area", pX, pY, Color.BLACK, width, height, "", 0, 20.0);
+                        obj = new GText("Text Area", pX, pY, drawingColor, width, height, "Arial", 0, 20.0);
                         addTextArea((GText) obj);
                         break;
                 }
