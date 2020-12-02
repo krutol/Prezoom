@@ -13,6 +13,8 @@ import java.util.ArrayList;
  *
  * @author Zhijie Lan<p>
  * create date: 2020/11/4
+ * changed: Abhishek Sharma <p>
+ * updatedCameraInfo added to track if camera is updated
  **/
 public class CameraManager
 {
@@ -28,7 +30,9 @@ public class CameraManager
 
 
     /**
-     * if camera info updated sets it to true
+     * if camera info updated
+     * will be called from CenterCanvas EditModeActionHandler.mouseWheelMoved
+     * which sets it to true when the mouse wheel is moved suggesting that camera info has updated
      */
     public static boolean updatedCameraInfo = false;
 
