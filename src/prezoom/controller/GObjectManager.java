@@ -5,6 +5,8 @@ import prezoom.view.CenterCanvas;
 import prezoom.view.MainWindow;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
@@ -403,14 +405,28 @@ public class GObjectManager
     public static void addTextArea(GText textObj)
     {
         JTextArea textArea = textObj.textArea;
-        textArea.addKeyListener(new KeyAdapter()
+
+        textArea.getDocument().addDocumentListener(new DocumentListener()
         {
             @Override
-            public void keyReleased(KeyEvent e)
+            public void insertUpdate(DocumentEvent e)
+            {
+                textObj.getCurrentAttributes().setTextString(textArea.getText());
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e)
+            {
+                textObj.getCurrentAttributes().setTextString(textArea.getText());
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e)
             {
                 textObj.getCurrentAttributes().setTextString(textArea.getText());
             }
         });
+
         textArea.addFocusListener(new FocusListener()
         {
             @Override
@@ -427,6 +443,7 @@ public class GObjectManager
             }
 
         });
+
         textArea.addMouseListener(new MouseAdapter()
         {
             @Override
