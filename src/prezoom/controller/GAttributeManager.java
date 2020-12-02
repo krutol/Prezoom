@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /** This class is the manager to manage the state related functions for the attributes of graphical objects.
- *  Each {@link GObject} has a manager ot manage its own attributes.
+ *  Each {@link GObject} has a manager to manage its own attributes.
  * @author Zhijie Lan<p>
  * create date: 2020/11/6
  **/
@@ -73,7 +73,7 @@ public class GAttributeManager implements Serializable
     }
 
     /**
-     * get the state form teh state manager
+     * get the state from the state manager
      * @return the current state number
      */
     private int getCurrent_State()
