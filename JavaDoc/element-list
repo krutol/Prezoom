@@ -1,0 +1,6 @@
+prezoom
+prezoom.controller
+prezoom.model
+prezoom.model.GObject
+prezoom.view
+prezoom.view.table
