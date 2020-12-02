@@ -7,7 +7,7 @@
   - [Classes UML](#classes-uml)
   - [Classes Dependency based on Packages](#classes-dependency-based-on-packages)
   - [Classes Description](#classes-description)
-  - [Assignments](#assign)
+  - [Assignments](#assignments)
 
 ## Packages UML
 ![Package Structure](res/Package_structure.png)
@@ -100,19 +100,21 @@
 The project was finished by the each member of group Charlie.
 
 + Abhishek Sharma
-  + Finish the state diagram to design the first version software.
-  + Design the first version presentation mode.
-  + Design the present GUI in the View package.
+  + Finish the state diagram and wire-frame to design the first version software.
+  + Inputs on designing the present GUI in the View package with Zhijie Lan.
+  + Design the first version inspector panel.
+  + Updated the final version for shape inspector panel to display shape attributes in a jtable format.
+  + Design the camera inspector panel to control camera attributes on the canvas to enhance the current view.
 + P.Ajanthan
   + Finish the sequence diagram to design the first version software.
-  + Design the first version inspector panel.
+  + Design the first version presentation mode.
   + Help to finish the table package.
 + Tianxing Li
   + Finish the user stories and lexcion.
   + Draw the package diagram.
   + Attend to design the test part.
 + Zhijie Lan
-  + Team leader and design the whole srtructure of the project.
+  + Team leader and design the whole structure of the project.
   + Draw the use case diagram and corresponding the user stories.
   + Attend to desgin the test part.
   + Combine the MVC structure for the whole project.
