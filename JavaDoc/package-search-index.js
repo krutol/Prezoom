@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"prezoom","h":"","u":""},{"l":"prezoom.controller","h":"","u":""},{"l":"prezoom.model","h":"","u":""},{"l":"prezoom.model.GObject","h":"","u":""},{"l":"prezoom.view","h":"","u":""},{"l":"prezoom.view.table","h":"","u":""},{"l":"所有程序包","h":"","u":"allpackages-index.html"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"prezoom"},{"l":"prezoom.controller"},{"l":"prezoom.model"},{"l":"prezoom.model.GObject"},{"l":"prezoom.view"},{"l":"prezoom.view.table"}]
