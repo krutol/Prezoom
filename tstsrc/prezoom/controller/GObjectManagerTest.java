@@ -20,11 +20,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class GObjectManagerTest
 {
     static MainWindow mainWindow = new MainWindow("");
+    static GObject gLine, gOval, gRec, gCircle, gText;
 
     @BeforeAll
     static void setUp()
     {
         mainWindow.setVisible(false);
+        gRec = new GRectangle(1000,1000,100,100,null,null,5 );
+        gOval = new GOval(730,730,100,100,null,null,5 );
+        gLine = new GLine(120,120,600,600,null,5 );
+        gCircle = new GCircle(1000,2000,100,Color.RED, false, 5);
+        gText = new GText("text", 134.0,2475.0, Color.blue,1283.0,587.0,
+                "Default", Font.ITALIC, 20.0);
     }
 
     @Test
@@ -40,13 +47,22 @@ class GObjectManagerTest
     @Test
     void addGObject()
     {
-        assertDoesNotThrow(()->GObjectManager.addGObject(new GRectangle(1000,1000,100,100,null,null,5 )));
-        assertDoesNotThrow(()->GObjectManager.addGObject(new GOval(730,730,100,100,null,null,5 )));
-        assertDoesNotThrow(()->GObjectManager.addGObject(new GLine(120,120,600,600,null,5 )));
-        assertDoesNotThrow(()->GObjectManager.addGObject(new GCircle(1000,2000,100,Color.RED, false, 5)));
+        assertDoesNotThrow(()->GObjectManager.addGObject(gRec));
+        assertDoesNotThrow(()->GObjectManager.addGObject(gOval));
+        assertDoesNotThrow(()->GObjectManager.addGObject(gLine));
+        assertDoesNotThrow(()->GObjectManager.addGObject(gCircle));
         assertDoesNotThrow(()->GObjectManager.addImageObject(new BufferedImage(120,120,BufferedImage.TYPE_INT_RGB)));
-        assertDoesNotThrow(()->GObjectManager.addTextArea(new GText("text", 134.0,2475.0, Color.blue,1283.0,587.0,
-                "Default", Font.ITALIC, 20.0)));
+        assertDoesNotThrow(()->GObjectManager.addTextArea((GText) gText));
+    }
+
+    @Test
+    void deleteGObject()
+    {
+        addGObject();
+
+        assertDoesNotThrow(()->GObjectManager.deleteGObject(gText));
+        assertDoesNotThrow(()->GObjectManager.deleteGObject(gLine));
+        assertDoesNotThrow(GObjectManager::deleteAllTextArea);
     }
 
     @Test
@@ -67,7 +83,14 @@ class GObjectManagerTest
 
         assertEquals(400,rec.getCurrentAttributes().getWidth());
 
+        GObjectManager.resizePointObj = rec;
+        BufferedImage img = new BufferedImage(100,100,BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = (Graphics2D) img.getGraphics();
+
+        assertDoesNotThrow(()->GObjectManager.drawResizePoints(g2));
         assertDoesNotThrow(()->GObjectManager.updateResizablePoint(newP));
+
+
 
     }
 }
