@@ -1,7 +1,5 @@
 package prezoom.model;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,7 +15,7 @@ class CameraInfoTest
     @Test
     void testClone()
     {
-        CameraInfo cam_clone = (CameraInfo) assertDoesNotThrow(() -> cameraInfo.clone());
+        CameraInfo cam_clone = assertDoesNotThrow(() -> cameraInfo.clone());
 
         //CameraInfo cam_clone = (CameraInfo) cameraInfo.clone();
 

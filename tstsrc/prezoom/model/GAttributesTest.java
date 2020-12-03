@@ -18,7 +18,7 @@ class GAttributesTest
     @Test
     void testClone()
     {
-        GAttributes att_clone = (GAttributes) assertDoesNotThrow(()->gAttributes.clone());
+        GAttributes att_clone = assertDoesNotThrow(()->gAttributes.clone());
 
         assertNotSame(gAttributes, att_clone);
 
