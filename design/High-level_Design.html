@@ -683,10 +683,10 @@ hue-6-2: #e6c07b
 <li><a href="#classes-uml">Classes UML</a></li>
 <li><a href="#classes-dependency-based-on-packages">Classes Dependency based on Packages</a></li>
 <li><a href="#classes-description">Classes Description</a></li>
-<li><a href="#assign">Assignments</a></li>
+<li><a href="#assignments">Assignments</a></li>
 </ul>
 <h2 id="packages-uml">Packages UML</h2>
-<p><img src="res/Package_structure.png" alt="Package Structure"></p>
+<p><img src="file:///g:\MUN\assignments\2020 fall\9874 software\project\_My\design\res\Package_structure.png" alt="Package Structure"></p>
 <h2 id="packages">Packages</h2>
 <ul>
 <li>Model
@@ -702,6 +702,11 @@ hue-6-2: #e6c07b
 <li>Controller
 <ul>
 <li>Contains manager classes that manage interactions between the model and the view, affecting data such as states, attributes, camera, etc.</li>
+</ul>
+</li>
+<li>Table
+<ul>
+<li>Contains inspector table classes and color renderer.</li>
 </ul>
 </li>
 </ul>
@@ -725,8 +730,8 @@ hue-6-2: #e6c07b
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><img src="res/GIF_Trident_example_1.gif" alt="example 1"></td>
-<td style="text-align:center"><img src="res/GIF_Trident_example_2.gif" alt="example 2"></td>
+<td style="text-align:center"><img src="file:///g:\MUN\assignments\2020 fall\9874 software\project\_My\design\res\GIF_Trident_example_1.gif" alt="example 1"></td>
+<td style="text-align:center"><img src="file:///g:\MUN\assignments\2020 fall\9874 software\project\_My\design\res\GIF_Trident_example_2.gif" alt="example 2"></td>
 </tr>
 </tbody>
 </table>
@@ -739,14 +744,14 @@ hue-6-2: #e6c07b
 <h2 id="classes-uml">Classes UML</h2>
 <ul>
 <li>Model Packages
-<img src="res/model_package.png" alt="Model Package"></li>
+<img src="file:///g:\MUN\assignments\2020 fall\9874 software\project\_My\design\res\model_package.png" alt="Model Package"></li>
 <li>View Packages
-<img src="res/view_package.png" alt="view Package"></li>
+<img src="file:///g:\MUN\assignments\2020 fall\9874 software\project\_My\design\res\view_package.png" alt="view Package"></li>
 <li>Controller Packages
-<img src="res/controller_package.png" alt="Controller Package"></li>
+<img src="file:///g:\MUN\assignments\2020 fall\9874 software\project\_My\design\res\controller_package.png" alt="Controller Package"></li>
 </ul>
 <h2 id="classes-dependency-based-on-packages">Classes Dependency based on Packages</h2>
-<p><img src="res/package_class_dependency.png" alt="Classes Dependency based on Packages"></p>
+<p><img src="file:///g:\MUN\assignments\2020 fall\9874 software\project\_My\design\res\package_class_dependency.png" alt="Classes Dependency based on Packages"></p>
 <h2 id="classes-description">Classes Description</h2>
 <ul>
 <li>
@@ -767,15 +772,31 @@ hue-6-2: #e6c07b
 </tr>
 <tr>
 <td style="text-align:left">GAttributes</td>
-<td style="text-align:left">The base attribute class that holds all the attribute an object has</td>
+<td style="text-align:left">The base attribute class that holds all the attribute an object has.</td>
 </tr>
 <tr>
 <td style="text-align:left">CameraInfo</td>
-<td style="text-align:left">The base class for camera info that contains all</td>
+<td style="text-align:left">The base class for camera info.</td>
 </tr>
 <tr>
-<td style="text-align:left">GRectangle, GOval, GLine, etc.</td>
-<td style="text-align:left">The classes that implement corresponding graphics</td>
+<td style="text-align:left">GRectangle, GOval, GLine, GCircle, GImage, GText</td>
+<td style="text-align:left">The classes that implement corresponding graphics.</td>
+</tr>
+<tr>
+<td style="text-align:left">AttributeMapI</td>
+<td style="text-align:left">The interface for getting the getter and setter map.</td>
+</tr>
+<tr>
+<td style="text-align:left">CameraInfoI</td>
+<td style="text-align:left">The interface of the camera information.</td>
+</tr>
+<tr>
+<td style="text-align:left">GAttributesI</td>
+<td style="text-align:left">The interface of the Graphical Attributes.</td>
+</tr>
+<tr>
+<td style="text-align:left">MethodFactory</td>
+<td style="text-align:left">To generate maps that contain all non null filed names, values, getter methods, or setter method of a class.</td>
 </tr>
 </tbody>
 </table>
@@ -796,15 +817,11 @@ hue-6-2: #e6c07b
 <tbody>
 <tr>
 <td style="text-align:left">MainWindow</td>
-<td style="text-align:left">This is the main GUI window that holds all the child GUI panels</td>
+<td style="text-align:left">This is the main GUI window that holds all the child GUI panels.</td>
 </tr>
 <tr>
 <td style="text-align:left">CenterCanvas</td>
 <td style="text-align:left">The center canvas where you can edit the presentation, move the camera, etc.</td>
-</tr>
-<tr>
-<td style="text-align:left">InspectorPanel</td>
-<td style="text-align:left">The panel where you can check/edit attributes of the selected object, camera information, etc.</td>
 </tr>
 <tr>
 <td style="text-align:left">MenuBar</td>
@@ -821,6 +838,51 @@ hue-6-2: #e6c07b
 <tr>
 <td style="text-align:left">ToolPanel</td>
 <td style="text-align:left">The panel that contains different function buttons</td>
+</tr>
+<tr>
+<td style="text-align:left">PresentationWindow</td>
+<td style="text-align:left">The window to present the presentation.</td>
+</tr>
+<tr>
+<td style="text-align:left">AttributePanel</td>
+<td style="text-align:left">Construct the inspector panel.</td>
+</tr>
+<tr>
+<td style="text-align:left">CameraPanel</td>
+<td style="text-align:left">Construct the camera inspector panel.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li>
+<p>Table (inner package in View)</p>
+<ul>
+<li>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Class Name</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ColorEditor</td>
+<td style="text-align:left">To set up the editor to create the color chooser dialog.</td>
+</tr>
+<tr>
+<td style="text-align:left">ColorRenderer</td>
+<td style="text-align:left">Rendering the color for the object.</td>
+</tr>
+<tr>
+<td style="text-align:left">InspectorTable</td>
+<td style="text-align:left">Extending from JTable to model row editor model per row.</td>
+</tr>
+<tr>
+<td style="text-align:left">InspectorTableModel</td>
+<td style="text-align:left">Custom table model with row editor model.</td>
 </tr>
 </tbody>
 </table>
@@ -851,58 +913,71 @@ hue-6-2: #e6c07b
 <td style="text-align:left">CameraManager</td>
 <td style="text-align:left">This class is the manager to manage all the camera related functions, including movement, info, states.</td>
 </tr>
+<tr>
+<td style="text-align:left">GOjectManager</td>
+<td style="text-align:left">The manager that manages all the graphical objects on the canvas.</td>
+</tr>
+<tr>
+<td style="text-align:left">InterpolationFactory</td>
+<td style="text-align:left">The class to build the interpolation for objects.</td>
+</tr>
+<tr>
+<td style="text-align:left">PresentManager</td>
+<td style="text-align:left">The class to manage the presentation.</td>
+</tr>
+<tr>
+<td style="text-align:left">SaveLoadManager</td>
+<td style="text-align:left">The class to mange saving and loading</td>
+</tr>
 </tbody>
 </table>
 </li>
 </ul>
 </li>
 </ul>
-<h2 id="assign">Assignments</h2>
-
-<b>1. Abhishek Sharma </b>
+<h2 id="assignments">Assignments</h2>
+<p>The project was finished by the each member of group Charlie.</p>
+<ul>
+<li>Abhishek Sharma
 <ul>
 <li>Finish the state diagram and wire-frame to design the first version software.</li>
 <li>Inputs on designing the present GUI in the View package with Zhijie Lan.</li>
+<li>Design the first version inspector panel.</li>
 <li>Updated the final version for shape inspector panel to display shape attributes in a jtable format.</li>
 <li>Design the camera inspector panel to control camera attributes on the canvas to enhance the current view.</li>
 </ul>
-
-
-<b>2. P.Ajanthan </b>
+</li>
+<li>P.Ajanthan
 <ul>
 <li>Finish the sequence diagram to design the first version software.</li>
 <li>Design the first version presentation mode.</li>
 <li>Help to finish the table package.</li>
 </ul>
-
-
-<b>3. Tianxing Li </b>
+</li>
+<li>Tianxing Li
 <ul>
 <li>Finish the user stories and lexcion.</li>
 <li>Draw the package diagram.</li>
 <li>Attend to design the test part.</li>
 </ul>
-
-
-<b>4. Zhijie Lan </b>
+</li>
+<li>Zhijie Lan
 <ul>
 <li>Team leader and design the whole structure of the project.</li>
 <li>Draw the use case diagram and corresponding the user stories.</li>
-<li>Attend to design the test part.</li>
+<li>Attend to desgin the test part.</li>
 <li>Combine the MVC structure for the whole project.</li>
 <li>The main designer for the Control package.</li>
 </ul>
-
-
-
-<b>5. Ziyang Li </b>
+</li>
+<li>Ziyang Li
 <ul>
 <li>The main diagram design of the project.</li>
 <li>Draw the Class diagram and design the high level of the project.</li>
 <li>Add the each object functions to model package.</li>
-
 </ul>
-
+</li>
+</ul>
 
     </body>
     </html>
